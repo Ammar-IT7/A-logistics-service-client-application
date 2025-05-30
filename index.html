@@ -98,23 +98,9 @@
             }
         });
     });
-        const offersRequestObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length) {
-                // Check if the form is loaded
-                const form = document.getElementById('requestSummaryTitle');
-                if (form) {
-        ShipOffersController.init('REQ-2025001');
-        console.log("ShipOffersController initialized with request ID: REQ-2025001");
-                    offersRequestObserver.disconnect(); 
-                }
-            }
-        });
-    });
     // Start observing the body for changes
     homeObserver.observe(document.body, { childList: true, subtree: true });
     clientRequestFormObserver.observe(document.body, { childList: true, subtree: true });
-    offersRequestObserver.observe(document.body, { childList: true, subtree: true });
         });
     </script>
 

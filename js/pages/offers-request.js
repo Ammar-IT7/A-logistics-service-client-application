@@ -431,3 +431,8 @@ const ShipOffersController = {
             return 999;
         }
     };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        ShipOffersController.init('REQ-2025001');
+        console.log("ShipOffersController initialized with request ID: REQ-2025001");
+    });
