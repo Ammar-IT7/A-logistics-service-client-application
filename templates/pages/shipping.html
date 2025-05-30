@@ -1,0 +1,374 @@
+
+<!-- templates/pages/shipping.html -->
+    <div class="header">
+    <button class="header-action" data-action="navigate" data-page="service-providers">                <i class="fas fa-arrow-left" data-action="navigate" data-page="service-providers"></i></button>
+        <h1 class="header-title">خدمات الشحن والنقل</h1>
+        <button class="header-action" data-action="vehicle-form" aria-label="إضافة خدمة شحن">
+            <span class="icon"></span>
+        </button>
+    </div>
+
+    <div class="content">
+        <div class="ship-tab-navigation ship-mb-3">
+            <button class="ship-tab-button active" data-tab="shipping">خدمات الشحن الدولي</button>
+            <button class="ship-tab-button" data-tab="transport">خدمات النقل البري</button>
+        </div>
+        
+        <!-- Tab 1: خدمات الشحن الدولي -->
+        <div class="ship-tab-content active" id="shipping-tab">
+            <div class="ship-filter-bar ship-mb-3">
+                <div class="ship-filter-item">
+                    <select id="shippingTypeFilter" class="ship-form-control">
+                        <option value="all">جميع وسائل الشحن</option>
+                        <option value="air">جوي</option>
+                        <option value="sea">بحري</option>
+                        <option value="land">بري</option>
+                    </select>
+                </div>
+                <div class="ship-filter-item">
+                    <select id="regionFilter" class="ship-form-control">
+                        <option value="all">جميع المناطق</option>
+                        <option value="domestic">محلي</option>
+                        <option value="international">دولي</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="ship-shipping-services-list">
+                <!-- خدمة شحن جوي -->
+                <div class="ship-shipping-service-card ship-mb-3" data-type="air">
+                    <div class="ship-shipping-service-header">
+                        <div class="ship-shipping-type-badge air">جوي</div>
+                        <h2 class="ship-shipping-service-name">اليمنية للشحن الجوي</h2>
+                        <div class="ship-shipping-service-rating">
+                            <span class="ship-stars">★★★★☆</span>
+                            <span class="ship-rating-value">4.2</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-shipping-service-content">
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">✈️</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">وسائل الشحن:</div>
+                                <div class="ship-item-value">طائرات شحن تجارية، رحلات ركاب</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">🌍</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">المناطق المغطاة:</div>
+                                <div class="ship-item-value">محلي (صنعاء، عدن)، دولي (السعودية، مصر، الإمارات)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">📱</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">خيارات التتبع:</div>
+                                <div class="ship-item-value">نظام إلكتروني، تطبيق جوال</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">💰</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">التعريفة التقريبية:</div>
+                                <div class="ship-item-value">15-25 دولار/كجم حسب الوجهة</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-shipping-service-actions">
+                        <button class="btn btn-outline" data-action="navigate" data-page="vehicle-details" data-id="1">عرض التفاصيل</button>
+                        <button class="btn btn-primary" data-action="request-service" data-id="1">طلب خدمة</button>
+                    </div>
+                </div>
+                
+                <!-- خدمة شحن بحري -->
+                <div class="ship-shipping-service-card ship-mb-3" data-type="sea">
+                    <div class="ship-shipping-service-header">
+                        <div class="ship-shipping-type-badge sea">بحري</div>
+                        <h2 class="ship-shipping-service-name">شركة الحديدة للشحن البحري</h2>
+                        <div class="ship-shipping-service-rating">
+                            <span class="ship-stars">★★★★★</span>
+                            <span class="ship-rating-value">4.8</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-shipping-service-content">
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">🚢</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">وسائل الشحن:</div>
+                                <div class="ship-item-value">سفن حاويات، سفن بضائع سائبة</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">🌍</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">المناطق المغطاة:</div>
+                                <div class="ship-item-value">دولي (الإمارات، عمان، جيبوتي، الهند)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">📱</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">خيارات التتبع:</div>
+                                <div class="ship-item-value">GPS، نظام إلكتروني</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">💰</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">التعريفة التقريبية:</div>
+                                <div class="ship-item-value">1200-2500 دولار/حاوية 20 قدم</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-shipping-service-actions">
+                        <button class="btn btn-outline"" data-page="vehicle-details" data-id="2">عرض التفاصيل</button>
+                        <button class="btn btn-primary"service" data-id="2">طلب خدمة</button>
+                    </div>
+                </div>
+                
+                <!-- خدمة شحن بري -->
+                <div class="ship-shipping-service-card ship-mb-3" data-type="land">
+                    <div class="ship-shipping-service-header">
+                        <div class="ship-shipping-type-badge land">بري</div>
+                        <h2 class="ship-shipping-service-name">شركة المهرة للشحن البري</h2>
+                        <div class="ship-shipping-service-rating">
+                            <span class="ship-stars">★★★☆☆</span>
+                            <span class="ship-rating-value">3.5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-shipping-service-content">
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">🚚</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">وسائل الشحن:</div>
+                                <div class="ship-item-value">شاحنات كبيرة، شاحنات مبردة</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">🌍</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">المناطق المغطاة:</div>
+                                <div class="ship-item-value">محلي (جميع محافظات اليمن)، دولي (عمان، السعودية)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">📱</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">خيارات التتبع:</div>
+                                <div class="ship-item-value">GPS</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-shipping-service-item">
+                            <div class="ship-item-icon">💰</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">التعريفة التقريبية:</div>
+                                <div class="ship-item-value">500-1000 ريال/طن داخل اليمن، 300-500 دولار/طن دولي</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-shipping-service-actions">
+                        <button class="btn btn-outline" data-action="navigate" data-page="vehicle-details" data-id="3">عرض التفاصيل</button>
+                        <button class="btn btn-primary" data-action="request-service" data-id="3">طلب خدمة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 2: خدمات النقل البري -->
+        <div class="ship-tab-content" id="transport-tab">
+            <div class="ship-filter-bar ship-mb-3">
+                <div class="ship-filter-item">
+                    <select id="truckTypeFilter" class="ship-form-control">
+                        <option value="all">جميع أنواع الشاحنات</option>
+                        <option value="small">صغيرة</option>
+                        <option value="medium">متوسطة</option>
+                        <option value="large">ثقيلة</option>
+                    </select>
+                </div>
+                <div class="ship-filter-item">
+                    <select id="regionFilter" class="ship-form-control">
+                        <option value="all">جميع المناطق</option>
+                        <option value="sanaa">صنعاء</option>
+                        <option value="aden">عدن</option>
+                        <option value="taiz">تعز</option>
+                        <option value="hodeidah">الحديدة</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="ship-transport-services-list">
+                <!-- شركة نقل بري #1 -->
+                <div class="ship-transport-service-card ship-mb-3" data-type="large">
+                    <div class="ship-transport-service-header">
+                        <div class="ship-transport-type-badge large">شاحنات ثقيلة</div>
+                        <h2 class="ship-transport-service-name">شركة صنعاء للنقل</h2>
+                        <div class="ship-transport-service-rating">
+                            <span class="ship-stars">★★★★☆</span>
+                            <span class="ship-rating-value">4.3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-transport-service-content">
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🚚</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">عدد الشاحنات وأنواعها:</div>
+                                <div class="ship-item-value">15 شاحنة ثقيلة، 8 شاحنات مبردة</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🌍</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">مناطق التغطية:</div>
+                                <div class="ship-item-value">صنعاء، تعز، الحديدة، إب</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">📄</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">وثائق السائقين:</div>
+                                <div class="ship-item-value">رخص قيادة سارية، بطاقات هوية</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🔒</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">تأمين المركبات:</div>
+                                <div class="ship-item-value">متوفر لجميع المركبات</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-transport-service-actions">
+                        <button class="btn btn-outline" data-action="navigate" data-page="vehicle-details" data-id="1">عرض التفاصيل</button>
+                        <button class="btn btn-primary" data-action="request-service" data-id="1">طلب خدمة</button>
+                    </div>
+                </div>
+                
+                <!-- شركة نقل بري #2 -->
+                <div class="ship-transport-service-card ship-mb-3" data-type="medium,small">
+                    <div class="ship-transport-service-header">
+                        <div class="ship-transport-type-badge medium">شاحنات متوسطة وصغيرة</div>
+                        <h2 class="ship-transport-service-name">شركة عدن إكسبريس</h2>
+                        <div class="ship-transport-service-rating">
+                            <span class="ship-stars">★★★★★</span>
+                            <span class="ship-rating-value">4.7</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-transport-service-content">
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🚚</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">عدد الشاحنات وأنواعها:</div>
+                                <div class="ship-item-value">12 شاحنة متوسطة، 20 شاحنة صغيرة</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🌍</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">مناطق التغطية:</div>
+                                <div class="ship-item-value">عدن، لحج، أبين، الضالع</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">📄</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">وثائق السائقين:</div>
+                                <div class="ship-item-value">رخص قيادة سارية، بطاقات هوية</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🔒</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">تأمين المركبات:</div>
+                                <div class="ship-item-value">متوفر للشاحنات المتوسطة فقط</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-transport-service-actions">
+                        <button class="btn btn-outline" data-action="navigate" data-page="vehicle-details" data-id="2">عرض التفاصيل</button>
+                        <button class="btn btn-primary" data-action="request-service" data-id="2">طلب خدمة</button>
+                    </div>
+                </div>
+                
+                <!-- شركة نقل بري #3 -->
+                <div class="ship-transport-service-card ship-mb-3" data-type="large,medium">
+                    <div class="ship-transport-service-header">
+                        <div class="ship-transport-type-badge large">شاحنات ثقيلة ومتوسطة</div>
+                        <h2 class="ship-transport-service-name">شركة الحديدة للوجستيات</h2>
+                        <div class="ship-transport-service-rating">
+                            <span class="ship-stars">★★★☆☆</span>
+                            <span class="ship-rating-value">3.4</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-transport-service-content">
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🚚</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">عدد الشاحنات وأنواعها:</div>
+                                <div class="ship-item-value">10 شاحنات ثقيلة، 5 شاحنات متوسطة</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🌍</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">مناطق التغطية:</div>
+                                <div class="ship-item-value">الحديدة، حجة، المحويت، ريمة</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">📄</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">وثائق السائقين:</div>
+                                <div class="ship-item-value">رخص قيادة سارية، بطاقات هوية</div>
+                            </div>
+                        </div>
+                        
+                        <div class="ship-transport-service-item">
+                            <div class="ship-item-icon">🔒</div>
+                            <div class="ship-item-details">
+                                <div class="ship-item-label">تأمين المركبات:</div>
+                                <div class="ship-item-value">غير متوفر</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ship-transport-service-actions">
+                        <button class="btn btn-outline" data-action="navigate" data-page="vehicle-details" data-id="3">عرض التفاصيل</button>
+                        <button class="btn btn-primary" data-action="request-service" data-id="3">طلب خدمة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="floating-action-button" data-action="navigate" data-page="vehicle-form">
+        <span class="icon">+</span>
+        </button>
+    </div>

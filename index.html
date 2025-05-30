@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
+    <title>Enova studio UI UX</title>
+    
+    <!-- Arabic font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    
+</head>
+<body>
+    <div id="designer-notes">
+        <h3>ملاحظات المصمم</h3>
+        <div id="designer-notes-content">
+            <!-- سيتم تحديث هذه الملاحظات حسب الصفحة -->
+            <p>مرحبًا! هذه مساحة لملاحظات المصمم حول كل صفحة.</p>
+        </div>
+    </div>
+
+    <!-- Auth Container (Login/Register) -->
+    <div id="auth-container">
+        <!-- Pages will be loaded here dynamically -->
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" style="display:none;">
+        <!-- Page Container -->
+        <div id="page-container">
+            <!-- Pages will be loaded here dynamically -->
+        </div>
+
+        <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" data-page="home">
+            <div class="nav-icon"><i class="fas fa-home"></i></div>
+            <div class="nav-label">الرئيسية</div>
+        </a>
+        <a href="#" class="nav-item" data-page="service-providers">
+            <div class="nav-icon"><i class="fas fa-users"></i></div>
+            <div class="nav-label">مقدمي الخدمات</div>
+        </a>
+    </div>
+    </div>
+
+    <!-- UI Components (Modals, Toasts, etc.) -->
+    <div id="modal-container"></div>
+    <div class="toast-container"></div>
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- JavaScript files -->
+    <script src="js/state.js"></script>
+    <script src="js/utils/forms.js"></script>
+    <script src="js/components/modal.js"></script>
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/loader.js"></script>
+
+    <script src="js/pages/shipping.js"></script>
+    <script src="js/pages/shipping-form.js"></script>
+    <script src="js/pages/warehouse.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pages/home.js"></script>
+    <script>
+        // Initialize the auth module when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            Auth.init();
+            const vehicleFormObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                // Check if the form is loaded
+                const form = document.getElementById('vehicleForm');
+                if (form) {
+                    ShippingVehicleFormController.init();
+                    vehicleFormObserver.disconnect(); // Stop observing once initialized
+                }
+            }
+        });
+    });
+            const homeObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                // Check if the form is loaded
+                const form = document.getElementById('client-home-page');
+                if (form) {
+                    ClientHomeController.init();
+                    homeObserver.disconnect(); // Stop observing once initialized
+                }
+            }
+        });
+    });
+
+        const warehouseFormObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                // Check if the form is loaded
+                const form = document.getElementById('warehouseForm');
+                if (form) {
+                    WarehouseFormController.init();
+                    warehouseFormObserver.disconnect(); 
+                }
+            }
+        });
+    });
+
+    // Start observing the body for changes
+    homeObserver.observe(document.body, { childList: true, subtree: true });
+    vehicleFormObserver.observe(document.body, { childList: true, subtree: true });
+    warehouseFormObserver.observe(document.body, { childList: true, subtree: true });
+        });
+    </script>
+
+</body>
+</html>

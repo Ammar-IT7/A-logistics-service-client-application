@@ -1,0 +1,32 @@
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="home">←</button>
+    <h1 class="header-title">Notifications</h1>
+    <button class="header-action">🔄</button>
+</div>
+<div class="content">
+    <div class="card">
+        <ul class="list" id="notifications-list">
+            <!-- This will be populated dynamically from state -->
+        </ul>
+    </div>
+</div>
+
+<script>
+    // This script will run when the page is loaded
+    (function() {
+        const notifications = State.get('notifications');
+        const listElement = document.getElementById('notifications-list');
+        
+        if (listElement) {
+            listElement.innerHTML = notifications.map(notification => `
+                <li class="list-item notification-item ${notification.isNew ? 'new' : ''}">
+                    <div class="list-item-content">
+                        <div class="list-item-title">${notification.title}</div>
+                        <div class="list-item-subtitle">${notification.subtitle}</div>
+                    </div>
+                    ${notification.isNew ? '<span class="badge">New</span>' : ''}
+                </li>
+            `).join('');
+        }
+    })();
+</script>

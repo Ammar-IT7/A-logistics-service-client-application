@@ -1,0 +1,273 @@
+<!-- templates/pages/vehicle-form.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="shipping" aria-label="رجوع">                <i class="fas fa-arrow-left" data-action="navigate" data-page="shipping"></i></button>
+    <h1 class="header-title">إضافة وسيلة شحن</h1>
+    <button class="header-action" data-action="save-vehicle" aria-label="حفظ">
+        <span class="icon"><i class="fas fa-save"></i></span>
+    </button>
+</div>
+<div class="content">
+    <div class="shipping-form-progress-indicator">
+        <div class="shipping-progress-step active" data-step="basic">
+            <span class="shipping-step-icon">📋</span>
+            <span class="shipping-step-name">أساسي</span>
+        </div>
+        <div class="shipping-progress-step" data-step="specs">
+            <span class="shipping-step-icon">⚙️</span>
+            <span class="shipping-step-name">المواصفات</span>
+        </div>
+        <div class="shipping-progress-step" data-step="docs">
+            <span class="shipping-step-icon">📄</span>
+            <span class="shipping-step-name">الوثائق</span>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-content">
+            <form id="vehicleForm" class="shipping-sliding-form">
+                <!-- الخطوة 1: المعلومات الأساسية -->
+                <div class="shipping-form-slide active" data-slide="basic">
+                    <div class="section-title">المعلومات الأساسية</div>
+                    
+                    <div class="form-group">
+                        <label for="shippingType" class="form-label">نوع الشحن <span class="shipping-required">*</span></label>
+                        <select id="shippingType" class="form-control" required>
+                            <option value="">اختر نوع الشحن</option>
+                            <option value="land">بري</option>
+                            <option value="air">جوي</option>
+                            <option value="sea">بحري</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicleName" class="form-label">اسم وسيلة الشحن <span class="shipping-required">*</span></label>
+                        <input type="text" id="vehicleName" class="form-control" placeholder="أدخل اسم وسيلة الشحن" required>
+                    </div>
+                    
+                    <div class="form-group shipping-vehicle-type-container">
+                        <label for="vehicleType" class="form-label">نوع وسيلة الشحن <span class="shipping-required">*</span></label>
+                        <select id="vehicleType" class="form-control" required>
+                            <option value="">اختر نوع وسيلة الشحن</option>
+                            <optgroup label="شحن بري">
+                                <option value="truck">شاحنة نقل كبيرة</option>
+                                <option value="refrigerated">شاحنة مبردة</option>
+                                <option value="van">سيارة نقل متوسطة</option>
+                                <option value="pickup">شاحنة صغيرة</option>
+                            </optgroup>
+                            <optgroup label="شحن جوي">
+                                <option value="airCargo">شحن جوي عادي</option>
+                                <option value="airExpress">شحن جوي سريع</option>
+                            </optgroup>
+                            <optgroup label="شحن بحري">
+                                <option value="container">حاويات</option>
+                                <option value="bulk">بضائع سائبة</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    
+                    <div id="landVehicleFields" class="shipping-conditional-fields">
+                        <div class="form-group">
+                            <label for="licensePlate" class="form-label">رقم اللوحة <span class="shipping-required">*</span></label>
+                            <input type="text" id="licensePlate" class="form-control" placeholder="أدخل رقم اللوحة">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicleStatus" class="form-label">حالة وسيلة الشحن <span class="shipping-required">*</span></label>
+                        <select id="vehicleStatus" class="form-control" required>
+                            <option value="available">متاحة</option>
+                            <option value="busy">في مهمة</option>
+                            <option value="maintenance">تحت الصيانة</option>
+                            <option value="unavailable">غير متاحة</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicleImage" class="form-label">صورة وسيلة الشحن</label>
+                        <div class="shipping-file-upload-container">
+                            <input type="file" id="vehicleImage" class="form-control" accept="image/*">
+                            <button type="button" class="btn btn-outline btn-sm file-upload-btn">اختر الملف</button>
+                            <span class="shipping-file-name">لم يتم اختيار ملف</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">المناطق الجغرافية المغطاة <span class="shipping-required">*</span></label>
+                        <div class="shipping-sub-form">
+                            <div class="form-group">
+                                <div class="shipping-radio-container">
+                                    <label class="shipping-radio-item">
+                                        <input type="radio" name="coverageType" value="local" checked required> 
+                                        <span>محلي</span>
+                                    </label>
+                                    <label class="shipping-radio-item">
+                                        <input type="radio" name="coverageType" value="international" required> 
+                                        <span>دولي</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div id="localCoverageFields" class="shipping-conditional-fields">
+                                <div class="form-group">
+                                    <label for="localAreas" class="form-label">المناطق المحلية</label>
+                                    <div class="shipping-chips-input-container">
+                                        <input type="text" id="localAreaInput" class="form-control" placeholder="أضف منطقة واضغط Enter">
+                                        <div class="shipping-chips-container" id="localAreasChips"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="internationalCoverageFields" class="shipping-conditional-fields" style="display: none;">
+                                <div class="form-group">
+                                    <label for="countries" class="form-label">الدول</label>
+                                    <div class="shipping-chips-input-container">
+                                        <input type="text" id="countryInput" class="form-control" placeholder="أضف دولة واضغط Enter">
+                                        <div class="shipping-chips-container" id="countriesChips"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="trackingOptions" class="form-label">خيارات التتبع</label>
+                        <div class="shipping-checkbox-group vertical">
+                            <label class="shipping-checkbox-container">
+                                <input type="checkbox" name="trackingOptions" value="gps"> 
+                                <span class="checkbox-text">GPS</span>
+                            </label>
+                            <label class="shipping-checkbox-container">
+                                <input type="checkbox" name="trackingOptions" value="electronic"> 
+                                <span class="checkbox-text">نظام إلكتروني</span>
+                            </label>
+                            <label class="shipping-checkbox-container">
+                                <input type="checkbox" name="trackingOptions" value="app"> 
+                                <span class="checkbox-text">تطبيق جوال</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="shipping-form-action">
+                        <button type="button" class="btn btn-primary btn-block" data-action="goto-slide" data-target="specs">التالي</button>
+                    </div>
+                </div>
+                
+                <!-- الخطوة 2: مواصفات وسيلة الشحن -->
+                <div class="shipping-form-slide" data-slide="specs">
+                    <div class="section-title">مواصفات وسيلة الشحن</div>
+                    
+                    <div class="form-group">
+                        <label for="maxLoad" class="form-label">الحمولة القصوى <span class="shipping-required">*</span></label>
+                        <div class="shipping-input-group">
+                            <input type="number" id="maxLoad" class="form-control" placeholder="أدخل الحمولة القصوى" required>
+                            <select id="weightUnit" class="form-control unit-select">
+                                <option value="kg">كجم</option>
+                                <option value="ton" selected>طن</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dimensions" class="form-label">أبعاد مساحة الشحن (متر)</label>
+                        <div class="shipping-dimensions-grid">
+                            <div class="shipping-dimension-item">
+                                <label for="length" class="shipping-sub-label">الطول</label>
+                                <input type="number" class="form-control" placeholder="الطول" id="length">
+                            </div>
+                            <div class="shipping-dimension-item">
+                                <label for="width" class="shipping-sub-label">العرض</label>
+                                <input type="number" class="form-control" placeholder="العرض" id="width">
+                            </div>
+                            <div class="shipping-dimension-item">
+                                <label for="height" class="shipping-sub-label">الارتفاع</label>
+                                <input type="number" class="form-control" placeholder="الارتفاع" id="height">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="landSpecsFields" class="shipping-conditional-fields">
+                        <div class="form-group">
+                            <label for="fuelType" class="form-label">نوع الوقود</label>
+                            <select id="fuelType" class="form-control">
+                                <option value="diesel">ديزل</option>
+                                <option value="petrol">بنزين</option>
+                                <option value="gas">غاز</option>
+                                <option value="electric">كهرباء</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fuelConsumption" class="form-label">معدل استهلاك الوقود (لتر/100 كم)</label>
+                            <input type="number" id="fuelConsumption" class="form-control" placeholder="أدخل معدل الاستهلاك">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priceInfo" class="form-label">التعريفة التقريبية</label>
+                        <textarea id="priceInfo" class="form-control" rows="3" placeholder="أدخل معلومات التعريفة حسب الوزن أو الحجم"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialConditions" class="form-label">شروط النقل الخاصة</label>
+                        <textarea id="specialConditions" class="form-control" rows="3" placeholder="أدخل أي شروط نقل خاصة"></textarea>
+                    </div>
+                    
+                    <div class="shipping-form-action shipping-dual-buttons">
+                        <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="basic">السابق</button>
+                        <button type="button" class="btn btn-primary" data-action="goto-slide" data-target="docs">التالي</button>
+                    </div>
+                </div>
+                
+                <!-- الخطوة 3: المعلومات القانونية والتراخيص -->
+                <div class="shipping-form-slide" data-slide="docs">
+                    <div class="section-title">المعلومات القانونية والتراخيص</div>
+                    
+                    <div class="form-group">
+                        <label for="licenseNumber" class="form-label">رقم ترخيص التشغيل <span class="shipping-required">*</span></label>
+                        <input type="text" id="licenseNumber" class="form-control" placeholder="أدخل رقم الترخيص" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="licenseExpiry" class="form-label">تاريخ انتهاء الترخيص <span class="shipping-required">*</span></label>
+                        <input type="date" id="licenseExpiry" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="licenseDocument" class="form-label">صورة وثائق الترخيص <span class="shipping-required">*</span></label>
+                        <div class="shipping-file-upload-container">
+                            <input type="file" id="licenseDocument" class="form-control" accept="image/*,.pdf" multiple required>
+                            <button type="button" class="btn btn-outline btn-sm file-upload-btn">اختر الملفات</button>
+                            <span class="shipping-file-name">لم يتم اختيار ملفات</span>
+                        </div>
+                    </div>
+                    
+                    <div id="landDocsFields" class="shipping-conditional-fields">
+                        <div class="form-group">
+                            <label for="insuranceNumber" class="form-label">رقم وثيقة التأمين</label>
+                            <input type="text" id="insuranceNumber" class="form-control" placeholder="أدخل رقم وثيقة التأمين">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insuranceExpiry" class="form-label">تاريخ انتهاء التأمين</label>
+                            <input type="date" id="insuranceExpiry" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="insuranceDocument" class="form-label">صورة وثيقة التأمين</label>
+                            <div class="shipping-file-upload-container">
+                                <input type="file" id="insuranceDocument" class="form-control" accept="image/*,.pdf">
+                                <button type="button" class="btn btn-outline btn-sm file-upload-btn">اختر الملف</button>
+                                <span class="shipping-file-name">لم يتم اختيار ملف</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="shipping-form-action shipping-dual-buttons">
+                        <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="specs">السابق</button>
+                        <button type="button" class="btn btn-primary" data-action="goto-slide" data-target="staff">التالي</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

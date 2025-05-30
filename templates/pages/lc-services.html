@@ -1,0 +1,141 @@
+<!-- templates/pages/lc-services.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="service-providers">                <i class="fas fa-arrow-left" data-action="navigate" data-page="service-providers"></i></button>
+    <h1 class="header-title">خدمات الاعتمادات المستندية</h1>
+    <button class="header-action" data-action="navigate" data-page="lc-service-form" aria-label="إضافة مكتب تجاري">
+        <span class="icon"></span>
+    </button>
+</div>
+<div class="content">
+    <div class="search-filter-section mb-3">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="بحث في مكاتب الاعتمادات المستندية...">
+            <span class="search-icon"><i class="fas fa-search"></i></span>
+        </div>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="asia">آسيا</button>
+            <button class="filter-btn" data-filter="europe">أوروبا</button>
+            <button class="filter-btn" data-filter="americas">الأمريكتين</button>
+            <button class="filter-btn" data-filter="africa">أفريقيا</button>
+        </div>
+    </div>
+
+    <div class="lcs-cards">
+        <div class="lcs-card" data-action="view-lc-service" data-id="1">
+            <div class="lcs-card-header">
+                <h3>مكتب الصين التجاري - قوانغتشو</h3>
+                <span class="lcs-status-badge available">متاح</span>
+            </div>
+            <div class="lcs-card-content">
+                <div class="lcs-card-info">
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">المنطقة:</div>
+                        <div class="lcs-info-value">آسيا</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">العنوان:</div>
+                        <div class="lcs-info-value">قوانغتشو، حي التجارة الدولية</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">التخصص:</div>
+                        <div class="lcs-info-value">مواد البناء، الأجهزة الإلكترونية</div>
+                    </div>
+                </div>
+                <div class="lcs-card-actions">
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="1">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lcs-card" data-action="view-lc-service" data-id="2">
+            <div class="lcs-card-header">
+                <h3>مكتب تركيا التجاري - إسطنبول</h3>
+                <span class="lcs-status-badge busy">مشغول</span>
+            </div>
+            <div class="lcs-card-content">
+                <div class="lcs-card-info">
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">المنطقة:</div>
+                        <div class="lcs-info-value">آسيا/أوروبا</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">العنوان:</div>
+                        <div class="lcs-info-value">إسطنبول، حي السلطان أحمد</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">التخصص:</div>
+                        <div class="lcs-info-value">المنسوجات، الأثاث، المواد الغذائية</div>
+                    </div>
+                </div>
+                <div class="lcs-card-actions">
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="2">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lcs-card" data-action="view-lc-service" data-id="3">
+            <div class="lcs-card-header">
+                <h3>مكتب ألمانيا التجاري - ميونخ</h3>
+                <span class="lcs-status-badge available">متاح</span>
+            </div>
+            <div class="lcs-card-content">
+                <div class="lcs-card-info">
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">المنطقة:</div>
+                        <div class="lcs-info-value">أوروبا</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">العنوان:</div>
+                        <div class="lcs-info-value">ميونخ، المركز التجاري</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">التخصص:</div>
+                        <div class="lcs-info-value">المعدات الطبية، السيارات، الآلات الصناعية</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">الطلبات الحالية:</div>
+                        <div class="lcs-occupation-indicator">
+                            <div class="lcs-occupation-bar" style="width: 30%"></div>
+                            <span>8 طلبات</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lcs-card-actions">
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="3">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lcs-card" data-action="view-lc-service" data-id="4">
+            <div class="lcs-card-header">
+                <h3>مكتب الولايات المتحدة - نيويورك</h3>
+                <span class="lcs-status-badge maintenance">صيانة</span>
+            </div>
+            <div class="lcs-card-content">
+                <div class="lcs-card-info">
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">المنطقة:</div>
+                        <div class="lcs-info-value">الأمريكتين</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">العنوان:</div>
+                        <div class="lcs-info-value">نيويورك، مانهاتن</div>
+                    </div>
+                    <div class="lcs-info-item">
+                        <div class="lcs-info-label">التخصص:</div>
+                        <div class="lcs-info-value">التكنولوجيا، البرمجيات، المعدات الطبية المتقدمة</div>
+                    </div>
+                </div>
+                <div class="lcs-card-actions">
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="lc-service-details" data-id="4">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="floating-action-button" data-action="navigate" data-page="lc-service-form">
+        <span class="icon">+</span>
+    </button>
+</div>

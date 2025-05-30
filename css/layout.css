@@ -1,0 +1,144 @@
+/* LAYOUT */
+#app-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    direction: rtl;
+}
+#auth-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    direction: rtl;
+}
+
+.app-frame {
+    border: 10px solid #333;
+    border-radius: 36px;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+.content {
+    flex: 1;
+    padding: var(--spacing-md);
+    overflow-y: auto;
+}
+
+.status-bar {
+    height: 30px;
+    background-color: var(--dark-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--spacing-md);
+    color: white;
+    font-size: var(--font-size-xs);
+}
+
+#page-container {
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    background-color: white;
+    position: relative;
+}
+
+.page {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    background-color: white;
+    position: relative;
+}
+
+.page.active {
+    display: flex;
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -var(--spacing-sm);
+}
+
+.col {
+    flex: 1;
+    padding: 0 var(--spacing-sm);
+}
+
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 var(--spacing-sm);
+}
+
+.col-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding: 0 var(--spacing-sm);
+}
+
+.col-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+    padding: 0 var(--spacing-sm);
+}
+
+.col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding: 0 var(--spacing-sm);
+}
+
+.col-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    padding: 0 var(--spacing-sm);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .col, .col-6, .col-4, .col-8, .col-3, .col-9 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* RTL Support */
+html[dir="rtl"] body,
+html[dir="rtl"] #app-container,
+html[dir="rtl"] .header,
+html[dir="rtl"] .content,
+html[dir="rtl"] .bottom-nav,
+html[dir="rtl"] .modal-content {
+    direction: rtl;
+}
+
+html[dir="rtl"] .header,
+html[dir="rtl"] .bottom-nav,
+html[dir="rtl"] .row {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .header-title,
+html[dir="rtl"] .nav-label,
+html[dir="rtl"] .content,
+html[dir="rtl"] .modal-title {
+    text-align: right;
+}
+
+html[dir="rtl"] .header-action {
+    /* If you want to flip icons or adjust spacing */
+    margin-left: var(--spacing-md);
+    margin-right: 0;
+}

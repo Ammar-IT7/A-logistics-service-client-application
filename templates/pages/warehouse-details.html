@@ -1,0 +1,161 @@
+<!-- templates/pages/warehouse-details.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="warehouses" aria-label="رجوع">                <i class="fas fa-arrow-left" data-action="navigate" data-page="warehouses"></i></button>
+    <h1 class="header-title">تفاصيل المستودع</h1>
+    <button class="header-action" data-action="edit-warehouse" aria-label="تعديل">
+        <span class="icon"></span>
+    </button>
+</div>
+<div class="content">
+    <div class="wh-images-slider mb-3">
+        <div class="wh-slider-container">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGZpbGw9IiM5OTkiPtin2YTZhdiz2KrZiNiv2Lk8L3RleHQ+PC9zdmc+" alt="صورة المستودع" class="warehouse-img">
+        </div>
+        <div class="wh-slider-pagination">
+            <span class="wh-pagination-dot active"></span>
+            <span class="wh-pagination-dot"></span>
+            <span class="wh-pagination-dot"></span>
+        </div>
+        <div class="wh-warehouse-status">
+            <span class="wh-status-badge available">متاح</span>
+        </div>
+    </div>
+    
+    <div class="wh-header-info mb-3">
+        <h2>مستودع صنعاء المركزي</h2>
+        <div class="wh-location">
+            <span class="location-icon">📍</span>
+            <span class="location-text">صنعاء، الحي التجاري</span>
+        </div>
+        <div class="wh-key-info">
+            <div class="wh-key-info-item">
+                <div class="wh-info-icon">📐</div>
+                <div class="wh-info-value">1,500 م²</div>
+            </div>
+            <div class="wh-key-info-item">
+                <div class="wh-info-icon">🏷️</div>
+                <div class="wh-info-value">مستودع عادي</div>
+            </div>
+            <div class="wh-key-info-item">
+                <div class="wh-info-icon">💰</div>
+                <div class="wh-info-value">8,000 ريال/م²/شهر</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="wh-occupation-section mb-3">
+        <h3 class="wh-section-title">المساحة</h3>
+        <div class="wh-occupation-chart">
+            <div class="wh-occupation-bar-container">
+                <div class="wh-occupation-bar" style="width: 35%"></div>
+            </div>
+            <div class="wh-occupation-stats">
+                <div class="wh-stat">
+                    <div class="wh-stat-value">35%</div>
+                    <div class="wh-stat-label">مشغول</div>
+                </div>
+                <div class="wh-stat">
+                    <div class="wh-stat-value">525 م²</div>
+                    <div class="wh-stat-label">المساحة المشغولة</div>
+                </div>
+                <div class="wh-stat">
+                    <div class="wh-stat-value">975 م²</div>
+                    <div class="wh-stat-label">المساحة المتاحة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="wh-tabs-container mb-3">
+        <div class="wh-tabs-header">
+            <div class="wh-tab active" data-tab="info">معلومات</div>
+            <div class="wh-tab" data-tab="pricing">الرسوم</div>
+            <div class="wh-tab" data-tab="security">السلامة</div>
+        </div>
+        <div class="wh-tabs-content">
+            <div class="wh-tab-pane active" id="info-tab">
+                <div class="wh-info-section">
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">الموقع:</div>
+                        <div class="wh-info-value">صنعاء، الحي التجاري، شارع التحرير</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">نوع التخزين:</div>
+                        <div class="wh-info-value">عادي</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">استخدام التخزين:</div>
+                        <div class="wh-info-value">جزئي</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">المساحة الإجمالية:</div>
+                        <div class="wh-info-value">1,500 م²</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">المساحة المتاحة:</div>
+                        <div class="wh-info-value">975 م²</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">مسؤول المستودع:</div>
+                        <div class="wh-info-value">محمد علي</div>
+                    </div>
+                    <div class="wh-info-item">
+                        <div class="wh-info-label">رقم التواصل:</div>
+                        <div class="wh-info-value">+967 7X XXX XXX</div>
+                    </div>
+                </div>
+            </div>
+            <div class="wh-tab-pane" id="pricing-tab">
+                <div class="wh-pricing-section">
+                    <div class="wh-pricing-item">
+                        <div class="wh-pricing-period">شهري</div>
+                        <div class="wh-pricing-value">8,000 ريال/م²</div>
+                    </div>
+                    <div class="wh-pricing-item">
+                        <div class="wh-pricing-period">سنوي</div>
+                        <div class="wh-pricing-value">85,000 ريال/م²</div>
+                    </div>
+                    <div class="wh-pricing-notes">
+                        <p>* الأسعار تشمل خدمات الحراسة الأساسية</p>
+                        <p>* خصم 10% للمساحات أكبر من 200 م²</p>
+                    </div>
+                    <button class="btn btn-primary btn-block" data-action="request-quote">طلب عرض سعر</button>
+                </div>
+            </div>
+            <div class="wh-tab-pane" id="security-tab">
+                <div class="wh-security-section">
+                    <div class="wh-security-features">
+                        <div class="wh-feature-item active">
+                            <div class="wh-feature-icon">🎥</div>
+                            <div class="wh-feature-name">كاميرات مراقبة</div>
+                        </div>
+                        <div class="wh-feature-item active">
+                            <div class="wh-feature-icon">🔥</div>
+                            <div class="wh-feature-name">إنذار حريق</div>
+                        </div>
+                        <div class="wh-feature-item active">
+                            <div class="wh-feature-icon">🚒</div>
+                            <div class="wh-feature-name">نظام إطفاء</div>
+                        </div>
+                        <div class="wh-feature-item active">
+                            <div class="wh-feature-icon">👮</div>
+                            <div class="wh-feature-name">حراسة أمنية</div>
+                        </div>
+                    </div>
+                    <div class="wh-security-notes">
+                        <h4>ملاحظات السلامة:</h4>
+                        <p>المستودع مجهز بأنظمة كاميرات مراقبة حديثة وأنظمة إنذار حريق. يتم فحص أنظمة السلامة شهرياً وتوجد حراسة على مدار 24 ساعة.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="warehouse-location-map mb-3">
+        <h3 class="wh-section-title">موقع المستودع</h3>
+        <div class="wh-map-container">
+            <div class="wh-map-icon">🗺️</div>
+            <div class="wh-map-text">انقر لفتح الخريطة</div>
+        </div>
+    </div>
+</div>

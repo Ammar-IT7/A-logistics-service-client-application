@@ -1,0 +1,69 @@
+<!-- templates/pages/customs.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="home" aria-label="رجوع">                <i class="fas fa-arrow-left" data-action="navigate" data-page="home"></i></button>
+    <h1 class="header-title">مكاتب التخليص الجمركي الخاصة بي</h1>
+    <button class="header-action" data-action="navigate" data-page="customs-form" aria-label="إضافة مكتب تخليص">
+        <span class="icon"></span>
+    </button>
+</div>
+
+<div class="content">
+    <div class="search-section">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="بحث في مكاتب التخليص...">
+            <span class="search-icon"><i class="fas fa-search"></i></span>
+        </div>
+
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="sea">بحري</button>
+            <button class="filter-btn" data-filter="air">جوي</button>
+            <button class="filter-btn" data-filter="land">بري</button>
+        </div>
+    </div>
+
+    <div class="co-cards">
+        <div class="co-card" data-action="view-customs-office" data-id="1">
+            <div class="co-card-header">
+                <h3 class="co-card-title">مكتب اليمن للتخليص الجمركي - صنعاء</h3>
+                <div class="co-rating">
+                    <span class="co-rating-value">4.7</span>
+                    <span class="co-rating-stars">★★★★★</span>
+                </div>
+            </div>
+            <div class="co-card-content">
+                <div class="co-info">
+                    <div class="info-item">
+                        <div class="info-icon">🪪</div>
+                        <div class="info-content">
+                            <div class="info-label">ترخيص التخليص:</div>
+                            <div class="info-value">YC-5423-23</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🏢</div>
+                        <div class="info-content">
+                            <div class="info-label">المنافذ:</div>
+                            <div class="info-value">مطار صنعاء الدولي</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">⏱️</div>
+                        <div class="info-content">
+                            <div class="info-label">الخبرة:</div>
+                            <div class="info-value">8 سنوات</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="co-actions">
+                    <button class="btn btn-sm btn-primary" data-action="edit-customs-office" data-id="1">تعديل</button>
+                    <button class="btn btn-sm btn-outline" data-action="navigate" data-page="customs-details" data-id="1">التفاصيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="floating-action-button" data-action="navigate" data-page="customs-form">
+        <span class="icon">+</span>
+    </button>
+</div>

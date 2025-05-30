@@ -1,0 +1,113 @@
+    <div class="header">
+        <button class="header-action" data-action="menu" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="header-title">الرئيسية</h1>
+        <button class="header-action" data-action="notifications" aria-label="الإشعارات">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">2</span>
+        </button>
+    </div>
+
+    <div class="content" id="client-home-page">
+        <section class="chp-ads-carousel-section">
+            <div class="chp-main-ad-carousel" id="mainAdCarousel">
+                <div class="chp-carousel-slide chp-active" data-slide-index="0">
+                    <img src="../templates/pages/2.png" alt="إعلان خدمة شحن مميزة" class="chp-ad-image">
+                    <div class="chp-ad-caption">
+                        <h3>شحن دولي سريع وآمن</h3>
+                        <p>خصم 20% لجميع الشحنات إلى دول الخليج هذا الأسبوع! لا تفوت الفرصة.</p>
+                        <a href="#" class="chp-ad-link" data-action="ad-click" data-ad-id="shipping-promo">اعرف المزيد</a>
+                    </div>
+                </div>
+                <div class="chp-carousel-slide" data-slide-index="1">
+                    <img src="../templates/pages/1.png" alt="إعلان خدمة تخزين مكيفة" class="chp-ad-image">
+                    <div class="chp-ad-caption">
+                        <h3>مستودعاتنا هي خيارك الأول</h3>
+                        <p>حلول تخزين مرنة وآمنة لجميع احتياجاتك، مع تحكم كامل في درجة الحرارة.</p>
+                         <a href="#" class="chp-ad-link" data-action="ad-click" data-ad-id="storage-solutions">اكتشف مساحاتنا</a>
+                    </div>
+                </div>
+                <div class="chp-carousel-slide" data-slide-index="2">
+                    <img src="../templates/pages/3.png" alt="إعلان خدمة تخليص جمركي" class="chp-ad-image">
+                    <div class="chp-ad-caption">
+                        <h3>تخليص جمركي بلا تعقيد</h3>
+                        <p>فريقنا من الخبراء يضمن إتمام معاملاتك بسرعة وكفاءة عالية.</p>
+                        <a href="#" class="chp-ad-link" data-action="ad-click" data-ad-id="customs-experts">اطلب استشارة</a>
+                    </div>
+                </div>
+            </div>
+            <div class="chp-carousel-nav">
+                <button id="prevSlide" aria-label="السابق"><i class="fas fa-chevron-right"></i></button> 
+                <button id="nextSlide" aria-label="التالي"><i class="fas fa-chevron-left"></i></button>
+            </div>
+            <div class="chp-carousel-dots" id="carouselDots">
+                </div>
+        </section>
+
+        <section class="chp-section-container">
+            <div class="chp-section-header">
+                <h3 class="chp-section-title"><i class="fas fa-concierge-bell chp-section-icon"></i> اكتشف الخدمات</h3>
+                <a href="#" class="chp-section-link">عرض الكل <i class="fas fa-chevron-left"></i></a>
+            </div>
+            <div class="chp-services-scroller">
+                <div class="chp-services-grid">
+                    <div class="chp-service-card" data-action="navigate" data-page="search-storage"><div class="chp-service-icon"><i class="fas fa-warehouse"></i></div><div class="chp-service-name">خدمات التخزين</div></div>
+                    <div class="chp-service-card" data-action="navigate" data-page="search-customs"><div class="chp-service-icon"><i class="fas fa-clipboard-check"></i></div><div class="chp-service-name">التخليص الجمركي</div></div>
+                    <div class="chp-service-card" data-action="navigate" data-page="search-shipping"><div class="chp-service-icon"><i class="fas fa-truck"></i></div><div class="chp-service-name">خدمات الشحن</div></div>
+                    <div class="chp-service-card" data-action="navigate" data-page="search-packaging"><div class="chp-service-icon"><i class="fas fa-box-open"></i></div><div class="chp-service-name">التغليف والتعبئة</div></div>
+                    <div class="chp-service-card" data-action="navigate" data-page="search-lc"><div class="chp-service-icon"><i class="fas fa-file-invoice-dollar"></i></div><div class="chp-service-name">الاعتمادات المستندية</div></div>
+                    <div class="chp-service-card" data-action="navigate" data-page="search-marketing"><div class="chp-service-icon"><i class="fas fa-bullhorn"></i></div><div class="chp-service-name">خدمات التسويق</div></div>
+                    <div class="chp-service-card chp-request-custom" data-action="show-modal" data-page="request-service"><div class="chp-service-icon"><i class="fas fa-plus"></i></div><div class="chp-service-name">طلب خدمة مخصصة</div></div>
+                </div>
+            </div>
+        </section>
+
+                <section class="chp-stats-grid">
+            <div class="chp-stat-card">
+                <div class="chp-stat-icon"><i class="fas fa-tasks"></i></div>
+                <div class="chp-stat-info">
+                    <div class="chp-stat-value">3</div>
+                    <div class="chp-stat-label">طلباتي الحالية</div>
+                </div>
+            </div>
+            <div class="chp-stat-card chp-highlight">
+                <div class="chp-stat-icon"><i class="fas fa-truck-moving"></i></div>
+                <div class="chp-stat-info">
+                    <div class="chp-stat-value">1</div>
+                    <div class="chp-stat-label">شحنات قيد التوصيل</div>
+                </div>
+            </div>
+            <div class="chp-stat-card">
+                <div class="chp-stat-icon"><i class="fas fa-wallet"></i></div>
+                <div class="chp-stat-info">
+                    <div class="chp-stat-value">1,250 <span style="font-size: 0.7em;">ر.ي</span></div>
+                    <div class="chp-stat-label">إجمالي المنفق</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="chp-section-container">
+            <div class="chp-section-header">
+                <h3 class="chp-section-title"><i class="fas fa-history chp-section-icon"></i> آخر طلباتي</h3>
+                <a href="#" class="chp-section-link">عرض الكل <i class="fas fa-chevron-left"></i></a>
+            </div>
+            <div class="chp-orders-list">
+                <div class="chp-order-card chp-pending"><div class="chp-order-icon"><i class="fas fa-box"></i></div><div class="chp-order-details"><h4>طلب تخزين #C0-7891</h4><p>أجهزة إلكترونية - مستودع آمن</p><div class="chp-order-meta"><span class="chp-order-status">قيد المراجعة</span><span class="chp-order-time">منذ ساعة</span></div></div></div>
+                <div class="chp-order-card chp-new"><div class="chp-order-icon"><i class="fas fa-shipping-fast"></i></div><div class="chp-order-details"><h4>طلب شحن دولي #C1-2345</h4><p>من الصين إلى اليمن - بحري</p><div class="chp-order-meta"><span class="chp-order-status">بانتظار عروض الأسعار</span><span class="chp-order-time">منذ 5 ساعات</span></div></div></div>
+                <div class="chp-order-card chp-completed"><div class="chp-order-icon"><i class="fas fa-check-circle"></i></div><div class="chp-order-details"><h4>تخليص جمركي #C2-6789</h4><p>ميناء عدن - بضائع عامة</p><div class="chp-order-meta"><span class="chp-order-status">مكتمل</span><span class="chp-order-time">منذ يومين</span></div></div></div>
+            </div>
+        </section>
+
+        <section class="chp-section-container">
+            <div class="chp-section-header">
+                <h3 class="chp-section-title"><i class="fas fa-bolt chp-section-icon"></i> وصول سريع</h3>
+            </div>
+            <div class="chp-quick-actions-grid">
+                <button class="chp-action-card" data-action="new-request"><div class="chp-action-icon"><i class="fas fa-plus-circle"></i></div><div class="chp-action-text">إنشاء طلب جديد</div></button>
+                <button class="chp-action-card" data-action="track-orders"><div class="chp-action-icon"><i class="fas fa-route"></i></div><div class="chp-action-text">تتبع طلباتي</div></button>
+                <button class="chp-action-card" data-action="profile"><div class="chp-action-icon"><i class="fas fa-user-circle"></i></div><div class="chp-action-text">ملفي الشخصي</div></button>
+                <button class="chp-action-card" data-action="support"><div class="chp-action-icon"><i class="fas fa-headset"></i></div><div class="chp-action-text">المساعدة والدعم</div></button>
+            </div>
+        </section>
+    </div>

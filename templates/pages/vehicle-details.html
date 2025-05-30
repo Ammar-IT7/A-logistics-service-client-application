@@ -1,0 +1,302 @@
+<!-- templates/pages/vehicle-details.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="shipping" aria-label="رجوع">                <i class="fas fa-arrow-left" data-action="navigate" data-page="shipping"></i></button>
+    <h1 class="header-title">تفاصيل وسيلة الشحن</h1>
+    <button class="header-action" data-action="edit-vehicle" data-id="1" aria-label="تعديل">
+        <span class="icon"></span>
+    </button>
+</div>
+
+<div class="content">
+    <div class="shipping-details-main-info">
+        <div class="shipping-details-header">
+            <div class="shipping-vehicle-type-badge land">بري</div>
+            <h2 class="shipping-details-title">شاحنة نقل كبيرة</h2>
+            <span class="status-badge available">متاحة</span>
+        </div>
+        
+        <div class="shipping-details-image">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIGZpbGw9IiM5OTkiPtin2YTYtNin2K3ZhtipPC90ZXh0Pjwvc3ZnPg==" alt="صورة الشاحنة" class="shipping-details-img">
+        </div>
+            
+        <div class="shipping-details-info-card">
+            <div class="shipping-section-title-detail">بيانات أساسية</div>
+            <div class="shipping-details-group">
+                <div class="shipping-detail-item">
+                    <div class="shipping-detail-icon">🔢</div>
+                    <div class="shipping-detail-content">
+                        <div class="shipping-detail-label">رقم اللوحة:</div>
+                        <div class="shipping-detail-value">أ ب ج 1234</div>
+                    </div>
+                </div>
+                
+                <div class="shipping-detail-item">
+                    <div class="shipping-detail-icon">⚖️</div>
+                    <div class="shipping-detail-content">
+                        <div class="shipping-detail-label">الحمولة القصوى:</div>
+                        <div class="shipping-detail-value">20 طن</div>
+                    </div>
+                </div>
+                
+                <div class="shipping-detail-item">
+                    <div class="shipping-detail-icon">📏</div>
+                    <div class="shipping-detail-content">
+                        <div class="shipping-detail-label">الأبعاد:</div>
+                        <div class="shipping-detail-value">6م × 2.4م × 2.7م</div>
+                    </div>
+                </div>
+                
+                <div class="shipping-detail-item">
+                    <div class="shipping-detail-icon">⛽</div>
+                    <div class="shipping-detail-content">
+                        <div class="shipping-detail-label">نوع الوقود:</div>
+                        <div class="shipping-detail-value">ديزل</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="shipping-details-tabs">
+        <div class="tabs shipping-details-tabs-list">
+            <div class="tab active" data-tab="coverage">المناطق المغطاة</div>
+            <div class="tab" data-tab="tracking">خيارات التتبع</div>
+            <div class="tab" data-tab="pricing">التعريفة</div>
+            <div class="tab" data-tab="docs">الوثائق</div>
+            <div class="tab" data-tab="staff">الطاقم</div>
+        </div>
+        
+        <div class="tab-content active" data-tab-content="coverage">
+            <div class="shipping-section-title-detail">المناطق الجغرافية المغطاة</div>
+            
+            <div class="coverage-type mb-2">
+                <div class="badge badge-primary">محلي</div>
+            </div>
+            
+            <div class="shipping-coverage-areas">
+                <div class="shipping-coverage-area-item">
+                    <div class="shipping-area-icon">📍</div>
+                    <div class="shipping-area-details">
+                        <div class="shipping-area-name">الرياض</div>
+                        <div class="shipping-area-routes">جميع المناطق</div>
+                    </div>
+                </div>
+                <div class="shipping-coverage-area-item">
+                    <div class="shipping-area-icon">📍</div>
+                    <div class="shipping-area-details">
+                        <div class="shipping-area-name">جدة</div>
+                        <div class="shipping-area-routes">المنطقة الشمالية والجنوبية</div>
+                    </div>
+                </div>
+                <div class="shipping-coverage-area-item">
+                    <div class="shipping-area-icon">📍</div>
+                    <div class="shipping-area-details">
+                        <div class="shipping-area-name">الدمام</div>
+                        <div class="shipping-area-routes">جميع المناطق</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="shipping-map-placeholder">
+                <div class="shipping-map-placeholder-text">
+                    <span class="shipping-map-icon">🗺️</span>
+                    <span>خريطة المناطق المغطاة</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" data-tab-content="tracking">
+            <div class="shipping-section-title-detail">خيارات التتبع المتاحة</div>
+            
+            <div class="shipping-tracking-options">
+                <div class="shipping-tracking-option-item">
+                    <div class="shipping-tracking-icon">🛰️</div>
+                    <div class="shipping-tracking-details">
+                        <div class="shipping-tracking-name">نظام GPS</div>
+                        <div class="shipping-tracking-description">تتبع مباشر لموقع الشاحنة على مدار الساعة</div>
+                    </div>
+                </div>
+                <div class="shipping-tracking-option-item">
+                    <div class="shipping-tracking-icon">📱</div>
+                    <div class="shipping-tracking-details">
+                        <div class="shipping-tracking-name">تطبيق جوال</div>
+                        <div class="shipping-tracking-description">متابعة الشحنة وتحديثات الحالة عبر التطبيق</div>
+                    </div>
+                </div>
+                <div class="shipping-tracking-option-item">
+                    <div class="shipping-tracking-icon">💻</div>
+                    <div class="shipping-tracking-details">
+                        <div class="shipping-tracking-name">نظام إلكتروني</div>
+                        <div class="shipping-tracking-description">تتبع الشحنة عبر رقم التتبع على الموقع الإلكتروني</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="shipping-demo-placeholder">
+                <div class="shipping-demo-placeholder-text">
+                    <span class="shipping-demo-icon">📊</span>
+                    <span>عرض توضيحي لنظام التتبع</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" data-tab-content="pricing">
+            <div class="shipping-section-title-detail">التعريفة التقريبية</div>
+            
+            <div class="shipping-pricing-note">
+                <div class="shipping-note-icon">ℹ️</div>
+                <div class="shipping-note-text">التعريفة المعروضة تقريبية وقابلة للتغيير حسب متطلبات الشحنة والموسم</div>
+            </div>
+            
+            <div class="shipping-pricing-table-container">
+                <table class="shipping-pricing-table">
+                    <thead>
+                        <tr>
+                            <th>الوزن / الحجم</th>
+                            <th>داخل المدينة</th>
+                            <th>بين المدن</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>حتى 5 طن</td>
+                            <td>500 ريال</td>
+                            <td>2000 ريال</td>
+                        </tr>
+                        <tr>
+                            <td>من 5 إلى 10 طن</td>
+                            <td>750 ريال</td>
+                            <td>3000 ريال</td>
+                        </tr>
+                        <tr>
+                            <td>من 10 إلى 20 طن</td>
+                            <td>1200 ريال</td>
+                            <td>4500 ريال</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="shipping-additional-fees">
+                <div class="shipping-section-subtitle">رسوم إضافية</div>
+                <ul class="shipping-fees-list">
+                    <li>تحميل وتفريغ البضائع: 200 ريال</li>
+                    <li>التغليف والتأمين: 5% من قيمة البضاعة</li>
+                    <li>خدمات خاصة (تبريد): 500 ريال</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="tab-content" data-tab-content="docs">
+            <div class="shipping-section-title-detail">معلومات الترخيص والوثائق</div>
+            
+            <div class="shipping-docs-list">
+                <div class="shipping-doc-item">
+                    <div class="shipping-doc-icon">📄</div>
+                    <div class="shipping-doc-details">
+                        <div class="shipping-doc-name">ترخيص التشغيل</div>
+                        <div class="shipping-doc-info">
+                            <div class="shipping-doc-number">رقم: TR-5698741</div>
+                            <div class="shipping-doc-expiry valid">تاريخ الانتهاء: 01/05/2026</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline shipping-doc-view-btn">عرض</button>
+                </div>
+                
+                <div class="shipping-doc-item">
+                    <div class="shipping-doc-icon">📄</div>
+                    <div class="shipping-doc-details">
+                        <div class="shipping-doc-name">وثيقة التأمين</div>
+                        <div class="shipping-doc-info">
+                            <div class="shipping-doc-number">رقم: INS-7845123</div>
+                            <div class="shipping-doc-expiry valid">تاريخ الانتهاء: 15/03/2026</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline shipping-doc-view-btn">عرض</button>
+                </div>
+                
+                <div class="shipping-doc-item">
+                    <div class="shipping-doc-icon">📄</div>
+                    <div class="shipping-doc-details">
+                        <div class="shipping-doc-name">الفحص الدوري</div>
+                        <div class="shipping-doc-info">
+                            <div class="shipping-doc-number">رقم: TI-3254789</div>
+                            <div class="shipping-doc-expiry warning">تاريخ الانتهاء: 10/06/2025</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline shipping-doc-view-btn">عرض</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" data-tab-content="staff">
+            <div class="shipping-section-title-detail">طاقم القيادة</div>
+            
+            <div class="shipping-staff-list">
+                <div class="shipping-staff-item">
+                    <div class="shipping-staff-avatar">
+                        <div class="shipping-staff-avatar-placeholder">م.س</div>
+                    </div>
+                    <div class="shipping-staff-details">
+                        <div class="shipping-staff-name">محمد سالم</div>
+                        <div class="shipping-staff-position">سائق رئيسي</div>
+                        <div class="shipping-staff-contact">جوال: 05xxxxxxxx</div>
+                        <div class="shipping-staff-license">رخصة قيادة: DR-12345 (سارية حتى 2026/02/10)</div>
+                    </div>
+                </div>
+                
+                <div class="shipping-staff-item">
+                    <div class="shipping-staff-avatar">
+                        <div class="shipping-staff-avatar-placeholder">أ.ع</div>
+                    </div>
+                    <div class="shipping-staff-details">
+                        <div class="shipping-staff-name">أحمد علي</div>
+                        <div class="shipping-staff-position">سائق مساعد</div>
+                        <div class="shipping-staff-contact">جوال: 05xxxxxxxx</div>
+                        <div class="shipping-staff-license">رخصة قيادة: DR-67890 (سارية حتى 2025/11/15)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="shipping-section-title-detail mt-4">جدول الصيانة</div>
+            
+            <div class="shipping-maintenance-schedule">
+                <div class="shipping-maintenance-item">
+                    <div class="shipping-maintenance-date">
+                        <div class="month">مايو</div>
+                        <div class="day">15</div>
+                        <div class="year">2025</div>
+                    </div>
+                    <div class="shipping-maintenance-details">
+                        <div class="shipping-maintenance-title">صيانة دورية شاملة</div>
+                        <div class="shipping-maintenance-status upcoming">قادمة</div>
+                    </div>
+                </div>
+                
+                <div class="shipping-maintenance-item">
+                    <div class="shipping-maintenance-date">
+                        <div class="month">فبراير</div>
+                        <div class="day">10</div>
+                        <div class="year">2025</div>
+                    </div>
+                    <div class="shipping-maintenance-details">
+                        <div class="shipping-maintenance-title">تغيير زيت ومرشحات</div>
+                        <div class="shipping-maintenance-status completed">تمت</div>
+                    </div>
+                </div>
+                
+                <div class="shipping-maintenance-item">
+                    <div class="shipping-maintenance-date">
+                        <div class="month">نوفمبر</div>
+                        <div class="day">20</div>
+                        <div class="year">2024</div>
+                    </div>
+                    <div class="shipping-maintenance-details">
+                        <div class="shipping-maintenance-title">فحص نظام الفرامل</div>
+                        <div class="shipping-maintenance-status completed">تمت</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

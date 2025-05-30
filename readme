@@ -1,0 +1,31 @@
+project/
+├── index.html                 # Main entry point
+├── css/
+│   ├── main.css               # Core styles and variables
+│   ├── components.css         # UI component styles
+│   ├── layout.css             # Layout styles
+│   └── utilities.css          # Utility classes
+├── js/
+│   ├── app.js                 # App initialization 
+│   ├── router.js              # Page navigation
+│   ├── state.js               # State management
+│   ├── components/            # UI components
+│   │   ├── modal.js           # Modal component
+│   │   ├── toast.js           # Toast component
+│   │   └── loader.js          # Loader component
+│   ├── pages/                 # Page controllers
+│   │   ├── home.js            # Home page controller
+│   │   ├── profile.js         # Profile page controller
+│   │   ├── notifications.js   # Notifications page controller
+│   │   └── settings.js        # Settings page controller
+│   └── utils/                 # Utility functions
+│       └── forms.js           # Form handling
+└── templates/                 # HTML templates
+    ├── pages/                 # Page templates
+    │   ├── home.html          # Home page template
+    │   ├── profile.html       # Profile page template
+    │   ├── notifications.html # Notifications page template
+    │   └── settings.html      # Settings page template
+    └── modals/                # Modal templates
+        ├── example.html       # Example modal template
+        └── edit-profile.html  # Edit profile modal template

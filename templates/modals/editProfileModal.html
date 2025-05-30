@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h2 class="modal-title">Edit Profile</h2>
+    <button class="modal-close" data-action="close-modal" data-modal="editProfileModal">✕</button>
+</div>
+<div class="modal-body">
+    <form id="profileForm">
+        <div class="form-group">
+            <label for="profileName" class="form-label">Name</label>
+            <input type="text" id="profileName" class="form-control" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="profileEmail" class="form-label">Email</label>
+            <input type="email" id="profileEmail" class="form-control" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+            <label for="profileBio" class="form-label">Bio</label>
+            <textarea id="profileBio" class="form-control" rows="3" placeholder="Enter your bio"></textarea>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-outline" data-action="close-modal" data-modal="editProfileModal">Cancel</button>
+    <button class="btn" data-action="submit-modal" data-modal="editProfileModal">Save Changes</button>
+</div>
+
+<script>
+    // This script will run when the modal is loaded
+    (function() {
+        const user = State.get('user');
+        
+        // Set form values
+        document.getElementById('profileName').value = user.name;
+        document.getElementById('profileEmail').value = user.email;
+    })();
+</script>

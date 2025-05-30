@@ -1,0 +1,162 @@
+<!-- templates/pages/delivery-provider-form.html -->
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="last-mile-delivery" aria-label="العودة">                <i class="fas fa-arrow-left"data-action="navigate" data-page="last-mile-delivery"></i></button>
+    <h1 class="header-title" id="ldFormTitle">إضافة مزود خدمة توصيل</h1>
+    <button class="header-action" data-action="save" aria-label="حفظ"><i class="fas fa-save"></i></button>
+</div>
+
+<div class="content">
+    <form id="ldProviderForm" class="ld-provider-form">
+        <!-- القسم الأساسي -->
+        <div class="form-section">
+            <h2 class="form-section-title">المعلومات الأساسية</h2>
+            
+            <div class="form-group">
+                <label for="providerName" class="form-label">اسم الشركة/المزود <span class="required">*</span></label>
+                <input type="text" id="providerName" class="form-control" required placeholder="أدخل اسم الشركة">
+            </div>
+            
+            <div class="form-group">
+                <label for="providerPhone" class="form-label">رقم الهاتف <span class="required">*</span></label>
+                <input type="tel" id="providerPhone" class="form-control" required placeholder="أدخل رقم الهاتف">
+            </div>
+            
+            <div class="form-group">
+                <label for="providerEmail" class="form-label">البريد الإلكتروني</label>
+                <input type="email" id="providerEmail" class="form-control" placeholder="أدخل البريد الإلكتروني">
+            </div>
+
+            <div class="form-group">
+                <label for="providerAddress" class="form-label">العنوان <span class="required">*</span></label>
+                <input type="text" id="providerAddress" class="form-control" required placeholder="أدخل العنوان الرئيسي">
+            </div>
+
+            <div class="form-group">
+                <label for="contactPerson" class="form-label">اسم الشخص المسؤول <span class="required">*</span></label>
+                <input type="text" id="contactPerson" class="form-control" required placeholder="أدخل اسم الشخص المسؤول">
+            </div>
+
+            <div class="form-group">
+                <label for="contactPersonPhone" class="form-label">هاتف الشخص المسؤول <span class="required">*</span></label>
+                <input type="tel" id="contactPersonPhone" class="form-control" required placeholder="أدخل رقم هاتف الشخص المسؤول">
+            </div>
+        </div>
+
+        <!-- قسم المركبات -->
+        <div class="form-section">
+            <h2 class="form-section-title">معلومات المركبات</h2>
+            
+            <div class="form-group">
+                <label class="form-label">أنواع المركبات المستخدمة <span class="required">*</span></label>
+                <div class="checkbox-group">
+                    <div class="form-check">
+                        <input type="checkbox" id="motorcycles" class="form-check-input" name="vehicleTypes">
+                        <label for="motorcycles" class="form-check-label">دراجات نارية</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="cars" class="form-check-input" name="vehicleTypes">
+                        <label for="cars" class="form-check-label">سيارات صغيرة</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group vehicle-details" id="motorcyclesDetails" style="display: none;">
+                <label for="motorcyclesCount" class="form-label">عدد الدراجات النارية</label>
+                <input type="number" id="motorcyclesCount" class="form-control" min="1" placeholder="أدخل عدد الدراجات">
+            </div>
+
+            <div class="form-group vehicle-details" id="carsDetails" style="display: none;">
+                <label for="carsCount" class="form-label">عدد السيارات الصغيرة</label>
+                <input type="number" id="carsCount" class="form-control" min="1" placeholder="أدخل عدد السيارات">
+            </div>
+        </div>
+
+        <!-- قسم نطاق التغطية -->
+        <div class="form-section">
+            <h2 class="form-section-title">نطاق التغطية</h2>
+            
+            <div class="form-group">
+                <label class="form-label">المدن التي يغطيها المزود <span class="required">*</span></label>
+                <div class="cities-selection">
+                    <div class="form-check">
+                        <input type="checkbox" id="city-sanaa" class="form-check-input" name="coverageCities">
+                        <label for="city-sanaa" class="form-check-label">صنعاء</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="city-aden" class="form-check-input" name="coverageCities">
+                        <label for="city-aden" class="form-check-label">عدن</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="city-taiz" class="form-check-input" name="coverageCities">
+                        <label for="city-taiz" class="form-check-label">تعز</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="city-hodeidah" class="form-check-input" name="coverageCities">
+                        <label for="city-hodeidah" class="form-check-label">الحديدة</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="city-ibb" class="form-check-input" name="coverageCities">
+                        <label for="city-ibb" class="form-check-label">إب</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="city-mukalla" class="form-check-input" name="coverageCities">
+                        <label for="city-mukalla" class="form-check-label">المكلا</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="otherCities" class="form-label">مدن أخرى (اختياري)</label>
+                <input type="text" id="otherCities" class="form-control" placeholder="أدخل أسماء مدن أخرى مفصولة بفواصل">
+            </div>
+        </div>
+
+        <!-- قسم معلومات إضافية -->
+        <div class="form-section">
+            <h2 class="form-section-title">معلومات إضافية</h2>
+            
+            <div class="form-group">
+                <label for="deliveryTime" class="form-label">متوسط وقت التوصيل (بالساعات)</label>
+                <input type="number" id="deliveryTime" class="form-control" min="1" step="0.5" placeholder="مثال: 4.5">
+            </div>
+
+            <div class="form-group">
+                <label for="workingHours" class="form-label">ساعات العمل</label>
+                <input type="text" id="workingHours" class="form-control" placeholder="مثال: 8:00 صباحاً - 8:00 مساءً">
+            </div>
+
+            <div class="form-group">
+                <label for="deliveryFees" class="form-label">رسوم التوصيل الأساسية</label>
+                <div class="input-with-suffix">
+                    <input type="number" id="deliveryFees" class="form-control" min="0" placeholder="أدخل المبلغ">
+                    <span class="input-suffix">ريال</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="providerNotes" class="form-label">ملاحظات</label>
+                <textarea id="providerNotes" class="form-control" rows="4" placeholder="أدخل أي ملاحظات إضافية حول مزود الخدمة"></textarea>
+            </div>
+        </div>
+
+        <!-- قسم الحالة -->
+        <div class="form-section">
+            <h2 class="form-section-title">الحالة</h2>
+            
+            <div class="form-group">
+                <label for="providerStatus" class="form-label">حالة المزود</label>
+                <div class="switch-field">
+                    <input type="radio" id="statusActive" name="providerStatus" value="active" checked>
+                    <label for="statusActive">نشط</label>
+                    <input type="radio" id="statusInactive" name="providerStatus" value="inactive">
+                    <label for="statusInactive">غير نشط</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-lg btn-outline" data-action="cancel">إلغاء</button>
+            <button type="submit" class="btn btn-lg btn-primary" data-action="save">حفظ</button>
+        </div>
+    </form>
+</div>
