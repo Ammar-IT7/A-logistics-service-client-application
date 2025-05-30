@@ -46,6 +46,9 @@ const Auth = {
                     case 'login':
                         Auth.handleLogin();
                         break;
+                    case 'skip-login':
+                        Auth.handleLogin();
+                        break;
                     case 'complete-registration':
                     Auth.handleRegister();
                         break;
@@ -96,12 +99,6 @@ const Auth = {
     handleLogin: function() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        
-        // Validation
-        if (!username || !password) {
-            Toast.show('Error', 'الرجاء إدخال اسم المستخدم وكلمة المرور', 'danger');
-            return;
-        }
         
         // Show loader
         Loader.show();

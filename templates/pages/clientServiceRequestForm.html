@@ -1,0 +1,199 @@
+<div class="header">
+    <button class="header-action" data-action="navigate-back" aria-label="رجوع">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header-title">طلب خدمة جديد</h1>
+    <button class="header-action" data-action="submit-client-request" aria-label="إرسال الطلب">
+        <span class="icon"><i class="fas fa-paper-plane"></i></span>
+    </button>
+</div>
+
+<div class="content">
+    <div class="csr-form-progress-indicator">
+        <div class="csr-progress-step active" data-step="client_info">
+            <span class="csr-step-icon"><i class="fas fa-user"></i></span>
+            <span class="csr-step-name">معلوماتك</span>
+        </div>
+        <div class="csr-progress-step" data-step="select_service">
+            <span class="csr-step-icon"><i class="fas fa-tags"></i></span>
+            <span class="csr-step-name">تحديد الخدمة</span>
+        </div>
+        <div class="csr-progress-step" data-step="service_details">
+            <span class="csr-step-icon"><i class="fas fa-clipboard-list"></i></span>
+            <span class="csr-step-name">تفاصيل الخدمة</span>
+        </div>
+        <div class="csr-progress-step" data-step="attachments_submit">
+            <span class="csr-step-icon"><i class="fas fa-paperclip"></i></span>
+            <span class="csr-step-name">المرفقات والإرسال</span>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-content">
+            <form id="clientRequestForm" class="sliding-form">
+                <!-- خطوة 1: معلومات العميل -->
+                <div class="form-slide active" data-slide="client_info">
+                    <div class="section-title">معلوماتك الأساسية</div>
+                    
+                    <div class="form-group">
+                        <label for="clientName" class="form-label">الاسم الكامل <span class="required-asterisk">*</span></label>
+                        <input type="text" id="clientName" name="clientName" class="form-control" placeholder="يتم جلبه تلقائيا بعد اشتراك العميل" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientPhone" class="form-label">رقم الهاتف <span class="required-asterisk">*</span></label>
+                        <input type="tel" id="clientPhone" name="clientPhone" class="form-control" placeholder="يتم جلبه تلقائيا بعد اشتراك العميل" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientEmail" class="form-label">البريد الإلكتروني (اختياري)</label>
+                        <input type="email" id="clientEmail" name="clientEmail" class="form-control" placeholder="أدخل بريدك الإلكتروني">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientAddress" class="form-label">العنوان (اختياري)</label>
+                        <textarea id="clientAddress" name="clientAddress" class="form-control" rows="2" placeholder="أدخل عنوانك إذا كان مهماً للخدمة"></textarea>
+                    </div>
+                    
+                    <div class="form-action">
+                        <button type="button" class="btn btn-primary btn-block" data-action="goto-slide" data-target="select_service">
+                            التالي <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- خطوة 2: اختيار الخدمة -->
+                <div class="form-slide" data-slide="select_service">
+                    <div class="section-title">تحديد الخدمة المطلوبة</div>
+                    
+                    <div class="form-group">
+                        <label for="requestedServiceType" class="form-label">نوع الخدمة المطلوبة <span class="required-asterisk">*</span></label>
+                        <select id="requestedServiceType" name="requestedServiceType" class="form-control" required>
+                            <option value="">-- اختر نوع الخدمة --</option>
+                            <option value="international_shipping">شحن دولي (جوي، بحري، بري)</option>
+                            <option value="land_transport">نقل بري (شاحنات)</option>
+                            <option value="storage">تخزين (مستودعات)</option>
+                            <option value="customs_clearance">تخليص جمركي</option>
+                            <option value="packaging">تغليف وتعبئة</option>
+                            <option value="last_mile_delivery">توصيل داخلي (آخر ميل)</option>
+                            <option value="documentary_credits">خدمات الاعتمادات المستندية</option>
+                            <option value="warehouse_management">خدمات ادارة المستودعات</option>
+                            <option value="marketing">خدمات التسويق</option>
+                            <option value="other">خدمة أخرى (يرجى التوضيح)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serviceGeneralDescription" class="form-label">وصف عام للطلب <span class="required-asterisk">*</span></label>
+                        <textarea id="serviceGeneralDescription" name="serviceGeneralDescription" class="form-control" rows="4" placeholder="صف بإيجاز ما تحتاجه..." required></textarea>
+                    </div>
+                    
+                    <div class="form-action dual-buttons">
+                        <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="client_info">
+                            <i class="fas fa-arrow-right"></i> السابق
+                        </button>
+                        <button type="button" class="btn btn-primary" data-action="goto-slide" data-target="service_details">
+                            التالي <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- خطوة 3: تفاصيل الخدمة -->
+                <div class="form-slide" data-slide="service_details">
+                    <div class="section-title">تفاصيل الخدمة المطلوبة</div>
+
+                    <!-- تفاصيل الشحن الدولي -->
+                    <div id="details_international_shipping" class="csr-service-details-section" style="display: none;">
+                        <h4 class="csr-section-title-minor"><i class="fas fa-plane-departure"></i> تفاصيل الشحن الدولي</h4>
+                        <div class="form-group">
+                            <label for="shippingOrigin" class="form-label">نقطة الانطلاق (من) <span class="required-asterisk">*</span></label>
+                            <input type="text" id="shippingOrigin" name="shippingOrigin" class="form-control" placeholder="الدولة، المدينة">
+                        </div>
+                        <div class="form-group">
+                            <label for="shippingDestination" class="form-label">نقطة الوصول (إلى) <span class="required-asterisk">*</span></label>
+                            <input type="text" id="shippingDestination" name="shippingDestination" class="form-control" placeholder="الدولة، المدينة">
+                        </div>
+                        <div class="form-group">
+                            <label for="shipmentNature" class="form-label">طبيعة الشحنة ووصفها <span class="required-asterisk">*</span></label>
+                            <textarea id="shipmentNature" name="shipmentNature" class="form-control" rows="3" placeholder="مثال: مستندات، أجهزة إلكترونية..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">وسائل الشحن المفضلة (اختياري)</label>
+                            <div class="checkbox-group vertical">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="preferredShippingMeans" value="airplanes">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-plane"></i> طائرات
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="preferredShippingMeans" value="ships">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-ship"></i> سفن
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="preferredShippingMeans" value="trucks">
+                                    <span class="checkmark"></span>
+                                    <i class="fas fa-truck"></i> شاحنات
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- باقي أقسام التفاصيل... -->
+                    <div id="details_other" class="csr-service-details-section" style="display: none;">
+                        <h4 class="csr-section-title-minor"><i class="fas fa-ellipsis-h"></i> تفاصيل الخدمة الأخرى</h4>
+                        <div class="form-group">
+                            <label for="detailsDesc_other" class="form-label">وصف مفصل للخدمة المطلوبة <span class="required-asterisk">*</span></label>
+                            <textarea id="detailsDesc_other" name="detailsDesc_other" class="form-control" rows="4" placeholder="يرجى توضيح الخدمة بالتفصيل"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serviceAdditionalNotes" class="form-label">ملاحظات إضافية</label>
+                        <textarea id="serviceAdditionalNotes" name="serviceAdditionalNotes" class="form-control" rows="3" placeholder="أي تفاصيل أخرى"></textarea>
+                    </div>
+                    
+                    <div class="form-action dual-buttons">
+                        <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="select_service">
+                            <i class="fas fa-arrow-right"></i> السابق
+                        </button>
+                        <button type="button" class="btn btn-primary" data-action="goto-slide" data-target="attachments_submit">
+                            التالي <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- خطوة 4: المرفقات والإرسال -->
+                <div class="form-slide" data-slide="attachments_submit">
+                    <div class="section-title">المرفقات والمراجعة النهائية</div>
+                    
+                    <div class="form-group">
+                        <label for="requestAttachments" class="form-label">إرفاق ملفات (اختياري)</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="requestAttachments" name="requestAttachments[]" class="form-control file-input" multiple style="display: none;">
+                            <button type="button" class="btn btn-outline btn-sm file-upload-btn">
+                                <i class="fas fa-paperclip"></i> اختر الملفات
+                            </button>
+                            <span class="file-name">لم يتم اختيار ملفات</span>
+                        </div>
+                        <small class="form-text text-muted">يمكنك إرفاق صور، مستندات، أو أي ملفات توضيحية</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="finalComments" class="form-label">تعليقات أخيرة</label>
+                        <textarea id="finalComments" name="finalComments" class="form-control" rows="3" placeholder="أي تعليمات إضافية"></textarea>
+                    </div>
+                    
+                    <div class="form-action dual-buttons">
+                        <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="service_details">
+                            <i class="fas fa-arrow-right"></i> السابق
+                        </button>
+                        <button type="submit" class="btn btn-success btn-block">
+                            <i class="fas fa-check-circle"></i> إرسال الطلب الآن
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

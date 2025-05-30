@@ -64,7 +64,7 @@
         </section>
 
                 <section class="chp-stats-grid">
-            <div class="chp-stat-card">
+            <div class="chp-stat-card" data-action="open-modal" data-modal="currentRequestModal">
                 <div class="chp-stat-icon"><i class="fas fa-tasks"></i></div>
                 <div class="chp-stat-info">
                     <div class="chp-stat-value">3</div>
@@ -93,10 +93,39 @@
                 <a href="#" class="chp-section-link">عرض الكل <i class="fas fa-chevron-left"></i></a>
             </div>
             <div class="chp-orders-list">
-                <div class="chp-order-card chp-pending"><div class="chp-order-icon"><i class="fas fa-box"></i></div><div class="chp-order-details"><h4>طلب تخزين #C0-7891</h4><p>أجهزة إلكترونية - مستودع آمن</p><div class="chp-order-meta"><span class="chp-order-status">قيد المراجعة</span><span class="chp-order-time">منذ ساعة</span></div></div></div>
-                <div class="chp-order-card chp-new"><div class="chp-order-icon"><i class="fas fa-shipping-fast"></i></div><div class="chp-order-details"><h4>طلب شحن دولي #C1-2345</h4><p>من الصين إلى اليمن - بحري</p><div class="chp-order-meta"><span class="chp-order-status">بانتظار عروض الأسعار</span><span class="chp-order-time">منذ 5 ساعات</span></div></div></div>
-                <div class="chp-order-card chp-completed"><div class="chp-order-icon"><i class="fas fa-check-circle"></i></div><div class="chp-order-details"><h4>تخليص جمركي #C2-6789</h4><p>ميناء عدن - بضائع عامة</p><div class="chp-order-meta"><span class="chp-order-status">مكتمل</span><span class="chp-order-time">منذ يومين</span></div></div></div>
-            </div>
+                <div class="chp-order-card chp-pending" data-action="navigate" data-page="offers-request">
+                    <div class="chp-order-icon" data-action="navigate" data-page="offers-request"><i class="fas fa-box"></i></div>
+                    <div class="chp-order-details" data-action="navigate" data-page="offers-request">
+                        <h4>طلب تخزين #C0-7891</h4>
+                        <p>أجهزة إلكترونية - مستودع آمن</p>
+                        <div class="chp-order-meta" data-action="navigate" data-page="offers-request">
+                            <span class="chp-order-status" data-action="navigate" data-page="offers-request">قيد المراجعة</span>
+                            <span class="chp-order-time" data-action="navigate" data-page="offers-request">منذ ساعة</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chp-order-card chp-new" data-action="navigate" data-page="offers-request">
+                    <div class="chp-order-icon" data-action="navigate" data-page="offers-request"><i class="fas fa-shipping-fast"></i></div>
+                    <div class="chp-order-details" data-action="navigate" data-page="offers-request">
+                        <h4>طلب شحن دولي #C1-2345</h4>
+                        <p>من الصين إلى اليمن - بحري</p>
+                        <div class="chp-order-meta" data-action="navigate" data-page="offers-request">
+                            <span class="chp-order-status" data-action="navigate" data-page="offers-request">بانتظار عروض الأسعار</span>
+                            <span class="chp-order-time" data-action="navigate" data-page="offers-request">منذ 5 ساعات</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chp-order-card chp-completed" data-action="navigate" data-page="offers-request">
+                    <div class="chp-order-icon" data-action="navigate" data-page="offers-request"><i class="fas fa-check-circle"></i></div>
+                    <div class="chp-order-details" data-action="navigate" data-page="offers-request">
+                        <h4>تخليص جمركي #C2-6789</h4>
+                        <p>ميناء عدن - بضائع عامة</p>
+                        <div class="chp-order-meta" data-action="navigate" data-page="offers-request">
+                            <span class="chp-order-status" data-action="navigate" data-page="offers-request">مكتمل</span>
+                            <span class="chp-order-time" data-action="navigate" data-page="offers-request">منذ يومين</span>
+                        </div>
+                    </div>
+                </div>    </div>
         </section>
 
         <section class="chp-section-container">
@@ -104,10 +133,27 @@
                 <h3 class="chp-section-title"><i class="fas fa-bolt chp-section-icon"></i> وصول سريع</h3>
             </div>
             <div class="chp-quick-actions-grid">
-                <button class="chp-action-card" data-action="new-request"><div class="chp-action-icon"><i class="fas fa-plus-circle"></i></div><div class="chp-action-text">إنشاء طلب جديد</div></button>
-                <button class="chp-action-card" data-action="track-orders"><div class="chp-action-icon"><i class="fas fa-route"></i></div><div class="chp-action-text">تتبع طلباتي</div></button>
-                <button class="chp-action-card" data-action="profile"><div class="chp-action-icon"><i class="fas fa-user-circle"></i></div><div class="chp-action-text">ملفي الشخصي</div></button>
-                <button class="chp-action-card" data-action="support"><div class="chp-action-icon"><i class="fas fa-headset"></i></div><div class="chp-action-text">المساعدة والدعم</div></button>
-            </div>
-        </section>
+                <button class="chp-action-card" data-action="navigate" data-page="clientServiceRequestForm">
+                    <div class="chp-action-icon"><i class="fas fa-plus-circle"></i></div>
+                    <div class="chp-action-text">إنشاء طلب جديد</div>
+                </button>
+                <button class="chp-action-card" data-action="navigate" data-page="">
+                    <div class="chp-action-icon"><i class="fas fa-route"></i></div>
+                    <div class="chp-action-text">تتبع طلباتي</div>
+                </button>
+                <button class="chp-action-card" data-action="navigate" data-page="">
+                    <div class="chp-action-icon"><i class="fas fa-user-circle"></i></div>
+                    <div class="chp-action-text">ملفي الشخصي</div>
+                </button>
+                <button class="chp-action-card" data-action="navigate" data-page="">
+                    <div class="chp-action-icon"><i class="fas fa-headset"></i></div>
+                    <div class="chp-action-text">المساعدة والدعم</div>
+                </button>
+            </div>    </section>
+
+    <button class="chp-fab-request-service" aria-label="اطلب خدمة جديدة">
+        <span class="chp-fab-text" data-action="navigate" data-page="clientServiceRequestForm">اطلب خدمة الآن</span>
+        <i class="fas fa-paper-plane chp-fab-icon"></i>
+    </button>
+
     </div>

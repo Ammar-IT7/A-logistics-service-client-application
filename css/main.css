@@ -33,7 +33,9 @@ body {
     --success: #4ad66d;
     --warning: #f8961e;
     --danger: #ef233c;
-    
+    --primary-rgb: 250, 174, 67;
+    --secondary-rgb: 44, 62, 80;
+    --animation-spring: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
 
 
