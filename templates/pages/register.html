@@ -1,7 +1,5 @@
-
-
 <div class="content">
-        <h1 class="header-title">تسجيل مزود خدمة جديد</h1>
+        <h1 class="header-title">حساب جديد</h1>
         <br>
     <div class="registration-progress register-screen-progress-step">
         <div class="progress-step register-screen-step active" data-step="1">
@@ -22,28 +20,57 @@
         <div class="form-step register-screen-form-step active" data-step="1">
             <div class="card register-screen-card">
                 <div class="card-header register-screen-card-header">
-                    <h3 class="card-title"><i class="fa-solid fa-user-pen"></i> المعلومات الأساسية</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-user-pen"></i> البيانات الأساسية</h3>
                 </div>
                 <div class="card-content">
                     <div class="form-group register-screen-form-group">
-                        <label for="serviceProviderType" class="form-label">نوع مقدم الخدمة</label>
+                        <label for="accountType" class="form-label">نوع الحساب <span class="register-screen-required">*</span></label>
                         <div class="radio-container register-screen-radio-container">
                             <label class="radio-item register-screen-radio-item">
-                                <input type="radio" name="serviceProviderType" value="individual" required> 
+                                <input type="radio" name="accountType" value="individual" checked required> 
                                 <i class="fa-solid fa-user"></i>
-                                <span>فرد</span>
+                                <span>فردي</span>
                             </label>
                             <label class="radio-item register-screen-radio-item">
-                                <input type="radio" name="serviceProviderType" value="company" checked required> 
+                                <input type="radio" name="accountType" value="localCompany" required> 
                                 <i class="fa-solid fa-building"></i>
-                                <span>شركة</span>
+                                <span>شركة محلية</span>
+                            </label>
+                            <label class="radio-item register-screen-radio-item">
+                                <input type="radio" name="accountType" value="internationalCompany" required> 
+                                <i class="fa-solid fa-globe"></i>
+                                <span>شركة دولية</span>
+                            </label>
+                            <label class="radio-item register-screen-radio-item">
+                                <input type="radio" name="accountType" value="merchant" required> 
+                                <i class="fa-solid fa-store"></i>
+                                <span>تاجر</span>
                             </label>
                         </div>
                     </div>
                     
                     <div class="form-group register-screen-form-group">
-                        <label for="name" class="form-label">اسم مقدم الخدمة <span class="register-screen-required">*</span></label>
-                        <input type="text" id="name" class="form-control" placeholder="أدخل اسم الشركة أو الفرد" required>
+                        <label for="fullName" class="form-label">الاسم الكامل <span class="register-screen-required">*</span></label>
+                        <input type="text" id="fullName" class="form-control" placeholder="الاسم الكامل" required>
+                        <small class="form-text text-muted company-info" style="display:none;">للشركات: الاسم الرسمي + الممثل القانوني</small>
+                    </div>
+                    
+                    <div class="form-group register-screen-form-group">
+                        <label for="idNumber" class="form-label">رقم الهوية/السجل التجاري <span class="register-screen-required">*</span></label>
+                        <input type="text" id="idNumber" class="form-control" placeholder="رقم الهوية أو السجل التجاري" required>
+                    </div>
+                    
+                    <div class="form-group register-screen-form-group">
+                        <label for="idDocument" class="form-label">صورة مصدقة للهوية/السجل <span class="register-screen-required">*</span></label>
+                        <div class="file-upload-container register-screen-file-upload-container">
+                            <input type="file" id="idDocument" class="form-control" accept="image/*,.pdf" required>
+                            <button type="button" class="btn btn-outline btn-sm register-screen-file-upload-btn">
+                                <i class="fa-solid fa-upload"></i> اختر الملف
+                            </button>
+                            <span class="file-name register-screen-file-name">
+                                <i class="fa-regular fa-file"></i> لم يتم اختيار ملف
+                            </span>
+                        </div>
                     </div>
                     
                     <div class="form-group register-screen-form-group">
@@ -52,28 +79,13 @@
                     </div>
                     
                     <div class="form-group register-screen-form-group">
-                        <label for="phone" class="form-label">رقم الهاتف <span class="register-screen-required">*</span></label>
-                        <input type="tel" id="phone" class="form-control" placeholder="05xxxxxxxx" required>
-                    </div>
-                    
-                    <div class="form-group register-screen-form-group">
-                        <label for="whatsapp" class="form-label">رقم الواتساب</label>
-                        <input type="tel" id="whatsapp" class="form-control" placeholder="05xxxxxxxx">
-                    </div>
-                    
-                    <div class="form-group register-screen-form-group">
-                        <label for="website" class="form-label">الموقع الإلكتروني/صفحات التواصل</label>
-                        <input type="url" id="website" class="form-control" placeholder="www.example.com">
-                    </div>
-                    
-                    <div class="form-group register-screen-form-group">
                         <label for="password" class="form-label">كلمة المرور <span class="register-screen-required">*</span></label>
                         <div class="auth-screen-password-input-container">
-                        <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور">
-                        <button type="button" class="auth-screen-password-toggle" aria-label="إظهار/إخفاء كلمة المرور">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
+                            <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required>
+                            <button type="button" class="auth-screen-password-toggle" aria-label="إظهار/إخفاء كلمة المرور">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                         <div class="password-strength register-screen-password-strength">
                             <div class="strength-meter register-screen-strength-meter"></div>
                             <div class="strength-text register-screen-strength-text">قوة كلمة المرور: ضعيفة</div>
@@ -82,12 +94,12 @@
                     
                     <div class="form-group register-screen-form-group">
                         <label for="confirmPassword" class="form-label">تأكيد كلمة المرور <span class="register-screen-required">*</span></label>
-                            <div class="auth-screen-password-input-container">
-                        <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور">
-                        <button type="button" class="auth-screen-password-toggle" aria-label="إظهار/إخفاء كلمة المرور">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
+                        <div class="auth-screen-password-input-container">
+                            <input type="password" id="confirmPassword" class="form-control" placeholder="تأكيد كلمة المرور" required>
+                            <button type="button" class="auth-screen-password-toggle" aria-label="إظهار/إخفاء كلمة المرور">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="form-action">
@@ -99,68 +111,27 @@
             </div>
         </div>
         
-        <!-- الخطوة 2: المعلومات القانونية والضريبية -->
+        <!-- الخطوة 2: معلومات الاتصال والعنوان -->
         <div class="form-step register-screen-form-step" data-step="2">
             <div class="card register-screen-card">
                 <div class="card-header register-screen-card-header">
-                    <h3 class="card-title"><i class="fa-solid fa-file-contract"></i> المعلومات القانونية والضريبية</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-location-dot"></i> معلومات الاتصال والعنوان</h3>
                 </div>
                 <div class="card-content">
                     <div class="form-group register-screen-form-group">
-                        <label for="commercialRegister" class="form-label">رقم السجل التجاري <span class="register-screen-required">*</span></label>
-                        <input type="text" id="commercialRegister" class="form-control" placeholder="أدخل رقم السجل التجاري" required>
+                        <label for="mainPhone" class="form-label">الهاتف الرئيسي <span class="register-screen-required">*</span></label>
+                        <input type="tel" id="mainPhone" class="form-control" placeholder="05xxxxxxxx" required>
+                        <small class="form-text text-muted">سيتم استخدامه للإشعارات</small>
                     </div>
                     
                     <div class="form-group register-screen-form-group">
-                        <label for="commercialRegisterDoc" class="form-label">صورة مصدقة من السجل التجاري <span class="register-screen-required">*</span></label>
-                        <div class="file-upload-container register-screen-file-upload-container">
-                            <input type="file" id="commercialRegisterDoc" class="form-control" accept="image/*,.pdf" required>
-                            <button type="button" class="btn btn-outline btn-sm register-screen-file-upload-btn">
-                                <i class="fa-solid fa-upload"></i> اختر الملف
-                            </button>
-                            <span class="file-name register-screen-file-name">
-                                <i class="fa-regular fa-file"></i> لم يتم اختيار ملف
-                            </span>
-                        </div>
+                        <label for="whatsapp" class="form-label">رقم الواتساب <span class="register-screen-required">*</span></label>
+                        <input type="tel" id="whatsapp" class="form-control" placeholder="05xxxxxxxx" required>
                     </div>
                     
                     <div class="form-group register-screen-form-group">
-                        <label for="taxCard" class="form-label">بطاقة ضريبية</label>
-                        <div class="file-upload-container register-screen-file-upload-container">
-                            <input type="file" id="taxCard" class="form-control" accept="image/*,.pdf">
-                            <button type="button" class="btn btn-outline btn-sm register-screen-file-upload-btn">
-                                <i class="fa-solid fa-upload"></i> اختر الملف
-                            </button>
-                            <span class="file-name register-screen-file-name">
-                                <i class="fa-regular fa-file"></i> لم يتم اختيار ملف
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group register-screen-form-group">
-                        <label for="ownerID" class="form-label">إثبات هوية المالك/الممثل القانوني <span class="register-screen-required">*</span></label>
-                        <div class="file-upload-container register-screen-file-upload-container">
-                            <input type="file" id="ownerID" class="form-control" accept="image/*,.pdf" required>
-                            <button type="button" class="btn btn-outline btn-sm register-screen-file-upload-btn">
-                                <i class="fa-solid fa-upload"></i> اختر الملف
-                            </button>
-                            <span class="file-name register-screen-file-name">
-                                <i class="fa-regular fa-file"></i> لم يتم اختيار ملف
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group register-screen-form-group">
-                        <label for="activityLicense" class="form-label">ترخيص مزاولة النشاط <span class="register-screen-required">*</span></label>
-                        <div class="file-upload-container register-screen-file-upload-container">
-                            <input type="file" id="activityLicense" class="form-control" accept="image/*,.pdf" required>
-                            <button type="button" class="btn btn-outline btn-sm register-screen-file-upload-btn">
-                                <i class="fa-solid fa-upload"></i> اختر الملف
-                            </button>
-                            <span class="file-name register-screen-file-name">
-                                <i class="fa-regular fa-file"></i> لم يتم اختيار ملف
-                            </span>
-                        </div>
+                        <label for="backupPhone" class="form-label">الهاتف الاحتياطي</label>
+                        <input type="tel" id="backupPhone" class="form-control" placeholder="05xxxxxxxx">
                     </div>
                     
                     <div class="form-group register-screen-form-group">
@@ -189,6 +160,24 @@
                                 <label for="street" class="sub-label register-screen-sub-label">الشارع</label>
                                 <input type="text" id="street" class="form-control" placeholder="أدخل الشارع" required>
                             </div>
+                            <div class="address-item">
+                                <label for="postalCode" class="sub-label register-screen-sub-label">الرمز البريدي</label>
+                                <input type="text" id="postalCode" class="form-control" placeholder="أدخل الرمز البريدي" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group register-screen-form-group">
+                        <label for="locationMap" class="form-label">تحديد الموقع على الخريطة <span class="register-screen-required">*</span></label>
+                        <div class="map-container" style="height: 200px; background-color: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                            <button type="button" class="btn btn-outline" id="selectLocation">
+                                <i class="fa-solid fa-map-location-dot"></i> تحديد موقعي على الخريطة
+                            </button>
+                        </div>
+                        <div class="selected-location" style="display: none;">
+                            <small class="form-text text-success">
+                                <i class="fa-solid fa-check-circle"></i> تم تحديد الموقع بنجاح
+                            </small>
                         </div>
                     </div>
                     
@@ -204,109 +193,65 @@
             </div>
         </div>
         
-        <!-- الخطوة 3: نوع الخدمة والمعلومات المالية -->
+        <!-- الخطوة 3: طرق الدفع والتفاصيل النهائية -->
         <div class="form-step register-screen-form-step" data-step="3">
             <div class="card register-screen-card">
                 <div class="card-header register-screen-card-header">
-                    <h3 class="card-title"><i class="fa-solid fa-truck-ramp-box"></i> نوع الخدمة والمعلومات المالية</h3>
+                    <h3 class="card-title"><i class="fa-solid fa-credit-card"></i> طرق الدفع والتفاصيل النهائية</h3>
                 </div>
                 <div class="card-content">
                     <div class="form-group register-screen-form-group">
-                        <label class="form-label">نوع الخدمة المقدمة <span class="register-screen-required">*</span></label>
-                        <div class="service-types-grid register-screen-service-types-grid">
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="shipping">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-box-open"></i></span>
-                                <span class="service-name register-screen-service-name">شحن</span>
+                        <label class="form-label">طرق الدفع المفضلة <span class="register-screen-required">*</span></label>
+                        <div class="checkbox-group vertical register-screen-checkbox-group">
+                            <label class="checkbox-container register-screen-checkbox-container">
+                                <input type="checkbox" name="paymentMethod" value="cash"> 
+                                <!-- <i class="fa-regular fa-square"></i> -->
+                                <i class="fa-solid fa-square-check checked-icon"></i>
+                                <span class="checkbox-text">نقدي</span>
                             </label>
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="storage">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-warehouse"></i></span>
-                                <span class="service-name register-screen-service-name">تخزين</span>
+                            <label class="checkbox-container register-screen-checkbox-container">
+                                <input type="checkbox" name="paymentMethod" value="bankTransfer"> 
+                                <!-- <i class="fa-regular fa-square"></i> -->
+                                <i class="fa-solid fa-square-check checked-icon"></i>
+                                <span class="checkbox-text">تحويل بنكي</span>
                             </label>
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="transport">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-truck"></i></span>
-                                <span class="service-name register-screen-service-name">نقل</span>
-                            </label>
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="customs">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-file-pen"></i></span>
-                                <span class="service-name register-screen-service-name">تخليص جمركي</span>
-                            </label>
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="packaging">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-box"></i></span>
-                                <span class="service-name register-screen-service-name">تغليف وتعبئة</span>
-                            </label>
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="lastmile">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-motorcycle"></i></span>
-                                <span class="service-name register-screen-service-name">توصيل داخلي</span>
-                            </label>
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="docs">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-file-invoice"></i></span>
-                                <span class="service-name register-screen-service-name">اعتمادات مستندية</span>
-                            </label>
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="warehouse">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-store"></i></span>
-                                <span class="service-name register-screen-service-name">إدارة مستودعات</span>
-                            </label>
-                            <label class="service-type-item register-screen-service-type-item">
-                                <input type="checkbox" name="serviceType" value="marketing">
-                                <span class="service-icon register-screen-service-icon"><i class="fa-solid fa-bullhorn"></i></span>
-                                <span class="service-name register-screen-service-name">تسويق</span>
+                            <label class="checkbox-container register-screen-checkbox-container">
+                                <input type="checkbox" name="paymentMethod" value="eWallet"> 
+                                <!-- <i class="fa-regular fa-square"></i> -->
+                                <i class="fa-solid fa-square-check checked-icon"></i>
+                                <span class="checkbox-text">محفظة إلكترونية</span>
                             </label>
                         </div>
                     </div>
                     
-                    <div class="form-group register-screen-form-group">
-                        <label class="form-label">المعلومات المالية</label>
-                        <div class="sub-form register-screen-sub-form">
-                            <div class="form-group register-screen-form-group">
-                                <label for="bankAccount" class="form-label">رقم الحساب البنكي</label>
-                                <input type="text" id="bankAccount" class="form-control" placeholder="أدخل رقم الحساب البنكي">
-                            </div>
-                            
-                            <div class="form-group register-screen-form-group">
-                                <label for="bankName" class="form-label">اسم البنك</label>
-                                <input type="text" id="bankName" class="form-control" placeholder="أدخل اسم البنك">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">سياسة الدفع</label>
-                                <div class="checkbox-group vertical register-screen-checkbox-group">
-                                    <label class="checkbox-container register-screen-checkbox-container">
-                                        <input type="checkbox" name="paymentPolicy" value="advance"> 
-                                        <i class="fa-regular fa-square"></i>
-                                        <i class="fa-solid fa-square-check checked-icon"></i>
-                                        <span class="checkbox-text">دفع مقدم</span>
-                                    </label>
-                                    <label class="checkbox-container register-screen-checkbox-container">
-                                        <input type="checkbox" name="paymentPolicy" value="postponed"> 
-                                        <i class="fa-regular fa-square"></i>
-                                        <i class="fa-solid fa-square-check checked-icon"></i>
-                                        <span class="checkbox-text">تأجيل</span>
-                                    </label>
-                                    <label class="checkbox-container register-screen-checkbox-container">
-                                        <input type="checkbox" name="paymentPolicy" value="transfer"> 
-                                        <i class="fa-regular fa-square"></i>
-                                        <i class="fa-solid fa-square-check checked-icon"></i>
-                                        <span class="checkbox-text">تحويل بنكي</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-group register-screen-form-group bank-details" >
+                        <label for="ibanNumber" class="form-label">رقم الحساب البنكي (IBAN)</label>
+                        <input type="text" id="ibanNumber" class="form-control" placeholder="SAxx xxxx xxxx xxxx xxxx xxxx">
+                        <small class="form-text text-muted">سيتم استخدامه لربط المدفوعات بحسابك</small>
+                    </div>
+                    
+                    <div class="form-group register-screen-form-group ewallet-details" >
+                        <label for="ewalletProvider" class="form-label">مزود المحفظة الإلكترونية</label>
+                        <select id="ewalletProvider" class="form-control">
+                            <option value="" disabled selected>اختر مزود المحفظة</option>
+                            <option value="stcPay">STC Pay</option>
+                            <option value="urpay">UrPay</option>
+                            <option value="mada">محفظة مدى</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group register-screen-form-group ewallet-details" >
+                        <label for="ewalletNumber" class="form-label">رقم المحفظة</label>
+                        <input type="text" id="ewalletNumber" class="form-control" placeholder="رقم المحفظة الإلكترونية">
                     </div>
                     
                     <div class="form-group register-screen-form-group">
                         <div class="terms-checkbox register-screen-terms-checkbox">
                             <input type="checkbox" id="agreeTerms" required>
                             <label for="agreeTerms">
-                                <i class="fa-regular fa-square"></i>
-                                <i class="fa-solid fa-square-check checked-icon"></i>
+                                <!-- <i class="fa-regular fa-square"></i> -->
+                                <!-- <i class="fa-solid fa-square-check checked-icon"></i> -->
                                 أوافق على <a href="#" data-action="view-terms">الشروط والأحكام</a>
                             </label>
                         </div>

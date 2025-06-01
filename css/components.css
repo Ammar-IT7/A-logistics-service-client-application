@@ -2137,6 +2137,7 @@ input:checked + .switch-slider:before {
     width: 100%;
     left: 0;
 }
+
 /* Registration Screen Specific Styles */
 .register-screen-progress-step {
     display: flex;
@@ -2251,11 +2252,47 @@ input:checked + .switch-slider:before {
 
 .register-screen-radio-container {
     display: flex;
+    flex-direction: column; /* Default to vertical stacking */
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-md);
     background-color: #f8f9fa;
     border-radius: 12px;
     padding: 4px;
+    overflow-x: auto; /* Allow horizontal scrolling when content overflows */
+    /* Add some padding at the bottom if scrollbar appears */
+    padding-bottom: 8px; 
+    /* Optional: Style scrollbar for a cleaner look */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) #f8f9fa;
+}
+
+.register-screen-radio-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.register-screen-radio-container::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+.register-screen-radio-container::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: 1px solid #f8f9fa;
+}
+@media (min-width: 768px) { /* Breakpoint for wider screens */
+    .register-screen-radio-container {
+        flex-direction: row; /* Arrange items in a row */
+        /* overflow-x: auto; is already set on the base class */
+    }
+
+    .register-screen-radio-item {
+        flex-shrink: 0; /* Prevent items from shrinking */
+        min-width: 160px; /* Ensure items have a minimum width, adjust as needed */
+        /* If you want them to take up equal space until they hit min-width and then scroll:
+           flex-grow: 1; 
+           flex-basis: 0;
+        */
+    }
 }
 
 .register-screen-radio-item {
@@ -2266,11 +2303,18 @@ input:checked + .switch-slider:before {
     padding: 10px 16px;
     border-radius: 10px;
     transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-    flex: 1;
+    /* flex: 1; Removed from here, handled in media query or default for column */
     justify-content: center;
     font-weight: 500;
+    /* For vertical layout, items should take full width */
+    width: 100%; 
 }
 
+@media (min-width: 768px) {
+    .register-screen-radio-item {
+        width: auto; /* Reset width for horizontal layout */
+    }
+}
 .register-screen-radio-item:hover {
     background-color: rgba(0, 0, 0, 0.03);
 }
@@ -5877,7 +5921,7 @@ input:checked + .switch-slider:before {
 /* أقسام تفاصيل الخدمة */
 .csr-service-details-section {
     padding: 1rem;
-    border-right: 3px solid #007bff;
+    border-right: 3px solid var(--primary-color);
     background-color: #f8f9fa;
     margin-bottom: 1.5rem;
     border-radius: 8px;
@@ -5995,6 +6039,128 @@ input:checked + .switch-slider:before {
 .file-name.has-file {
     color: #007bff;
     font-weight: 500;
+}
+/* تحسينات للصفوف والأعمدة */
+.form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-col {
+    flex: 1;
+    min-width: 120px;
+}
+
+.form-label-small {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+/* تحسين أزرار الراديو */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 2rem;
+}
+
+.radio-container input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-checkmark {
+    position: absolute;
+    right: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.radio-container:hover input ~ .radio-checkmark {
+    border-color: #007bff;
+}
+
+.radio-container input:checked ~ .radio-checkmark {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio-container input:checked ~ .radio-checkmark:after {
+    display: block;
+}
+
+.radio-container .radio-checkmark:after {
+    top: 3px;
+    right: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* قسم المستندات */
+.documents-section {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.document-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.document-item:last-child {
+    border-bottom: none;
+}
+
+.document-name {
+    font-weight: 500;
+    color: #495057;
+}
+
+.document-upload {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.document-upload input[type="file"] {
+    display: none;
+}
+
+.document-upload-btn {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
 }
 
 /* تحسين الحقول عند التركيز */

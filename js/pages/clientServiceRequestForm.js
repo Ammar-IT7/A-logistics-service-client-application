@@ -64,14 +64,6 @@ const ClientServiceRequestFormController = {
         this.form.querySelectorAll('[data-action="goto-slide"]').forEach(button => {
             button.addEventListener('click', (e) => {
                 const targetSlideId = e.target.closest('[data-action="goto-slide"]').getAttribute('data-target');
-                // const currentSlide = self.form.querySelector('.form-slide.active');
-                // const currentSlideId = currentSlide.getAttribute('data-slide');
-                
-                // const moveForward = self.getSlideIndex(targetSlideId) > self.getSlideIndex(currentSlideId);
-                // if (moveForward && !self.validateSlide(currentSlideId)) {
-                //     self.showToast('يرجى ملء جميع الحقول المطلوبة', 'error');
-                //     return;
-                // }
                 self.goToSlide(targetSlideId);
             });
         });
@@ -136,7 +128,11 @@ const ClientServiceRequestFormController = {
 
         // إظهار القسم المطلوب
         if (selectedService) {
-            const targetSection = serviceDetailsSlide.querySelector(`#details_${selectedService}`);
+            let targetSection = serviceDetailsSlide.querySelector(`#details_${selectedService}`);
+            if (!targetSection) {
+                targetSection = serviceDetailsSlide.querySelector(`#details_other`);
+            }
+            
             if (targetSection) {
                 targetSection.style.display = 'block';
                 targetSection.querySelectorAll('input[data-required], select[data-required], textarea[data-required]').forEach(input => {
@@ -144,6 +140,95 @@ const ClientServiceRequestFormController = {
                 });
             }
         }
+
+        // تحديث قسم المستندات
+        this.updateDocumentsSection();
+
+        // إضافة استماع لخانة التأمين
+        const insuranceCheckbox = document.querySelector('input[name="specialRequirements"][value="insurance"]');
+        const insuranceValueDiv = document.getElementById('insuranceValue');
+        
+        if (insuranceCheckbox && insuranceValueDiv) {
+            insuranceCheckbox.addEventListener('change', () => {
+                insuranceValueDiv.style.display = insuranceCheckbox.checked ? 'block' : 'none';
+            });
+        }
+    },
+
+    updateDocumentsSection: function() {
+        const selectedService = this.requestedServiceTypeSelect ? this.requestedServiceTypeSelect.value : '';
+        const documentsSection = document.getElementById('documentsSection');
+        
+        if (!documentsSection) return;
+
+        documentsSection.innerHTML = '';
+
+        const documentsByService = {
+            'international_shipping': [
+                { name: 'فاتورة تجارية', id: 'commercial_invoice', required: true },
+                { name: 'قائمة تعبئة (Packing List)', id: 'packing_list', required: true },
+                { name: 'شهادة منشأ', id: 'origin_certificate', required: false }
+            ],
+            'customs_clearance': [
+                { name: 'بوليصة الشحن', id: 'bill_of_lading', required: true },
+                { name: 'شهادة مطابقة للمواصفات', id: 'compliance_certificate', required: false }
+            ],
+            'storage': [
+                { name: 'قائمة البضائع المراد تخزينها', id: 'goods_list', required: true },
+                { name: 'شهادات صحية (للمواد الغذائية)', id: 'health_certificates', required: false }
+            ]
+        };
+
+        const documents = documentsByService[selectedService] || [];
+
+        if (documents.length > 0) {
+            documents.forEach(doc => {
+                const docItem = document.createElement('div');
+                docItem.className = 'document-item';
+                docItem.innerHTML = `
+                    <div class="document-name">
+                        ${doc.name} ${doc.required ? '<span class="required-asterisk">*</span>' : ''}
+                    </div>
+                    <div class="document-upload">
+                        <input type="file" id="${doc.id}" name="${doc.id}" ${doc.required ? 'required' : ''} accept=".pdf,.jpg,.jpeg,.png">
+                        <button type="button" class="btn btn-outline document-upload-btn" data-target="${doc.id}">
+                            <i class="fas fa-upload"></i> رفع
+                        </button>
+                        <span class="upload-status" id="${doc.id}_status">لم يتم الرفع</span>
+                    </div>
+                `;
+                documentsSection.appendChild(docItem);
+            });
+
+            this.setupDocumentUploads();
+        } else {
+            documentsSection.innerHTML = '<p class="text-muted">لا توجد مستندات خاصة مطلوبة لهذه الخدمة</p>';
+        }
+    },
+
+    setupDocumentUploads: function() {
+        document.querySelectorAll('.document-upload-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const targetId = e.target.closest('.document-upload-btn').getAttribute('data-target');
+                const fileInput = document.getElementById(targetId);
+                if (fileInput) fileInput.click();
+            });
+        });
+
+        document.querySelectorAll('.documents-section input[type="file"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const statusSpan = document.getElementById(e.target.id + '_status');
+                if (statusSpan) {
+                    if (e.target.files.length > 0) {
+                        statusSpan.textContent = e.target.files[0].name;
+                        statusSpan.style.color = '#28a745';
+                    } else {
+                        statusSpan.textContent = 'لم يتم الرفع';
+                        statusSpan.style.color = '#6c757d';
+                    }
+                }
+            });
+        });
     },
 
     validateSlide: function(slideId) {

@@ -1,6 +1,6 @@
 <div class="header">
-    <button class="header-action" data-action="navigate-back" aria-label="رجوع">
-        <i class="fas fa-arrow-left"></i>
+    <button class="header-action" data-action="navigate" data-page="home" aria-label="رجوع">
+        <i class="fas fa-arrow-left" data-action="navigate" data-page="home"></i>
     </button>
     <h1 class="header-title">طلب خدمة جديد</h1>
     <button class="header-action" data-action="submit-client-request" aria-label="إرسال الطلب">
@@ -70,12 +70,12 @@
                         <label for="requestedServiceType" class="form-label">نوع الخدمة المطلوبة <span class="required-asterisk">*</span></label>
                         <select id="requestedServiceType" name="requestedServiceType" class="form-control" required>
                             <option value="">-- اختر نوع الخدمة --</option>
-                            <option value="international_shipping">شحن دولي (جوي، بحري، بري)</option>
-                            <option value="land_transport">نقل بري (شاحنات)</option>
-                            <option value="storage">تخزين (مستودعات)</option>
-                            <option value="customs_clearance">تخليص جمركي</option>
+                            <option value="international_shipping">خدمات الشحن الدولي (بري/بحري/جوي)</option>
+                            <option value="land_transport">خدمات النقل البري (شاحنات)</option>
+                            <option value="storage">خدمات التخزين</option>
+                            <option value="customs_clearance">التخليص الجمركي</option>
+                            <option value="last_mile_delivery">خدمات التوصيل الداخلي (آخر ميل)</option>
                             <option value="packaging">تغليف وتعبئة</option>
-                            <option value="last_mile_delivery">توصيل داخلي (آخر ميل)</option>
                             <option value="documentary_credits">خدمات الاعتمادات المستندية</option>
                             <option value="warehouse_management">خدمات ادارة المستودعات</option>
                             <option value="marketing">خدمات التسويق</option>
@@ -104,47 +104,327 @@
 
                     <!-- تفاصيل الشحن الدولي -->
                     <div id="details_international_shipping" class="csr-service-details-section" style="display: none;">
-                        <h4 class="csr-section-title-minor"><i class="fas fa-plane-departure"></i> تفاصيل الشحن الدولي</h4>
+                        <h4 class="csr-section-title-minor"><i class="fas fa-plane-departure"></i> تفاصيل خدمات الشحن الدولي</h4>
+                        
                         <div class="form-group">
-                            <label for="shippingOrigin" class="form-label">نقطة الانطلاق (من) <span class="required-asterisk">*</span></label>
-                            <input type="text" id="shippingOrigin" name="shippingOrigin" class="form-control" placeholder="الدولة، المدينة">
+                            <label for="shipmentType" class="form-label">نوع الشحنة <span class="required-asterisk">*</span></label>
+                            <select id="shipmentType" name="shipmentType" class="form-control" data-required>
+                                <option value="">-- اختر نوع الشحنة --</option>
+                                <option value="general_cargo">بضائع عامة</option>
+                                <option value="dangerous_goods">مواد خطرة (صنف IMCO)</option>
+                                <option value="fragile_goods">مواد قابلة للكسر</option>
+                                <option value="food_products">مواد غذائية (مطلوب شهادة صحية)</option>
+                            </select>
                         </div>
+
                         <div class="form-group">
-                            <label for="shippingDestination" class="form-label">نقطة الوصول (إلى) <span class="required-asterisk">*</span></label>
-                            <input type="text" id="shippingDestination" name="shippingDestination" class="form-control" placeholder="الدولة، المدينة">
+                            <label class="form-label">الوزن والأبعاد <span class="required-asterisk">*</span></label>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="shipmentWeight" class="form-label-small">الوزن (كجم)</label>
+                                    <input type="number" id="shipmentWeight" name="shipmentWeight" class="form-control" step="0.1" data-required>
+                                </div>
+                                <div class="form-col">
+                                    <label for="shipmentLength" class="form-label-small">الطول (سم)</label>
+                                    <input type="number" id="shipmentLength" name="shipmentLength" class="form-control" data-required>
+                                </div>
+                                <div class="form-col">
+                                    <label for="shipmentWidth" class="form-label-small">العرض (سم)</label>
+                                    <input type="number" id="shipmentWidth" name="shipmentWidth" class="form-control" data-required>
+                                </div>
+                                <div class="form-col">
+                                    <label for="shipmentHeight" class="form-label-small">الارتفاع (سم)</label>
+                                    <input type="number" id="shipmentHeight" name="shipmentHeight" class="form-control" data-required>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="shipmentNature" class="form-label">طبيعة الشحنة ووصفها <span class="required-asterisk">*</span></label>
-                            <textarea id="shipmentNature" name="shipmentNature" class="form-control" rows="3" placeholder="مثال: مستندات، أجهزة إلكترونية..."></textarea>
+                            <label for="pickupAddress" class="form-label">عنوان التحميل <span class="required-asterisk">*</span></label>
+                            <textarea id="pickupAddress" name="pickupAddress" class="form-control" rows="2" placeholder="العنوان مع إحداثيات GPS إن أمكن" data-required></textarea>
                         </div>
+
                         <div class="form-group">
-                            <label class="form-label">وسائل الشحن المفضلة (اختياري)</label>
+                            <label for="deliveryAddress" class="form-label">عنوان التسليم <span class="required-asterisk">*</span></label>
+                            <textarea id="deliveryAddress" name="deliveryAddress" class="form-control" rows="2" data-required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="receiverContact" class="form-label">جهة اتصال المستقبِل</label>
+                            <input type="text" id="receiverContact" name="receiverContact" class="form-control" placeholder="اسم ورقم هاتف المستقبِل">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="preferredPickupTime" class="form-label">تاريخ/وقت التحميل المفضل</label>
+                            <input type="datetime-local" id="preferredPickupTime" name="preferredPickupTime" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">هل الخدمة عاجلة؟</label>
+                            <div class="radio-group">
+                                <label class="radio-container">
+                                    <input type="radio" name="isUrgent" value="yes">
+                                    <span class="radio-checkmark"></span>
+                                    نعم
+                                </label>
+                                <label class="radio-container">
+                                    <input type="radio" name="isUrgent" value="no" checked>
+                                    <span class="radio-checkmark"></span>
+                                    لا
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">متطلبات خاصة</label>
                             <div class="checkbox-group vertical">
                                 <label class="checkbox-container">
-                                    <input type="checkbox" name="preferredShippingMeans" value="airplanes">
+                                    <input type="checkbox" name="specialRequirements" value="insurance">
                                     <span class="checkmark"></span>
-                                    <i class="fas fa-plane"></i> طائرات
+                                    تأمين على الشحنة
                                 </label>
                                 <label class="checkbox-container">
-                                    <input type="checkbox" name="preferredShippingMeans" value="ships">
+                                    <input type="checkbox" name="specialRequirements" value="custom_packaging">
                                     <span class="checkmark"></span>
-                                    <i class="fas fa-ship"></i> سفن
+                                    تغليف مخصص
                                 </label>
                                 <label class="checkbox-container">
-                                    <input type="checkbox" name="preferredShippingMeans" value="trucks">
+                                    <input type="checkbox" name="specialRequirements" value="temporary_storage">
                                     <span class="checkmark"></span>
-                                    <i class="fas fa-truck"></i> شاحنات
+                                    تخزين مؤقت قبل التصدير
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="insuranceValue" class="form-group" style="display: none;">
+                            <label for="insuranceAmount" class="form-label">قيمة التأمين</label>
+                            <input type="number" id="insuranceAmount" name="insuranceAmount" class="form-control" step="0.01" placeholder="القيمة بالريال السعودي">
+                        </div>
+                    </div>
+
+                    <!-- تفاصيل النقل البري -->
+                    <div id="details_land_transport" class="csr-service-details-section" style="display: none;">
+                        <h4 class="csr-section-title-minor"><i class="fas fa-truck"></i> تفاصيل خدمات النقل البري</h4>
+                        
+                        <div class="form-group">
+                            <label for="truckType" class="form-label">نوع الشاحنة <span class="required-asterisk">*</span></label>
+                            <select id="truckType" name="truckType" class="form-control" data-required>
+                                <option value="">-- اختر نوع الشاحنة --</option>
+                                <option value="small">صغيرة (توصيل منزلي)</option>
+                                <option value="medium">متوسطة</option>
+                                <option value="heavy">ثقيلة (معدات)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cargoType" class="form-label">نوع الحمولة <span class="required-asterisk">*</span></label>
+                            <select id="cargoType" name="cargoType" class="form-control" data-required>
+                                <option value="">-- اختر نوع الحمولة --</option>
+                                <option value="bulk">سائبة (رمل، أسمنت)</option>
+                                <option value="packaged">معبأة (صناديق)</option>
+                                <option value="vehicles">مركبات أو آلات</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="landPickupAddress" class="form-label">عنوان التحميل <span class="required-asterisk">*</span></label>
+                            <textarea id="landPickupAddress" name="landPickupAddress" class="form-control" rows="2" data-required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="landDeliveryAddress" class="form-label">عنوان التسليم <span class="required-asterisk">*</span></label>
+                            <textarea id="landDeliveryAddress" name="landDeliveryAddress" class="form-control" rows="2" data-required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">التفريغ/التحميل</label>
+                            <div class="checkbox-group vertical">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="loadingUnloadingOptions" value="client_provides_labor">
+                                    <span class="checkmark"></span>
+                                    العميل يوفر عمالة للتفريغ
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="loadingUnloadingOptions" value="special_equipment">
+                                    <span class="checkmark"></span>
+                                    معدات خاصة (رافعة، إلخ)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">التتبع</label>
+                            <div class="checkbox-group vertical">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="trackingOptions" value="gps_tracking">
+                                    <span class="checkmark"></span>
+                                    تتبع مباشر عبر GPS
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="trackingOptions" value="periodic_updates">
+                                    <span class="checkmark"></span>
+                                    تحديثات دورية عبر الإشعارات
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <!-- باقي أقسام التفاصيل... -->
+                    <!-- تفاصيل التخزين -->
+                    <div id="details_storage" class="csr-service-details-section" style="display: none;">
+                        <h4 class="csr-section-title-minor"><i class="fas fa-warehouse"></i> تفاصيل خدمات التخزين</h4>
+                        
+                        <div class="form-group">
+                            <label for="storageGoodsType" class="form-label">نوع البضاعة <span class="required-asterisk">*</span></label>
+                            <select id="storageGoodsType" name="storageGoodsType" class="form-control" data-required>
+                                <option value="">-- اختر نوع البضاعة --</option>
+                                <option value="electronics">أجهزة إلكترونية</option>
+                                <option value="food_refrigerated">مواد غذائية (تخزين مبرد)</option>
+                                <option value="pharmaceutical">مواد صيدلانية</option>
+                                <option value="general">بضائع عامة</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="storageDuration" class="form-label">المدة <span class="required-asterisk">*</span></label>
+                            <select id="storageDuration" name="storageDuration" class="form-control" data-required>
+                                <option value="">-- اختر المدة --</option>
+                                <option value="daily">يومي</option>
+                                <option value="weekly">أسبوعي</option>
+                                <option value="monthly">شهري</option>
+                                <option value="yearly">سنوي</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="storageQuantity" class="form-label">وصف البضاعة والكمية</label>
+                            <textarea id="storageQuantity" name="storageQuantity" class="form-control" rows="3" placeholder="وصف البضاعة والكمية والأبعاد التقريبية"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">شروط السلامة</label>
+                            <div class="checkbox-group vertical">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="safetyConditions" value="cctv">
+                                    <span class="checkmark"></span>
+                                    كاميرات مراقبة
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="safetyConditions" value="fire_alarm">
+                                    <span class="checkmark"></span>
+                                    إنذار حريق
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="safetyConditions" value="humidity_control">
+                                    <span class="checkmark"></span>
+                                    تخزين ضد الرطوبة
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">إدارة المخزون</label>
+                            <div class="checkbox-group vertical">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="inventoryManagement" value="auto_inventory">
+                                    <span class="checkmark"></span>
+                                    جرد آلي
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="inventoryManagement" value="stock_alerts">
+                                    <span class="checkmark"></span>
+                                    إشعارات عند نفاد الكمية
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- تفاصيل التخليص الجمركي -->
+                    <div id="details_customs_clearance" class="csr-service-details-section" style="display: none;">
+                        <h4 class="csr-section-title-minor"><i class="fas fa-passport"></i> تفاصيل التخليص الجمركي</h4>
+                        
+                        <div class="form-group">
+                            <label for="operationType" class="form-label">نوع العملية <span class="required-asterisk">*</span></label>
+                            <select id="operationType" name="operationType" class="form-control" data-required>
+                                <option value="">-- اختر نوع العملية --</option>
+                                <option value="import">استيراد</option>
+                                <option value="export">تصدير</option>
+                                <option value="transit">عبور (ترانزيت)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customsValue" class="form-label">القيمة الجمركية <span class="required-asterisk">*</span></label>
+                            <input type="number" id="customsValue" name="customsValue" class="form-control" step="0.01" data-required placeholder="القيمة بالريال السعودي">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hsCode" class="form-label">كود HS Code</label>
+                            <input type="text" id="hsCode" name="hsCode" class="form-control" placeholder="إن كنت تعرفه">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="goodsDescription" class="form-label">وصف البضاعة <span class="required-asterisk">*</span></label>
+                            <textarea id="goodsDescription" name="goodsDescription" class="form-control" rows="3" data-required placeholder="وصف تفصيلي للبضاعة"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- تفاصيل التوصيل الداخلي -->
+                    <div id="details_last_mile_delivery" class="csr-service-details-section" style="display: none;">
+                        <h4 class="csr-section-title-minor"><i class="fas fa-motorcycle"></i> تفاصيل التوصيل الداخلي</h4>
+                        
+                        <div class="form-group">
+                            <label for="vehicleType" class="form-label">نوع المركبة <span class="required-asterisk">*</span></label>
+                            <select id="vehicleType" name="vehicleType" class="form-control" data-required>
+                                <option value="">-- اختر نوع المركبة --</option>
+                                <option value="motorcycle">دراجة نارية</option>
+                                <option value="small_car">سيارة صغيرة</option>
+                                <option value="van">فان</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="packagesCount" class="form-label">عدد الطرود <span class="required-asterisk">*</span></label>
+                            <input type="number" id="packagesCount" name="packagesCount" class="form-control" min="1" data-required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deliveryFromAddress" class="form-label">عنوان الاستلام <span class="required-asterisk">*</span></label>
+                            <textarea id="deliveryFromAddress" name="deliveryFromAddress" class="form-control" rows="2" data-required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deliveryToAddress" class="form-label">عنوان التوصيل <span class="required-asterisk">*</span></label>
+                            <textarea id="deliveryToAddress" name="deliveryToAddress" class="form-control" rows="2" data-required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">هل يحتاج إلى توصيل بارد؟</label>
+                            <div class="radio-group">
+                                <label class="radio-container">
+                                    <input type="radio" name="coldDelivery" value="yes">
+                                    <span class="radio-checkmark"></span>
+                                    نعم
+                                </label>
+                                <label class="radio-container">
+                                    <input type="radio" name="coldDelivery" value="no" checked>
+                                    <span class="radio-checkmark"></span>
+                                    لا
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deliveryInstructions" class="form-label">تعليمات التوصيل</label>
+                            <textarea id="deliveryInstructions" name="deliveryInstructions" class="form-control" rows="3" placeholder="مثال: ترك الطرد عند الجار، عدم الاتصال قبل الساعة X"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- باقي أقسام التفاصيل للخدمات الأخرى -->
                     <div id="details_other" class="csr-service-details-section" style="display: none;">
                         <h4 class="csr-section-title-minor"><i class="fas fa-ellipsis-h"></i> تفاصيل الخدمة الأخرى</h4>
                         <div class="form-group">
                             <label for="detailsDesc_other" class="form-label">وصف مفصل للخدمة المطلوبة <span class="required-asterisk">*</span></label>
-                            <textarea id="detailsDesc_other" name="detailsDesc_other" class="form-control" rows="4" placeholder="يرجى توضيح الخدمة بالتفصيل"></textarea>
+                            <textarea id="detailsDesc_other" name="detailsDesc_other" class="form-control" rows="4" placeholder="يرجى توضيح الخدمة بالتفصيل" data-required></textarea>
                         </div>
                     </div>
 
@@ -168,7 +448,14 @@
                     <div class="section-title">المرفقات والمراجعة النهائية</div>
                     
                     <div class="form-group">
-                        <label for="requestAttachments" class="form-label">إرفاق ملفات (اختياري)</label>
+                        <label class="form-label">المستندات المطلوبة (حسب نوع الخدمة)</label>
+                        <div id="documentsSection" class="documents-section">
+                            <!-- سيتم إضافة المستندات ديناميكياً حسب نوع الخدمة -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="requestAttachments" class="form-label">إرفاق ملفات إضافية (اختياري)</label>
                         <div class="file-upload-container">
                             <input type="file" id="requestAttachments" name="requestAttachments[]" class="form-control file-input" multiple style="display: none;">
                             <button type="button" class="btn btn-outline btn-sm file-upload-btn">
