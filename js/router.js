@@ -1,143 +1,171 @@
-/**
- * Router for handling page navigation
- */
 const Router = {
     currentPage: null,
-    pageCache: {},
-    
-    /**
-     * Initialize the router
-     */
+
     init: function() {
         this.pageContainer = document.getElementById('page-container');
+        if (!this.pageContainer) {
+            console.error("Router Critical Error: Page container 'page-container' not found.");
+        }
     },
-    
-    /**
-     * Navigate to a specific page
-     * @param {string} pageId - ID of the page to navigate to
-     */
+
     navigate: function(pageId) {
-        // Don't navigate if we're already on this page
-        if (this.currentPage === pageId) return;
-        
-        // Show loader during navigation
+        if (this.currentPage === pageId) {
+            console.log(`Router: Already on page ${pageId}. Navigation skipped.`);
+            return;
+        }
+
+        if (!this.pageContainer) {
+            console.error("Router Error: pageContainer is not initialized. Cannot navigate.");
+            Toast.show('خطأ في التنقل', 'حاول تحديث الصفحة', 'danger');
+            return;
+        }
+
+        const previousPageId = this.currentPage;
         Loader.show();
+
+        // Enhanced controller destruction with better error handling
+        if (previousPageId) {
+            this.destroyController(previousPageId);
+        }
         
-        // Load the page content
+        this.pageContainer.innerHTML = '';
+        console.log("Router: Page container cleared.");
+
         this.loadPage(pageId)
-            .then(() => {
-                // Update active state
+            .then(html => {
+                this.renderPage(pageId, html);
                 this.setActivePage(pageId);
-                
-                // Update bottom navigation
                 this.updateNavigation(pageId);
-                
-                // Hide loader
-                setTimeout(() => Loader.hide(), 300);
-                
-                // Update current page
                 this.currentPage = pageId;
-                
-                // Update app state
                 State.update('currentPage', pageId);
+
+                // Enhanced controller initialization
+                this.initializeController(pageId);
                 
-                // Initialize page controller if exists
-                if (window[pageId.charAt(0).toUpperCase() + pageId.slice(1) + 'Controller']) {
-                    window[pageId.charAt(0).toUpperCase() + pageId.slice(1) + 'Controller'].init();
-                }
+                Loader.hide();
             })
             .catch(error => {
-                console.error('Error loading page:', error);
-                Toast.show('غير جاهزة بعد', 'يتم تصميمها في الوقت الحالي', 'danger');
+                console.error('Router: Error loading page:', pageId, error);
+                Toast.show('صفحة غير متوفرة', 'تعذر تحميل الصفحة المطلوبة.', 'danger');
                 Loader.hide();
+                this.currentPage = null;
             });
     },
-    
+
     /**
-     * Load a page from cache or fetch from server
-     * @param {string} pageId - ID of the page to load
-     * @returns {Promise} - Promise that resolves when the page is loaded
+     * Enhanced controller destruction with better error handling
      */
-    loadPage: function(pageId) {
-        return new Promise((resolve, reject) => {
-            // Check if the page is cached
-            if (this.pageCache[pageId]) {
-                this.renderPage(pageId, this.pageCache[pageId]);
-                resolve();
+    destroyController: function(pageId) {
+        const controllerName = this.getControllerName(pageId);
+        console.log(`Router: Attempting to destroy ${controllerName}`);
+        
+        // Check if controller exists in window
+        if (!window[controllerName]) {
+            console.warn(`Router: Controller ${controllerName} not found in window object`);
+            console.log('Available controllers:', Object.keys(window).filter(key => key.includes('Controller')));
+            return;
+        }
+
+        const controller = window[controllerName];
+        
+        if (typeof controller.destroy === 'function') {
+            try {
+                console.log(`Router: Destroying ${controllerName}`);
+                controller.destroy();
+                console.log(`Router: Successfully destroyed ${controllerName}`);
+            } catch (error) {
+                console.error(`Router: Error destroying ${controllerName}:`, error);
+            }
+        } else {
+            console.warn(`Router: ${controllerName} exists but does not have a destroy method.`);
+            console.log(`Router: ${controllerName} methods:`, Object.keys(controller).filter(key => typeof controller[key] === 'function'));
+        }
+    },
+
+    /**
+     * Enhanced controller initialization with better error handling
+     */
+    initializeController: function(pageId) {
+        const controllerName = this.getControllerName(pageId);
+        console.log(`Router: Attempting to initialize ${controllerName}`);
+        
+        // Add a small delay to ensure DOM is ready
+        setTimeout(() => {
+            if (!window[controllerName]) {
+                console.warn(`Router: Controller ${controllerName} not found in window object`);
+                console.log('Available controllers:', Object.keys(window).filter(key => key.includes('Controller')));
                 return;
             }
+
+            const controller = window[controllerName];
             
-            // Fetch the page template
+            if (typeof controller.init === 'function') {
+                try {
+                    console.log(`Router: Initializing ${controllerName}`);
+                    controller.init();
+                    console.log(`Router: Successfully initialized ${controllerName}`);
+                } catch (error) {
+                    console.error(`Router: Error initializing ${controllerName}:`, error);
+                }
+            } else {
+                console.warn(`Router: ${controllerName} exists but does not have an init method.`);
+                console.log(`Router: ${controllerName} methods:`, Object.keys(controller).filter(key => typeof controller[key] === 'function'));
+            }
+        }, 50);
+    },
+
+    /**
+     * Generate controller name from page ID
+     */
+    getControllerName: function(pageId) {
+        const parts = pageId.split('-');
+        const capitalizedParts = parts.map(part => part.charAt(0).toUpperCase() + part.slice(1));
+        return capitalizedParts.join('') + 'Controller';
+    },
+
+    // ... rest of your existing router methods remain the same
+    loadPage: function(pageId) {
+        console.log(`Router: Fetching page - templates/pages/${pageId}.html`);
+        return new Promise((resolve, reject) => {
             fetch(`templates/pages/${pageId}.html`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Page not found');
+                        if (response.status === 404) {
+                            throw new Error(`Page not found: templates/pages/${pageId}.html (404)`);
+                        }
+                        throw new Error(`Failed to fetch templates/pages/${pageId}.html. Status: ${response.status}`);
                     }
                     return response.text();
                 })
-                .then(html => {
-                    // Cache the page
-                    this.pageCache[pageId] = html;
-                    
-                    // Render the page
-                    this.renderPage(pageId, html);
-                    
-                    resolve();
-                })
-                .catch(error => {
-                    reject(error);
-                });
+                .then(html => resolve(html))
+                .catch(error => reject(error));
         });
     },
-    
-    /**
-     * Render a page to the page container
-     * @param {string} pageId - ID of the page
-     * @param {string} html - HTML content of the page
-     */
+
     renderPage: function(pageId, html) {
-        // Create page element if it doesn't exist
-        let pageElement = document.getElementById(pageId);
-        
-        if (!pageElement) {
-            pageElement = document.createElement('div');
-            pageElement.id = pageId;
-            pageElement.className = 'page';
-            this.pageContainer.appendChild(pageElement);
-        }
-        
-        // Set the page content
+        const pageElement = document.createElement('div');
+        pageElement.id = pageId;
+        pageElement.className = 'page';
         pageElement.innerHTML = html;
+        this.pageContainer.appendChild(pageElement);
+        console.log(`Router: Rendered page ${pageId}`);
     },
-    
-    /**
-     * Set the active page
-     * @param {string} pageId - ID of the page to set as active
-     */
+
     setActivePage: function(pageId) {
-        // Hide all pages
-        document.querySelectorAll('.page').forEach(page => {
-            page.classList.remove('active');
-        });
-        
-        // Show the active page
         const activePage = document.getElementById(pageId);
         if (activePage) {
             activePage.classList.add('active');
+            console.log(`Router: Activated page ${pageId}`);
+        } else {
+            console.warn(`Router: Could not find page element to activate: ${pageId}`);
         }
     },
-    
-    /**
-     * Update the bottom navigation active state
-     * @param {string} pageId - ID of the active page
-     */
+
     updateNavigation: function(pageId) {
-        // Remove active class from all nav items
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.remove('active');
         });
-        
-        // Add active class to the current nav item
+
         const activeNav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
         if (activeNav) {
             activeNav.classList.add('active');

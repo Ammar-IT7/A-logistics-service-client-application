@@ -1,114 +1,71 @@
-<!-- templates/pages/service-providers.html -->
-   <!-- Header -->
-    <div class="header">
-        <button class="header-action" data-action="menu" aria-label="القائمة">
-            <i class="fas fa-bars icon"></i>
-        </button>
-        <h1 class="header-title">مقدمي الخدمات</h1>
-        <button class="header-action" data-action="navigate" data-page="service-form" aria-label="إضافة خدمة">
-            <i class="fas fa-plus-circle icon"></i>
+<div class="sv-header">
+    <button class="sv-header__action sv-header__menu" data-action="menu" aria-label="القائمة">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <div class="sv-search-bar">
+        <div class="sv-search-bar__icon-wrapper">
+            <i class="fas fa-search sv-search-bar__icon"></i>
+        </div>
+        <input type="text" id="serviceSearchInput" class="sv-search-bar__input" placeholder="ابحث عن خدمة..." autocomplete="off">
+        <button class="sv-search-bar__clear" id="clearSearch" aria-label="مسح البحث">
+            <i class="fas fa-times"></i>
         </button>
     </div>
 
-    <!-- Main Content -->
-    <div class="content">
-        <!-- Search and Filter -->
-        <div class="search-bar">
-            <input type="text" class="search-input" placeholder="ابحث عن مقدمي الخدمات...">
-            <button class="filter-btn">
-                <i class="fas fa-sliders-h"></i>
-                <span>تصفية</span>
+    <button class="sv-header__action sv-header__add" data-action="navigate" data-page="service-form" aria-label="إضافة خدمة">
+        <i class="fas fa-plus icon"></i>
+        <span class="sv-header__add-pulse"></span>
+    </button>
+</div>
+
+<div class="sv-content">
+    <div class="sv-controls-sticky-container">
+        <div class="sv-category-tabs-container">
+            <div id="serviceCategoryTabs" class="sv-category-tabs">
+            </div>
+        </div>
+
+        <div class="sv-filter-toggles">
+            <button class="sv-filter-toggle" data-filter="all">
+                <i class="fas fa-th-large"></i>
+                <span>الكل</span>
+            </button>
+            <button class="sv-filter-toggle" data-filter="closest">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>الأقرب</span>
+            </button>
+            <button class="sv-filter-toggle" data-filter="new">
+                <i class="fas fa-star"></i>
+                <span>الجديد</span>
+            </button>
+            <button class="sv-filter-toggle" data-filter="favorite">
+                <i class="fas fa-heart"></i>
+                <span>المفضلة</span>
             </button>
         </div>
-<!-- Service Cards Grid -->
-<!-- Service Cards Grid -->
-<div class="sp-service-cards">
-    <!-- Shipping Service -->
-    <div class="sp-service-card" data-action="navigate" data-page="shipping">
-        <div class="sp-service-icon" data-action="navigate" data-page="shipping">
-            <i class="fas fa-ship" data-action="navigate" data-page="shipping"></i>
-        </div>
-        <div class="sp-service-content" data-action="navigate" data-page="shipping">
-            <h3 class="sp-service-title" data-action="navigate" data-page="shipping">مقدمي خدمات الشحن</h3>
-            <p class="sp-service-desc" data-action="navigate" data-page="shipping">الوصول إلى أفضل خدمات الشحن البحري والجوي والبري</p>
-        </div>
     </div>
 
-    <!-- Warehouses Service -->
-    <div class="sp-service-card" data-action="navigate" data-page="warehouses">
-        <div class="sp-service-icon" data-action="navigate" data-page="warehouses">
-            <i class="fas fa-warehouse" data-action="navigate" data-page="warehouses"></i>
-        </div>
-        <div class="sp-service-content" data-action="navigate" data-page="warehouses">
-            <h3 class="sp-service-title" data-action="navigate" data-page="warehouses">مقدمي خدمات التخزين</h3>
-            <p class="sp-service-desc" data-action="navigate" data-page="warehouses">مستودعات آمنة وموثوقة لتخزين بضائعك</p>
-        </div>
+    <div class="sv-results-info">
+        <span id="resultsCount" class="sv-results-count">جاري التحميل...</span>
+        <button class="sv-view-toggle" id="viewToggle" aria-label="تغيير طريقة العرض">
+            <i class="fas fa-th-large"></i>
+        </button>
     </div>
 
-    <!-- Customs Service -->
-    <div class="sp-service-card" data-action="navigate" data-page="customs">
-        <div class="sp-service-icon" data-action="navigate" data-page="customs">
-            <i class="fas fa-clipboard-list" data-action="navigate" data-page="customs"></i>
-        </div>
-        <div class="sp-service-content" data-action="navigate" data-page="customs">
-            <h3 class="sp-service-title" data-action="navigate" data-page="customs">خدمات التخليص الجمركي</h3>
-            <p class="sp-service-desc" data-action="navigate" data-page="customs">إجراءات تخليص جمركي سريعة وفعالة</p>
-        </div>
-    </div>
-
-    <!-- Packaging Service -->
-    <div class="sp-service-card" data-action="navigate" data-page="packaging">
-        <div class="sp-service-icon" data-action="navigate" data-page="packaging">
-            <i class="fas fa-box" data-action="navigate" data-page="packaging"></i>
-        </div>
-        <div class="sp-service-content" data-action="navigate" data-page="packaging">
-            <h3 class="sp-service-title" data-action="navigate" data-page="packaging">خدمات التغليف والتعبئة</h3>
-            <p class="sp-service-desc" data-action="navigate" data-page="packaging">تغليف احترافي يضمن سلامة منتجاتك</p>
-        </div>
-    </div>
-
-    <!-- Last Mile Delivery -->
-    <div class="sp-service-card" data-action="navigate" data-page="last-mile-delivery">
-        <div class="sp-service-icon" data-action="navigate" data-page="last-mile-delivery">
-            <i class="fas fa-truck" data-action="navigate" data-page="last-mile-delivery"></i>
-        </div>
-        <div class="sp-service-content" data-action="navigate" data-page="last-mile-delivery">
-            <h3 class="sp-service-title" data-action="navigate" data-page="last-mile-delivery">خدمات التوصيل الداخلي</h3>
-            <p class="sp-service-desc" data-action="navigate" data-page="last-mile-delivery">توصيل سريع وفعال للعملاء النهائيين</p>
-        </div>
-    </div>
-
-    <!-- LC Services -->
-    <div class="sp-service-card" data-action="navigate" data-page="lc-services">
-        <div class="sp-service-icon" data-action="navigate" data-page="lc-services">
-            <i class="fas fa-file-invoice-dollar" data-action="navigate" data-page="lc-services"></i>
-        </div>
-        <div class="sp-service-content" data-action="navigate" data-page="lc-services">
-            <h3 class="sp-service-title" data-action="navigate" data-page="lc-services">الاعتمادات المستندية</h3>
-            <p class="sp-service-desc" data-action="navigate" data-page="lc-services">تسهيل إجراءات الاعتمادات المستندية</p>
-        </div>
-    </div>
-
-    <!-- Warehouse Management -->
-    <div class="sp-service-card" data-action="navigate" data-page="warehouse-management">
-        <div class="sp-service-icon" data-action="navigate" data-page="warehouse-management">
-            <i class="fas fa-dolly-flatbed" data-action="navigate" data-page="warehouse-management"></i>
-        </div>
-        <div class="sp-service-content" data-action="navigate" data-page="warehouse-management">
-            <h3 class="sp-service-title" data-action="navigate" data-page="warehouse-management">إدارة المستودعات</h3>
-            <p class="sp-service-desc" data-action="navigate" data-page="warehouse-management">حلول متكاملة لإدارة المستودعات</p>
-        </div>
-    </div>
-
-    <!-- Marketing Services -->
-    <div class="sp-service-card" data-action="navigate" data-page="marketing">
-        <div class="sp-service-icon" data-action="navigate" data-page="marketing">
-            <i class="fas fa-chart-line" data-action="navigate" data-page="marketing"></i>
-        </div>
-        <div class="sp-service-content" data-action="navigate" data-page="marketing">
-            <h3 class="sp-service-title" data-action="navigate" data-page="marketing">خدمات التسويق</h3>
-            <p class="sp-service-desc" data-action="navigate" data-page="marketing">استراتيجيات تسويقية لنمو أعمالك</p>
-        </div>
+    <div id="serviceListContainer" class="sv-list-container">
     </div>
 </div>
-    </div>
+
+<div class="sv-floating-actions">
+    <button class="sv-fab sv-fab--filter" aria-label="الفلاتر المتقدمة">
+        <i class="fas fa-sliders-h"></i>
+    </button>
+    <button class="sv-fab sv-fab--sort" aria-label="ترتيب النتائج">
+        <i class="fas fa-sort"></i>
+    </button>
+</div>

@@ -1,4 +1,4 @@
-const ClientServiceRequestFormController = {
+window.ClientServiceRequestFormController = {
     init: function() {
         console.log('Client Service Request Form initialized');
 

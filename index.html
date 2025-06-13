@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
     <title>Enova studio UI UX</title>
     
+        <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- Arabic font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -25,13 +28,10 @@
         </div>
     </div>
 
-    <!-- Auth Container (Login/Register) -->
-    <div id="auth-container">
-        <!-- Pages will be loaded here dynamically -->
-    </div>
+
 
     <!-- Main App Container -->
-    <div id="app-container" style="display:none;">
+    <div id="app-container">
         <!-- Page Container -->
         <div id="page-container">
             <!-- Pages will be loaded here dynamically -->
@@ -39,7 +39,7 @@
 
         <!-- Bottom Navigation -->
     <div class="bottom-nav">
-        <a href="#" class="nav-item active" data-page="home">
+        <a href="#" class="nav-item active" data-page="client-home-page">
             <div class="nav-icon"><i class="fas fa-home"></i></div>
             <div class="nav-label">الرئيسية</div>
         </a>
@@ -63,46 +63,22 @@
     <script src="js/components/modal.js"></script>
     <script src="js/components/toast.js"></script>
     <script src="js/components/loader.js"></script>
-    <script src="js/router.js"></script>
-    <script src="js/auth.js"></script>
+
+    <!-- <script src="js/auth.js"></script> -->
     <script src="js/app.js"></script>
     <script src="js/pages/home.js"></script>
     <script src="js/pages/clientServiceRequestForm.js"></script>
     <script src="js/pages/offers-request.js"></script>
+    <script src="js/pages/service-providers.js"></script>
+
+
     <script>
         // Initialize the auth module when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
-            Auth.init();
-        const homeObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length) {
-                // Check if the form is loaded
-                const form = document.getElementById('client-home-page');
-                if (form) {
-                    ClientHomeController.init();
-                    homeObserver.disconnect(); // Stop observing once initialized
-                }
-            }
-        });
-    });
-
-        const clientRequestFormObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.addedNodes.length) {
-                // Check if the form is loaded
-                const form = document.getElementById('clientRequestForm');
-                if (form) {
-                    ClientServiceRequestFormController.init();
-                    clientRequestFormObserver.disconnect(); 
-                }
-            }
-        });
-    });
-    // Start observing the body for changes
-    homeObserver.observe(document.body, { childList: true, subtree: true });
-    clientRequestFormObserver.observe(document.body, { childList: true, subtree: true });
+            App.init();
         });
     </script>
 
+        <script src="js/router.js"></script>
 </body>
 </html>

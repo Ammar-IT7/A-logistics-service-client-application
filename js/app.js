@@ -7,7 +7,7 @@ const App = {
      */
     config: {
         templatesPath: 'templates/pages/',
-        defaultPage: 'home'
+        defaultPage: 'client-home-page'
     },
 
     /**
@@ -15,12 +15,12 @@ const App = {
      */
     init: function() {
         // Check authentication
-        if (!State.get('isAuthenticated')) {
-            // Not authenticated, redirect to auth
-            document.getElementById('app-container').style.display = 'none';
-            document.getElementById('auth-container').style.display = '';
-            return;
-        }
+        // if (!State.get('isAuthenticated')) {
+        //     // Not authenticated, redirect to auth
+        //     document.getElementById('app-container').style.display = 'none';
+        //     document.getElementById('auth-container').style.display = '';
+        //     return;
+        // }
         
         // Initialize router
         Router.init();
