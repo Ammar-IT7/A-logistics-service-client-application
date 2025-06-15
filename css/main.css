@@ -28,6 +28,8 @@ body {
     --light-color: #f5f5f5;
     --gray-color: #95a5a6;
     --gray-light: #e9ecef;
+    --text-light: #ffffff;
+    --text-dark: #212529;
     --text-on-primary: #ffffff;
     --text-on-secondary: #333333;
     --success: #4ad66d;
@@ -36,6 +38,9 @@ body {
     --primary-rgb: 250, 174, 67;
     --secondary-rgb: 44, 62, 80;
     --animation-spring: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --verified-color: #10b981;
+    --top-rated-color: #f59e0b;
+    --favorite-color: #ef4444;
     
 
     --primary-gradient: linear-gradient(135deg, #FAAE43 0%, #ffa82f 100%);
@@ -49,6 +54,8 @@ body {
     --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.2);
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --slide-duration: 5s; /* JS will use this for timing */
 
     /* Font Variables */
     --font-size-xs: 0.75rem;
@@ -81,7 +88,7 @@ body {
     /* Animation Speed */
     --animation-speed: 0.3s;
     /* Transitions */
-    --transition: all 0.25s ease;
+    /* --transition: all 0.25s ease; */
 }
 
 /* TYPOGRAPHY */

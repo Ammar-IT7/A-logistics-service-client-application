@@ -1,71 +1,71 @@
-<div class="sv-header">
-    <button class="sv-header__action sv-header__menu" data-action="menu" aria-label="القائمة">
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </button>
-
-    <div class="sv-search-bar">
-        <div class="sv-search-bar__icon-wrapper">
-            <i class="fas fa-search sv-search-bar__icon"></i>
-        </div>
-        <input type="text" id="serviceSearchInput" class="sv-search-bar__input" placeholder="ابحث عن خدمة..." autocomplete="off">
-        <button class="sv-search-bar__clear" id="clearSearch" aria-label="مسح البحث">
-            <i class="fas fa-times"></i>
+    <div class="sv-header">
+        <button class="sv-header__action sv-header__menu" data-action="menu" aria-label="القائمة">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </button>
+
+        <div class="sv-search-bar">
+            <div class="sv-search-bar__icon-wrapper">
+                <i class="fas fa-search sv-search-bar__icon"></i>
+            </div>
+            <input type="text" id="serviceSearchInput" class="sv-search-bar__input" placeholder="ابحث عن خدمة..." autocomplete="off">
+            <button class="sv-search-bar__clear" id="clearSearch" aria-label="مسح البحث">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- <button class="sv-header__action sv-header__add" data-action="navigate" data-page="service-form" aria-label="إضافة خدمة">
+            <i class="fas fa-plus icon"></i>
+            <span class="sv-header__add-pulse"></span>
+        </button> -->
     </div>
 
-    <button class="sv-header__action sv-header__add" data-action="navigate" data-page="service-form" aria-label="إضافة خدمة">
-        <i class="fas fa-plus icon"></i>
-        <span class="sv-header__add-pulse"></span>
-    </button>
-</div>
+    <div class="sv-content">
+        <div class="sv-controls-sticky-container">
+            <div class="sv-category-tabs-container">
+                <div id="serviceCategoryTabs" class="sv-category-tabs">
+                </div>
+            </div>
 
-<div class="sv-content">
-    <div class="sv-controls-sticky-container">
-        <div class="sv-category-tabs-container">
-            <div id="serviceCategoryTabs" class="sv-category-tabs">
+            <div class="sv-filter-toggles">
+                <button class="sv-filter-toggle" data-filter="all">
+                    <i class="fas fa-th-large"></i>
+                    <span>الكل</span>
+                </button>
+                <button class="sv-filter-toggle" data-filter="closest">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>الأقرب</span>
+                </button>
+                <button class="sv-filter-toggle" data-filter="new">
+                       <i class="fas fa-star"></i>
+                    <span>الجديد</span>
+                </button>
+                <button class="sv-filter-toggle" data-filter="favorite">
+                    <i class="fas fa-heart"></i>
+                    <span>المفضلة</span>
+                </button>
             </div>
         </div>
 
-        <div class="sv-filter-toggles">
-            <button class="sv-filter-toggle" data-filter="all">
+        <div class="sv-results-info">
+            <span id="resultsCount" class="sv-results-count">جاري التحميل...</span>
+            <button class="sv-view-toggle" id="viewToggle" aria-label="تغيير طريقة العرض">
                 <i class="fas fa-th-large"></i>
-                <span>الكل</span>
             </button>
-            <button class="sv-filter-toggle" data-filter="closest">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>الأقرب</span>
-            </button>
-            <button class="sv-filter-toggle" data-filter="new">
-                <i class="fas fa-star"></i>
-                <span>الجديد</span>
-            </button>
-            <button class="sv-filter-toggle" data-filter="favorite">
-                <i class="fas fa-heart"></i>
-                <span>المفضلة</span>
-            </button>
+        </div>
+
+        <div id="serviceListContainer" class="sv-list-container">
         </div>
     </div>
 
-    <div class="sv-results-info">
-        <span id="resultsCount" class="sv-results-count">جاري التحميل...</span>
-        <button class="sv-view-toggle" id="viewToggle" aria-label="تغيير طريقة العرض">
-            <i class="fas fa-th-large"></i>
+    <!-- <div class="sv-floating-actions">
+        <button class="sv-fab sv-fab--filter" aria-label="الفلاتر المتقدمة">
+            <i class="fas fa-sliders-h"></i>
         </button>
-    </div>
-
-    <div id="serviceListContainer" class="sv-list-container">
-    </div>
-</div>
-
-<div class="sv-floating-actions">
-    <button class="sv-fab sv-fab--filter" aria-label="الفلاتر المتقدمة">
-        <i class="fas fa-sliders-h"></i>
-    </button>
-    <button class="sv-fab sv-fab--sort" aria-label="ترتيب النتائج">
-        <i class="fas fa-sort"></i>
-    </button>
-</div>
+        <button class="sv-fab sv-fab--sort" aria-label="ترتيب النتائج">
+            <i class="fas fa-sort"></i>
+        </button>
+    </div> -->

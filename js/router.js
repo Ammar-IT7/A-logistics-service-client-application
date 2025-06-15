@@ -1,4 +1,4 @@
-const Router = {
+window.Router = {
     currentPage: null,
 
     init: function() {
