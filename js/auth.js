@@ -15,10 +15,10 @@ const Auth = {
      */
     init: function() {
         // Initialize auth container
-        this.authContainer = document.getElementById('auth-container');
+        this.authContainer = document.getElementById('app-container');
         
         // Load initial auth page
-        this.loadPage(this.config.defaultPage);
+        // this.loadPage(this.config.defaultPage);
         
         // Set up event listeners
         this.setupEventListeners();
@@ -34,6 +34,8 @@ const Auth = {
         // Global click handler using event delegation
         document.addEventListener('click', function(e) {
             // Handle auth-specific actions
+            //  const target = e.target.closest('[data-action]');
+            const passwordToggle = e.target.closest('.auth-screen-password-toggle');
             const action = e.target.dataset.action;
             if (action) {
                 switch (action) {
@@ -49,6 +51,12 @@ const Auth = {
                     case 'skip-login':
                         Auth.handleLogin();
                         break;
+                         case 'phone-login':
+                        Toast.show('Info', 'تسجيل الدخول عبر الهاتف غير متاح حالياً', 'info');
+                        break;
+                    case 'fingerprint-login':
+                        Auth.handleFingerprintLogin();
+                        break;
                     case 'complete-registration':
                     Auth.handleRegister();
                         break;
@@ -60,8 +68,25 @@ const Auth = {
                         break;
                 }
             }
+             if (passwordToggle) {
+                 const container = passwordToggle.closest('.auth-screen-password-input-container');
+                 const passwordInput = container.querySelector('input');
+                 const icon = passwordToggle.querySelector('i');
+                 
+                 if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                 } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                 }
+            }
         });
     },
+
+
 
     /**
      * Load an authentication page
@@ -97,24 +122,8 @@ const Auth = {
      * Handle login form submission
      */
     handleLogin: function() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        
-        // Show loader
-        Loader.show();
-        
-        // Simulate API call
-        setTimeout(() => {
-            // For demo purposes, always succeed
-            this.loginSuccess({
-                name: 'مستخدم تجريبي',
-                email: username,
-                role: 'provider'
-            });
-            
-            // Hide loader
-            Loader.hide();
-        }, 1500);
+        // Optionally reload the page to refresh the website
+        window.location.reload();
     },
 
     /**
@@ -168,14 +177,65 @@ const Auth = {
         State.update('isAuthenticated', true);
         
         // Hide auth container, show app container
-        document.getElementById('auth-container').style.display = 'none';
+        document.getElementById('login').style.display = 'none';
         document.getElementById('app-container').style.display = '';
         
         // Initialize the app
-        App.init();
+        Router.navigate(this.config.defaultPage);
         
         // Show welcome toast
         Toast.show('Success', 'مرحباً بك ' + user.name, 'success');
+    },
+
+        /**
+     * Handle the fingerprint login simulation
+     */
+    handleFingerprintLogin: function() {
+        const scanner = document.getElementById('fingerprint-scanner');
+        if (scanner.classList.contains('scanning')) return; // Prevent multiple clicks
+
+        scanner.classList.add('scanning');
+        scanner.classList.remove('success', 'error');
+        Toast.show('Info', 'جاري مسح بصمة الإصبع...', 'info');
+
+        // Simulate scanning process
+        setTimeout(() => {
+            scanner.classList.remove('scanning');
+            
+            // Re-create the line to restart its animation
+            const line = scanner.querySelector('.fingerprint-line');
+            line.style.display = 'none';
+            void line.offsetWidth; // Trigger reflow
+            line.style.display = '';
+
+
+            // Simulate success or failure
+            const isSuccess = Math.random() > 0.3; // 70% chance of success
+
+            if (isSuccess) {
+                scanner.classList.add('success');
+                Toast.show('Success', 'تم التحقق بنجاح!', 'success');
+
+                // Proceed to login
+                setTimeout(() => {
+                    Auth.handleLogin();
+                }, 1500);
+
+            } else {
+                scanner.classList.add('error');
+                scanner.style.animation = 'shake 0.5s ease-in-out';
+                Toast.show('Error', 'فشل التحقق، حاول مرة أخرى', 'danger');
+
+                // Reset after animation
+                scanner.addEventListener('animationend', () => {
+                     scanner.style.animation = '';
+                }, { once: true });
+                
+                 setTimeout(() => {
+                    scanner.classList.remove('error');
+                 }, 1500);
+            }
+        }, 2000); // 2 seconds scan time
     },
 
     /**
@@ -195,7 +255,7 @@ const Auth = {
         // Show logout toast
         Toast.show('Info', 'تم تسجيل الخروج بنجاح', 'info');
     },
-
+    
     // Add this to Auth.js
     setupMultiStepForm: function() {
         document.addEventListener('click', function(e) {

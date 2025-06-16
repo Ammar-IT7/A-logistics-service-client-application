@@ -30,12 +30,15 @@
 
 
 
+
     <!-- Main App Container -->
     <div id="app-container">
         <!-- Page Container -->
         <div id="page-container">
             <!-- Pages will be loaded here dynamically -->
         </div>
+
+
 
         <!-- Bottom Navigation -->
     <div class="bottom-nav">
@@ -66,6 +69,7 @@
 
     <!-- <script src="js/auth.js"></script> -->
     <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/pages/home.js"></script>
     <script src="js/pages/clientServiceRequestForm.js"></script>
     <script src="js/pages/offers-request.js"></script>
@@ -74,8 +78,11 @@
 
     <script>
         // Initialize the auth module when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {  
+ 
             App.init();
+            Auth.init();
+
         });
     </script>
 

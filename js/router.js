@@ -9,10 +9,10 @@ window.Router = {
     },
 
     navigate: function(pageId) {
-        if (this.currentPage === pageId) {
-            console.log(`Router: Already on page ${pageId}. Navigation skipped.`);
-            return;
-        }
+        // if (this.currentPage === pageId) {
+        //     console.log(`Router: Already on page ${pageId}. Navigation skipped.`);
+        //     return;
+        // }
 
         if (!this.pageContainer) {
             console.error("Router Error: pageContainer is not initialized. Cannot navigate.");
