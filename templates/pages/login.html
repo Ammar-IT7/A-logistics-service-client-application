@@ -1,12 +1,45 @@
     <div class="auth-screen-content" id="login">
+        <!-- Logo -->
         <div class="auth-screen-logo-container">
             <img src="logo.png" alt="App Logo" class="auth-screen-logo" />
         </div>
-        <!-- <h1 class="header-title">مرحبا بك</h1> -->
+
+        <!-- Enhanced Features Carousel Section -->
+        <div class="features-carousel-container">
+            <div class="features-carousel" id="featuresCarousel">
+                <div class="carousel-slide">
+                    <div class="feature-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h3 class="feature-name">شحن دولي</h3>
+                    <p class="feature-description">بري، بحري، وجوي لجميع أنحاء العالم مع أفضل الأسعار التنافسية.</p>
+                </div>
+                <div class="carousel-slide">
+                    <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                    <h3 class="feature-name">نقل بري</h3>
+                    <p class="feature-description">أسطول شاحنات متنوع ومتطور لتلبية كافة احتياجات الحمولات.</p>
+                </div>
+                <div class="carousel-slide">
+                    <div class="feature-icon"><i class="fas fa-warehouse"></i></div>
+                    <h3 class="feature-name">خدمات التخزين</h3>
+                    <p class="feature-description">تخزين آمن ومبرد مع إدارة متقدمة للمخزون والجرد الإلكتروني.</p>
+                </div>
+                <div class="carousel-slide">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="feature-name">تخليص جمركي</h3>
+                    <p class="feature-description">تسهيل عمليات الاستيراد والتصدير والعبور بكفاءة عالية.</p>
+                </div>
+                <div class="carousel-slide">
+                    <div class="feature-icon"><i class="fas fa-box-open"></i></div>
+                    <h3 class="feature-name">توصيل داخلي</h3>
+                    <p class="feature-description">خدمة الميل الأخير السريعة والموثوقة في جميع المدن.</p>
+                </div>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
         
+        <!-- Enhanced Login Form Card -->
         <div class="auth-screen-card">
             <div class="card-content">
-                <form id="loginForm">
+                <form id="loginForm" onsubmit="event.preventDefault();">
                     <div class="auth-screen-form-group">
                         <label for="username" class="form-label">البريد الإلكتروني / رقم الهاتف</label>
                         <input type="text" id="username" class="form-control" placeholder="أدخل البريد الإلكتروني أو رقم الهاتف">
@@ -23,7 +56,7 @@
                             <a href="#" data-action="forgot-password">نسيت كلمة المرور؟</a>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-block" data-action="skip-login">تسجيل الدخول</button>
+                    <button type="submit" class="btn btn-primary btn-block" data-action="login">تسجيل الدخول</button>
                 </form>
                 
                 <div class="auth-screen-text-center mt-3">
@@ -41,7 +74,6 @@
                             <span class="auth-screen-social-icon"><i class="fas fa-mobile-alt"></i></span>
                             <span>الهاتف</span>
                         </button>
-                        <!-- Fingerprint Scanner Button -->
                         <button class="btn btn-outline btn-block auth-screen-social-btn" id="fingerprint-scanner" data-action="fingerprint-login">
                             <span class="auth-screen-social-icon">
                                 <i class="fas fa-fingerprint"></i>
@@ -53,14 +85,10 @@
                 </div>
 
                 <div class="auth-screen-text-center mt-4">
-                    <a href="#" data-action="skip-login" class="auth-screen-link-primary">
-                        <i class="fas fa-chevron-right"></i> تخطي واستعراض الخدمات
-                    </a>
-                </div>
-                
-                <div class="auth-screen-text-center mt-4">
                     <p>ليس لديك حساب؟ <a href="#" data-action="show-register" class="auth-screen-link-primary">إنشاء حساب</a></p>
                 </div>
             </div>
         </div>
     </div>
+    
+    <div id="toast-container" class="toast-container"></div>

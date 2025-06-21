@@ -1,92 +1,172 @@
-/**
- * Authentication module
- */
-const Auth = {
-    /**
-     * Auth configuration
-     */
-    config: {
-        templatesPath: 'templates/pages/',
-        defaultPage: 'login'
-    },
+        // Enhanced Carousel Implementation
+        const Auth = {
+            config: {
+                templatesPath: 'templates/pages/',
+                defaultPage: 'login'
+            },
 
-    /**
-     * Initialize the authentication module
-     */
-    init: function() {
-        // Initialize auth container
-        this.authContainer = document.getElementById('app-container');
-        
-        // Load initial auth page
-        // this.loadPage(this.config.defaultPage);
-        
-        // Set up event listeners
-        this.setupEventListeners();
-        
-        // Set up multi-step form handling
-        this.setupMultiStepForm();
-    },
+            init: function() {
+                this.authContainer = document.getElementById('app-container');
+                this.setupEventListeners();
+                this.initFeaturesCarousel();
+                this.setupMultiStepForm();
+            },
 
-    /**
-     * Set up auth-related event listeners
-     */
-    setupEventListeners: function() {
-        // Global click handler using event delegation
-        document.addEventListener('click', function(e) {
-            // Handle auth-specific actions
-            //  const target = e.target.closest('[data-action]');
-            const passwordToggle = e.target.closest('.auth-screen-password-toggle');
-            const action = e.target.dataset.action;
-            if (action) {
-                switch (action) {
-                    case 'show-login':
-                        Auth.loadPage('login');
-                        break;
-                    case 'show-register':
-                        Auth.loadPage('register');
-                        break;
-                    case 'login':
-                        Auth.handleLogin();
-                        break;
-                    case 'skip-login':
-                        Auth.handleLogin();
-                        break;
-                         case 'phone-login':
-                        Toast.show('Info', 'تسجيل الدخول عبر الهاتف غير متاح حالياً', 'info');
-                        break;
-                    case 'fingerprint-login':
-                        Auth.handleFingerprintLogin();
-                        break;
-                    case 'complete-registration':
-                    Auth.handleRegister();
-                        break;
-                    case 'back':
-                        Auth.loadPage('login');
-                        break;
-                    case 'phone-login':
-                        Toast.show('Info', 'تسجيل الدخول عبر الهاتف غير متاح حالياً', 'info');
-                        break;
+            initFeaturesCarousel: function() {
+                const carousel = document.getElementById('featuresCarousel');
+                const dotsContainer = document.getElementById('carouselDots');
+                if (!carousel || !dotsContainer) return;
+
+                const slides = Array.from(carousel.children);
+                let currentSlide = 0;
+                let slideInterval;
+                let isTransitioning = false;
+
+                // Create dots with enhanced styling
+                slides.forEach((_, i) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('carousel-dot');
+                    if (i === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                });
+                const dots = Array.from(dotsContainer.children);
+
+                // Initialize first slide as active
+                if (slides[0]) slides[0].classList.add('is-active');
+
+                function updateSlideStates() {
+                    slides.forEach((slide, index) => {
+                        slide.classList.toggle('is-active', index === currentSlide);
+                    });
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlide);
+                    });
                 }
-            }
-             if (passwordToggle) {
-                 const container = passwordToggle.closest('.auth-screen-password-input-container');
-                 const passwordInput = container.querySelector('input');
-                 const icon = passwordToggle.querySelector('i');
-                 
-                 if (passwordInput.type === 'password') {
-                    passwordInput.type = 'text';
-                    icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
-                 } else {
-                    passwordInput.type = 'password';
-                    icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
-                 }
-            }
-        });
-    },
 
+                function goToSlide(index) {
+                    if (isTransitioning || index === currentSlide) return;
+                    
+                    isTransitioning = true;
+                    currentSlide = index;
+                    
+                    // Smooth transform animation
+                    carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    
+                    updateSlideStates();
+                    resetInterval();
+                    
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 600);
+                }
 
+                function nextSlide() {
+                    const nextIndex = (currentSlide + 1) % slides.length;
+                    goToSlide(nextIndex);
+                }
+                
+                function startInterval() { 
+                    slideInterval = setInterval(nextSlide, 5000); 
+                }
+                
+                function resetInterval() { 
+                    clearInterval(slideInterval); 
+                    startInterval(); 
+                }
+
+                // Touch/swipe support
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+
+                carousel.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                    clearInterval(slideInterval);
+                }, { passive: true });
+
+                carousel.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    currentX = e.touches[0].clientX;
+                }, { passive: true });
+
+                carousel.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    
+                    const diffX = startX - currentX;
+                    const threshold = 50;
+                    
+                    if (Math.abs(diffX) > threshold) {
+                        if (diffX > 0 && currentSlide < slides.length - 1) {
+                            goToSlide(currentSlide + 1);
+                        } else if (diffX < 0 && currentSlide > 0) {
+                            goToSlide(currentSlide - 1);
+                        }
+                    }
+                    
+                    startInterval();
+                }, { passive: true });
+
+                // Pause on hover
+                carousel.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                carousel.addEventListener('mouseleave', startInterval);
+
+                startInterval();
+            },
+
+            setupEventListeners: function() {
+                document.addEventListener('click', function(e) {
+                    const passwordToggle = e.target.closest('.auth-screen-password-toggle');
+                    const action = e.target.dataset.action;
+                    
+                    if (action) {
+                        switch (action) {
+                            case 'show-login':
+                                Auth.loadPage('login');
+                                break;
+                            case 'show-register':
+                                Auth.loadPage('register');
+                                break;
+                            case 'login':
+                                Auth.handleLogin();
+                                break;
+                            case 'skip-login':
+                                Auth.handleLogin();
+                                break;
+                            case 'phone-login':
+                                Auth.showToast('Info', 'تسجيل الدخول عبر الهاتف غير متاح حالياً', 'info');
+                                break;
+                            case 'fingerprint-login':
+                                Auth.handleFingerprintLogin();
+                                break;
+                            case 'complete-registration':
+                                Auth.handleRegister();
+                                break;
+                            case 'back':
+                                Auth.loadPage('login');
+                                break;
+                        }
+                    }
+                    
+                    if (passwordToggle) {
+                        const container = passwordToggle.closest('.auth-screen-password-input-container');
+                        const passwordInput = container.querySelector('input');
+                        const icon = passwordToggle.querySelector('i');
+                        
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    }
+                });
+            },
 
     /**
      * Load an authentication page
@@ -117,14 +197,9 @@ const Auth = {
                 Loader.hide();
             });
     },
-
-    /**
-     * Handle login form submission
-     */
-    handleLogin: function() {
-        // Optionally reload the page to refresh the website
-        window.location.reload();
-    },
+            handleLogin: function() {
+                window.location.reload();
+            },
 
     /**
      * Handle register form submission
@@ -167,7 +242,7 @@ const Auth = {
         }, 2000);
     },
 
-    /**
+        /**
      * Process successful login
      * @param {Object} user - User data
      */
@@ -190,108 +265,91 @@ const Auth = {
         /**
      * Handle the fingerprint login simulation
      */
-    handleFingerprintLogin: function() {
-        const scanner = document.getElementById('fingerprint-scanner');
-        if (scanner.classList.contains('scanning')) return; // Prevent multiple clicks
-
-        scanner.classList.add('scanning');
-        scanner.classList.remove('success', 'error');
-        Toast.show('Info', 'جاري مسح بصمة الإصبع...', 'info');
-
-        // Simulate scanning process
-        setTimeout(() => {
-            scanner.classList.remove('scanning');
-            
-            // Re-create the line to restart its animation
-            const line = scanner.querySelector('.fingerprint-line');
-            line.style.display = 'none';
-            void line.offsetWidth; // Trigger reflow
-            line.style.display = '';
 
 
-            // Simulate success or failure
-            const isSuccess = Math.random() > 0.3; // 70% chance of success
+            handleFingerprintLogin: function() {
+                const scanner = document.getElementById('fingerprint-scanner');
+                if (scanner.classList.contains('scanning')) return;
 
-            if (isSuccess) {
-                scanner.classList.add('success');
-                Toast.show('Success', 'تم التحقق بنجاح!', 'success');
+                scanner.classList.add('scanning');
+                scanner.classList.remove('success', 'error');
+                this.showToast('Info', 'جاري مسح بصمة الإصبع...', 'info');
 
-                // Proceed to login
                 setTimeout(() => {
-                    Auth.handleLogin();
-                }, 1500);
-
-            } else {
-                scanner.classList.add('error');
-                scanner.style.animation = 'shake 0.5s ease-in-out';
-                Toast.show('Error', 'فشل التحقق، حاول مرة أخرى', 'danger');
-
-                // Reset after animation
-                scanner.addEventListener('animationend', () => {
-                     scanner.style.animation = '';
-                }, { once: true });
-                
-                 setTimeout(() => {
-                    scanner.classList.remove('error');
-                 }, 1500);
-            }
-        }, 2000); // 2 seconds scan time
-    },
-
-    /**
-     * Log out the current user
-     */
-    logout: function() {
-        // Clear authentication state
-        State.update('isAuthenticated', false);
-        
-        // Hide app container, show auth container
-        document.getElementById('app-container').style.display = 'none';
-        document.getElementById('auth-container').style.display = '';
-        
-        // Load login page
-        this.loadPage('login');
-        
-        // Show logout toast
-        Toast.show('Info', 'تم تسجيل الخروج بنجاح', 'info');
-    },
-    
-    // Add this to Auth.js
-    setupMultiStepForm: function() {
-        document.addEventListener('click', function(e) {
-            if (e.target.dataset.action === 'next-step') {
-                const currentStep = document.querySelector('.form-step.active');
-                const nextStep = document.querySelector(`.form-step[data-step="${parseInt(currentStep.dataset.step) + 1}"]`);
-                
-                if (nextStep) {
-                    currentStep.classList.remove('active');
-                    nextStep.classList.add('active');
+                    scanner.classList.remove('scanning');
                     
-                    // Update progress indicators
-                    document.querySelectorAll('.progress-step').forEach(step => {
-                        if (parseInt(step.dataset.step) <= parseInt(nextStep.dataset.step)) {
-                            step.classList.add('active');
+                    const isSuccess = Math.random() > 0.3;
+
+                    if (isSuccess) {
+                        scanner.classList.add('success');
+                        this.showToast('Success', 'تم التحقق بنجاح!', 'success');
+
+                        setTimeout(() => {
+                            this.handleLogin();
+                        }, 1500);
+
+                    } else {
+                        scanner.classList.add('error');
+                        this.showToast('Error', 'فشل التحقق، حاول مرة أخرى', 'danger');
+                        
+                        setTimeout(() => {
+                            scanner.classList.remove('error');
+                        }, 1500);
+                    }
+                }, 2000);
+            },
+
+            showToast: function(title, message, type) {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.classList.add('toast', type);
+                toast.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'danger' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <div>
+                        <strong>${title}</strong><br>
+                        ${message}
+                    </div>
+                `;
+                container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+            },
+
+            setupMultiStepForm: function() {
+                document.addEventListener('click', function(e) {
+                    if (e.target.dataset.action === 'next-step') {
+                        const currentStep = document.querySelector('.form-step.active');
+                        const nextStep = document.querySelector(`.form-step[data-step="${parseInt(currentStep?.dataset.step || 0) + 1}"]`);
+                        
+                        if (nextStep) {
+                            currentStep?.classList.remove('active');
+                            nextStep.classList.add('active');
+                            
+                            document.querySelectorAll('.progress-step').forEach(step => {
+                                if (parseInt(step.dataset.step) <= parseInt(nextStep.dataset.step)) {
+                                    step.classList.add('active');
+                                }
+                            });
                         }
-                    });
-                }
-            }
-            
-            if (e.target.dataset.action === 'prev-step') {
-                const currentStep = document.querySelector('.form-step.active');
-                const prevStep = document.querySelector(`.form-step[data-step="${parseInt(currentStep.dataset.step) - 1}"]`);
-                
-                if (prevStep) {
-                    currentStep.classList.remove('active');
-                    prevStep.classList.add('active');
+                    }
                     
-                    // Update progress indicators
-                    document.querySelectorAll('.progress-step').forEach(step => {
-                        if (parseInt(step.dataset.step) > parseInt(prevStep.dataset.step)) {
-                            step.classList.remove('active');
+                    if (e.target.dataset.action === 'prev-step') {
+                        const currentStep = document.querySelector('.form-step.active');
+                        const prevStep = document.querySelector(`.form-step[data-step="${parseInt(currentStep?.dataset.step || 0) - 1}"]`);
+                        
+                        if (prevStep) {
+                            currentStep?.classList.remove('active');
+                            prevStep.classList.add('active');
+                            
+                            document.querySelectorAll('.progress-step').forEach(step => {
+                                if (parseInt(step.dataset.step) > parseInt(prevStep.dataset.step)) {
+                                    step.classList.remove('active');
+                                }
+                            });
                         }
-                    });
-                }
+                    }
+                });
             }
-        });
-    },
-};
+        };
