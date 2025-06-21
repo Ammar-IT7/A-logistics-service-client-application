@@ -166,47 +166,41 @@
     </section>
 
 
-    <section class="chp-section-container">
-        <div class="chp-section-header">
-            <h3 class="chp-section-title"><i class="fas fa-history chp-section-icon"></i> آخر طلباتي</h3>
-            <a href="#" class="chp-section-link">عرض الكل <i class="fas fa-chevron-left"></i></a>
+<!-- Section for active shipments -->
+    <div class="mt-8">
+        <h3 class="text-xl font-bold mb-4 text-gray-700">الشحنات قيد التوصيل</h3>
+        <div id="shipmentTrackingList" class="chp-tracking-list">
+            
+            <!-- Dynamic Shipment Card 1 -->
+            <div class="chp-tracking-card" 
+                data-shipment-id="AE12345" 
+                data-origin-name="دبي, الإمارات"
+                data-origin-lat="25.2048" 
+                data-origin-lon="55.2708">
+                <div class="chp-tracking-icon"><i class="fas fa-truck-fast"></i></div>
+                <div class="chp-tracking-details">
+                    <h4>شحنة من دبي</h4>
+                    <p>رقم التتبع: AE12345</p>
+                </div>
+                <div class="chp-tracking-action"><i class="fas fa-chevron-left"></i></div>
+            </div>
+
+            <!-- Dynamic Shipment Card 2 -->
+            <div class="chp-tracking-card" 
+                data-shipment-id="CN67890" 
+                data-origin-name="شنزن, الصين"
+                data-origin-lat="22.5431" 
+                data-origin-lon="114.0579">
+                <div class="chp-tracking-icon"><i class="fas fa-plane-departure"></i></div>
+                <div class="chp-tracking-details">
+                    <h4>شحنة من شنزن</h4>
+                    <p>رقم التتبع: CN67890</p>
+                </div>
+                <div class="chp-tracking-action"><i class="fas fa-chevron-left"></i></div>
+            </div>
+
         </div>
-        <div class="chp-orders-list">
-            <div class="chp-order-card chp-pending" data-action="navigate" data-page="offers-request">
-                <div class="chp-order-icon" data-action="navigate" data-page="offers-request"><i class="fas fa-box"></i></div>
-                <div class="chp-order-details" data-action="navigate" data-page="offers-request">
-                    <h4 data-action="navigate" data-page="offers-request">طلب تخزين #C0-7891</h4>
-                    <p data-action="navigate" data-page="offers-request">أجهزة إلكترونية - مستودع آمن</p>
-                    <div class="chp-order-meta" data-action="navigate" data-page="offers-request">
-                        <span class="chp-order-status" data-action="navigate" data-page="offers-request">قيد المراجعة</span>
-                        <span class="chp-order-time" data-action="navigate" data-page="offers-request">منذ ساعة</span>
-                    </div>
-                </div>
-            </div>
-            <div class="chp-order-card chp-new" data-action="navigate" data-page="offers-request">
-                <div class="chp-order-icon" data-action="navigate" data-page="offers-request"><i class="fas fa-shipping-fast"></i></div>
-                <div class="chp-order-details" data-action="navigate" data-page="offers-request">
-                    <h4 data-action="navigate" data-page="offers-request">طلب شحن دولي #C1-2345</h4>
-                    <p data-action="navigate" data-page="offers-request">من الصين إلى اليمن - بحري</p>
-                    <div class="chp-order-meta" data-action="navigate" data-page="offers-request">
-                        <span class="chp-order-status" data-action="navigate" data-page="offers-request">بانتظار عروض الأسعار</span>
-                        <span class="chp-order-time" data-action="navigate" data-page="offers-request">منذ 5 ساعات</span>
-                    </div>
-                </div>
-            </div>
-            <div class="chp-order-card chp-completed" data-action="navigate" data-page="offers-request">
-                <div class="chp-order-icon" data-action="navigate" data-page="offers-request"><i class="fas fa-check-circle"></i></div>
-                <div class="chp-order-details" data-action="navigate" data-page="offers-request">
-                    <h4 data-action="navigate" data-page="offers-request">تخليص جمركي #C2-6789</h4>
-                    <p data-action="navigate" data-page="offers-request">ميناء عدن - بضائع عامة</p>
-                    <div class="chp-order-meta" data-action="navigate" data-page="offers-request">
-                        <span class="chp-order-status" data-action="navigate" data-page="offers-request">مكتمل</span>
-                        <span class="chp-order-time" data-action="navigate" data-page="offers-request">منذ يومين</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <button class="chp-fab-request-service" aria-label="اطلب خدمة جديدة">
         <span class="chp-fab-text">اطلب خدمة الآن</span>
@@ -252,21 +246,23 @@
     </div>
 </div>
 
+    <!-- Map Modal (FIXED: HTML was missing) -->
     <div id="trackingMapModal" class="chp-map-modal-overlay">
         <div class="chp-map-modal-content">
-            <button class="chp-map-modal-close" aria-label="إغلاق">&times;</button>
+            <button class="chp-map-modal-close" aria-label="إغلاق الخريطة">&times;</button>
             <div id="map-container"></div>
+            
             <div class="shipment-details-panel">
                 <div class="shipment-info-header">
                     <h3 id="mapShipmentId"></h3>
                     <p id="mapShipmentOrigin"></p>
                 </div>
                 <div class="recenter-btn-container">
-                    <button id="recenterBtn" aria-label="إعادة التمركز على الشاحنة"><i class="fas fa-crosshairs"></i></button>
+                    <button id="recenterBtn" title="توسيط على الشاحنة"><i class="fas fa-location-crosshairs"></i></button>
                 </div>
                 <div class="tracking-progress-container">
                     <div class="tracking-progress-bar-bg">
-                        <div class="tracking-progress-bar" id="trackingProgressBar"></div>
+                        <div id="trackingProgressBar"></div>
                     </div>
                 </div>
                 <div class="shipment-live-info">

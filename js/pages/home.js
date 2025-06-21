@@ -19,12 +19,16 @@ window.ClientHomePageController = {
     // --- DEVELOPER MODE FLAG ---
     isDevMode: true,
 
+        // --- MAP & ANIMATION PROPERTIES ---
         map: null,
         animationInterval: null,
         truckMarker: null,
         completedRouteLine: null,
-          // --- Static Data ---
-        SANA_COORDS: [15.3694, 44.1910],
+        previousLatLng: null,
+
+        // --- STATIC DATA ---
+        SANA_COORDS: [15.3694, 44.1910], // Destination: Sana'a, Yemen
+
 
     /**
      * Initializes the controller and all page components.
@@ -38,7 +42,6 @@ window.ClientHomePageController = {
             this.setupCarousel();
         }
         this.setupAllEventListeners();
-        this.setupTrackingListeners(); // NEW: Initialize tracking listeners
         this.setupTrackingListeners();
     },
 
@@ -228,58 +231,78 @@ window.ClientHomePageController = {
         if (this.progressBar) this.progressBar.style.animationPlayState = 'paused'; 
     },
 
+        /**
+         * Sets up listeners for the shipment tracking cards and modal controls.
+         */
         setupTrackingListeners: function() {
             const trackingList = document.getElementById('shipmentTrackingList');
             const mapModal = document.getElementById('trackingMapModal');
-            const closeButton = mapModal.querySelector('.chp-map-modal-close');
+            const closeButton = mapModal?.querySelector('.chp-map-modal-close');
             const recenterButton = document.getElementById('recenterBtn');
 
             trackingList?.addEventListener('click', (e) => {
                 const card = e.target.closest('.chp-tracking-card');
-                if (card) this.initAndShowMap(card.dataset);
+                if (card) {
+                    // Stop any ongoing simulation before starting a new one
+                    if(this.animationInterval) this.hideMap();
+                    
+                    // Use a short timeout to allow the previous map to fully close
+                    setTimeout(() => {
+                        this.initAndShowMap(card.dataset);
+                    }, this.map ? 500 : 0);
+                }
             });
 
             closeButton?.addEventListener('click', () => this.hideMap());
             recenterButton?.addEventListener('click', () => {
                 if (this.map && this.truckMarker) {
-                    this.map.flyTo(this.truckMarker.getLatLng(), 10);
+                    this.map.flyTo(this.truckMarker.getLatLng(), this.map.getZoom(), {
+                        duration: 1
+                    });
                 }
             });
         },
 
+        /**
+         * Initializes the Leaflet map, displays the modal, and starts the simulation.
+         * @param {DOMStringMap} data - The dataset from the clicked tracking card.
+         */
         initAndShowMap: function(data) {
             const mapModal = document.getElementById('trackingMapModal');
             mapModal.classList.add('chp-active');
             
-            // Update modal details
+            // Update modal details from card data
             document.getElementById('mapShipmentId').textContent = `تتبع الشحنة ${data.shipmentId}`;
             document.getElementById('mapShipmentOrigin').textContent = `قادمة من: ${data.originName}`;
             
-            if (this.map) this.map.remove();
+            // If a map instance exists, remove it before creating a new one.
+            if (this.map) {
+                this.map.remove();
+                this.map = null;
+            }
 
             const origin = [parseFloat(data.originLat), parseFloat(data.originLon)];
             const destination = this.SANA_COORDS;
             
-            // Initialize the map with dark theme
-            const mapContainer = document.getElementById('map-container');
-            mapContainer.classList.add('map-dark-theme');
+            // Initialize the map with a dark theme tile layer
             this.map = L.map('map-container').setView(origin, 6);
-
-            // Add dark map tiles from CartoDB
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
                 subdomains: 'abcd',
                 maxZoom: 19
             }).addTo(this.map);
 
-            // Draw background route
-            L.polyline([origin, destination], { color: '#555', weight: 4, opacity: 0.7, className: 'route-path-background' }).addTo(this.map);
-            this.completedRouteLine = L.polyline([], { color: 'var(--primary-color)', weight: 4, opacity: 1, className: 'route-path-completed' }).addTo(this.map);
+            // Draw background route (the full path)
+            L.polyline([origin, destination], { color: 'rgba(128, 128, 128, 0.5)', weight: 5, dashArray: '10, 10' }).addTo(this.map);
+            
+            // Draw completed route (will be updated live)
+            this.completedRouteLine = L.polyline([], { color: 'var(--primary-color)', weight: 5 }).addTo(this.map);
 
-            // Add markers
+            // Add markers for origin and destination
+            L.marker(origin).addTo(this.map).bindPopup(`<b>نقطة الانطلاق</b><br>${data.originName}`);
             L.marker(destination).addTo(this.map).bindPopup("<b>الوجهة النهائية</b><br>صنعاء، اليمن");
 
-            // Create custom truck icon
+            // Create custom animated truck icon
             const truckIcon = L.divIcon({
                 html: '<i class="fas fa-truck"></i>',
                 className: 'live-truck-icon',
@@ -288,76 +311,115 @@ window.ClientHomePageController = {
             });
             
             this.truckMarker = L.marker(origin, {icon: truckIcon}).addTo(this.map);
+            this.previousLatLng = origin;
 
-            // Animate view to fit the route
+            // Animate view to fit the entire route
             const routeBounds = L.latLngBounds(origin, destination);
             this.map.flyToBounds(routeBounds, { padding: [50, 50], duration: 1.5 });
 
             this.startTrackingAnimation(origin, destination);
         },
-
+        
+        /**
+         * Starts the interval timer to animate the truck marker across the map.
+         * @param {number[]} origin - The [lat, lon] array for the starting point.
+         * @param {number[]} destination - The [lat, lon] array for the end point.
+         */
         startTrackingAnimation: function(origin, destination) {
             let step = 0;
-            const totalSteps = 500;
+            const totalSteps = 600; // More steps for smoother animation
             const tripDurationSeconds = 30; // 30-second simulation
 
             const etaElement = document.getElementById('mapShipmentETA');
             const statusElement = document.getElementById('mapShipmentStatus');
             const progressBar = document.getElementById('trackingProgressBar');
             
+            // Reset UI elements for the new simulation
             this.completedRouteLine.setLatLngs([]);
+            progressBar.style.width = '0%';
+            statusElement.style.color = 'var(--success)';
 
             this.animationInterval = setInterval(() => {
                 step++;
-                const progress = step / totalSteps;
+                // Use an ease-in-out function for more natural acceleration/deceleration
+                const progress = 0.5 - 0.5 * Math.cos(Math.PI * (step / totalSteps));
                 
-                // Update ETA
+                // --- Update UI Text ---
                 const remainingSeconds = Math.round(tripDurationSeconds * (1 - progress));
                 const mins = Math.floor(remainingSeconds / 60);
                 const secs = remainingSeconds % 60;
-                etaElement.textContent = `الوقت المقدر للوصول: ${mins}د ${secs}ث`;
+                etaElement.textContent = `الوقت المقدر: ${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
 
-                // Update Status
                 if (progress < 0.1) statusElement.textContent = 'غادرت للتو';
-                else if (progress < 0.9) statusElement.textContent = 'في الطريق';
+                else if (progress < 0.95) statusElement.textContent = 'في الطريق';
                 else statusElement.textContent = 'على وشك الوصول';
 
-                // Calculate new position and update truck and completed route
+                // --- Update Map Elements ---
                 const lat = origin[0] + (destination[0] - origin[0]) * progress;
                 const lng = origin[1] + (destination[1] - origin[1]) * progress;
                 const newPos = [lat, lng];
+                
                 this.truckMarker.setLatLng(newPos);
                 this.completedRouteLine.addLatLng(newPos);
-
-                // Update progress bar
                 progressBar.style.width = `${progress * 100}%`;
-                
-                // Calculate rotation angle
-                const p1 = this.map.project(this.truckMarker.getLatLng());
-                const p2 = this.map.project(destination);
-                const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * (180 / Math.PI) + 90;
-                this.truckMarker.getElement().style.transform = `${this.truckMarker.getElement().style.transform.split(' rotate')[0]} rotate(${angle}deg)`;
 
+                // --- Calculate Rotation (IMPROVED) ---
+                // Calculate angle between the previous point and the new point for accurate rotation
+                const angle = this.calculateAngle(this.previousLatLng, newPos);
+                const markerElement = this.truckMarker.getElement();
+                if (markerElement) {
+                    // Add 90 degrees offset because the icon faces up by default
+                    markerElement.style.transform = `${markerElement.style.transform.split(' rotateZ')[0]} rotateZ(${angle + 90}deg)`;
+                }
+                this.previousLatLng = newPos;
+
+                // --- End Condition ---
                 if (step >= totalSteps) {
                     clearInterval(this.animationInterval);
-                    statusElement.textContent = 'تم التوصيل بنجاح';
-                    etaElement.textContent = ' ';
+                    this.animationInterval = null;
+                    statusElement.textContent = 'تم التوصيل بنجاح!';
+                    statusElement.style.color = '#1dd1a1'; // Brighter green for success
+                    etaElement.textContent = '';
+                    this.truckMarker.setLatLng(destination); // Snap to final destination
                     this.truckMarker.bindPopup("<b>الشحنة وصلت!</b>").openPopup();
                 }
             }, (tripDurationSeconds * 1000) / totalSteps);
         },
 
+        /**
+         * Hides the map modal and cleans up the map instance and animation timer.
+         */
         hideMap: function() {
             const mapModal = document.getElementById('trackingMapModal');
             mapModal.classList.remove('chp-active');
 
             clearInterval(this.animationInterval);
             this.animationInterval = null;
+
             if (this.map) {
+                // Use a timeout to allow the modal's fade-out animation to complete before removing the map object
                 setTimeout(() => {
                     this.map.remove();
                     this.map = null;
                 }, 400);
             }
+        },
+        
+        /**
+         * Calculates the bearing angle between two geographical points.
+         * @param {number[]} p1 - Origin [lat, lon]
+         * @param {number[]} p2 - Destination [lat, lon]
+         * @returns {number} - Angle in degrees.
+         */
+        calculateAngle: function(p1, p2) {
+            const lat1 = p1[0] * Math.PI / 180;
+            const lon1 = p1[1] * Math.PI / 180;
+            const lat2 = p2[0] * Math.PI / 180;
+            const lon2 = p2[1] * Math.PI / 180;
+
+            const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
+            const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1);
+            const bearing = Math.atan2(y, x) * 180 / Math.PI;
+            return bearing;
         }
     };
