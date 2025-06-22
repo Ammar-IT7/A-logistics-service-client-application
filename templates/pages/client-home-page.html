@@ -106,21 +106,21 @@
     </section>
 
     <section class="chp-stats-grid">
-        <div class="chp-stat-card" data-action="open-modal" data-modal="currentRequestModal">
+        <div class="chp-stat-card" data-section-target="requests">
             <div class="chp-stat-icon"><i class="fas fa-tasks"></i></div>
             <div class="chp-stat-info">
                 <div class="chp-stat-value">3</div>
                 <div class="chp-stat-label">طلباتي الحالية</div>
             </div>
         </div>
-        <div class="chp-stat-card chp-highlight">
+        <div class="chp-stat-card chp-highlight" data-section-target="tracking">
             <div class="chp-stat-icon"><i class="fas fa-truck-moving"></i></div>
             <div class="chp-stat-info">
                 <div class="chp-stat-value">2</div>
                 <div class="chp-stat-label">شحنات بالطريق</div>
             </div>
         </div>
-        <div class="chp-stat-card">
+        <div class="chp-stat-card" data-section-target="reports">
             <div class="chp-stat-icon"><i class="fas fa-wallet"></i></div>
             <div class="chp-stat-info">
                 <div class="chp-stat-value">1,250 <span style="font-size: 0.7em;">ر.ي</span></div>
@@ -129,52 +129,124 @@
         </div>
     </section>
     
-    <section class="chp-section-container chp-tracking-section">
-        <div class="chp-section-header">
-            <h3 class="chp-section-title"><i class="fas fa-route chp-section-icon"></i> شحناتك الحالية</h3>
-        </div>
-        <div class="chp-tracking-list" id="shipmentTrackingList">
-            <div class="chp-tracking-card" 
-                data-shipment-id="#INT-4521"
-                data-origin-lat="21.4595" data-origin-lon="39.1558"
-                data-origin-name="ميناء جدة، السعودية"
-                data-destination-name="صنعاء، اليمن">
-                <div class="chp-tracking-icon"><i class="fas fa-ship"></i></div>
-                <div class="chp-tracking-details">
-                    <h4>شحنة #INT-4521</h4>
-                    <p>قادمة من: ميناء جدة، السعودية</p>
+    <div class="chp-dynamic-content-wrapper">
+
+        <section class="chp-section-container chp-tracking-section" data-section-id="tracking">
+            <div class="chp-section-header">
+                <h3 class="chp-section-title"><i class="fas fa-route chp-section-icon"></i> شحناتك الحالية</h3>
+            </div>
+            <div class="chp-filter-bar">
+                <button class="chp-filter-chip active" data-filter="all">الكل</button>
+                <button class="chp-filter-chip" data-filter="sea">بحري</button>
+                <button class="chp-filter-chip" data-filter="air">جوي</button>
+            </div>
+            <div class="chp-tracking-list" id="shipmentTrackingList" data-filter-key="transport-type">
+                <div class="chp-tracking-card chp-filterable-item" 
+                    data-shipment-id="#INT-4521"
+                    data-origin-lat="21.4595" data-origin-lon="39.1558"
+                    data-origin-name="ميناء جدة، السعودية"
+                    data-destination-name="صنعاء، اليمن"
+                    data-transport-type="sea">
+                    <div class="chp-tracking-icon"><i class="fas fa-ship"></i></div>
+                    <div class="chp-tracking-details">
+                        <h4>شحنة #INT-4521</h4>
+                        <p>قادمة من: ميناء جدة، السعودية</p>
+                    </div>
+                    <div class="chp-tracking-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
                 </div>
-                <div class="chp-tracking-action">
-                    <i class="fas fa-chevron-left"></i>
+                <div class="chp-tracking-card chp-filterable-item"
+                    data-shipment-id="#INT-7890"
+                    data-origin-lat="25.2048" data-origin-lon="55.2708"
+                    data-origin-name="دبي، الإمارات"
+                    data-destination-name="صنعاء، اليمن"
+                    data-transport-type="air">
+                    <div class="chp-tracking-icon"><i class="fas fa-plane-departure"></i></div>
+                    <div class="chp-tracking-details">
+                        <h4>شحنة #INT-7890</h4>
+                        <p>قادمة من: دبي، الإمارات</p>
+                    </div>
+                    <div class="chp-tracking-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
                 </div>
             </div>
-            <div class="chp-tracking-card"
-                data-shipment-id="#INT-7890"
-                data-origin-lat="25.2048" data-origin-lon="55.2708"
-                data-origin-name="دبي، الإمارات"
-                data-destination-name="صنعاء، اليمن">
-                <div class="chp-tracking-icon"><i class="fas fa-plane-departure"></i></div>
-                <div class="chp-tracking-details">
-                    <h4>شحنة #INT-7890</h4>
-                    <p>قادمة من: دبي، الإمارات</p>
+        </section>
+
+        <section class="chp-section-container chp-requests-section" data-section-id="requests">
+            <div class="chp-section-header">
+                <h3 class="chp-section-title"><i class="fas fa-tasks chp-section-icon"></i> طلباتك الحالية</h3>
+                <a href="#" class="chp-section-link">عرض الكل <i class="fas fa-chevron-left"></i></a>
+            </div>
+            <div class="chp-filter-bar">
+                <button class="chp-filter-chip active" data-filter="all">الكل</button>
+                <button class="chp-filter-chip" data-filter="customs">تخليص جمركي</button>
+                <button class="chp-filter-chip" data-filter="packaging">تغليف</button>
+                <button class="chp-filter-chip" data-filter="shipping">شحن</button>
+            </div>
+            <div class="chp-orders-list" data-filter-key="service-type">
+                <div class="chp-order-card chp-new chp-filterable-item" data-service-type="customs">
+                    <div class="chp-order-icon"><i class="fas fa-box-open"></i></div>
+                    <div class="chp-order-details">
+                        <h4>طلب تخليص جمركي #C-8812</h4>
+                        <div class="chp-order-meta">
+                            <span class="chp-order-status">جديد</span>
+                            <span class="chp-order-time">منذ 5 دقائق</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="chp-tracking-action">
-                    <i class="fas fa-chevron-left"></i>
+                <div class="chp-order-card chp-pending chp-filterable-item" data-service-type="packaging">
+                    <div class="chp-order-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="chp-order-details">
+                        <h4>طلب خدمة تغليف #P-5432</h4>
+                         <div class="chp-order-meta">
+                            <span class="chp-order-status">قيد المراجعة</span>
+                            <span class="chp-order-time">منذ ساعتين</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chp-order-card chp-completed chp-filterable-item" data-service-type="shipping">
+                    <div class="chp-order-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="chp-order-details">
+                        <h4>طلب شحن داخلي #SH-1099</h4>
+                         <div class="chp-order-meta">
+                            <span class="chp-order-status">مكتمل</span>
+                            <span class="chp-order-time">بالأمس</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+        
+        <section class="chp-section-container chp-reports-section" data-section-id="reports">
+            <div class="chp-section-header">
+                <h3 class="chp-section-title"><i class="fas fa-chart-pie chp-section-icon"></i> تقارير الإنفاق</h3>
+                <a href="#" class="chp-section-link">تصدير <i class="fas fa-file-export"></i></a>
+            </div>
+             <div class="chp-filter-bar">
+                <button class="chp-filter-chip active" data-filter="monthly">شهري</button>
+                <button class="chp-filter-chip" data-filter="quarterly">ربع سنوي</button>
+                <button class="chp-filter-chip" data-filter="yearly">سنوي</button>
+            </div>
+            <div class="chp-reports-content">
+                <h4 id="reports-title">ملخص الإنفاق الشهري</h4>
+                <p>ميزة التقارير قيد التطوير حالياً. ستتمكن قريباً من عرض وتحليل جميع نفقاتك هنا.</p>
+                <div class="chp-chart-placeholder">
+                    <i class="fas fa-chart-line"></i>
+                    <span>سيتم عرض الرسم البياني هنا</span>
+                </div>
+            </div>
+        </section>
 
-
-
-    <button class="chp-fab-request-service" aria-label="اطلب خدمة جديدة">
+    </div> <button class="chp-fab-request-service" aria-label="اطلب خدمة جديدة">
         <span class="chp-fab-text">اطلب خدمة الآن</span>
         <i class="fas fa-paper-plane chp-fab-icon"></i>
     </button>
 
     <div id="subscriptionModal" class="chp-modal-overlay" style="display: none;">
         <div class="chp-modal-content">
-            <button class="chp-modal-close" aria-label="إغلاق">&times;</button>
+            <button class="chp-modal-close" aria-label="إغلاق">×</button>
             <div class="chp-modal-icon">
                 <i class="fas fa-key"></i>
             </div>
@@ -191,7 +263,7 @@
 
     <div id="devTestModal" class="chp-modal-overlay" style="display: none;">
         <div class="chp-modal-content dev-modal-content">
-            <button class="chp-modal-close" aria-label="إغلاق">&times;</button>
+            <button class="chp-modal-close" aria-label="إغلاق">×</button>
             <div class="chp-modal-icon dev-modal-icon">
                 <i class="fas fa-vial"></i>
             </div>
@@ -211,12 +283,10 @@
     </div>
 </div>
 
-    <!-- Map Modal (FIXED: HTML was missing) -->
     <div id="trackingMapModal" class="chp-map-modal-overlay">
         <div class="chp-map-modal-content">
-            <button class="chp-map-modal-close" aria-label="إغلاق الخريطة">&times;</button>
+            <button class="chp-map-modal-close" aria-label="إغلاق الخريطة">×</button>
             <div id="map-container"></div>
-            
             <div class="shipment-details-panel">
                 <div class="shipment-info-header">
                     <h3 id="mapShipmentId"></h3>
@@ -237,4 +307,3 @@
             </div>
         </div>
     </div>
-    

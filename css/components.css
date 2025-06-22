@@ -1269,7 +1269,6 @@ input:checked + .switch-slider:before {
     color: var(--accent-color);
 }
 
-
 /* Home screen*/
         @keyframes ken-burns {
             from { transform: scale(1); }
@@ -1479,7 +1478,7 @@ input:checked + .switch-slider:before {
         display: flex;
         align-items: center;
         box-shadow: 0 2px 12px rgba(67, 97, 238, 0.06), var(--shadow-xs);
-        transition: box-shadow 0.22s, transform 0.16s;
+        transition: box-shadow 0.22s, transform 0.16s, border-color 0.2s;
         border: 1px solid var(--gray-light);
         position: relative;
         overflow: hidden;
@@ -1493,7 +1492,6 @@ input:checked + .switch-slider:before {
     .chp-stat-card:active {
         transform: translateY(-3px) scale(1.02);
         box-shadow: 0 6px 18px rgba(67, 97, 238, 0.13), var(--shadow-md);
-        border-color: var(--primary-color);
     }
 
     .chp-stat-card.chp-highlight {
@@ -1502,6 +1500,7 @@ input:checked + .switch-slider:before {
         border-color: var(--primary-color);
         box-shadow: 0 8px 32px rgba(238, 192, 67, 0.18), 0 2px 8px rgba(0,0,0,0.04);
         z-index: 1;
+        transform: translateY(-3px) scale(1.02);
     }
 
     .chp-stat-card.chp-highlight::after {
@@ -1568,7 +1567,8 @@ input:checked + .switch-slider:before {
         text-overflow: ellipsis;
     }
 
-    .chp-stat-card.chp-highlight .chp-stat-label {
+    .chp-stat-card.chp-highlight .chp-stat-label,
+    .chp-stat-card.chp-highlight .chp-stat-value {
         opacity: 0.95;
         color: #fff;
         text-shadow: 0 1px 4px rgba(67, 97, 238, 0.18);
@@ -1706,7 +1706,7 @@ input:checked + .switch-slider:before {
 
         /* Orders List */
         .chp-orders-list { display: flex; flex-direction: column; gap: var(--spacing-md); /* Increased gap */ padding-top: var(--spacing-sm); }
-        .chp-order-card {    display: flex;
+        .chp-order-card {   display: flex;
     align-items: center;
     padding: var(--spacing-md);
     border-radius: var(--border-radius-md);
@@ -2183,6 +2183,116 @@ input:checked + .switch-slider:before {
         }
         .route-path-background { stroke-width: 5; stroke-linecap: round; }
         .route-path-completed { stroke-width: 5; stroke-linecap: round; }
+
+/* Previous CSS styles... */
+
+/* ========= NEW CSS for Filter Bar ========= */
+.chp-filter-bar {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-sm) 0 var(--spacing-md) 0;
+    padding-bottom: var(--spacing-xs);
+    overflow-x: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For IE/Edge */
+}
+
+.chp-filter-bar::-webkit-scrollbar {
+    display: none; /* For Chrome/Safari/Opera */
+}
+
+.chp-filter-chip {
+    flex-shrink: 0; /* Prevent chips from shrinking on small screens */
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 20px;
+    border: 1px solid var(--gray-light);
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+}
+
+.chp-filter-chip:hover {
+    background-color: var(--gray-light);
+    border-color: var(--gray-color);
+    transform: translateY(-2px);
+}
+
+.chp-filter-chip.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(250, 174, 67, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ========= NEW CSS for Filterable Items ========= */
+.chp-filterable-item {
+    transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease;
+    transform-origin: top;
+    overflow: hidden;
+}
+.chp-filterable-item.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    max-height: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-width: 0 !important;
+}
+
+/* ========= CSS for Reports Section (from previous step) ========= */
+.chp-reports-content {
+    padding: var(--spacing-md) 0;
+    color: var(--text-light);
+}
+.chp-reports-content h4 {
+    color: var(--text-color);
+    margin-bottom: var(--spacing-sm);
+    transition: opacity 0.3s;
+}
+ .chp-reports-content p {
+    color: var(--text-light);
+    margin-bottom: var(--spacing-sm);
+}
+.chp-chart-placeholder {
+    background-color: var(--gray-light);
+    border: 2px dashed var(--gray-color);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xl);
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    color: var(--gray-dark);
+}
+.chp-chart-placeholder i {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--spacing-md);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /* Enhanced Login Screen Styles */
