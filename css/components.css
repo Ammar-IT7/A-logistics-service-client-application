@@ -2231,6 +2231,7 @@ input:checked + .switch-slider:before {
 }
 
 .chp-filter-chip {
+    margin-top: 10px;
     flex-shrink: 0;
     padding: 8px 16px;
     font-size: 0.9rem;
