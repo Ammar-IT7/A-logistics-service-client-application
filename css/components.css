@@ -2184,30 +2184,59 @@ input:checked + .switch-slider:before {
         .route-path-background { stroke-width: 5; stroke-linecap: round; }
         .route-path-completed { stroke-width: 5; stroke-linecap: round; }
 
-/* Previous CSS styles... */
+/* ========= NEW & UPDATED CSS for Dynamic Content Hub ========= */
 
-/* ========= NEW CSS for Filter Bar ========= */
+.chp-dynamic-content-wrapper {
+    background-color: var(--card-background-color);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-sm);
+    margin-top: 0; /* Adjusted from negative margin for better flow */
+    position: relative;
+    border: 1px solid var(--gray-light);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Make the inner sections transparent to inherit the wrapper's background */
+.chp-dynamic-content-wrapper > .chp-section-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: var(--spacing-sm) var(--spacing-xs);
+    margin-bottom: 0;
+    
+    /* Styles for smooth fade transition */
+    display: none; 
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.chp-dynamic-content-wrapper > .chp-section-container.chp-active-section {
+    display: block;
+    opacity: 1;
+}
+
+/* Filter Bar Styles */
 .chp-filter-bar {
     display: flex;
     gap: var(--spacing-sm);
     margin: var(--spacing-sm) 0 var(--spacing-md) 0;
     padding-bottom: var(--spacing-xs);
     overflow-x: auto;
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .chp-filter-bar::-webkit-scrollbar {
-    display: none; /* For Chrome/Safari/Opera */
+    display: none;
 }
 
 .chp-filter-chip {
-    flex-shrink: 0; /* Prevent chips from shrinking on small screens */
+    flex-shrink: 0;
     padding: 8px 16px;
     font-size: 0.9rem;
     font-weight: 600;
     border-radius: 20px;
-    border: 1px solid var(--gray-light);
+    border: 1px solid var(--gray-color);
     background-color: var(--secondary-color);
     color: var(--text-light);
     cursor: pointer;
@@ -2217,7 +2246,7 @@ input:checked + .switch-slider:before {
 
 .chp-filter-chip:hover {
     background-color: var(--gray-light);
-    border-color: var(--gray-color);
+    border-color: var(--primary-color);
     transform: translateY(-2px);
 }
 
@@ -2228,7 +2257,7 @@ input:checked + .switch-slider:before {
     transform: translateY(-2px);
 }
 
-/* ========= NEW CSS for Filterable Items ========= */
+/* Filterable Items & Empty State */
 .chp-filterable-item {
     transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.4s ease, margin 0.4s ease, padding 0.4s ease;
     transform-origin: top;
@@ -2245,10 +2274,28 @@ input:checked + .switch-slider:before {
     border-width: 0 !important;
 }
 
+.chp-empty-state {
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+    color: var(--text-light);
+    transition: opacity 0.3s;
+}
+.chp-empty-state i {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.5;
+}
+.chp-empty-state p {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+
+
 /* ========= CSS for Reports Section (from previous step) ========= */
 .chp-reports-content {
     padding: var(--spacing-md) 0;
-    color: var(--text-light);
+    color: var(--text-dark);
 }
 .chp-reports-content h4 {
     color: var(--text-color);
@@ -2273,10 +2320,6 @@ input:checked + .switch-slider:before {
     display: block;
     margin-bottom: var(--spacing-md);
 }
-
-
-
-
 
 
 

@@ -54,7 +54,7 @@ window.ClientHomePageController = {
     },
 
     /**
-     * NEW: Sets up the filtering logic for all filter bars on the page.
+     * Sets up the filtering logic for all filter bars on the page.
      */
     setupFiltering: function() {
         const filterBars = document.querySelectorAll('.chp-filter-bar');
@@ -62,19 +62,15 @@ window.ClientHomePageController = {
         filterBars.forEach(bar => {
             bar.addEventListener('click', (e) => {
                 const chip = e.target.closest('.chp-filter-chip');
-                if (!chip) return; // Exit if the click was not on a chip
+                if (!chip) return;
 
                 const filterValue = chip.dataset.filter;
-
-                // Update active chip state within the current bar
                 bar.querySelector('.chp-filter-chip.active')?.classList.remove('active');
                 chip.classList.add('active');
                 
-                // --- Handle filtering based on the section ---
                 const section = bar.closest('.chp-section-container');
                 if (!section) return;
 
-                // Case 1: Handle the placeholder "Reports" section
                 if (section.dataset.sectionId === 'reports') {
                     const title = document.getElementById('reports-title');
                     if (title) {
@@ -82,75 +78,91 @@ window.ClientHomePageController = {
                         if (filterValue === 'quarterly') title.textContent = 'ملخص الإنفاق ربع السنوي';
                         if (filterValue === 'yearly') title.textContent = 'ملخص الإنفاق السنوي';
                     }
-                    return; // No items to filter here, just update text
+                    return;
                 }
 
-                // Case 2: Handle actual item filtering for other sections
                 const listContainer = section.querySelector('[data-filter-key]');
                 if (!listContainer) return;
                 
                 const items = listContainer.querySelectorAll('.chp-filterable-item');
                 const filterKey = this.toCamelCase(listContainer.dataset.filterKey);
 
+                let visibleItemCount = 0;
                 items.forEach(item => {
                     const itemCategory = item.dataset[filterKey];
-                    
                     if (filterValue === 'all' || itemCategory === filterValue) {
                         item.classList.remove('hidden');
+                        visibleItemCount++;
                     } else {
                         item.classList.add('hidden');
                     }
                 });
+
+                // NEW: Handle empty state message
+                const emptyStateEl = listContainer.querySelector('.chp-empty-state');
+                if (emptyStateEl) {
+                    emptyStateEl.style.display = (visibleItemCount === 0) ? 'block' : 'none';
+                }
             });
         });
     },
 
     /**
-     * Sets up interactive tabs for the statistics grid.
+     * Sets up interactive tabs for the statistics grid with smooth transitions.
      */
     setupStatsGridTabs: function() {
-        // ... (This function remains unchanged from the previous step)
         const statsGrid = document.querySelector('.chp-stats-grid');
         const statCards = statsGrid?.querySelectorAll('.chp-stat-card');
-        const contentSections = document.querySelectorAll('.chp-dynamic-content-wrapper .chp-section-container');
+        const contentSections = document.querySelectorAll('.chp-dynamic-content-wrapper > .chp-section-container');
     
-        if (!statsGrid || !statCards || !contentSections) {
-            console.warn('Stats grid or content sections not found for tab setup.');
-            return;
-        }
+        if (!statsGrid || !statCards || !contentSections.length) return;
     
         const showSection = (targetId) => {
-            contentSections.forEach(section => {
-                section.style.display = 'none';
-            });
-            statCards.forEach(card => {
-                card.classList.remove('chp-highlight');
-            });
+            statCards.forEach(c => c.classList.remove('chp-highlight'));
             const targetCard = document.querySelector(`.chp-stat-card[data-section-target="${targetId}"]`);
+            targetCard?.classList.add('chp-highlight');
+
+            const currentActive = document.querySelector('.chp-active-section');
             const targetSection = document.querySelector(`.chp-section-container[data-section-id="${targetId}"]`);
-    
-            if (targetCard && targetSection) {
-                targetCard.classList.add('chp-highlight');
-                targetSection.style.display = 'block'; 
+
+            if (currentActive === targetSection) return;
+
+            if (currentActive) {
+                currentActive.classList.remove('chp-active-section');
             }
+            
+            // Use timeout to allow CSS fade-out transition to complete before setting display:none
+            setTimeout(() => {
+                contentSections.forEach(s => { s.style.display = 'none'; });
+
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                    // A tiny delay to ensure display:block is rendered before adding the class for the fade-in animation
+                    setTimeout(() => {
+                        targetSection.classList.add('chp-active-section');
+                    }, 10);
+                }
+            }, 150); // A delay shorter than the CSS transition
         };
     
         statCards.forEach(card => {
             card.addEventListener('click', () => {
-                const targetId = card.dataset.sectionTarget;
-                if (targetId) {
-                    showSection(targetId);
-                }
+                showSection(card.dataset.sectionTarget);
             });
         });
     
+        // Initial setup
         const initialHighlightedCard = statsGrid.querySelector('.chp-stat-card.chp-highlight');
-        if (initialHighlightedCard && initialHighlightedCard.dataset.sectionTarget) {
-            showSection(initialHighlightedCard.dataset.sectionTarget);
-        } else if (statCards.length > 0) {
-            showSection(statCards[0].dataset.sectionTarget);
+        const initialTarget = initialHighlightedCard?.dataset.sectionTarget || statCards[0]?.dataset.sectionTarget;
+        if(initialTarget) {
+            const initialSection = document.querySelector(`.chp-section-container[data-section-id="${initialTarget}"]`);
+            if(initialSection) {
+                initialSection.style.display = 'block';
+                initialSection.classList.add('chp-active-section');
+            }
         }
     },
+
 
     // --- ALL OTHER FUNCTIONS (setupAllEventListeners, navigateToRequestForm, modals, carousel, map logic) remain the same ---
     // ... (rest of the JS code from the previous response)
