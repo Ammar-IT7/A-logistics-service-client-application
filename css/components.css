@@ -647,12 +647,12 @@ input:checked + .switch-slider:before {
     z-index: 1;
 }
 
-.header-action--primary {
+.header-action-primary {
     background-color: var(--primary-color);
     color: var(--text-on-primary);
 }
 
-.header-action--secondary {
+.header-action-secondary {
     background-color: var(--secondary-color);
     color: var(--text-on-secondary);
 }
@@ -2291,9 +2291,6 @@ input:checked + .switch-slider:before {
     font-size: 1rem;
 }
 
-
-
-/* ========= CSS for Reports Section (from previous step) ========= */
 .chp-reports-content {
     padding: var(--spacing-md) 0;
     color: var(--text-dark);
@@ -2324,8 +2321,453 @@ input:checked + .switch-slider:before {
 
 
 
+/* --- Client Profile Drawer (cpd) - V2 - Improved UI/UX & Animation --- */
+
+/* Key Change: Overlay fade-in is now faster and smoother */
+.cpd-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Slightly lighter overlay */
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+}
+
+.cpd-drawer-overlay.cpd-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Key Change: Using transform for smoother, more performant animation */
+.cpd-drawer-content {
+    position: absolute;
+    top: 0;
+    left: 0; /* Positioned on the left edge */
+    width: 320px;
+    height: 100%;
+    background-color: #ffffff; /* Explicitly white background */
+    color: #1a1a1a; /* Dark text for contrast */
+    box-shadow: 0 4px 25px rgba(0,0,0,0.15); /* Softer, more modern shadow */
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    overflow-y: auto;
+    transform: translateX(-100%); /* Start off-screen to the left */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother ease function */
+}
+
+.cpd-drawer-overlay.cpd-active .cpd-drawer-content {
+    transform: translateX(0); /* Slide into view */
+}
+
+/* --- UI Improvement: Close button --- */
+.cpd-drawer-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.cpd-drawer-close:hover {
+    background-color: #f1f1f1;
+    color: #111;
+}
+
+/* --- UI Improvement: Header --- */
+.cpd-profile-header {
+    text-align: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.cpd-profile-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color, #282460);
+    margin-bottom: 15px;
+}
+
+.cpd-profile-name {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #111;
+}
+
+.cpd-profile-email {
+    margin: 5px 0 0;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* --- UI Improvement: Balance Section --- */
+.cpd-balance-section {
+    padding: 25px 0;
+}
+
+.cpd-section-title {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.cpd-balance-card {
+    background: linear-gradient(135deg, #f7f7f7, #ffffff);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #e9e9e9;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.cpd-balance-amount {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-color, #282460);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.cpd-balance-amount i {
+    opacity: 0.7;
+}
+.cpd-balance-amount small {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.cpd-balance-status {
+    font-size: 0.85rem;
+    margin: 8px 0 20px;
+}
+.cpd-status-positive { color: #27ae60; }
+.cpd-status-negative { color: #c0392b; }
+
+.cpd-balance-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.cpd-action-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.cpd-btn-deposit {
+    background-color: var(--primary-color, #282460);
+    color: white;
+}
+.cpd-btn-deposit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 36, 96, 0.2);
+}
+
+.cpd-btn-withdraw {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+}
+.cpd-btn-withdraw:hover {
+    background-color: #f9f9f9;
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+
+/* --- UI Improvement: Navigation --- */
+.cpd-profile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 0;
+    flex-grow: 1;
+    border-top: 1px solid #eeeeee;
+}
+
+.cpd-nav-item {
+    padding: 14px 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.cpd-nav-item:hover {
+    background-color: #f0f0f5;
+    color: #111;
+}
+
+.cpd-nav-item .fas {
+    width: 20px;
+    text-align: center;
+    color: #888;
+    transition: color 0.2s;
+}
+.cpd-nav-item:hover .fas {
+    color: var(--primary-color, #282460);
+}
+
+.cpd-logout {
+    color: #e74c3c;
+}
+.cpd-logout:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+.cpd-logout .fas, .cpd-logout:hover .fas {
+    color: inherit;
+}
+
+.cpd-drawer-footer {
+    text-align: center;
+    padding-top: 15px;
+    font-size: 0.8rem;
+    color: #aaa;
+}
 
 
+/* --- Key Change: New Staggered Animation for content --- */
+@keyframes cpd-item-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Base state for animatable items */
+.cpd-profile-header, .cpd-balance-section, .cpd-profile-nav {
+    opacity: 0; /* Start hidden before animation */
+}
+
+/* Class to trigger the animation */
+.cpd-item-animating {
+    opacity: 1; /* Set opacity to 1 to stay visible after animation */
+    animation: cpd-item-fade-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+
+
+/* --- Payment Transaction Modal (ptm) --- */
+.ptm-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1050; /* Higher than the drawer */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.ptm-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.ptm-modal-content {
+    background: #fff;
+    color: #1a1a1a;
+    padding: 25px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.ptm-modal-overlay.active .ptm-modal-content {
+    transform: scale(1);
+}
+
+.ptm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.ptm-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.ptm-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.ptm-step {
+    display: none;
+}
+.ptm-step.active {
+    display: block;
+}
+
+/* Form Styling */
+.ptm-amount-group, .ptm-gateways-group {
+    margin-bottom: 20px;
+}
+
+.ptm-amount-group label, .ptm-gateways-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+#ptmAmount {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+#ptmAmount:focus {
+    outline: none;
+    border-color: var(--primary-color, #282460);
+    box-shadow: 0 0 0 3px rgba(40, 36, 96, 0.15);
+}
+
+.ptm-gateways-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+}
+
+.ptm-gateway {
+    border: 2px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    background: #fdfdfd;
+}
+.ptm-gateway:hover {
+    transform: translateY(-3px);
+    border-color: #ccc;
+}
+.ptm-gateway.selected {
+    border-color: var(--primary-color, #282460);
+    box-shadow: 0 4px 10px rgba(40, 36, 96, 0.1);
+    transform: translateY(0);
+}
+.ptm-gateway img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+.ptm-gateway-name {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.ptm-action-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background-color: var(--primary-color, #282460);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.ptm-action-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Simulation Steps Styling */
+#ptmStep2, #ptmStep3 {
+    text-align: center;
+    padding: 40px 0;
+}
+.ptm-loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color, #282460);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: ptm-spin 1s linear infinite;
+    margin: 0 auto 20px auto;
+}
+@keyframes ptm-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ptm-success-icon {
+    font-size: 4rem;
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+
+.ptm-status-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Balance update animation */
+.balance-pop {
+    animation: balance-pop-animation 0.5s ease-out;
+}
+@keyframes balance-pop-animation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); color: #27ae60; }
+    100% { transform: scale(1); }
+}
 
 
 

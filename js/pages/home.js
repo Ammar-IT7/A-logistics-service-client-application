@@ -9,30 +9,40 @@ window.ClientHomePageController = {
     progressBar: null,
     currentIndex: 0,
     slideInterval: null,
-    slideDuration: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slide-duration')) * 1000 || 5000,
-    
-    // --- CORE LOGIC FLAGS ---
-    isUserLoggedIn: false, 
-
-    // --- DEVELOPER MODE FLAG ---
+    slideDuration: 5000,
+    isUserLoggedIn: false,
     isDevMode: true,
-
-    // --- MAP & ANIMATION PROPERTIES ---
     map: null,
     animationInterval: null,
     truckMarker: null,
     completedRouteLine: null,
     previousLatLng: null,
+    SANA_COORDS: [15.3694, 44.1910],
 
-    // --- STATIC DATA ---
-    SANA_COORDS: [15.3694, 44.1910], // Destination: Sana'a, Yemen
-
+    // Payment Modal Properties
+    paymentModal: null,
+    currentTransactionType: 'deposit',
+    selectedGateway: null,
+    paymentGateways: [
+        { id: 'kuraimi', name: 'الكريمي', icon: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/KuraimiBank.png' },
+        { id: 'jeeb', name: 'جيب', icon: 'https://scontent.fmct5-1.fna.fbcdn.net/v/t39.30808-6/347589312_6530726350324142_5191902965427443108_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=JmsvG7hcXLYQ7kNvwGNAuhP&_nc_oc=AdmfaEstIcveDExeQpetIoe-zfDDUKp4seZF33c8J75z5lO0ajvYXYWjE1w4O6s4Ygs&_nc_zt=23&_nc_ht=scontent.fmct5-1.fna&_nc_gid=6NXCtwqDO6L8pU8T6JsmmA&oh=00_AfMKrxmvqMap_qoIUvlkuf4G_noiiXAxY_CmPRkQzdNTvw&oe=68619C1A' },
+        { id: 'jawali', name: 'جوالي', icon: 'https://yemeneco.org/wp-content/uploads/2024/04/jawali.png' },
+        { id: 'bank', name: 'حساب بنكي', icon: 'https://cdn-icons-png.freepik.com/512/8634/8634075.png' },
+        { id: 'mastercard', name: 'Mastercard', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png' },
+        { id: 'paypal', name: 'PayPal', icon: 'https://pngimg.com/uploads/paypal/paypal_PNG7.png' },
+    ],
 
     /**
      * Initializes the controller and all page components.
+     * CORRECTED: Initializes all element properties BEFORE setting up listeners.
      */
     init: function() {
+        // --- Initialize Element Properties First ---
         this.carousel = document.getElementById('mainAdCarousel');
+        this.paymentModal = document.getElementById('paymentModal');
+        this.slideDuration = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slide-duration')) * 1000 || 5000;
+        
+        // --- Now Setup Features ---
         if (this.carousel) {
             this.slides = this.carousel.querySelectorAll('.chp-carousel-slide');
             this.dotsContainer = document.getElementById('carouselDots');
@@ -40,9 +50,94 @@ window.ClientHomePageController = {
             this.setupCarousel();
         }
         this.setupAllEventListeners();
-        this.setupStatsGridTabs(); 
-        this.setupFiltering(); // MODIFIED: Initialize the new filtering feature
+        this.setupStatsGridTabs();
+        this.setupFiltering();
         this.setupTrackingListeners();
+    },
+
+    setupAllEventListeners: function() {
+        // --- Carousel Listeners ---
+        // --- Carousel Listeners ---
+        document.getElementById('prevSlide')?.addEventListener('click', () => this.changeSlide(-1));
+        document.getElementById('nextSlide')?.addEventListener('click', () => this.changeSlide(1));
+        this.carousel?.parentElement.addEventListener('mouseenter', () => this.stopSlideShow());
+        this.carousel?.parentElement.addEventListener('mouseleave', () => this.startSlideShow());
+        
+        const carouselWrapper = this.carousel?.parentElement;
+        if (carouselWrapper) {
+            carouselWrapper.addEventListener('mouseenter', () => this.stopSlideShow());
+            carouselWrapper.addEventListener('mouseleave', () => this.startSlideShow());
+            carouselWrapper.addEventListener('focusin', () => this.stopSlideShow());
+            carouselWrapper.addEventListener('focusout', () => this.startSlideShow());
+        }
+
+        // --- Request Service Buttons Listeners ---
+        const requestServiceButtons = document.querySelectorAll(
+            '.chp-fab-request-service, [data-action="show-modal"][data-page="request-service"], [data-action="navigate"][data-page="clientServiceRequestForm"]'
+        );
+        requestServiceButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (this.isDevMode) {
+                    this.showDevTestModal();
+                    return;
+                }
+                if (!this.isUserLoggedIn) {
+                    this.showLoginModal();
+                } else {
+                    this.navigateToRequestForm(button);
+                }
+            });
+        });
+
+        // --- Subscription Modal Listeners ---
+        const subscriptionModal = document.getElementById('subscriptionModal');
+        if (subscriptionModal) {
+            subscriptionModal.querySelector('.chp-modal-close').addEventListener('click', () => this.hideLoginModal());
+            subscriptionModal.addEventListener('click', (e) => { 
+                if (e.target === subscriptionModal) this.hideLoginModal(); 
+            });
+        }
+        
+        // --- Developer Testing Modal Listeners ---
+        const devTestModal = document.getElementById('devTestModal');
+        if (devTestModal) {
+            devTestModal.querySelector('.chp-modal-close').addEventListener('click', () => this.hideDevTestModal());
+            devTestModal.querySelector('[data-dev-action="subscribed"]').addEventListener('click', () => {
+                this.hideDevTestModal();
+                const originalButton = document.querySelector('.chp-fab-request-service [data-page]');
+                this.navigateToRequestForm(originalButton);
+            });
+            devTestModal.querySelector('[data-dev-action="guest"]').addEventListener('click', () => {
+                this.hideDevTestModal();
+                this.showLoginModal();
+            });
+        }
+
+        // --- Profile Drawer Listeners ---
+        const profileButton = document.querySelector('[data-action="profile"]');
+        const profileDrawer = document.getElementById('clientProfileDrawer');
+        if (profileButton && profileDrawer) {
+            profileDrawer.querySelector('.cpd-drawer-close').addEventListener('click', () => this.hideProfileDrawer());
+            profileButton.addEventListener('click', () => this.showProfileDrawer());
+            profileDrawer.addEventListener('click', (e) => {
+                if (e.target === profileDrawer) this.hideProfileDrawer();
+            });
+        }
+
+         // --- Payment Modal Listeners (for Deposit/Withdraw) ---
+        // These are now guaranteed to be found.
+        document.querySelector('.cpd-btn-deposit')?.addEventListener('click', () => this.showPaymentModal('deposit'));
+        document.querySelector('.cpd-btn-withdraw')?.addEventListener('click', () => this.showPaymentModal('withdraw'));
+        
+        if (this.paymentModal) {
+            this.paymentModal.querySelector('.ptm-close').addEventListener('click', () => this.hidePaymentModal());
+            this.paymentModal.addEventListener('click', (e) => {
+                if (e.target === this.paymentModal) this.hidePaymentModal();
+            });
+            this.paymentModal.querySelector('#ptmAmount').addEventListener('input', () => this.validateTransaction());
+            this.paymentModal.querySelector('#ptmProceedBtn').addEventListener('click', () => this.processTransaction()); // This will now work.
+        }
     },
 
     /**
@@ -163,68 +258,6 @@ window.ClientHomePageController = {
         }
     },
 
-
-    // --- ALL OTHER FUNCTIONS (setupAllEventListeners, navigateToRequestForm, modals, carousel, map logic) remain the same ---
-    // ... (rest of the JS code from the previous response)
-    setupAllEventListeners: function() {
-        // --- Carousel Listeners ---
-        const prevButton = document.getElementById('prevSlide');
-        const nextButton = document.getElementById('nextSlide');
-        if (prevButton && nextButton) {
-            prevButton.addEventListener('click', () => this.changeSlide(-1));
-            nextButton.addEventListener('click', () => this.changeSlide(1));
-        }
-        const carouselWrapper = this.carousel?.parentElement;
-        if (carouselWrapper) {
-            carouselWrapper.addEventListener('mouseenter', () => this.stopSlideShow());
-            carouselWrapper.addEventListener('mouseleave', () => this.startSlideShow());
-            carouselWrapper.addEventListener('focusin', () => this.stopSlideShow());
-            carouselWrapper.addEventListener('focusout', () => this.startSlideShow());
-        }
-
-        // --- Request Service Buttons Listeners ---
-        const requestServiceButtons = document.querySelectorAll(
-            '.chp-fab-request-service, [data-action="show-modal"][data-page="request-service"], [data-action="navigate"][data-page="clientServiceRequestForm"]'
-        );
-        requestServiceButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (this.isDevMode) {
-                    this.showDevTestModal();
-                    return;
-                }
-                if (!this.isUserLoggedIn) {
-                    this.showLoginModal();
-                } else {
-                    this.navigateToRequestForm(button);
-                }
-            });
-        });
-
-        // --- Subscription Modal Listeners ---
-        const subscriptionModal = document.getElementById('subscriptionModal');
-        if (subscriptionModal) {
-            subscriptionModal.querySelector('.chp-modal-close').addEventListener('click', () => this.hideLoginModal());
-            subscriptionModal.addEventListener('click', (e) => { 
-                if (e.target === subscriptionModal) this.hideLoginModal(); 
-            });
-        }
-        
-        // --- Developer Testing Modal Listeners ---
-        const devTestModal = document.getElementById('devTestModal');
-        if (devTestModal) {
-            devTestModal.querySelector('.chp-modal-close').addEventListener('click', () => this.hideDevTestModal());
-            devTestModal.querySelector('[data-dev-action="subscribed"]').addEventListener('click', () => {
-                this.hideDevTestModal();
-                const originalButton = document.querySelector('.chp-fab-request-service [data-page]');
-                this.navigateToRequestForm(originalButton);
-            });
-            devTestModal.querySelector('[data-dev-action="guest"]').addEventListener('click', () => {
-                this.hideDevTestModal();
-                this.showLoginModal();
-            });
-        }
-    },
     navigateToRequestForm: function(button) {
         const page = 'clientServiceRequestForm';
         // Assuming you have a Router object
@@ -447,5 +480,94 @@ window.ClientHomePageController = {
         const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1);
         const bearing = Math.atan2(y, x) * 180 / Math.PI;
         return bearing;
-    }
+    },
+
+    showProfileDrawer: function() {
+        const drawer = document.getElementById('clientProfileDrawer');
+        if (drawer) {
+            drawer.style.display = 'block';
+            setTimeout(() => drawer.classList.add('cpd-active'), 10);
+            const animatedItems = drawer.querySelectorAll('.cpd-profile-header, .cpd-balance-section, .cpd-profile-nav');
+            animatedItems.forEach((item, index) => {
+                item.classList.remove('cpd-item-animating');
+                item.style.animationDelay = `${index * 100 + 50}ms`;
+                setTimeout(() => item.classList.add('cpd-item-animating'), 20);
+            });
+        }
+    },
+
+    hideProfileDrawer: function() {
+        const drawer = document.getElementById('clientProfileDrawer');
+        if (drawer) {
+            drawer.classList.remove('cpd-active');
+            setTimeout(() => { drawer.style.display = 'none'; }, 400);
+        }
+    },
+
+    showPaymentModal: function(type) {
+        if (!this.paymentModal) return;
+        this.currentTransactionType = type;
+        this.paymentModal.querySelector('#ptmTitle').textContent = type === 'deposit' ? 'إيداع مبلغ' : 'سحب مبلغ';
+        this.populateGateways();
+        this.paymentModal.querySelector('#ptmAmount').value = '';
+        this.selectedGateway = null;
+        this.paymentModal.querySelectorAll('.ptm-step').forEach(step => step.classList.remove('active'));
+        this.paymentModal.querySelector('#ptmStep1').classList.add('active');
+        this.validateTransaction();
+        this.paymentModal.classList.add('active');
+    },
+
+    hidePaymentModal: function() {
+        this.paymentModal?.classList.remove('active');
+    },
+
+    populateGateways: function() {
+        const grid = this.paymentModal.querySelector('.ptm-gateways-grid');
+        grid.innerHTML = '';
+        this.paymentGateways.forEach(gw => {
+            const div = document.createElement('div');
+            div.className = 'ptm-gateway';
+            div.dataset.id = gw.id;
+            div.innerHTML = `<img src="${gw.icon}" alt="${gw.name} logo"><div class="ptm-gateway-name">${gw.name}</div>`;
+            div.addEventListener('click', () => {
+                this.paymentModal.querySelectorAll('.ptm-gateway').forEach(el => el.classList.remove('selected'));
+                div.classList.add('selected');
+                this.selectedGateway = gw.id;
+                this.validateTransaction();
+            });
+            grid.appendChild(div);
+        });
+    },
+
+    validateTransaction: function() {
+        const amount = parseFloat(this.paymentModal.querySelector('#ptmAmount').value);
+        this.paymentModal.querySelector('#ptmProceedBtn').disabled = !(amount > 0 && this.selectedGateway);
+    },
+
+    processTransaction: function() {
+        this.paymentModal.querySelector('#ptmStep1').classList.remove('active');
+        this.paymentModal.querySelector('#ptmStep2').classList.add('active');
+        setTimeout(() => {
+            const amount = parseFloat(this.paymentModal.querySelector('#ptmAmount').value);
+            this.updateBalance(amount, this.currentTransactionType);
+            const successMessageEl = this.paymentModal.querySelector('#ptmSuccessMessage');
+            const actionText = this.currentTransactionType === 'deposit' ? 'إيداع' : 'سحب';
+            successMessageEl.textContent = `تم ${actionText} مبلغ ${amount.toFixed(2)} ر.ي بنجاح.`;
+            this.paymentModal.querySelector('#ptmStep2').classList.remove('active');
+            this.paymentModal.querySelector('#ptmStep3').classList.add('active');
+            setTimeout(() => this.hidePaymentModal(), 2500);
+        }, 2500);
+    },
+
+    updateBalance: function(amount, type) {
+        const balanceEl = document.querySelector('.cpd-balance-amount span');
+        if (!balanceEl) return;
+        let currentBalance = parseFloat(balanceEl.textContent.replace(/,/g, ''));
+        const newBalance = type === 'deposit' ? currentBalance + amount : currentBalance - amount;
+        balanceEl.innerHTML = `${newBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <small>ر.ي</small>`;
+        const balanceCard = document.querySelector('.cpd-balance-amount');
+        balanceCard.classList.add('balance-pop');
+        balanceCard.addEventListener('animationend', () => balanceCard.classList.remove('balance-pop'), { once: true });
+    },
+
 };

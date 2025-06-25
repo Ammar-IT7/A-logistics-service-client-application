@@ -1,11 +1,7 @@
 <div class="header">
-    <button class="sv-header__action sv-header__menu" data-action="menu" aria-label="القائمة">
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </button>
+<button class="header-action" data-action="profile" aria-label="الملف الشخصي">
+    <i class="fas fa-user-circle"></i>
+</button>
     <button class="header-action" data-action="notifications" aria-label="الإشعارات">
         <i class="fas fa-bell"></i>
     </button>
@@ -350,3 +346,72 @@
 
     </div>
 </div>
+
+<div id="clientProfileDrawer" class="cpd-drawer-overlay">
+    <div class="cpd-drawer-content">
+        <button class="cpd-drawer-close" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+        <div class="cpd-profile-header">
+            <img src="https://placehold.co/80x80/282460/FAAE43?text=A" alt="صورة العميل" class="cpd-profile-avatar">
+            <h2 class="cpd-profile-name">أهلاً، عبد الله</h2>
+            <p class="cpd-profile-email">abdullah@example.com</p>
+        </div>
+        <div class="cpd-balance-section">
+            <h3 class="cpd-section-title">رصيدي</h3>
+            <div class="cpd-balance-card">
+                <div class="cpd-balance-amount">
+                    <i class="fas fa-wallet"></i>
+                    <span>5,450.00 <small>ر.ي</small></span>
+                </div>
+                <p class="cpd-balance-status cpd-status-positive">حالة الرصيد: إيجابي</p>
+                <div class="cpd-balance-actions">
+                    <button class="cpd-action-btn cpd-btn-deposit">إيداع</button>
+                    <button class="cpd-action-btn cpd-btn-withdraw">سحب</button>
+                </div>
+            </div>
+        </div>
+        <nav class="cpd-profile-nav">
+            <a href="#" class="cpd-nav-item"><i class="fas fa-user-edit"></i> تعديل الملف الشخصي</a>
+            <a href="#" class="cpd-nav-item"><i class="fas fa-history"></i> سجل المعاملات</a>
+            <a href="#" class="cpd-nav-item"><i class="fas fa-cog"></i> إعدادات الحساب</a>
+            <a href="#" class="cpd-nav-item"><i class="fas fa-shield-alt"></i> الأمن والخصوصية</a>
+            <a href="#" class="cpd-nav-item cpd-logout"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+        </nav>
+        <div class="cpd-drawer-footer">
+            <p>&copy; 2024 Your Company Name</p>
+        </div>
+    </div>
+</div>
+
+<div id="paymentModal" class="ptm-modal-overlay">
+    <div class="ptm-modal-content">
+        <div class="ptm-header">
+            <h3 id="ptmTitle" class="ptm-title">إيداع مبلغ</h3>
+            <button class="ptm-close" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div id="ptmStep1" class="ptm-step active">
+            <div class="ptm-amount-group">
+                <label for="ptmAmount">أدخل المبلغ (ر.ي)</label>
+                <input type="number" id="ptmAmount" placeholder="0.00">
+            </div>
+            <div class="ptm-gateways-group">
+                <label>اختر طريقة الدفع</label>
+                <div class="ptm-gateways-grid">
+                    </div>
+            </div>
+            <button id="ptmProceedBtn" class="ptm-action-btn" disabled>متابعة</button>
+        </div>
+
+        <div id="ptmStep2" class="ptm-step">
+            <div class="ptm-loader"></div>
+            <p class="ptm-status-text">جاري معالجة عمليتك...</p>
+        </div>
+        
+        <div id="ptmStep3" class="ptm-step">
+            <div class="ptm-success-icon"><i class="fas fa-check-circle"></i></div>
+            <p id="ptmSuccessMessage" class="ptm-status-text">تمت العملية بنجاح!</p>
+        </div>
+
+    </div>
+</div>
+
