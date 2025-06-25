@@ -35,29 +35,17 @@
                             { 
                                 id: 1, 
                                 categoryId: 'shipping', 
-                                name: 'شركة الشحن السريع', 
+                                name: 'شاحنة نقل كبيرة', 
                                 address: 'شارع تعز، صنعاء', 
-                                image: 'https://www.macgregor.com/globalassets/picturepark/imported-assets/79976.jpg', 
+                                image: 'https://toptrans.elementar.ge/wp-content/uploads/2024/07/0ee481_866fc8e7da804a19b687138c95b52f60mv2.webp', 
                                 isFavorite: true, 
                                 isNew: true, 
                                 rating: 4.8,
-                                tags: ['موثوق', 'الأعلى تقييماً'],
-                                description: 'خدمات شحن سريعة وموثوقة'
+                                tags: ['بري', 'حمولة 20 طن', 'تتبع GPS'],
+                                description: 'شاحنة نقل كبيرة متاحة للنقل البري بحمولة تصل إلى 20 طن.'
                             },
                             { 
                                 id: 2, 
-                                categoryId: 'shipping', 
-                                name: 'البحرية للشحن الدولي', 
-                                address: 'شارع الزبيري، صنعاء', 
-                                image: 'https://images.unsplash.com/photo-1614909858311-37d404332a9c?q=80&w=400&auto=format&fit=crop', // Kept original as there's only one shipping image in slider
-                                isFavorite: false, 
-                                isNew: false, 
-                                rating: 4.5,
-                                tags: ['شحن بحري'],
-                                description: 'شحن بحري دولي متخصص'
-                            },
-                            { 
-                                id: 3, 
                                 categoryId: 'warehouses', 
                                 name: 'مستودعات الأمان', 
                                 address: 'المنطقة الصناعية', 
@@ -69,7 +57,7 @@
                                 description: 'تخزين آمن ومتطور'
                             },
                             { 
-                                id: 4, 
+                                id: 3, 
                                 categoryId: 'customs', 
                                 name: 'المخلص الجمركي المعتمد', 
                                 address: 'مكتب المطار', 
@@ -80,18 +68,6 @@
                                 tags: ['موثوق', 'شحن جوي'],
                                 description: 'تخليص جمركي سريع ومعتمد'
                             },
-                            { 
-                                id: 5, 
-                                categoryId: 'packaging', 
-                                name: 'خبراء التغليف', 
-                                address: 'حدة، صنعاء', 
-                                image: 'https://images.unsplash.com/photo-1599303272633-5241e35f9929?q=80&w=400&auto=format&fit=crop', // Kept original as no packaging image in slider
-                                isFavorite: false, 
-                                isNew: false, 
-                                rating: 4.3,
-                                tags: ['احترافي'],
-                                description: 'تغليف احترافي ومبتكر'
-                            }
                         ],        /**
              * Enhanced initialization with animation
              */
@@ -339,19 +315,27 @@
                 }).join('');
 
                 const stars = '★'.repeat(Math.floor(service.rating)) + '☆'.repeat(5 - Math.floor(service.rating));
+                
+                const pageMap = {
+                    'customs': 'customs-details',
+                    'shipping': 'vehicle-details',
+                    'warehouses': 'warehouse-details'
+                };
+                const page = pageMap[service.categoryId] || service.categoryId;
+                const navigationAttrs = `data-action="navigate" data-page="${page}"`;
 
                 return `
-                    <div class="sv-card" data-service-id="${service.id}">
-                        <div class="sv-card__image-container">
-                            <img src="${service.image}" alt="${service.name}" class="sv-card__image" loading="lazy">
+                    <div class="sv-card" data-service-id="${service.id}" ${navigationAttrs}>
+                        <div class="sv-card__image-container" ${navigationAttrs}>
+                            <img src="${service.image}" alt="${service.name}" class="sv-card__image" loading="lazy" ${navigationAttrs}>
                             <button class="sv-card__favorite-btn ${service.isFavorite ? 'favorited' : ''}" 
                                     data-service-id="${service.id}" aria-label="Toggle Favorite">
                                 <i class="fas fa-heart"></i>
                             </button>
                             ${service.isNew ? '<div class="sv-card__new-badge">جديد</div>' : ''}
                         </div>
-                        <div class="sv-card__content">
-                            <h3 class="sv-card__title">${service.name}</h3>
+                        <div class="sv-card__content" ${navigationAttrs}>
+                            <h3 class="sv-card__title" ${navigationAttrs}>${service.name}</h3>
                             <p class="sv-card__description">${service.description}</p>
                             <div class="sv-card__rating">
                                 <span class="stars">${stars}</span>
