@@ -261,7 +261,7 @@ window.ClientHomePageController = {
     navigateToRequestForm: function(button) {
         const page = 'clientServiceRequestForm';
         // Assuming you have a Router object
-        // Router.navigate(page);
+        Router.navigate(page);
         console.log(`Navigating to: ${page}`);
     },
     showLoginModal: function() {
