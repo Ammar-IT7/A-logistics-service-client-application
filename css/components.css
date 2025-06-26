@@ -688,144 +688,172 @@ input:checked + .switch-slider:before {
         padding-right: calc(var(--spacing-lg) + env(safe-area-inset-right));
     }
 }
-
+/* --- Modern Dot Indicator Navigation Bar --- */
 .bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    height: 75px;
+    background: #ffffff;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 -4px 24px rgba(67, 97, 238, 0.08), 0 -1.5px 8px rgba(0,0,0,0.06);
-    padding: 8px 0 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100vw;
-    z-index: 1100;
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
-    backdrop-filter: blur(8px);
-    transition: box-shadow 0.25s, background 0.25s;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.05),
+                0 10px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 28px;
+    padding: 0 20px;
+    z-index: 1000;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-item {
-    color: var(--gray-color, #666);
-    text-decoration: none;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 14px;
-    font-weight: 600;
-    transition: color 0.22s, background 0.22s;
-    position: relative;
-    padding: 8px 16px 4px 16px;
-    border-radius: 12px;
-    min-width: 64px;
-    min-height: 48px;
-    user-select: none;
-    letter-spacing: 0.2px;
+    justify-content: center;
+    color: #94a3b8;
+    text-decoration: none;
+    width: 65px;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: rgba(var(--primary-color-rgb), 0.1);
+    border-radius: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
 }
 
 .nav-icon {
-    font-size: 25px;
+    font-size: 22px;
     line-height: 1;
-    margin-bottom: 2px;
-    transition: color 0.22s, transform 0.22s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: 4px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: #64748b;
 }
 
 .nav-label {
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: #64748b;
     letter-spacing: 0.2px;
-    font-size: 12px;
-    margin-top: 2px;
-    opacity: 0.95;
-    transition: color 0.22s;
-    text-shadow: 0 1px 2px rgba(67,97,238,0.04);
-    text-decoration: none;
 }
 
-/* Active nav item style */
+/* --- Moving Dot Indicator --- */
+.nav-indicator-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    bottom: 8px;
+    left: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 0 12px var(--primary-color);
+    z-index: 3;
+}
+
+.nav-indicator-dot::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: rgba(var(--primary-color-rgb), 0.2);
+    border-radius: 50%;
+    top: -3px;
+    left: -3px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.1; }
+}
+
+/* --- Active State Styling --- */
 .nav-item.active {
-    color: var(--primary-color, #4361ee);
-    background: linear-gradient(90deg, rgba(67,97,238,0.08) 0%, rgba(250,174,67,0.06) 100%);
-    box-shadow: 0 2px 8px rgba(67,97,238,0.08);
-        text-decoration: none;
+    color: var(--primary-color);
+}
+
+.nav-item.active::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
 }
 
 .nav-item.active .nav-icon {
-    color: var(--primary-color, #4361ee);
-    transform: scale(1.18);
+    transform: scale(1.15);
+    color: var(--primary-color);
 }
 
 .nav-item.active .nav-label {
-    color: var(--primary-color, #4361ee);
-    opacity: 1;
-    text-decoration: none;
+    font-weight: 700;
+    color: var(--primary-color);
+    transform: scale(1.05);
 }
 
-/* Hover effect (for capable devices) */
-@media (hover: hover) {
-    .nav-item:hover {
-        color: var(--secondary-color, #faae43);
-        background: rgba(250,174,67,0.08);
-    }
-    .nav-item:hover .nav-icon {
-        color: var(--secondary-color, #faae43);
-        transform: scale(1.08);
-    }
-    .nav-item:hover .nav-label {
-        color: var(--secondary-color, #faae43);
-    }
+/* --- Hover Effects --- */
+.nav-item:hover:not(.active) {
+    color: var(--secondary-color);
 }
 
-/* Ripple effect on click (optional) */
-.nav-item:active::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: var(--primary-color, #4361ee);
-    opacity: 0.10;
-    border-radius: 12px;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    animation: ripple 0.4s ease-out;
+.nav-item:hover:not(.active)::before {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.6;
+    background: rgba(var(--secondary-color-rgb), 0.1);
 }
 
-@keyframes ripple {
-    from {
-        opacity: 0.15;
-        transform: scale(0);
-    }
-    to {
-        opacity: 0;
-        transform: scale(2);
+.nav-item:hover:not(.active) .nav-icon,
+.nav-item:hover:not(.active) .nav-label {
+    color: var(--secondary-color);
+    transform: scale(1.08);
+}
+
+/* --- Safe Area Support --- */
+@supports (padding: max(0px)) {
+    .bottom-nav {
+        padding-bottom: max(15px, env(safe-area-inset-bottom));
+        height: calc(75px + env(safe-area-inset-bottom));
     }
 }
 
-/* Remove the line/indicator for the active nav item */
-/* Responsive: increase touch area on small screens */
+/* --- Responsive Enhancement --- */
 @media (max-width: 480px) {
     .bottom-nav {
-        padding-bottom: 4px;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
+        left: 15px;
+        right: 15px;
+        height: 70px;
+        padding: 0 15px;
     }
+    
     .nav-item {
-        min-width: 48px;
-        font-size: 13px;
-        padding: 6px 8px 2px 8px;
+        width: 60px;
     }
+    
     .nav-icon {
-        font-size: 21px;
+        font-size: 20px;
     }
+    
     .nav-label {
-        font-size: 11px;
+        font-size: 9px;
     }
 }
-
 /* COMPONENTS - LISTS */
 .list {
     list-style: none;
@@ -1739,7 +1767,7 @@ input:checked + .switch-slider:before {
         /* Ultra-Polished Animated FAB */
         .chp-fab-request-service {
             position: fixed;
-            bottom: calc(var(--spacing-xl) + 60px); /* Move up even further above navbar */
+            bottom: calc(var(--spacing-xl) + 70px); /* Move up even further above navbar */
             left: var(--spacing-lg); /* For RTL */
             z-index: 1050;
             display: flex;

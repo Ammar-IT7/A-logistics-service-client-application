@@ -45,6 +45,7 @@
 
 
         <!-- Bottom Navigation -->
+    <!-- Modern Dot Indicator Navigation Bar -->
     <div class="bottom-nav">
         <a href="#" class="nav-item active" data-page="client-home-page">
             <div class="nav-icon"><i class="fas fa-home"></i></div>
@@ -81,9 +82,61 @@
 
 
     <script>
+
+        
         // Initialize the auth module when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {  
- 
+            const navItems = document.querySelectorAll('.nav-item');
+            const indicator = document.querySelector('.nav-indicator-dot');
+
+            function setActiveItem(clickedItem) {
+                // Reset all items to their inactive state
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    // Get the icon and ensure it's the regular (outline) version
+                    const icon = item.querySelector('.nav-icon');
+                    if (icon) {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                    }
+                });
+                
+                // Set the clicked item to the active state
+                clickedItem.classList.add('active');
+                // Get the icon and set it to the solid version
+                const activeIcon = clickedItem.querySelector('.nav-icon');
+                if (activeIcon) {
+                    activeIcon.classList.remove('far');
+                    activeIcon.classList.add('fas');
+                }
+
+                // Move the indicator dot to the center of the active item
+                const itemCenter = clickedItem.offsetLeft + (clickedItem.offsetWidth / 2);
+                const indicatorOffset = itemCenter - (indicator.offsetWidth / 2);
+                indicator.style.transform = `translateX(${indicatorOffset}px)`;
+            }
+
+            // Add click event listeners to each navigation item
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default link behavior
+                    setActiveItem(item);
+
+                    // Optional: You can add your page loading logic here based on item.dataset.page
+                    const pageName = item.dataset.page;
+                    console.log(`Navigating to page: ${pageName}`);
+                    document.querySelector('.main-content h1').textContent = `صفحة ${item.querySelector('.nav-label').textContent}`;
+                });
+            });
+
+            // Set initial position of the indicator on page load
+            const initialActiveItem = document.querySelector('.nav-item.active');
+            if (initialActiveItem) {
+                 // Use a timeout to ensure everything is rendered before calculating position
+                setTimeout(() => {
+                    setActiveItem(initialActiveItem);
+                }, 100);
+            }
             App.init();
             Auth.init();
 

@@ -1,224 +1,0 @@
-<!-- templates/pages/warehouse-form.html -->
-<div class="header">
-    <button class="header-action" data-action="navigate" data-page="warehouses" aria-label="رجوع">                <i class="fas fa-arrow-left" data-action="navigate" data-page="warehouses"></i></button>
-    <h1 class="header-title">إضافة مستودع جديد</h1>
-    <button class="header-action" data-action="save-warehouse" aria-label="حفظ">
-        <span class="icon"><i class="fas fa-save"></i></span>
-    </button>
-</div>
-<div class="content">
-    <div class="wh-form-progress">
-        <div class="wh-progress-step active" data-step="basic">
-            <span class="wh-step-icon">📋</span>
-            <span class="wh-step-name">أساسي</span>
-        </div>
-        <div class="wh-progress-step" data-step="details">
-            <span class="wh-step-icon">📝</span>
-            <span class="wh-step-name">التفاصيل</span>
-        </div>
-        <div class="wh-progress-step" data-step="safety">
-            <span class="wh-step-icon">🔒</span>
-            <span class="wh-step-name">الأمان</span>
-        </div>
-        <div class="wh-progress-step" data-step="media">
-            <span class="wh-step-icon">🖼️</span>
-            <span class="wh-step-name">الصور</span>
-        </div>
-    </div>
-
-    <div class="card mb-3">
-        <div class="card-content">
-            <form id="warehouseForm" class="sliding-form">
-                <!-- الخطوة 1: المعلومات الأساسية -->
-                <div class="wh-form-slide active" data-slide="basic">
-                    <div class="wh-section-title">المعلومات الأساسية</div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">موقع المستودع <span class="required">*</span></label>
-                        <div class="wh-address-grid">
-                            <div class="address-item">
-                                <label for="city" class="wh-sub-label">المحافظة</label>
-                                <select id="city" class="form-control" required>
-                                    <option value="" disabled selected>اختر المحافظة</option>
-                                    <option value="sanaa">صنعاء</option>
-                                    <option value="aden">عدن</option>
-                                    <option value="taiz">تعز</option>
-                                    <option value="hodeidah">الحديدة</option>
-                                    <option value="ibb">إب</option>
-                                    <option value="hadramaut">حضرموت</option>
-                                </select>
-                            </div>
-                            <div class="address-item">
-                                <label for="district" class="wh-sub-label">المدينة</label>
-                                <input type="text" id="district" class="form-control" placeholder="أدخل المدينة" required>
-                            </div>
-                            <div class="address-item">
-                                <label for="neighborhood" class="wh-sub-label">الحي</label>
-                                <input type="text" id="neighborhood" class="form-control" placeholder="أدخل الحي" required>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="warehouseLocation" class="form-label">موقع المستودع (خريطة) <span class="required">*</span></label>
-                        <div class="wh-map-container">
-                            <span class="wh-map-icon">📍</span>
-                            <span class="wh-map-text">انقر لتحديد الموقع على الخريطة</span>
-                            <input type="hidden" id="warehouseLocation" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="warehouseType" class="form-label">نوع التخزين <span class="required">*</span></label>
-                        <select id="warehouseType" class="form-control" required>
-                            <option value="">اختر نوع التخزين</option>
-                            <option value="general">عادي</option>
-                            <option value="refrigerated">مبرد</option>
-                            <option value="medical">طبي</option>
-                            <option value="dry">جاف</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="totalArea" class="form-label">المساحة الإجمالية (م²) <span class="required">*</span></label>
-                        <input type="number" id="totalArea" class="form-control" placeholder="أدخل المساحة الإجمالية" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="availableArea" class="form-label">المساحة المتاحة (م²) <span class="required">*</span></label>
-                        <input type="number" id="availableArea" class="form-control" placeholder="أدخل المساحة المتاحة" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="warehouseUsage" class="form-label">استخدام التخزين <span class="required">*</span></label>
-                        <div class="wh-radio-container">
-                            <label class="wh-radio-item">
-                                <input type="radio" name="warehouseUsage" value="partial" checked required> 
-                                <span>جزئي</span>
-                            </label>
-                            <label class="wh-radio-item">
-                                <input type="radio" name="warehouseUsage" value="full" required> 
-                                <span>كامل</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-action">
-                        <button type="button" class="btn btn-primary btn-block" data-action="goto-slide" data-target="details">التالي</button>
-                    </div>
-                </div>
-                
-                <!-- الخطوة 2: تفاصيل التكاليف -->
-                <div class="wh-form-slide" data-slide="details">
-                    <div class="wh-section-title">الرسوم</div>
-                    
-                    <div class="form-group">
-                        <label for="monthlyFee" class="form-label">الرسوم الشهرية (ريال يمني/م²) <span class="required">*</span></label>
-                        <div class="input-group">
-                            <input type="number" id="monthlyFee" class="form-control" placeholder="أدخل الرسوم الشهرية" required>
-                            <span class="input-group-text">ريال</span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="annualFee" class="form-label">الرسوم السنوية (ريال يمني/م²)</label>
-                        <div class="input-group">
-                            <input type="number" id="annualFee" class="form-control" placeholder="أدخل الرسوم السنوية">
-                            <span class="input-group-text">ريال</span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="managerName" class="form-label">اسم مسؤول المستودع <span class="required">*</span></label>
-                        <input type="text" id="managerName" class="form-control" placeholder="أدخل اسم المسؤول" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="managerPhone" class="form-label">رقم التواصل <span class="required">*</span></label>
-                        <input type="tel" id="managerPhone" class="form-control" placeholder="أدخل رقم التواصل" required>
-                    </div>
-                    
-                    <div class="form-action wh-dual-buttons">
-                        <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="basic">السابق</button>
-                        <button type="button" class="btn btn-primary" data-action="goto-slide" data-target="safety">التالي</button>
-                    </div>
-                </div>
-                
-                <!-- الخطوة 3: معلومات الأمان -->
-                <div class="wh-form-slide" data-slide="safety">
-                    <div class="wh-section-title">شروط السلامة</div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">ميزات الأمان المتوفرة <span class="required">*</span></label>
-                        <div class="wh-security-features-grid">
-                            <label class="wh-feature-checkbox">
-                                <input type="checkbox" name="securityFeature" value="cameras"> 
-                                <span class="wh-feature-icon">🎥</span>
-                                <span class="wh-feature-text">كاميرات مراقبة</span>
-                            </label>
-                            <label class="wh-feature-checkbox">
-                                <input type="checkbox" name="securityFeature" value="fireAlarm"> 
-                                <span class="wh-feature-icon">🔥</span>
-                                <span class="wh-feature-text">إنذار حريق</span>
-                            </label>
-                            <label class="wh-feature-checkbox">
-                                <input type="checkbox" name="securityFeature" value="fireSystem"> 
-                                <span class="wh-feature-icon">🚒</span>
-                                <span class="wh-feature-text">نظام إطفاء</span>
-                            </label>
-                            <label class="wh-feature-checkbox">
-                                <input type="checkbox" name="securityFeature" value="guards"> 
-                                <span class="wh-feature-icon">👮</span>
-                                <span class="wh-feature-text">حراسة أمنية</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="safetyDocument" class="form-label">شهادة الأمن والسلامة <span class="required">*</span></label>
-                        <div class="wh-file-upload-container">
-                            <input type="file" id="safetyDocument" class="form-control" accept="image/*,.pdf" required>
-                            <button type="button" class="btn btn-outline btn-sm wh-file-upload-btn">اختر الملف</button>
-                            <span class="wh-file-name">لم يتم اختيار ملف</span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="safetyNotes" class="form-label">ملاحظات السلامة</label>
-                        <textarea id="safetyNotes" class="form-control" rows="3" placeholder="أدخل أي ملاحظات خاصة بالسلامة"></textarea>
-                    </div>
-                    
-                    <div class="form-action wh-dual-buttons">
-                        <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="details">السابق</button>
-                        <button type="button" class="btn btn-primary" data-action="goto-slide" data-target="media">التالي</button>
-                    </div>
-                </div>
-                
-                <!-- الخطوة 4: الصور -->
-                <div class="wh-form-slide" data-slide="media">
-                    <div class="wh-section-title">صور المستودع</div>
-                    
-                    <div class="form-group">
-                        <label for="warehouseImages" class="form-label">صور المستودع <span class="required">*</span></label>
-                        <div class="wh-file-upload-container">
-                            <input type="file" id="warehouseImages" class="form-control" accept="image/*" multiple required>
-                            <button type="button" class="btn btn-outline btn-sm wh-file-upload-btn">اختر الصور</button>
-                            <span class="wh-file-name">لم يتم اختيار صور</span>
-                        </div>
-                        <div class="wh-image-previews-grid" id="warehouseImagesPreview"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="warehouseDescription" class="form-label">وصف المستودع</label>
-                        <textarea id="warehouseDescription" class="form-control" rows="4" placeholder="أدخل وصفاً للمستودع"></textarea>
-                    </div>
-                    
-                    <div class="form-action wh-dual-buttons">
-                        <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="safety">السابق</button>
-                        <button type="submit" class="btn btn-primary" data-action="save-warehouse-form">حفظ المعلومات</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

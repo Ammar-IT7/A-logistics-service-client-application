@@ -1,218 +1,0 @@
-<!-- templates/pages/packaging-form.html -->
-<div class="header">
-    <button class="header-action" data-action="navigate" data-page="packaging" aria-label="العودة">                <i class="fas fa-arrow-left" data-action="navigate" data-page="packaging"></i></button>
-    <h1 class="header-title">إضافة مقدم خدمة تغليف</h1>
-    <button class="header-action" data-action="save" aria-label="حفظ"><i class="fas fa-save"></i></button>
-</div>
-
-<div class="content">
-    <form class="pkg-form">
-        <!-- المعلومات الأساسية -->
-        <div class="form-section">
-            <h2 class="form-section-title">المعلومات الأساسية</h2>
-            
-            <div class="form-group">
-                <label class="form-label" for="companyName">اسم الشركة/المؤسسة <span class="required">*</span></label>
-                <input type="text" class="form-control" id="companyName" placeholder="أدخل اسم الشركة أو المؤسسة" required>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="contactPerson">الشخص المسؤول</label>
-                <input type="text" class="form-control" id="contactPerson" placeholder="أدخل اسم الشخص المسؤول">
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="phone">رقم الهاتف <span class="required">*</span></label>
-                <input type="tel" class="form-control" id="phone" placeholder="أدخل رقم الهاتف" required>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="email">البريد الإلكتروني</label>
-                <input type="email" class="form-control" id="email" placeholder="أدخل البريد الإلكتروني">
-            </div>
-        </div>
-        
-        <!-- الموقع -->
-        <div class="form-section">
-            <h2 class="form-section-title">الموقع</h2>
-            
-            <div class="form-group">
-                <label class="form-label" for="city">المدينة <span class="required">*</span></label>
-                <select class="form-control" id="city" required>
-                    <option value="">اختر المدينة</option>
-                    <option value="sanaa">صنعاء</option>
-                    <option value="aden">عدن</option>
-                    <option value="hodeidah">الحديدة</option>
-                    <option value="taiz">تعز</option>
-                    <option value="mukalla">المكلا</option>
-                    <option value="ibb">إب</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="address">العنوان التفصيلي <span class="required">*</span></label>
-                <input type="text" class="form-control" id="address" placeholder="أدخل العنوان التفصيلي" required>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">الموقع على الخريطة</label>
-                <div class="pkg-map-placeholder">
-                    <div class="pkg-map-inner">
-                        <span class="pkg-map-icon">📍</span>
-                        <span class="pkg-map-text">انقر لتحديد الموقع على الخريطة</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- مواد التغليف -->
-        <div class="form-section">
-            <h2 class="form-section-title">مواد التغليف المستخدمة</h2>
-            
-            <div class="pkg-materials-container">
-                <div class="pkg-materials-grid">
-                    <div class="pkg-material-item">
-                        <input type="checkbox" id="material-wood" name="materials" value="wood">
-                        <label for="material-wood">
-                            <span class="pkg-material-icon">🪵</span>
-                            <span class="pkg-material-name">خشب</span>
-                        </label>
-                    </div>
-                    
-                    <div class="pkg-material-item">
-                        <input type="checkbox" id="material-plastic" name="materials" value="plastic">
-                        <label for="material-plastic">
-                            <span class="pkg-material-icon">🧊</span>
-                            <span class="pkg-material-name">بلاستيك</span>
-                        </label>
-                    </div>
-                    
-                    <div class="pkg-material-item">
-                        <input type="checkbox" id="material-bubble" name="materials" value="bubble">
-                        <label for="material-bubble">
-                            <span class="pkg-material-icon">💭</span>
-                            <span class="pkg-material-name">فقاعات هوائية</span>
-                        </label>
-                    </div>
-                    
-                    <div class="pkg-material-item">
-                        <input type="checkbox" id="material-cardboard" name="materials" value="cardboard">
-                        <label for="material-cardboard">
-                            <span class="pkg-material-icon">📦</span>
-                            <span class="pkg-material-name">كرتون</span>
-                        </label>
-                    </div>
-                    
-                    <div class="pkg-material-item">
-                        <input type="checkbox" id="material-foam" name="materials" value="foam">
-                        <label for="material-foam">
-                            <span class="pkg-material-icon">🧽</span>
-                            <span class="pkg-material-name">فلين</span>
-                        </label>
-                    </div>
-                    
-                    <div class="pkg-material-item">
-                        <input type="checkbox" id="material-paper" name="materials" value="paper">
-                        <label for="material-paper">
-                            <span class="pkg-material-icon">📃</span>
-                            <span class="pkg-material-name">ورق</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="form-group mt-3">
-                    <label class="form-label" for="otherMaterials">مواد أخرى</label>
-                    <input type="text" class="form-control" id="otherMaterials" placeholder="أدخل أي مواد تغليف إضافية">
-                </div>
-            </div>
-        </div>
-        
-        <!-- خدمات التغليف المخصصة -->
-        <div class="form-section">
-            <h2 class="form-section-title">خدمات التغليف المخصصة</h2>
-            
-            <div class="pkg-specialties-container">
-                <div class="form-group">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input" id="specialty-fragile" name="specialties" value="fragile">
-                        <span class="form-check-label">تغليف المواد الهشة والقابلة للكسر</span>
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input" id="specialty-electronics" name="specialties" value="electronics">
-                        <span class="form-check-label">تغليف الإلكترونيات والأجهزة</span>
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input" id="specialty-furniture" name="specialties" value="furniture">
-                        <span class="form-check-label">تغليف الأثاث والقطع الكبيرة</span>
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input" id="specialty-food" name="specialties" value="food">
-                        <span class="form-check-label">تغليف المواد الغذائية</span>
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input" id="specialty-medical" name="specialties" value="medical">
-                        <span class="form-check-label">تغليف المعدات والمستلزمات الطبية</span>
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-check">
-                        <input type="checkbox" class="form-check-input" id="specialty-perishable" name="specialties" value="perishable">
-                        <span class="form-check-label">تغليف المواد سريعة التلف</span>
-                    </label>
-                </div>
-                
-                <div class="form-group mt-3">
-                    <label class="form-label" for="otherSpecialties">تخصصات أخرى</label>
-                    <input type="text" class="form-control" id="otherSpecialties" placeholder="أدخل أي تخصصات تغليف إضافية">
-                </div>
-            </div>
-        </div>
-        
-        <!-- معلومات إضافية -->
-        <div class="form-section">
-            <h2 class="form-section-title">معلومات إضافية</h2>
-            
-            <div class="form-group">
-                <label class="form-label" for="workingHours">ساعات العمل</label>
-                <input type="text" class="form-control" id="workingHours" placeholder="مثال: 9 صباحاً - 5 مساءً، طوال أيام الأسبوع">
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label" for="description">وصف الخدمات</label>
-                <textarea class="form-control" id="description" placeholder="اكتب وصفاً للخدمات التي تقدمها الشركة" rows="4"></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">الصور</label>
-                <div class="pkg-image-upload-container">
-                    <div class="pkg-image-upload-box">
-                        <input type="file" id="imageUpload" class="pkg-image-upload-input" multiple accept="image/*">
-                        <div class="pkg-image-upload-content">
-                            <span class="pkg-image-upload-icon">📷</span>
-                            <span class="pkg-image-upload-text">انقر لإضافة صور</span>
-                        </div>
-                    </div>
-                    <div class="pkg-image-preview-container"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="form-actions">
-            <button type="button" class="btn btn-outline" data-action="cancel">إلغاء</button>
-            <button type="submit" class="btn btn-primary">حفظ</button>
-        </div>
-    </form>
-</div>
