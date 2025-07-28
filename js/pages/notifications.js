@@ -1,6 +1,6 @@
 /**
  * Notifications Page Controller
- * Manages user notifications, filtering, and notification actions
+ * Manages user notifications with mobile-focused 2-column grid approach
  */
 window.NotificationsController = {
     /**
@@ -68,7 +68,7 @@ window.NotificationsController = {
      * Render notifications list
      */
     renderNotifications: function(notifications) {
-        const container = document.getElementById('notificationsList');
+        const container = document.getElementById('notificationsGrid');
         if (!container) return;
 
         // Clear existing content
@@ -90,23 +90,23 @@ window.NotificationsController = {
      */
     createNotificationElement: function(notification) {
         const element = document.createElement('div');
-        element.className = `notification-item ${notification.isRead ? '' : 'unread'}`;
+        element.className = `notifications-item ${notification.isRead ? '' : 'unread'}`;
         element.dataset.type = notification.type;
         element.dataset.id = notification.id;
 
         const iconClass = this.getNotificationIconClass(notification.type);
         
         element.innerHTML = `
-            <div class="notification-icon ${notification.type}">
+            <div class="notifications-icon ${notification.type}">
                 <i class="${iconClass}"></i>
             </div>
-            <div class="notification-content">
-                <div class="notification-header">
-                    <h4 class="notification-title">${notification.title}</h4>
-                    <span class="notification-time">${notification.time}</span>
+            <div class="notifications-content">
+                <div class="notifications-header">
+                    <h4 class="notifications-title">${notification.title}</h4>
+                    <span class="notifications-time">${notification.time}</span>
                 </div>
-                <p class="notification-message">${notification.message}</p>
-                <div class="notification-actions">
+                <p class="notifications-message">${notification.message}</p>
+                <div class="notifications-actions">
                     ${notification.actions.map(action => `
                         <button class="btn btn-sm ${action.action === 'mark-read' || action.action === 'dismiss' ? 'btn-outline' : 'btn-primary'}" 
                                 data-action="${action.action}" 
@@ -116,8 +116,8 @@ window.NotificationsController = {
                     `).join('')}
                 </div>
             </div>
-            <div class="notification-status">
-                <span class="${notification.isRead ? 'read-indicator' : 'unread-indicator'}"></span>
+            <div class="notifications-status">
+                <span class="${notification.isRead ? 'notifications-read-indicator' : 'notifications-unread-indicator'}"></span>
             </div>
         `;
 
@@ -150,7 +150,7 @@ window.NotificationsController = {
         }
 
         // Filter tabs
-        const filterTabs = document.querySelectorAll('.filter-tab');
+        const filterTabs = document.querySelectorAll('.notifications-filter-tab');
         filterTabs.forEach(tab => {
             tab.addEventListener('click', this.handleFilterChange.bind(this));
         });
@@ -180,7 +180,7 @@ window.NotificationsController = {
         const filter = event.currentTarget.dataset.filter;
         
         // Update active tab
-        document.querySelectorAll('.filter-tab').forEach(tab => {
+        document.querySelectorAll('.notifications-filter-tab').forEach(tab => {
             tab.classList.remove('active');
         });
         event.currentTarget.classList.add('active');
@@ -195,7 +195,7 @@ window.NotificationsController = {
     applyFilter: function(filter) {
         this.currentFilter = filter;
         
-        const notifications = document.querySelectorAll('.notification-item');
+        const notifications = document.querySelectorAll('.notifications-item');
         let visibleCount = 0;
 
         notifications.forEach(notification => {
@@ -203,7 +203,7 @@ window.NotificationsController = {
             const shouldShow = filter === 'all' || notificationType === filter;
             
             if (shouldShow) {
-                notification.style.display = 'flex';
+                notification.style.display = 'block';
                 visibleCount++;
             } else {
                 notification.style.display = 'none';
@@ -268,9 +268,9 @@ window.NotificationsController = {
         const notification = document.querySelector(`[data-id="${notificationId}"]`);
         if (notification) {
             notification.classList.remove('unread');
-            const indicator = notification.querySelector('.unread-indicator');
+            const indicator = notification.querySelector('.notifications-unread-indicator');
             if (indicator) {
-                indicator.className = 'read-indicator';
+                indicator.className = 'notifications-read-indicator';
             }
             
             // Update notification counts
@@ -301,13 +301,13 @@ window.NotificationsController = {
      * Mark all notifications as read
      */
     handleMarkAllRead: function() {
-        const unreadNotifications = document.querySelectorAll('.notification-item.unread');
+        const unreadNotifications = document.querySelectorAll('.notifications-item.unread');
         
         unreadNotifications.forEach(notification => {
             notification.classList.remove('unread');
-            const indicator = notification.querySelector('.unread-indicator');
+            const indicator = notification.querySelector('.notifications-unread-indicator');
             if (indicator) {
-                indicator.className = 'read-indicator';
+                indicator.className = 'notifications-read-indicator';
             }
         });
 
@@ -340,11 +340,11 @@ window.NotificationsController = {
      * Update notification counts
      */
     updateNotificationCounts: function() {
-        const totalCount = document.querySelectorAll('.notification-item').length;
-        const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+        const totalCount = document.querySelectorAll('.notifications-item').length;
+        const unreadCount = document.querySelectorAll('.notifications-item.unread').length;
         
         // Update total count
-        const totalTab = document.querySelector('.filter-tab[data-filter="all"] .tab-count');
+        const totalTab = document.querySelector('.notifications-filter-tab[data-filter="all"] .notifications-tab-count');
         if (totalTab) {
             totalTab.textContent = totalCount;
         }
@@ -368,8 +368,8 @@ window.NotificationsController = {
         const filterTypes = ['orders', 'offers', 'system'];
         
         filterTypes.forEach(type => {
-            const count = document.querySelectorAll(`.notification-item[data-type="${type}"]`).length;
-            const tab = document.querySelector(`.filter-tab[data-filter="${type}"] .tab-count`);
+            const count = document.querySelectorAll(`.notifications-item[data-type="${type}"]`).length;
+            const tab = document.querySelector(`.notifications-filter-tab[data-filter="${type}"] .notifications-tab-count`);
             if (tab) {
                 tab.textContent = count;
             }
@@ -400,7 +400,7 @@ window.NotificationsController = {
      * Check if should show empty state
      */
     checkEmptyState: function() {
-        const visibleNotifications = document.querySelectorAll('.notification-item[style*="flex"]');
+        const visibleNotifications = document.querySelectorAll('.notifications-item[style*="block"]');
         if (visibleNotifications.length === 0) {
             this.showEmptyState();
         }
@@ -452,7 +452,7 @@ window.NotificationsController = {
             markAllReadBtn.removeEventListener('click', this.handleMarkAllRead);
         }
 
-        const filterTabs = document.querySelectorAll('.filter-tab');
+        const filterTabs = document.querySelectorAll('.notifications-filter-tab');
         filterTabs.forEach(tab => {
             tab.removeEventListener('click', this.handleFilterChange);
         });
