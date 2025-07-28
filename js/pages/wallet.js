@@ -8,7 +8,7 @@ window.WalletController = {
      * Initialize the wallet page
      */
     init: function() {
-        console.log('WalletController: Initializing wallet page');
+        console.log('WalletController: Initializing wallet page with 2-column grid layout');
         
         this.loadWalletData();
         this.setupEventListeners();
@@ -116,7 +116,7 @@ window.WalletController = {
     },
 
     /**
-     * Update transactions list
+     * Update transactions list in 2-column grid
      */
     updateTransactions: function(transactions) {
         const transactionsList = document.getElementById('recentTransactionsList');
@@ -132,7 +132,7 @@ window.WalletController = {
     },
 
     /**
-     * Create transaction element
+     * Create transaction element optimized for 2-column grid
      */
     createTransactionElement: function(transaction) {
         const transactionDiv = document.createElement('div');
@@ -181,7 +181,7 @@ window.WalletController = {
     },
 
     /**
-     * Update payment methods
+     * Update payment methods in 2-column grid
      */
     updatePaymentMethods: function(paymentMethods) {
         const paymentMethodsList = document.querySelector('.wallet-payment-methods-list');
@@ -197,7 +197,7 @@ window.WalletController = {
     },
 
     /**
-     * Create payment method element
+     * Create payment method element optimized for 2-column grid
      */
     createPaymentMethodElement: function(method) {
         const methodDiv = document.createElement('div');
@@ -252,7 +252,7 @@ window.WalletController = {
     },
 
     /**
-     * Update statistics
+     * Update statistics in 2-column grid
      */
     updateStatistics: function(stats) {
         const statElements = document.querySelectorAll('.wallet-stat-value');
@@ -376,7 +376,7 @@ window.WalletController = {
      */
     setupMobileOptimizations: function() {
         // Touch feedback for mobile
-        const touchElements = document.querySelectorAll('.wallet-quick-action-item, .wallet-transaction-item, .wallet-payment-method-item');
+        const touchElements = document.querySelectorAll('.wallet-quick-action-item, .wallet-transaction-item, .wallet-payment-method-item, .wallet-stat-card');
         
         touchElements.forEach(element => {
             element.addEventListener('touchstart', () => {
@@ -403,7 +403,8 @@ window.WalletController = {
         style.textContent = `
             .wallet-quick-action-item,
             .wallet-transaction-item,
-            .wallet-payment-method-item {
+            .wallet-payment-method-item,
+            .wallet-stat-card {
                 transition: transform 0.2s ease-out;
             }
         `;
