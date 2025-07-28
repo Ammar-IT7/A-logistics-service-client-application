@@ -12,36 +12,36 @@
 
     <!-- Transaction Stats -->
     <div class="transaction-stats">
-        <div class="stat-card">
-            <div class="stat-icon income">
+        <div class="transaction-stat-card">
+            <div class="transaction-stat-icon income">
                 <i class="fas fa-arrow-up"></i>
             </div>
-            <div class="stat-content">
-                <span class="stat-value">+2,450 ريال</span>
-                <span class="stat-label">إجمالي الإيداعات</span>
+            <div class="transaction-stat-content">
+                <span class="transaction-stat-value">+2,450 ريال</span>
+                <span class="transaction-stat-label">إجمالي الإيداعات</span>
             </div>
         </div>
-        <div class="stat-card">
-            <div class="stat-icon expense">
+        <div class="transaction-stat-card">
+            <div class="transaction-stat-icon expense">
                 <i class="fas fa-arrow-down"></i>
             </div>
-            <div class="stat-content">
-                <span class="stat-value">-1,280 ريال</span>
-                <span class="stat-label">إجمالي المدفوعات</span>
+            <div class="transaction-stat-content">
+                <span class="transaction-stat-value">-1,280 ريال</span>
+                <span class="transaction-stat-label">إجمالي المدفوعات</span>
             </div>
         </div>
     </div>
 
     <!-- Filter Tabs -->
-    <div class="filter-tabs">
-        <button class="filter-tab active" data-filter="all">الكل</button>
-        <button class="filter-tab" data-filter="income">الإيداعات</button>
-        <button class="filter-tab" data-filter="expense">المدفوعات</button>
-        <button class="filter-tab" data-filter="pending">قيد الانتظار</button>
+    <div class="transaction-filter-tabs">
+        <button class="transaction-filter-tab active" data-filter="all">الكل</button>
+        <button class="transaction-filter-tab" data-filter="income">الإيداعات</button>
+        <button class="transaction-filter-tab" data-filter="expense">المدفوعات</button>
+        <button class="transaction-filter-tab" data-filter="pending">قيد الانتظار</button>
     </div>
 
-    <!-- Transactions List -->
-    <div class="transactions-container">
+    <!-- Transactions Grid -->
+    <div class="transaction-grid" id="transactionGrid">
         <!-- Transaction Item -->
         <div class="transaction-item income" data-type="income">
             <div class="transaction-icon">
@@ -179,10 +179,56 @@
                 <i class="fas fa-chevron-left"></i>
             </button>
         </div>
+
+        <!-- Transaction Item -->
+        <div class="transaction-item expense" data-type="expense">
+            <div class="transaction-icon">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            <div class="transaction-details">
+                <div class="transaction-header">
+                    <h3 class="transaction-title">دفع خدمة التغليف</h3>
+                    <span class="transaction-amount negative">-150 ريال</span>
+                </div>
+                <div class="transaction-meta">
+                    <span class="transaction-date">منذ أسبوعين، 10:45</span>
+                    <span class="transaction-status completed">مكتمل</span>
+                </div>
+                <div class="transaction-description">
+                    خدمات التغليف والتعبئة - طلب #12342
+                </div>
+            </div>
+            <button class="transaction-action" data-action="view-transaction" data-id="7">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <!-- Transaction Item -->
+        <div class="transaction-item income" data-type="income">
+            <div class="transaction-icon">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="transaction-details">
+                <div class="transaction-header">
+                    <h3 class="transaction-title">إيداع من البطاقة</h3>
+                    <span class="transaction-amount positive">+800 ريال</span>
+                </div>
+                <div class="transaction-meta">
+                    <span class="transaction-date">منذ أسبوعين، 16:20</span>
+                    <span class="transaction-status completed">مكتمل</span>
+                </div>
+                <div class="transaction-description">
+                    إيداع من بطاقة Visa
+                </div>
+            </div>
+            <button class="transaction-action" data-action="view-transaction" data-id="8">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
     </div>
 
     <!-- Load More -->
-    <div class="load-more-section">
+    <div class="transaction-load-more-section">
         <button class="btn btn-outline" data-action="load-more-transactions">
             <i class="fas fa-plus"></i>
             تحميل المزيد
@@ -190,12 +236,12 @@
     </div>
 
     <!-- Empty State -->
-    <div class="empty-state hidden">
-        <div class="empty-state-icon">
+    <div class="transaction-empty-state hidden">
+        <div class="transaction-empty-state-icon">
             <i class="fas fa-receipt"></i>
         </div>
-        <h3 class="empty-state-title">لا توجد معاملات</h3>
-        <p class="empty-state-description">لم يتم العثور على معاملات تطابق المعايير المحددة</p>
+        <h3 class="transaction-empty-state-title">لا توجد معاملات</h3>
+        <p class="transaction-empty-state-description">لم يتم العثور على معاملات تطابق المعايير المحددة</p>
         <button class="btn btn-primary" data-action="reset-filters">
             إعادة تعيين الفلاتر
         </button>

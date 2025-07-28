@@ -1,5 +1,6 @@
 /**
  * Transaction History Page Controller
+ * Manages transaction history with mobile-focused 2-column grid approach
  */
 window.TransactionHistoryController = {
     /**
@@ -14,6 +15,8 @@ window.TransactionHistoryController = {
         this.setupEventListeners();
         this.updateStats();
         this.renderTransactions();
+        
+        console.log('TransactionHistoryController: Transaction history page initialized successfully');
     },
 
     /**
@@ -92,6 +95,28 @@ window.TransactionHistoryController = {
                     status: 'completed',
                     category: 'customs',
                     reference: 'CUST-78901'
+                },
+                {
+                    id: 7,
+                    type: 'expense',
+                    title: 'دفع خدمة التغليف',
+                    amount: -150,
+                    description: 'خدمات التغليف والتعبئة - طلب #12342',
+                    date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+                    status: 'completed',
+                    category: 'packaging',
+                    reference: 'PACK-12342'
+                },
+                {
+                    id: 8,
+                    type: 'income',
+                    title: 'إيداع من البطاقة',
+                    amount: 800,
+                    description: 'إيداع من بطاقة Visa',
+                    date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+                    status: 'completed',
+                    category: 'card',
+                    reference: 'CARD-001'
                 }
             ];
             this.saveTransactions();
@@ -110,7 +135,7 @@ window.TransactionHistoryController = {
      */
     setupEventListeners: function() {
         // Filter tabs
-        document.querySelectorAll('.filter-tab').forEach(tab => {
+        document.querySelectorAll('.transaction-filter-tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
                 this.setActiveFilter(e.target.dataset.filter);
             });
@@ -153,7 +178,7 @@ window.TransactionHistoryController = {
         this.currentPage = 1;
 
         // Update active tab
-        document.querySelectorAll('.filter-tab').forEach(tab => {
+        document.querySelectorAll('.transaction-filter-tab').forEach(tab => {
             tab.classList.remove('active');
         });
         document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
@@ -195,7 +220,7 @@ window.TransactionHistoryController = {
      * Render transactions
      */
     renderTransactions: function() {
-        const container = document.querySelector('.transactions-container');
+        const container = document.getElementById('transactionGrid');
         if (!container) return;
 
         const filteredTransactions = this.getFilteredTransactions();
@@ -306,15 +331,15 @@ window.TransactionHistoryController = {
             .reduce((sum, t) => sum + Math.abs(t.amount), 0);
 
         // Update income stat
-        const incomeStat = document.querySelector('.stat-card .stat-value');
+        const incomeStat = document.querySelector('.transaction-stat-value');
         if (incomeStat) {
             incomeStat.textContent = `+${incomeTotal.toLocaleString()} ريال`;
         }
 
         // Update expense stat
-        const expenseStat = document.querySelectorAll('.stat-card .stat-value')[1];
-        if (expenseStat) {
-            expenseStat.textContent = `-${expenseTotal.toLocaleString()} ريال`;
+        const expenseStats = document.querySelectorAll('.transaction-stat-value');
+        if (expenseStats[1]) {
+            expenseStats[1].textContent = `-${expenseTotal.toLocaleString()} ريال`;
         }
     },
 
@@ -324,7 +349,38 @@ window.TransactionHistoryController = {
     viewTransaction: function(transactionId) {
         const transaction = this.transactions.find(t => t.id == transactionId);
         if (transaction) {
-            Modal.open('transaction-details', { transaction });
+            Modal.open('transaction-details', { 
+                title: 'تفاصيل المعاملة',
+                content: `
+                    <div class="transaction-details-modal">
+                        <div class="transaction-detail-item">
+                            <span class="detail-label">رقم المعاملة:</span>
+                            <span class="detail-value">${transaction.reference}</span>
+                        </div>
+                        <div class="transaction-detail-item">
+                            <span class="detail-label">التاريخ:</span>
+                            <span class="detail-value">${this.formatDate(transaction.date)}</span>
+                        </div>
+                        <div class="transaction-detail-item">
+                            <span class="detail-label">المبلغ:</span>
+                            <span class="detail-value ${transaction.amount > 0 ? 'positive' : 'negative'}">
+                                ${transaction.amount > 0 ? '+' : ''}${transaction.amount} ريال
+                            </span>
+                        </div>
+                        <div class="transaction-detail-item">
+                            <span class="detail-label">الحالة:</span>
+                            <span class="detail-value status-${transaction.status}">${this.getStatusText(transaction.status)}</span>
+                        </div>
+                        <div class="transaction-detail-item">
+                            <span class="detail-label">الوصف:</span>
+                            <span class="detail-value">${transaction.description}</span>
+                        </div>
+                    </div>
+                `,
+                onConfirm: () => {
+                    // Handle any confirmation action
+                }
+            });
         }
     },
 
@@ -354,8 +410,8 @@ window.TransactionHistoryController = {
      * Update empty state visibility
      */
     updateEmptyState: function() {
-        const emptyState = document.querySelector('.empty-state');
-        const transactionsContainer = document.querySelector('.transactions-container');
+        const emptyState = document.querySelector('.transaction-empty-state');
+        const transactionsContainer = document.getElementById('transactionGrid');
         const filteredTransactions = this.getFilteredTransactions();
 
         if (filteredTransactions.length === 0) {
@@ -363,7 +419,7 @@ window.TransactionHistoryController = {
             transactionsContainer.style.display = 'none';
         } else {
             emptyState.classList.add('hidden');
-            transactionsContainer.style.display = 'block';
+            transactionsContainer.style.display = 'grid';
         }
     },
 
@@ -379,8 +435,38 @@ window.TransactionHistoryController = {
      */
     openFilterModal: function() {
         Modal.open('filter-transactions', {
-            currentFilter: this.currentFilter,
-            onApply: (filters) => {
+            title: 'تصفية المعاملات',
+            content: `
+                <div class="filter-transactions-modal">
+                    <div class="form-group">
+                        <label>نوع المعاملة</label>
+                        <select class="form-control" id="filterType">
+                            <option value="all">الكل</option>
+                            <option value="income">الإيداعات</option>
+                            <option value="expense">المدفوعات</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الحالة</label>
+                        <select class="form-control" id="filterStatus">
+                            <option value="all">الكل</option>
+                            <option value="completed">مكتمل</option>
+                            <option value="pending">قيد الانتظار</option>
+                            <option value="failed">فشل</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الفترة الزمنية</label>
+                        <select class="form-control" id="filterPeriod">
+                            <option value="all">الكل</option>
+                            <option value="today">اليوم</option>
+                            <option value="week">هذا الأسبوع</option>
+                            <option value="month">هذا الشهر</option>
+                        </select>
+                    </div>
+                </div>
+            `,
+            onConfirm: (filters) => {
                 this.applyAdvancedFilters(filters);
             }
         });
