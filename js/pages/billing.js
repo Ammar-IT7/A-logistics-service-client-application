@@ -1,5 +1,6 @@
 /**
  * Billing Page Controller
+ * Enhanced for Mobile-First 2-Column Grid Design
  */
 window.BillingController = {
     /**
@@ -10,50 +11,61 @@ window.BillingController = {
         this.loadBillingData();
         this.setupInvoices();
         this.initializePaymentMethods();
+        this.setupMobileOptimizations();
     },
 
     /**
      * Bind event listeners
      */
     bindEvents: function() {
-        // Invoice actions
+        // Bill actions
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.invoice-item')) {
-                this.showInvoiceDetails(e.target.closest('.invoice-item'));
+            if (e.target.closest('.billing-bill-item')) {
+                this.showBillDetails(e.target.closest('.billing-bill-item'));
             }
         });
 
-        // Download invoice
+        // Pay bill
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.download-invoice')) {
-                this.downloadInvoice(e.target.closest('.download-invoice').dataset.invoiceId);
+            if (e.target.closest('[data-action="pay-bill"]')) {
+                this.payBill(e.target.closest('[data-action="pay-bill"]').dataset.id);
             }
         });
 
-        // Pay invoice
+        // View bill
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.pay-invoice')) {
-                this.payInvoice(e.target.closest('.pay-invoice').dataset.invoiceId);
+            if (e.target.closest('[data-action="view-bill"]')) {
+                this.viewBill(e.target.closest('[data-action="view-bill"]').dataset.id);
             }
         });
 
-        // Filter invoices
-        const filterSelect = document.getElementById('invoiceFilter');
-        if (filterSelect) {
-            filterSelect.addEventListener('change', this.filterInvoices.bind(this));
-        }
+        // Download receipt
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('[data-action="download-receipt"]')) {
+                this.downloadReceipt(e.target.closest('[data-action="download-receipt"]').dataset.id);
+            }
+        });
 
-        // Search invoices
-        const searchInput = document.getElementById('invoiceSearch');
-        if (searchInput) {
-            searchInput.addEventListener('input', this.searchInvoices.bind(this));
-        }
+        // Filter bills
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.billing-filter-tab')) {
+                this.filterBills(e.target.closest('.billing-filter-tab').dataset.filter);
+            }
+        });
 
-        // Add payment method
-        const addPaymentBtn = document.getElementById('addPaymentMethod');
-        if (addPaymentBtn) {
-            addPaymentBtn.addEventListener('click', this.showAddPaymentMethod.bind(this));
-        }
+        // Quick actions
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.billing-quick-action-card')) {
+                this.handleQuickAction(e.target.closest('.billing-quick-action-card'));
+            }
+        });
+
+        // Pay overdue bills
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('[data-action="pay-overdue-bills"]')) {
+                this.payOverdueBills();
+            }
+        });
     },
 
     /**
@@ -62,429 +74,465 @@ window.BillingController = {
     loadBillingData: function() {
         // Mock billing data
         const billingData = {
-            currentBalance: 1250.00,
-            pendingAmount: 450.00,
-            invoices: [
+            summary: {
+                pending: 3,
+                overdue: 1,
+                total: 2450.00
+            },
+            bills: [
                 {
-                    id: 'INV-001',
-                    date: '2024-01-15',
-                    dueDate: '2024-02-15',
-                    amount: 850.00,
-                    status: 'paid',
-                    description: 'خدمات شحن بحري - يناير 2024',
-                    items: [
-                        { name: 'شحن حاوية 20 قدم', quantity: 1, price: 500.00 },
-                        { name: 'تخليص جمركي', quantity: 1, price: 200.00 },
-                        { name: 'خدمات إضافية', quantity: 1, price: 150.00 }
-                    ]
-                },
-                {
-                    id: 'INV-002',
-                    date: '2024-02-01',
-                    dueDate: '2024-03-01',
-                    amount: 450.00,
-                    status: 'pending',
-                    description: 'خدمات تخزين - فبراير 2024',
-                    items: [
-                        { name: 'تخزين مستودع', quantity: 30, price: 15.00 }
-                    ]
-                },
-                {
-                    id: 'INV-003',
-                    date: '2024-01-20',
-                    dueDate: '2024-02-20',
+                    id: '1',
+                    title: 'فاتورة خدمة التخزين',
                     amount: 320.00,
+                    dueDate: '15 يناير 2024',
                     status: 'overdue',
-                    description: 'خدمات شحن جوي - يناير 2024',
-                    items: [
-                        { name: 'شحن جوي سريع', quantity: 1, price: 320.00 }
-                    ]
+                    description: 'فاتورة شهري لمستودع الرياض - يناير 2024',
+                    daysOverdue: 5
+                },
+                {
+                    id: '2',
+                    title: 'فاتورة خدمة الشحن',
+                    amount: 180.00,
+                    dueDate: '20 يناير 2024',
+                    status: 'pending',
+                    description: 'فاتورة شحن طلب #12345 - الرياض إلى جدة'
+                },
+                {
+                    id: '3',
+                    title: 'فاتورة التخليص الجمركي',
+                    amount: 450.00,
+                    dueDate: '25 يناير 2024',
+                    status: 'pending',
+                    description: 'رسوم جمركية - شحنة #78901'
+                },
+                {
+                    id: '4',
+                    title: 'فاتورة خدمة التغليف',
+                    amount: 150.00,
+                    dueDate: '10 يناير 2024',
+                    status: 'paid',
+                    description: 'خدمات التغليف والتعبئة - طلب #12340'
                 }
             ]
         };
 
-        this.renderBillingData(billingData);
+        this.updateBillingDisplay(billingData);
     },
 
     /**
-     * Render billing data
+     * Update billing display with data
      */
-    renderBillingData: function(data) {
-        this.renderBalance(data);
-        this.renderInvoices(data.invoices);
+    updateBillingDisplay: function(data) {
+        this.updateSummary(data.summary);
+        this.updateBillsList(data.bills);
     },
 
     /**
-     * Render balance information
+     * Update summary section
      */
-    renderBalance: function(data) {
-        const balanceContainer = document.getElementById('balanceInfo');
-        if (!balanceContainer) return;
+    updateSummary: function(summary) {
+        const summaryValues = document.querySelectorAll('.billing-summary-value');
+        
+        if (summaryValues.length >= 3) {
+            summaryValues[0].textContent = summary.pending;
+            summaryValues[1].textContent = summary.overdue;
+            summaryValues[2].textContent = `${summary.total.toLocaleString('ar-SA')} ريال`;
+        }
+    },
 
-        balanceContainer.innerHTML = `
-            <div class="balance-card">
-                <div class="balance-header">
-                    <h3>الرصيد الحالي</h3>
-                    <i class="fas fa-wallet"></i>
-                </div>
-                <div class="balance-amount">
-                    <span class="amount">${data.currentBalance.toFixed(2)}</span>
-                    <span class="currency">ريال</span>
-                </div>
-                <div class="balance-actions">
-                    <button class="btn btn-primary" onclick="BillingController.addFunds()">
-                        <i class="fas fa-plus"></i>
-                        إضافة رصيد
-                    </button>
-                    <button class="btn btn-outline" onclick="BillingController.withdrawFunds()">
-                        <i class="fas fa-minus"></i>
-                        سحب رصيد
-                    </button>
-                </div>
+    /**
+     * Update bills list
+     */
+    updateBillsList: function(bills) {
+        const billsContainer = document.querySelector('.billing-bills-container');
+        if (!billsContainer) return;
+
+        // Clear existing bills
+        billsContainer.innerHTML = '';
+
+        bills.forEach(bill => {
+            const billElement = this.createBillElement(bill);
+            billsContainer.appendChild(billElement);
+        });
+    },
+
+    /**
+     * Create bill element
+     */
+    createBillElement: function(bill) {
+        const billDiv = document.createElement('div');
+        billDiv.className = `billing-bill-item ${bill.status}`;
+        billDiv.setAttribute('data-type', bill.status);
+        
+        const iconClass = this.getBillIcon(bill.status);
+        const statusText = this.getStatusText(bill.status, bill.daysOverdue);
+        
+        billDiv.innerHTML = `
+            <div class="billing-bill-icon">
+                <i class="${iconClass}"></i>
             </div>
-            <div class="pending-card">
-                <div class="pending-header">
-                    <h3>المدفوعات المعلقة</h3>
-                    <i class="fas fa-clock"></i>
+            <div class="billing-bill-details">
+                <div class="billing-bill-header">
+                    <h3 class="billing-bill-title">${bill.title}</h3>
+                    <span class="billing-bill-amount">${bill.amount.toLocaleString('ar-SA')} ريال</span>
                 </div>
-                <div class="pending-amount">
-                    <span class="amount">${data.pendingAmount.toFixed(2)}</span>
-                    <span class="currency">ريال</span>
+                <div class="billing-bill-meta">
+                    <span class="billing-bill-date">تاريخ الاستحقاق: ${bill.dueDate}</span>
+                    <span class="billing-bill-status ${bill.status}">${statusText}</span>
                 </div>
-                <div class="pending-actions">
-                    <button class="btn btn-primary" onclick="BillingController.payPending()">
-                        <i class="fas fa-credit-card"></i>
-                        دفع المعلقات
-                    </button>
+                <div class="billing-bill-description">
+                    ${bill.description}
+                </div>
+                <div class="billing-bill-actions">
+                    ${bill.status === 'paid' ? `
+                        <button class="btn btn-outline btn-sm" data-action="view-bill" data-id="${bill.id}">
+                            <i class="fas fa-eye"></i>
+                            عرض التفاصيل
+                        </button>
+                        <button class="btn btn-outline btn-sm" data-action="download-receipt" data-id="${bill.id}">
+                            <i class="fas fa-download"></i>
+                            تحميل الإيصال
+                        </button>
+                    ` : `
+                        <button class="btn btn-primary btn-sm" data-action="pay-bill" data-id="${bill.id}">
+                            <i class="fas fa-credit-card"></i>
+                            دفع الآن
+                        </button>
+                        <button class="btn btn-outline btn-sm" data-action="view-bill" data-id="${bill.id}">
+                            <i class="fas fa-eye"></i>
+                            عرض التفاصيل
+                        </button>
+                    `}
                 </div>
             </div>
         `;
+        
+        return billDiv;
     },
 
     /**
-     * Render invoices
+     * Get bill icon class
      */
-    renderInvoices: function(invoices) {
-        const invoicesContainer = document.getElementById('invoicesList');
-        if (!invoicesContainer) return;
-
-        const invoicesHTML = invoices.map(invoice => `
-            <div class="invoice-item" data-invoice-id="${invoice.id}">
-                <div class="invoice-header">
-                    <div class="invoice-info">
-                        <h4>${invoice.description}</h4>
-                        <p class="invoice-id">${invoice.id}</p>
-                        <p class="invoice-date">تاريخ الإصدار: ${this.formatDate(invoice.date)}</p>
-                    </div>
-                    <div class="invoice-amount">
-                        <span class="amount">${invoice.amount.toFixed(2)} ريال</span>
-                        <span class="status-badge ${invoice.status}">${this.getStatusText(invoice.status)}</span>
-                    </div>
-                </div>
-                <div class="invoice-details">
-                    <div class="invoice-meta">
-                        <span><i class="fas fa-calendar"></i> تاريخ الاستحقاق: ${this.formatDate(invoice.dueDate)}</span>
-                        <span><i class="fas fa-list"></i> ${invoice.items.length} عنصر</span>
-                    </div>
-                    <div class="invoice-actions">
-                        <button class="btn btn-outline download-invoice" data-invoice-id="${invoice.id}">
-                            <i class="fas fa-download"></i>
-                            تحميل
-                        </button>
-                        ${invoice.status === 'pending' || invoice.status === 'overdue' ? `
-                            <button class="btn btn-primary pay-invoice" data-invoice-id="${invoice.id}">
-                                <i class="fas fa-credit-card"></i>
-                                دفع
-                            </button>
-                        ` : ''}
-                    </div>
-                </div>
-            </div>
-        `).join('');
-
-        invoicesContainer.innerHTML = invoicesHTML;
-    },
-
-    /**
-     * Format date
-     */
-    formatDate: function(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('ar-SA');
+    getBillIcon: function(status) {
+        const icons = {
+            overdue: 'fas fa-exclamation-triangle',
+            pending: 'fas fa-clock',
+            paid: 'fas fa-check-circle',
+            failed: 'fas fa-times-circle'
+        };
+        return icons[status] || 'fas fa-file-invoice';
     },
 
     /**
      * Get status text
      */
-    getStatusText: function(status) {
-        const statusMap = {
-            'paid': 'مدفوع',
-            'pending': 'معلق',
-            'overdue': 'متأخر'
+    getStatusText: function(status, daysOverdue) {
+        const statusTexts = {
+            overdue: `متأخر ${daysOverdue} أيام`,
+            pending: 'معلق',
+            paid: 'مدفوع',
+            failed: 'فشل'
         };
-        return statusMap[status] || status;
-    },
-
-    /**
-     * Show invoice details
-     */
-    showInvoiceDetails: function(invoiceElement) {
-        const invoiceId = invoiceElement.dataset.invoiceId;
-        
-        // Mock invoice details
-        const invoiceDetails = {
-            id: invoiceId,
-            date: '2024-01-15',
-            dueDate: '2024-02-15',
-            amount: 850.00,
-            status: 'paid',
-            description: 'خدمات شحن بحري - يناير 2024',
-            items: [
-                { name: 'شحن حاوية 20 قدم', quantity: 1, price: 500.00, total: 500.00 },
-                { name: 'تخليص جمركي', quantity: 1, price: 200.00, total: 200.00 },
-                { name: 'خدمات إضافية', quantity: 1, price: 150.00, total: 150.00 }
-            ],
-            subtotal: 850.00,
-            tax: 0.00,
-            total: 850.00
-        };
-
-        Modal.open('invoice-details-modal', {
-            title: `فاتورة ${invoiceId}`,
-            content: this.generateInvoiceDetailsHTML(invoiceDetails)
-        });
-    },
-
-    /**
-     * Generate invoice details HTML
-     */
-    generateInvoiceDetailsHTML: function(invoice) {
-        const itemsHTML = invoice.items.map(item => `
-            <div class="invoice-item-row">
-                <div class="item-name">${item.name}</div>
-                <div class="item-quantity">${item.quantity}</div>
-                <div class="item-price">${item.price.toFixed(2)} ريال</div>
-                <div class="item-total">${item.total.toFixed(2)} ريال</div>
-            </div>
-        `).join('');
-
-        return `
-            <div class="invoice-details-modal">
-                <div class="invoice-header-info">
-                    <div class="invoice-meta">
-                        <p><strong>رقم الفاتورة:</strong> ${invoice.id}</p>
-                        <p><strong>تاريخ الإصدار:</strong> ${this.formatDate(invoice.date)}</p>
-                        <p><strong>تاريخ الاستحقاق:</strong> ${this.formatDate(invoice.dueDate)}</p>
-                        <p><strong>الحالة:</strong> <span class="status-badge ${invoice.status}">${this.getStatusText(invoice.status)}</span></p>
-                    </div>
-                </div>
-                <div class="invoice-items">
-                    <div class="invoice-items-header">
-                        <div class="item-name">الوصف</div>
-                        <div class="item-quantity">الكمية</div>
-                        <div class="item-price">السعر</div>
-                        <div class="item-total">الإجمالي</div>
-                    </div>
-                    ${itemsHTML}
-                </div>
-                <div class="invoice-summary">
-                    <div class="summary-row">
-                        <span>المجموع الفرعي:</span>
-                        <span>${invoice.subtotal.toFixed(2)} ريال</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>الضريبة:</span>
-                        <span>${invoice.tax.toFixed(2)} ريال</span>
-                    </div>
-                    <div class="summary-row total">
-                        <span>الإجمالي:</span>
-                        <span>${invoice.total.toFixed(2)} ريال</span>
-                    </div>
-                </div>
-                <div class="invoice-actions">
-                    <button class="btn btn-outline" onclick="BillingController.downloadInvoice('${invoice.id}')">
-                        <i class="fas fa-download"></i>
-                        تحميل PDF
-                    </button>
-                    <button class="btn btn-outline" onclick="BillingController.printInvoice('${invoice.id}')">
-                        <i class="fas fa-print"></i>
-                        طباعة
-                    </button>
-                </div>
-            </div>
-        `;
-    },
-
-    /**
-     * Download invoice
-     */
-    downloadInvoice: function(invoiceId) {
-        Modal.close('invoice-details-modal');
-        Toast.show('جاري التحميل', `جاري تحميل الفاتورة ${invoiceId}`, 'info');
-        
-        // Simulate download
-        setTimeout(() => {
-            Toast.show('تم التحميل', `تم تحميل الفاتورة ${invoiceId} بنجاح`, 'success');
-        }, 2000);
-    },
-
-    /**
-     * Print invoice
-     */
-    printInvoice: function(invoiceId) {
-        Modal.close('invoice-details-modal');
-        Toast.show('جاري الطباعة', `جاري إعداد الفاتورة ${invoiceId} للطباعة`, 'info');
-        
-        // Simulate print
-        setTimeout(() => {
-            window.print();
-            Toast.show('تم الطباعة', `تم إرسال الفاتورة ${invoiceId} للطباعة`, 'success');
-        }, 1000);
-    },
-
-    /**
-     * Pay invoice
-     */
-    payInvoice: function(invoiceId) {
-        Modal.open('payment-modal', {
-            title: 'دفع الفاتورة',
-            content: `
-                <div class="payment-form">
-                    <div class="payment-amount">
-                        <h3>مبلغ الدفع: 450.00 ريال</h3>
-                    </div>
-                    <div class="payment-methods">
-                        <h4>اختر طريقة الدفع:</h4>
-                        <div class="payment-options">
-                            <label class="payment-option">
-                                <input type="radio" name="paymentMethod" value="card" checked>
-                                <span class="checkmark"></span>
-                                <i class="fas fa-credit-card"></i>
-                                <span>بطاقة ائتمان</span>
-                            </label>
-                            <label class="payment-option">
-                                <input type="radio" name="paymentMethod" value="bank">
-                                <span class="checkmark"></span>
-                                <i class="fas fa-university"></i>
-                                <span>تحويل بنكي</span>
-                            </label>
-                            <label class="payment-option">
-                                <input type="radio" name="paymentMethod" value="wallet">
-                                <span class="checkmark"></span>
-                                <i class="fas fa-wallet"></i>
-                                <span>المحفظة الإلكترونية</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="payment-actions">
-                        <button class="btn btn-outline" onclick="Modal.close('payment-modal')">إلغاء</button>
-                        <button class="btn btn-primary" onclick="BillingController.processPayment('${invoiceId}')">
-                            <i class="fas fa-credit-card"></i>
-                            دفع الآن
-                        </button>
-                    </div>
-                </div>
-            `
-        });
-    },
-
-    /**
-     * Process payment
-     */
-    processPayment: function(invoiceId) {
-        Modal.close('payment-modal');
-        Toast.show('جاري المعالجة', 'جاري معالجة الدفع...', 'info');
-        
-        // Simulate payment processing
-        setTimeout(() => {
-            Toast.show('تم الدفع', `تم دفع الفاتورة ${invoiceId} بنجاح`, 'success');
-            this.loadBillingData(); // Refresh data
-        }, 3000);
-    },
-
-    /**
-     * Filter invoices
-     */
-    filterInvoices: function(e) {
-        const filter = e.target.value;
-        const invoices = document.querySelectorAll('.invoice-item');
-        
-        invoices.forEach(invoice => {
-            const status = invoice.querySelector('.status-badge').classList[1];
-            if (filter === 'all' || status === filter) {
-                invoice.style.display = 'block';
-            } else {
-                invoice.style.display = 'none';
-            }
-        });
-    },
-
-    /**
-     * Search invoices
-     */
-    searchInvoices: function(e) {
-        const query = e.target.value.toLowerCase();
-        const invoices = document.querySelectorAll('.invoice-item');
-        
-        invoices.forEach(invoice => {
-            const text = invoice.textContent.toLowerCase();
-            if (text.includes(query)) {
-                invoice.style.display = 'block';
-            } else {
-                invoice.style.display = 'none';
-            }
-        });
-    },
-
-    /**
-     * Add funds
-     */
-    addFunds: function() {
-        Router.navigate('wallet');
-    },
-
-    /**
-     * Withdraw funds
-     */
-    withdrawFunds: function() {
-        Router.navigate('wallet');
-    },
-
-    /**
-     * Pay pending
-     */
-    payPending: function() {
-        Toast.show('دفع المعلقات', 'سيتم توجيهك إلى صفحة الدفع', 'info');
-        setTimeout(() => {
-            Router.navigate('payment-methods');
-        }, 1000);
-    },
-
-    /**
-     * Show add payment method
-     */
-    showAddPaymentMethod: function() {
-        Router.navigate('payment-methods');
+        return statusTexts[status] || status;
     },
 
     /**
      * Setup invoices
      */
     setupInvoices: function() {
-        // Additional setup if needed
+        // Implementation for setting up invoices
+        console.log('Setting up invoices...');
     },
 
     /**
      * Initialize payment methods
      */
     initializePaymentMethods: function() {
-        // Additional setup if needed
+        // Implementation for initializing payment methods
+        console.log('Initializing payment methods...');
     },
 
     /**
-     * Destroy controller
+     * Setup mobile optimizations
      */
-    destroy: function() {
-        // Cleanup if needed
+    setupMobileOptimizations: function() {
+        // Touch feedback for mobile
+        const touchElements = document.querySelectorAll('.billing-bill-item, .billing-quick-action-card, .billing-summary-card');
+        
+        touchElements.forEach(element => {
+            element.addEventListener('touchstart', () => {
+                element.style.transform = 'scale(0.98)';
+            });
+            
+            element.addEventListener('touchend', () => {
+                element.style.transform = 'scale(1)';
+            });
+        });
+
+        // Optimize for mobile performance
+        if (window.innerWidth <= 768) {
+            this.optimizeForMobile();
+        }
+    },
+
+    /**
+     * Optimize for mobile performance
+     */
+    optimizeForMobile: function() {
+        // Reduce animation complexity on mobile
+        const style = document.createElement('style');
+        style.textContent = `
+            .billing-bill-item,
+            .billing-quick-action-card,
+            .billing-summary-card {
+                transition: transform 0.2s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+    },
+
+    /**
+     * Show bill details
+     */
+    showBillDetails: function(billItem) {
+        const billId = billItem.querySelector('[data-action="pay-bill"], [data-action="view-bill"]')?.dataset.id;
+        const billTitle = billItem.querySelector('.billing-bill-title').textContent;
+        
+        console.log('Showing bill details:', billId, billTitle);
+        
+        // Show bill details modal
+        this.showModal({
+            title: billTitle,
+            content: `تفاصيل الفاتورة رقم: ${billId}`,
+            type: 'bill-details'
+        });
+    },
+
+    /**
+     * Pay bill
+     */
+    payBill: function(billId) {
+        console.log('Paying bill:', billId);
+        
+        // Show payment modal
+        this.showModal({
+            title: 'دفع الفاتورة',
+            content: `نموذج دفع الفاتورة رقم: ${billId}`,
+            type: 'pay-bill'
+        });
+        
+        // Add haptic feedback on mobile
+        if ('vibrate' in navigator) {
+            navigator.vibrate(50);
+        }
+    },
+
+    /**
+     * View bill
+     */
+    viewBill: function(billId) {
+        console.log('Viewing bill:', billId);
+        
+        // Show bill details
+        this.showModal({
+            title: 'تفاصيل الفاتورة',
+            content: `تفاصيل الفاتورة رقم: ${billId}`,
+            type: 'view-bill'
+        });
+    },
+
+    /**
+     * Download receipt
+     */
+    downloadReceipt: function(billId) {
+        console.log('Downloading receipt:', billId);
+        
+        // Simulate download
+        this.showToast('جاري التحميل...', 'info');
+        
+        setTimeout(() => {
+            this.showToast('تم تحميل الإيصال بنجاح', 'success');
+        }, 2000);
+    },
+
+    /**
+     * Filter bills
+     */
+    filterBills: function(filter) {
+        console.log('Filtering bills by:', filter);
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('.billing-filter-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Add active class to clicked tab
+        event.target.closest('.billing-filter-tab').classList.add('active');
+        
+        // Filter bills based on status
+        const bills = document.querySelectorAll('.billing-bill-item');
+        
+        bills.forEach(bill => {
+            const billType = bill.getAttribute('data-type');
+            
+            if (filter === 'all' || billType === filter) {
+                bill.style.display = 'flex';
+            } else {
+                bill.style.display = 'none';
+            }
+        });
+    },
+
+    /**
+     * Handle quick action
+     */
+    handleQuickAction: function(actionCard) {
+        const action = actionCard.getAttribute('data-action');
+        console.log('Handling quick action:', action);
+        
+        switch (action) {
+            case 'pay-all-bills':
+                this.payAllBills();
+                break;
+            case 'download-all-receipts':
+                this.downloadAllReceipts();
+                break;
+            case 'export-bills':
+                this.exportBills();
+                break;
+            default:
+                this.showToast(`تنفيذ الإجراء: ${action}`, 'info');
+        }
+        
+        // Add haptic feedback on mobile
+        if ('vibrate' in navigator) {
+            navigator.vibrate(50);
+        }
+    },
+
+    /**
+     * Pay all bills
+     */
+    payAllBills: function() {
+        console.log('Paying all bills');
+        this.showModal({
+            title: 'دفع جميع الفواتير',
+            content: 'نموذج دفع جميع الفواتير المعلقة',
+            type: 'pay-all-bills'
+        });
+    },
+
+    /**
+     * Download all receipts
+     */
+    downloadAllReceipts: function() {
+        console.log('Downloading all receipts');
+        this.showToast('جاري تحميل جميع الإيصالات...', 'info');
+        
+        setTimeout(() => {
+            this.showToast('تم تحميل جميع الإيصالات بنجاح', 'success');
+        }, 3000);
+    },
+
+    /**
+     * Export bills
+     */
+    exportBills: function() {
+        console.log('Exporting bills');
+        this.showToast('جاري تصدير الفواتير...', 'info');
+        
+        setTimeout(() => {
+            this.showToast('تم تصدير الفواتير بنجاح', 'success');
+        }, 2000);
+    },
+
+    /**
+     * Pay overdue bills
+     */
+    payOverdueBills: function() {
+        console.log('Paying overdue bills');
+        this.showModal({
+            title: 'دفع الفواتير المتأخرة',
+            content: 'نموذج دفع الفواتير المتأخرة',
+            type: 'pay-overdue-bills'
+        });
+    },
+
+    /**
+     * Show modal
+     */
+    showModal: function(data) {
+        // Implementation for showing modal
+        console.log('Showing modal:', data);
+        
+        // You can implement your modal system here
+        // For now, we'll just show a toast
+        this.showToast(data.title, 'info');
+    },
+
+    /**
+     * Show toast notification
+     */
+    showToast: function(message, type = 'info') {
+        // Implementation for showing toast
+        console.log('Toast:', message, type);
+        
+        // You can implement your toast system here
+        // For now, we'll use alert as fallback
+        alert(message);
+    },
+
+    /**
+     * Refresh billing data
+     */
+    refreshData: function() {
+        console.log('Refreshing billing data...');
+        this.loadBillingData();
+    },
+
+    /**
+     * Update page content
+     */
+    updateContent: function() {
+        // Update any dynamic content
+        this.refreshData();
+    },
+
+    /**
+     * Handle page visibility change
+     */
+    handleVisibilityChange: function() {
+        if (!document.hidden) {
+            this.updateContent();
+        }
+    },
+
+    /**
+     * Cleanup on page unload
+     */
+    cleanup: function() {
+        // Remove event listeners and cleanup
+        console.log('Cleaning up billing controller');
     }
-}; 
+};
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('billing-page')) {
+        BillingController.init();
+    }
+});
+
+// Handle page visibility changes
+document.addEventListener('visibilitychange', function() {
+    if (BillingController.handleVisibilityChange) {
+        BillingController.handleVisibilityChange();
+    }
+});
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', function() {
+    if (BillingController.cleanup) {
+        BillingController.cleanup();
+    }
+}); 

@@ -1,5 +1,6 @@
 /**
  * About Page Controller
+ * Enhanced for Mobile-First 2-Column Grid Design
  */
 window.AboutController = {
     /**
@@ -10,6 +11,7 @@ window.AboutController = {
         this.initializeAnimations();
         this.loadTeamData();
         this.setupScrollEffects();
+        this.setupMobileOptimizations();
     },
 
     /**
@@ -18,22 +20,36 @@ window.AboutController = {
     bindEvents: function() {
         // Contact information click handlers
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.contact-item')) {
-                this.handleContactClick(e.target.closest('.contact-item'));
+            if (e.target.closest('.about-contact-item')) {
+                this.handleContactClick(e.target.closest('.about-contact-item'));
             }
         });
 
         // Team member click handlers
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.team-member')) {
-                this.showTeamMemberDetails(e.target.closest('.team-member'));
+            if (e.target.closest('.about-team-member')) {
+                this.showTeamMemberDetails(e.target.closest('.about-team-member'));
             }
         });
 
         // Certification click handlers
         document.addEventListener('click', (e) => {
-            if (e.target.closest('.certification-item')) {
-                this.showCertificationDetails(e.target.closest('.certification-item'));
+            if (e.target.closest('.about-certification-item')) {
+                this.showCertificationDetails(e.target.closest('.about-certification-item'));
+            }
+        });
+
+        // Value item click handlers
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.about-value-item')) {
+                this.showValueDetails(e.target.closest('.about-value-item'));
+            }
+        });
+
+        // Mission/Vision card click handlers
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.about-mission-card, .about-vision-card')) {
+                this.showCardDetails(e.target.closest('.about-mission-card, .about-vision-card'));
             }
         });
     },
@@ -50,13 +66,16 @@ window.AboutController = {
         
         // Animate team members on scroll
         this.animateTeamMembers();
+        
+        // Animate value items on scroll
+        this.animateValueItems();
     },
 
     /**
      * Animate statistics
      */
     animateStats: function() {
-        const stats = document.querySelectorAll('.stat-number');
+        const stats = document.querySelectorAll('.about-stat-number');
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -99,43 +118,75 @@ window.AboutController = {
     },
 
     /**
-     * Animate timeline
+     * Animate timeline items
      */
     animateTimeline: function() {
-        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineItems = document.querySelectorAll('.about-timeline-item');
         
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('animate-in');
-                    }, index * 200);
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.3 });
 
-        timelineItems.forEach(item => observer.observe(item));
+        timelineItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.6s ease-out';
+            observer.observe(item);
+        });
     },
 
     /**
      * Animate team members
      */
     animateTeamMembers: function() {
-        const teamMembers = document.querySelectorAll('.team-member');
+        const teamMembers = document.querySelectorAll('.about-team-member');
         
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('animate-in');
-                    }, index * 150);
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.3 });
 
-        teamMembers.forEach(member => observer.observe(member));
+        teamMembers.forEach((member, index) => {
+            member.style.opacity = '0';
+            member.style.transform = 'translateY(20px)';
+            member.style.transition = `all 0.6s ease-out ${index * 0.1}s`;
+            observer.observe(member);
+        });
+    },
+
+    /**
+     * Animate value items
+     */
+    animateValueItems: function() {
+        const valueItems = document.querySelectorAll('.about-value-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        valueItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = `all 0.6s ease-out ${index * 0.1}s`;
+            observer.observe(item);
+        });
     },
 
     /**
@@ -144,27 +195,159 @@ window.AboutController = {
     setupScrollEffects: function() {
         // Parallax effect for hero section
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
             const hero = document.querySelector('.about-hero');
-            
             if (hero) {
+                const scrolled = window.pageYOffset;
                 const rate = scrolled * -0.5;
                 hero.style.transform = `translateY(${rate}px)`;
             }
         });
+    },
 
-        // Fade in sections on scroll
-        const sections = document.querySelectorAll('.values-section, .story-section, .team-section, .certifications-section, .contact-info-section');
+    /**
+     * Setup mobile optimizations
+     */
+    setupMobileOptimizations: function() {
+        // Touch feedback for mobile
+        const touchElements = document.querySelectorAll('.about-value-item, .about-team-member, .about-certification-item, .about-contact-item');
         
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
+        touchElements.forEach(element => {
+            element.addEventListener('touchstart', () => {
+                element.style.transform = 'scale(0.98)';
             });
-        }, { threshold: 0.1 });
+            
+            element.addEventListener('touchend', () => {
+                element.style.transform = 'scale(1)';
+            });
+        });
 
-        sections.forEach(section => sectionObserver.observe(section));
+        // Optimize for mobile performance
+        if (window.innerWidth <= 768) {
+            this.optimizeForMobile();
+        }
+    },
+
+    /**
+     * Optimize for mobile performance
+     */
+    optimizeForMobile: function() {
+        // Reduce animation complexity on mobile
+        const style = document.createElement('style');
+        style.textContent = `
+            .about-value-item,
+            .about-team-member,
+            .about-certification-item,
+            .about-contact-item {
+                transition: transform 0.2s ease-out;
+            }
+            
+            .about-hero {
+                transform: none !important;
+            }
+        `;
+        document.head.appendChild(style);
+    },
+
+    /**
+     * Handle contact item click
+     */
+    handleContactClick: function(contactItem) {
+        const title = contactItem.querySelector('.about-contact-title').textContent;
+        const text = contactItem.querySelector('.about-contact-text').textContent;
+        
+        // Show contact details in a modal or toast
+        this.showToast(`${title}: ${text}`, 'info');
+        
+        // Add haptic feedback on mobile
+        if ('vibrate' in navigator) {
+            navigator.vibrate(50);
+        }
+    },
+
+    /**
+     * Show team member details
+     */
+    showTeamMemberDetails: function(teamMember) {
+        const name = teamMember.querySelector('.about-member-name').textContent;
+        const position = teamMember.querySelector('.about-member-position').textContent;
+        const bio = teamMember.querySelector('.about-member-bio').textContent;
+        
+        // Show detailed modal
+        this.showModal({
+            title: name,
+            subtitle: position,
+            content: bio,
+            type: 'team-member'
+        });
+    },
+
+    /**
+     * Show certification details
+     */
+    showCertificationDetails: function(certItem) {
+        const title = certItem.querySelector('.about-cert-title').textContent;
+        const description = certItem.querySelector('.about-cert-description').textContent;
+        
+        // Show certification details
+        this.showModal({
+            title: title,
+            content: description,
+            type: 'certification'
+        });
+    },
+
+    /**
+     * Show value details
+     */
+    showValueDetails: function(valueItem) {
+        const title = valueItem.querySelector('.about-value-title').textContent;
+        const description = valueItem.querySelector('.about-value-description').textContent;
+        
+        // Show value details
+        this.showModal({
+            title: title,
+            content: description,
+            type: 'value'
+        });
+    },
+
+    /**
+     * Show card details
+     */
+    showCardDetails: function(card) {
+        const title = card.querySelector('.about-card-title').textContent;
+        const description = card.querySelector('.about-card-description').textContent;
+        
+        // Show card details
+        this.showModal({
+            title: title,
+            content: description,
+            type: 'card'
+        });
+    },
+
+    /**
+     * Show modal
+     */
+    showModal: function(data) {
+        // Implementation for showing modal
+        console.log('Showing modal:', data);
+        
+        // You can implement your modal system here
+        // For now, we'll just show a toast
+        this.showToast(data.title, 'info');
+    },
+
+    /**
+     * Show toast notification
+     */
+    showToast: function(message, type = 'info') {
+        // Implementation for showing toast
+        console.log('Toast:', message, type);
+        
+        // You can implement your toast system here
+        // For now, we'll use alert as fallback
+        alert(message);
     },
 
     /**
@@ -172,206 +355,53 @@ window.AboutController = {
      */
     loadTeamData: function() {
         // This could load team data from an API
-        // For now, we'll just add some interactive features
-        this.addTeamMemberInteractions();
+        console.log('Loading team data...');
     },
 
     /**
-     * Add team member interactions
+     * Update page content
      */
-    addTeamMemberInteractions: function() {
-        const teamMembers = document.querySelectorAll('.team-member');
-        
-        teamMembers.forEach(member => {
-            member.addEventListener('mouseenter', () => {
-                member.classList.add('hover');
-            });
-            
-            member.addEventListener('mouseleave', () => {
-                member.classList.remove('hover');
-            });
-        });
+    updateContent: function() {
+        // Update any dynamic content
+        this.animateStats();
     },
 
     /**
-     * Handle contact item click
+     * Handle page visibility change
      */
-    handleContactClick: function(contactItem) {
-        const type = contactItem.querySelector('h4').textContent;
-        const value = contactItem.querySelector('p').textContent;
-        
-        switch (type) {
-            case 'الهاتف':
-                this.copyToClipboard(value.replace(/\s/g, ''));
-                Toast.show('تم النسخ', 'تم نسخ رقم الهاتف إلى الحافظة', 'success');
-                break;
-            case 'البريد الإلكتروني':
-                this.copyToClipboard(value);
-                Toast.show('تم النسخ', 'تم نسخ البريد الإلكتروني إلى الحافظة', 'success');
-                break;
-            case 'العنوان':
-                this.showMap(value);
-                break;
-            case 'ساعات العمل':
-                this.showWorkingHours();
-                break;
+    handleVisibilityChange: function() {
+        if (!document.hidden) {
+            this.updateContent();
         }
     },
 
     /**
-     * Copy text to clipboard
+     * Cleanup on page unload
      */
-    copyToClipboard: function(text) {
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(text);
-        } else {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-        }
-    },
-
-    /**
-     * Show map
-     */
-    showMap: function(address) {
-        // Open Google Maps with the address
-        const encodedAddress = encodeURIComponent(address);
-        window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
-    },
-
-    /**
-     * Show working hours
-     */
-    showWorkingHours: function() {
-        const currentTime = new Date();
-        const currentDay = currentTime.getDay(); // 0 = Sunday, 6 = Saturday
-        const currentHour = currentTime.getHours();
-        
-        let isOpen = false;
-        let message = '';
-        
-        if (currentDay >= 0 && currentDay <= 4) { // Sunday to Thursday
-            if (currentHour >= 8 && currentHour < 18) {
-                isOpen = true;
-                message = 'نحن مفتوحون الآن! 🟢';
-            } else {
-                message = 'نحن مغلقون الآن. ساعات العمل: الأحد - الخميس 8:00 ص - 6:00 م 🔴';
-            }
-        } else {
-            message = 'نحن مغلقون اليوم. ساعات العمل: الأحد - الخميس 8:00 ص - 6:00 م 🔴';
-        }
-        
-        Toast.show('ساعات العمل', message, isOpen ? 'success' : 'info');
-    },
-
-    /**
-     * Show team member details
-     */
-    showTeamMemberDetails: function(memberElement) {
-        const name = memberElement.querySelector('h4').textContent;
-        const position = memberElement.querySelector('.member-position').textContent;
-        const bio = memberElement.querySelector('.member-bio').textContent;
-        
-        Modal.open('team-member-modal', {
-            title: name,
-            content: `
-                <div class="team-member-details">
-                    <div class="member-info">
-                        <h3>${position}</h3>
-                        <p>${bio}</p>
-                    </div>
-                    <div class="member-contact">
-                        <button class="btn btn-primary" onclick="AboutController.contactTeamMember('${name}')">
-                            <i class="fas fa-envelope"></i>
-                            تواصل مع ${name}
-                        </button>
-                    </div>
-                </div>
-            `
-        });
-    },
-
-    /**
-     * Contact team member
-     */
-    contactTeamMember: function(name) {
-        Modal.close('team-member-modal');
-        Toast.show('تم الإرسال', `سيتم التواصل مع ${name} قريباً`, 'success');
-    },
-
-    /**
-     * Show certification details
-     */
-    showCertificationDetails: function(certElement) {
-        const title = certElement.querySelector('h4').textContent;
-        const description = certElement.querySelector('p').textContent;
-        
-        const certDetails = {
-            'ISO 9001': {
-                description: 'نظام إدارة الجودة الذي يضمن تقديم خدمات عالية الجودة',
-                validity: 'صالح حتى 2025',
-                scope: 'جميع الخدمات اللوجستية'
-            },
-            'ISO 27001': {
-                description: 'نظام إدارة أمن المعلومات لحماية بيانات العملاء',
-                validity: 'صالح حتى 2024',
-                scope: 'أنظمة المعلومات والبيانات'
-            },
-            'ISO 14001': {
-                description: 'نظام إدارة البيئة لضمان الممارسات المستدامة',
-                validity: 'صالح حتى 2026',
-                scope: 'العمليات البيئية'
-            }
-        };
-        
-        const details = certDetails[title] || {
-            description: description,
-            validity: 'صالح',
-            scope: 'جميع الخدمات'
-        };
-        
-        Modal.open('certification-modal', {
-            title: title,
-            content: `
-                <div class="certification-details">
-                    <div class="cert-info">
-                        <p><strong>الوصف:</strong> ${details.description}</p>
-                        <p><strong>الصلاحية:</strong> ${details.validity}</p>
-                        <p><strong>النطاق:</strong> ${details.scope}</p>
-                    </div>
-                    <div class="cert-actions">
-                        <button class="btn btn-outline" onclick="AboutController.downloadCertificate('${title}')">
-                            <i class="fas fa-download"></i>
-                            تحميل الشهادة
-                        </button>
-                    </div>
-                </div>
-            `
-        });
-    },
-
-    /**
-     * Download certificate
-     */
-    downloadCertificate: function(certName) {
-        Modal.close('certification-modal');
-        Toast.show('تم التحميل', `جاري تحميل شهادة ${certName}`, 'info');
-        
-        // Simulate download
-        setTimeout(() => {
-            Toast.show('تم التحميل', `تم تحميل شهادة ${certName} بنجاح`, 'success');
-        }, 2000);
-    },
-
-    /**
-     * Destroy controller
-     */
-    destroy: function() {
-        // Cleanup if needed
+    cleanup: function() {
+        // Remove event listeners and cleanup
+        window.removeEventListener('scroll', this.setupScrollEffects);
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     }
-}; 
+};
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('about-page')) {
+        AboutController.init();
+    }
+});
+
+// Handle page visibility changes
+document.addEventListener('visibilitychange', function() {
+    if (AboutController.handleVisibilityChange) {
+        AboutController.handleVisibilityChange();
+    }
+});
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', function() {
+    if (AboutController.cleanup) {
+        AboutController.cleanup();
+    }
+}); 
