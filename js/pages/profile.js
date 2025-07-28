@@ -1,6 +1,6 @@
 /**
  * Profile Page Controller
- * Manages user profile, account settings, and related functionality
+ * Manages user profile with mobile-focused 2-column grid approach
  */
 window.ProfileController = {
     /**
@@ -73,9 +73,9 @@ window.ProfileController = {
         };
 
         // Update stats cards
-        const statCards = document.querySelectorAll('.stat-card');
+        const statCards = document.querySelectorAll('.profile-stat-card');
         statCards.forEach((card, index) => {
-            const valueElement = card.querySelector('.stat-value');
+            const valueElement = card.querySelector('.profile-stat-value');
             if (valueElement) {
                 const values = [statsData.orders, statsData.rating, statsData.favorites, statsData.balance];
                 if (index === 1) { // Rating
@@ -100,13 +100,13 @@ window.ProfileController = {
         }
 
         // Menu item navigation
-        const menuItems = document.querySelectorAll('.menu-item[data-action="navigate"]');
+        const menuItems = document.querySelectorAll('.profile-menu-item[data-action="navigate"]');
         menuItems.forEach(item => {
             item.addEventListener('click', this.handleMenuNavigation.bind(this));
         });
 
         // Logout button
-        const logoutBtn = document.querySelector('.logout-btn');
+        const logoutBtn = document.querySelector('.profile-logout-btn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', this.handleLogout.bind(this));
         }
@@ -115,6 +115,12 @@ window.ProfileController = {
         const avatarContainer = document.querySelector('.profile-avatar');
         if (avatarContainer) {
             avatarContainer.addEventListener('click', this.handleAvatarClick.bind(this));
+        }
+
+        // Status toggle
+        const statusIndicator = document.querySelector('.profile-status-indicator');
+        if (statusIndicator) {
+            statusIndicator.addEventListener('click', this.toggleProfileStatus.bind(this));
         }
     },
 
@@ -194,12 +200,23 @@ window.ProfileController = {
         // Show confirmation modal
         Modal.open('logout-confirmation', {
             title: 'تسجيل الخروج',
-            message: 'هل أنت متأكد من تسجيل الخروج؟',
-            confirmText: 'نعم، تسجيل الخروج',
-            cancelText: 'إلغاء',
+            content: `
+                <div class="logout-confirmation">
+                    <div class="logout-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <h3>هل أنت متأكد من تسجيل الخروج؟</h3>
+                    <p>سيتم إغلاق جلسة العمل الخاصة بك</p>
+                    <div class="logout-actions">
+                        <button class="btn btn-outline" data-action="cancel">إلغاء</button>
+                        <button class="btn btn-danger" data-action="confirm">نعم، تسجيل الخروج</button>
+                    </div>
+                </div>
+            `,
             onConfirm: () => {
                 Auth.logout();
                 Router.navigate('login');
+                Toast.show('تم تسجيل الخروج', 'تم تسجيل الخروج بنجاح', 'success');
             }
         });
     },
@@ -208,8 +225,8 @@ window.ProfileController = {
      * Handle profile status toggle
      */
     toggleProfileStatus: function() {
-        const statusIndicator = document.querySelector('.status-indicator');
-        const statusText = document.querySelector('.status-text');
+        const statusIndicator = document.querySelector('.profile-status-indicator');
+        const statusText = document.querySelector('.profile-status-text');
         
         if (statusIndicator && statusText) {
             const isOnline = statusIndicator.classList.contains('online');
@@ -277,6 +294,35 @@ window.ProfileController = {
     },
 
     /**
+     * Handle menu item hover effects
+     */
+    setupMenuHoverEffects: function() {
+        const menuItems = document.querySelectorAll('.profile-menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateY(-2px)';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateY(0)';
+            });
+        });
+    },
+
+    /**
+     * Animate stats cards
+     */
+    animateStatsCards: function() {
+        const statCards = document.querySelectorAll('.profile-stat-card');
+        statCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    },
+
+    /**
      * Cleanup when destroying the controller
      */
     destroy: function() {
@@ -288,12 +334,12 @@ window.ProfileController = {
             editProfileBtn.removeEventListener('click', this.handleEditProfile);
         }
 
-        const menuItems = document.querySelectorAll('.menu-item[data-action="navigate"]');
+        const menuItems = document.querySelectorAll('.profile-menu-item[data-action="navigate"]');
         menuItems.forEach(item => {
             item.removeEventListener('click', this.handleMenuNavigation);
         });
 
-        const logoutBtn = document.querySelector('.logout-btn');
+        const logoutBtn = document.querySelector('.profile-logout-btn');
         if (logoutBtn) {
             logoutBtn.removeEventListener('click', this.handleLogout);
         }
@@ -301,6 +347,11 @@ window.ProfileController = {
         const avatarContainer = document.querySelector('.profile-avatar');
         if (avatarContainer) {
             avatarContainer.removeEventListener('click', this.handleAvatarClick);
+        }
+
+        const statusIndicator = document.querySelector('.profile-status-indicator');
+        if (statusIndicator) {
+            statusIndicator.removeEventListener('click', this.toggleProfileStatus);
         }
 
         // Remove file input
