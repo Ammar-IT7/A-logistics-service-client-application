@@ -10,95 +10,97 @@
 
 <div class="content" id="favorites-page">
     <!-- Favorites Stats -->
-    <div class="favorites-stats">
-        <div class="stat-item">
-            <div class="stat-icon">
-                <i class="fas fa-heart"></i>
+    <div class="favorites-stats-section">
+        <div class="favorites-stats-grid">
+            <div class="favorites-stat-card">
+                <div class="favorites-stat-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="favorites-stat-content">
+                    <div class="favorites-stat-value" id="totalFavorites">12</div>
+                    <div class="favorites-stat-label">إجمالي المفضلة</div>
+                </div>
             </div>
-            <div class="stat-content">
-                <div class="stat-value" id="totalFavorites">12</div>
-                <div class="stat-label">إجمالي المفضلة</div>
+            <div class="favorites-stat-card">
+                <div class="favorites-stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="favorites-stat-content">
+                    <div class="favorites-stat-value" id="serviceProviders">8</div>
+                    <div class="favorites-stat-label">مزودي الخدمات</div>
+                </div>
             </div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">
-                <i class="fas fa-users"></i>
-            </div>
-            <div class="stat-content">
-                <div class="stat-value" id="serviceProviders">8</div>
-                <div class="stat-label">مزودي الخدمات</div>
-            </div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-icon">
-                <i class="fas fa-tags"></i>
-            </div>
-            <div class="stat-content">
-                <div class="stat-value" id="services">4</div>
-                <div class="stat-label">الخدمات</div>
+            <div class="favorites-stat-card">
+                <div class="favorites-stat-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <div class="favorites-stat-content">
+                    <div class="favorites-stat-value" id="services">4</div>
+                    <div class="favorites-stat-label">الخدمات</div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Filter Tabs -->
-    <div class="favorites-tabs">
-        <button class="tab-btn active" data-tab="all">
+    <div class="favorites-filter-tabs">
+        <button class="favorites-filter-tab active" data-tab="all">
             <i class="fas fa-th-large"></i>
             الكل
         </button>
-        <button class="tab-btn" data-tab="providers">
+        <button class="favorites-filter-tab" data-tab="providers">
             <i class="fas fa-users"></i>
             مزودي الخدمات
         </button>
-        <button class="tab-btn" data-tab="services">
+        <button class="favorites-filter-tab" data-tab="services">
             <i class="fas fa-tags"></i>
             الخدمات
         </button>
-        <button class="tab-btn" data-tab="offers">
+        <button class="favorites-filter-tab" data-tab="offers">
             <i class="fas fa-gift"></i>
             العروض
         </button>
     </div>
 
-    <!-- Favorites List -->
-    <div class="favorites-list" id="favoritesList">
+    <!-- Favorites Grid -->
+    <div class="favorites-grid" id="favoritesGrid">
         <!-- Favorite Provider 1 -->
-        <div class="favorite-item" data-type="provider" data-id="1">
-            <div class="favorite-image">
+        <div class="favorites-item" data-type="provider" data-id="1">
+            <div class="favorites-image">
                 <img src="templates/pages/images/shipping.jpg" alt="شركة الشحن البحري">
-                <div class="favorite-badges">
-                    <span class="badge badge-verified">موثق</span>
-                    <span class="badge badge-featured">مميز</span>
+                <div class="favorites-badges">
+                    <span class="favorites-badge verified">موثق</span>
+                    <span class="favorites-badge featured">مميز</span>
                 </div>
-                <button class="favorite-remove-btn" data-action="remove-favorite" data-id="1">
+                <button class="favorites-remove-btn" data-action="remove-favorite" data-id="1">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="favorite-content">
-                <div class="favorite-header">
-                    <h3 class="favorite-title">شركة الشحن البحري المتقدمة</h3>
-                    <div class="favorite-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-text">4.8 (127 تقييم)</span>
+            <div class="favorites-content">
+                <div class="favorites-header">
+                    <h3 class="favorites-title">شركة الشحن البحري المتقدمة</h3>
+                    <div class="favorites-rating">
+                        <span class="favorites-stars">★★★★★</span>
+                        <span class="favorites-rating-text">4.8 (127 تقييم)</span>
                     </div>
                 </div>
-                <p class="favorite-description">خدمات شحن بحري احترافية من ميناء جدة إلى جميع موانئ اليمن</p>
-                <div class="favorite-tags">
-                    <span class="tag">شحن بحري</span>
-                    <span class="tag">تخليص جمركي</span>
-                    <span class="tag">تتبع GPS</span>
+                <p class="favorites-description">خدمات شحن بحري احترافية من ميناء جدة إلى جميع موانئ اليمن</p>
+                <div class="favorites-tags">
+                    <span class="favorites-tag">شحن بحري</span>
+                    <span class="favorites-tag">تخليص جمركي</span>
+                    <span class="favorites-tag">تتبع GPS</span>
                 </div>
-                <div class="favorite-meta">
-                    <div class="favorite-location">
+                <div class="favorites-meta">
+                    <div class="favorites-location">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>صنعاء، اليمن</span>
                     </div>
-                    <div class="favorite-price">
-                        <span class="price">من 1500 ريال</span>
-                        <span class="price-unit">/طن</span>
+                    <div class="favorites-price">
+                        <span class="favorites-price-amount">من 1500 ريال</span>
+                        <span class="favorites-price-unit">/طن</span>
                     </div>
                 </div>
-                <div class="favorite-actions">
+                <div class="favorites-actions">
                     <button class="btn btn-outline btn-sm" data-action="view-details" data-id="1">
                         <i class="fas fa-eye"></i>
                         عرض التفاصيل
@@ -112,41 +114,41 @@
         </div>
 
         <!-- Favorite Provider 2 -->
-        <div class="favorite-item" data-type="provider" data-id="2">
-            <div class="favorite-image">
+        <div class="favorites-item" data-type="provider" data-id="2">
+            <div class="favorites-image">
                 <img src="templates/pages/images/warehouse.jpg" alt="مستودعات اليمن">
-                <div class="favorite-badges">
-                    <span class="badge badge-new">جديد</span>
+                <div class="favorites-badges">
+                    <span class="favorites-badge new">جديد</span>
                 </div>
-                <button class="favorite-remove-btn" data-action="remove-favorite" data-id="2">
+                <button class="favorites-remove-btn" data-action="remove-favorite" data-id="2">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="favorite-content">
-                <div class="favorite-header">
-                    <h3 class="favorite-title">مستودعات اليمن الآمنة</h3>
-                    <div class="favorite-rating">
-                        <span class="stars">★★★★☆</span>
-                        <span class="rating-text">4.2 (89 تقييم)</span>
+            <div class="favorites-content">
+                <div class="favorites-header">
+                    <h3 class="favorites-title">مستودعات اليمن الآمنة</h3>
+                    <div class="favorites-rating">
+                        <span class="favorites-stars">★★★★☆</span>
+                        <span class="favorites-rating-text">4.2 (89 تقييم)</span>
                     </div>
                 </div>
-                <p class="favorite-description">مستودعات حديثة ومؤمنة مع نظام إدارة ذكي للمخزون</p>
-                <div class="favorite-tags">
-                    <span class="tag">تخزين</span>
-                    <span class="tag">مبرد</span>
-                    <span class="tag">مراقبة</span>
+                <p class="favorites-description">مستودعات حديثة ومؤمنة مع نظام إدارة ذكي للمخزون</p>
+                <div class="favorites-tags">
+                    <span class="favorites-tag">تخزين</span>
+                    <span class="favorites-tag">مبرد</span>
+                    <span class="favorites-tag">مراقبة</span>
                 </div>
-                <div class="favorite-meta">
-                    <div class="favorite-location">
+                <div class="favorites-meta">
+                    <div class="favorites-location">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>عدن، اليمن</span>
                     </div>
-                    <div class="favorite-price">
-                        <span class="price">من 800 ريال</span>
-                        <span class="price-unit">/متر²</span>
+                    <div class="favorites-price">
+                        <span class="favorites-price-amount">من 800 ريال</span>
+                        <span class="favorites-price-unit">/متر²</span>
                     </div>
                 </div>
-                <div class="favorite-actions">
+                <div class="favorites-actions">
                     <button class="btn btn-outline btn-sm" data-action="view-details" data-id="2">
                         <i class="fas fa-eye"></i>
                         عرض التفاصيل
@@ -160,41 +162,41 @@
         </div>
 
         <!-- Favorite Service -->
-        <div class="favorite-item" data-type="service" data-id="3">
-            <div class="favorite-image">
+        <div class="favorites-item" data-type="service" data-id="3">
+            <div class="favorites-image">
                 <img src="templates/pages/images/customs.jpg" alt="خدمة التخليص الجمركي">
-                <div class="favorite-badges">
-                    <span class="badge badge-verified">موثق</span>
+                <div class="favorites-badges">
+                    <span class="favorites-badge verified">موثق</span>
                 </div>
-                <button class="favorite-remove-btn" data-action="remove-favorite" data-id="3">
+                <button class="favorites-remove-btn" data-action="remove-favorite" data-id="3">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="favorite-content">
-                <div class="favorite-header">
-                    <h3 class="favorite-title">خدمة التخليص الجمركي السريع</h3>
-                    <div class="favorite-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-text">4.9 (203 تقييم)</span>
+            <div class="favorites-content">
+                <div class="favorites-header">
+                    <h3 class="favorites-title">خدمة التخليص الجمركي السريع</h3>
+                    <div class="favorites-rating">
+                        <span class="favorites-stars">★★★★★</span>
+                        <span class="favorites-rating-text">4.9 (203 تقييم)</span>
                     </div>
                 </div>
-                <p class="favorite-description">خدمات تخليص جمركي سريعة ومضمونة مع خبرة 15+ سنة</p>
-                <div class="favorite-tags">
-                    <span class="tag">تخليص جمركي</span>
-                    <span class="tag">سريع</span>
-                    <span class="tag">مضمون</span>
+                <p class="favorites-description">خدمات تخليص جمركي سريعة ومضمونة مع خبرة 15+ سنة</p>
+                <div class="favorites-tags">
+                    <span class="favorites-tag">تخليص جمركي</span>
+                    <span class="favorites-tag">سريع</span>
+                    <span class="favorites-tag">مضمون</span>
                 </div>
-                <div class="favorite-meta">
-                    <div class="favorite-location">
+                <div class="favorites-meta">
+                    <div class="favorites-location">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>الحديدة، اليمن</span>
                     </div>
-                    <div class="favorite-price">
-                        <span class="price">من 500 ريال</span>
-                        <span class="price-unit">/شحنة</span>
+                    <div class="favorites-price">
+                        <span class="favorites-price-amount">من 500 ريال</span>
+                        <span class="favorites-price-unit">/شحنة</span>
                     </div>
                 </div>
-                <div class="favorite-actions">
+                <div class="favorites-actions">
                     <button class="btn btn-outline btn-sm" data-action="view-details" data-id="3">
                         <i class="fas fa-eye"></i>
                         عرض التفاصيل
@@ -208,41 +210,41 @@
         </div>
 
         <!-- Favorite Offer -->
-        <div class="favorite-item" data-type="offer" data-id="4">
-            <div class="favorite-image">
+        <div class="favorites-item" data-type="offer" data-id="4">
+            <div class="favorites-image">
                 <img src="templates/pages/images/shipping.jpg" alt="عرض الشحن الجوي">
-                <div class="favorite-badges">
-                    <span class="badge badge-offer">عرض خاص</span>
+                <div class="favorites-badges">
+                    <span class="favorites-badge offer">عرض خاص</span>
                 </div>
-                <button class="favorite-remove-btn" data-action="remove-favorite" data-id="4">
+                <button class="favorites-remove-btn" data-action="remove-favorite" data-id="4">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="favorite-content">
-                <div class="favorite-header">
-                    <h3 class="favorite-title">عرض الشحن الجوي - خصم 20%</h3>
-                    <div class="favorite-rating">
-                        <span class="stars">★★★★☆</span>
-                        <span class="rating-text">4.5 (156 تقييم)</span>
+            <div class="favorites-content">
+                <div class="favorites-header">
+                    <h3 class="favorites-title">عرض الشحن الجوي - خصم 20%</h3>
+                    <div class="favorites-rating">
+                        <span class="favorites-stars">★★★★☆</span>
+                        <span class="favorites-rating-text">4.5 (156 تقييم)</span>
                     </div>
                 </div>
-                <p class="favorite-description">خصم 20% على جميع خدمات الشحن الجوي للوجهات الأوروبية</p>
-                <div class="favorite-tags">
-                    <span class="tag">شحن جوي</span>
-                    <span class="tag">خصم 20%</span>
-                    <span class="tag">أوروبا</span>
+                <p class="favorites-description">خصم 20% على جميع خدمات الشحن الجوي للوجهات الأوروبية</p>
+                <div class="favorites-tags">
+                    <span class="favorites-tag">شحن جوي</span>
+                    <span class="favorites-tag">خصم 20%</span>
+                    <span class="favorites-tag">أوروبا</span>
                 </div>
-                <div class="favorite-meta">
-                    <div class="favorite-location">
+                <div class="favorites-meta">
+                    <div class="favorites-location">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>صنعاء، اليمن</span>
                     </div>
-                    <div class="favorite-price">
-                        <span class="price">من 2000 ريال</span>
-                        <span class="price-unit">/كجم</span>
+                    <div class="favorites-price">
+                        <span class="favorites-price-amount">من 2000 ريال</span>
+                        <span class="favorites-price-unit">/كجم</span>
                     </div>
                 </div>
-                <div class="favorite-actions">
+                <div class="favorites-actions">
                     <button class="btn btn-outline btn-sm" data-action="view-details" data-id="4">
                         <i class="fas fa-eye"></i>
                         عرض التفاصيل
@@ -257,12 +259,12 @@
     </div>
 
     <!-- Empty State -->
-    <div class="favorites-empty" id="favoritesEmpty" style="display: none;">
-        <div class="empty-icon">
+    <div class="favorites-empty-state" id="favoritesEmpty" style="display: none;">
+        <div class="favorites-empty-icon">
             <i class="far fa-heart"></i>
         </div>
-        <h3>لا توجد مفضلات</h3>
-        <p>لم تقم بإضافة أي خدمات أو مزودي خدمات إلى المفضلة بعد</p>
+        <h3 class="favorites-empty-title">لا توجد مفضلات</h3>
+        <p class="favorites-empty-text">لم تقم بإضافة أي خدمات أو مزودي خدمات إلى المفضلة بعد</p>
         <button class="btn btn-primary" data-action="navigate" data-page="service-providers">
             <i class="fas fa-search"></i>
             استكشف الخدمات
@@ -270,10 +272,10 @@
     </div>
 
     <!-- Bulk Actions -->
-    <div class="bulk-actions" id="bulkActions" style="display: none;">
-        <div class="bulk-actions-content">
-            <span class="selected-count">تم تحديد <span id="selectedCount">0</span> عنصر</span>
-            <div class="bulk-buttons">
+    <div class="favorites-bulk-actions" id="bulkActions" style="display: none;">
+        <div class="favorites-bulk-content">
+            <span class="favorites-selected-count">تم تحديد <span id="selectedCount">0</span> عنصر</span>
+            <div class="favorites-bulk-buttons">
                 <button class="btn btn-outline btn-sm" data-action="select-all">
                     تحديد الكل
                 </button>

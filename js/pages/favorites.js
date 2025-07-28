@@ -1,6 +1,6 @@
 /**
  * Favorites Page Controller
- * Manages user favorites, saved items, and favorites interactions
+ * Manages user favorites with mobile-focused 2-column grid approach
  */
 window.FavoritesController = {
     /**
@@ -35,14 +35,14 @@ window.FavoritesController = {
         }
 
         // Tab buttons
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        document.querySelectorAll('.favorites-filter-tab').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 this.switchTab(e.target.dataset.tab);
             });
         });
 
         // Favorite item clicks
-        document.querySelectorAll('.favorite-item').forEach(item => {
+        document.querySelectorAll('.favorites-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 if (!this.editMode) {
                     this.handleItemClick(e.currentTarget);
@@ -197,30 +197,30 @@ window.FavoritesController = {
      * Render favorites based on current tab
      */
     renderFavorites: function() {
-        const favoritesList = document.getElementById('favoritesList');
+        const favoritesGrid = document.getElementById('favoritesGrid');
         const emptyState = document.getElementById('favoritesEmpty');
         
-        if (!favoritesList) return;
+        if (!favoritesGrid) return;
 
         // Filter favorites based on current tab
         const filteredFavorites = this.getFilteredFavorites();
 
         if (filteredFavorites.length === 0) {
-            favoritesList.style.display = 'none';
+            favoritesGrid.style.display = 'none';
             if (emptyState) emptyState.style.display = 'block';
             return;
         }
 
-        favoritesList.style.display = 'block';
+        favoritesGrid.style.display = 'grid';
         if (emptyState) emptyState.style.display = 'none';
 
         // Clear existing items
-        favoritesList.innerHTML = '';
+        favoritesGrid.innerHTML = '';
 
         // Render filtered favorites
         filteredFavorites.forEach(favorite => {
             const favoriteElement = this.createFavoriteElement(favorite);
-            favoritesList.appendChild(favoriteElement);
+            favoritesGrid.appendChild(favoriteElement);
         });
 
         // Re-attach event listeners
@@ -242,19 +242,19 @@ window.FavoritesController = {
      */
     createFavoriteElement: function(favorite) {
         const element = document.createElement('div');
-        element.className = 'favorite-item';
+        element.className = 'favorites-item';
         element.dataset.type = favorite.type;
         element.dataset.id = favorite.id;
 
         const badges = favorite.badges.map(badge => {
-            const badgeClass = badge === 'verified' ? 'badge-verified' : 
-                             badge === 'featured' ? 'badge-featured' : 
-                             badge === 'new' ? 'badge-new' : 
-                             badge === 'offer' ? 'badge-offer' : '';
-            return `<span class="badge ${badgeClass}">${badge}</span>`;
+            const badgeClass = badge === 'verified' ? 'verified' : 
+                             badge === 'featured' ? 'featured' : 
+                             badge === 'new' ? 'new' : 
+                             badge === 'offer' ? 'offer' : '';
+            return `<span class="favorites-badge ${badgeClass}">${badge}</span>`;
         }).join('');
 
-        const tags = favorite.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+        const tags = favorite.tags.map(tag => `<span class="favorites-tag">${tag}</span>`).join('');
 
         const actionButton = favorite.type === 'offer' ? 
             `<button class="btn btn-primary btn-sm" data-action="claim-offer" data-id="${favorite.id}">
@@ -267,38 +267,38 @@ window.FavoritesController = {
             </button>`;
 
         element.innerHTML = `
-            <div class="favorite-image">
+            <div class="favorites-image">
                 <img src="${favorite.image}" alt="${favorite.name}">
-                <div class="favorite-badges">
+                <div class="favorites-badges">
                     ${badges}
                 </div>
-                <button class="favorite-remove-btn" data-action="remove-favorite" data-id="${favorite.id}">
+                <button class="favorites-remove-btn" data-action="remove-favorite" data-id="${favorite.id}">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="favorite-content">
-                <div class="favorite-header">
-                    <h3 class="favorite-title">${favorite.name}</h3>
-                    <div class="favorite-rating">
-                        <span class="stars">${'★'.repeat(Math.floor(favorite.rating))}${'☆'.repeat(5 - Math.floor(favorite.rating))}</span>
-                        <span class="rating-text">${favorite.rating} (${favorite.reviews} تقييم)</span>
+            <div class="favorites-content">
+                <div class="favorites-header">
+                    <h3 class="favorites-title">${favorite.name}</h3>
+                    <div class="favorites-rating">
+                        <span class="favorites-stars">${'★'.repeat(Math.floor(favorite.rating))}${'☆'.repeat(5 - Math.floor(favorite.rating))}</span>
+                        <span class="favorites-rating-text">${favorite.rating} (${favorite.reviews} تقييم)</span>
                     </div>
                 </div>
-                <p class="favorite-description">${favorite.description}</p>
-                <div class="favorite-tags">
+                <p class="favorites-description">${favorite.description}</p>
+                <div class="favorites-tags">
                     ${tags}
                 </div>
-                <div class="favorite-meta">
-                    <div class="favorite-location">
+                <div class="favorites-meta">
+                    <div class="favorites-location">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>${favorite.location}</span>
                     </div>
-                    <div class="favorite-price">
-                        <span class="price">${favorite.price}</span>
-                        <span class="price-unit">${favorite.priceUnit}</span>
+                    <div class="favorites-price">
+                        <span class="favorites-price-amount">${favorite.price}</span>
+                        <span class="favorites-price-unit">${favorite.priceUnit}</span>
                     </div>
                 </div>
-                <div class="favorite-actions">
+                <div class="favorites-actions">
                     <button class="btn btn-outline btn-sm" data-action="view-details" data-id="${favorite.id}">
                         <i class="fas fa-eye"></i>
                         عرض التفاصيل
@@ -316,7 +316,7 @@ window.FavoritesController = {
      */
     attachFavoriteEventListeners: function() {
         // Favorite item clicks
-        document.querySelectorAll('.favorite-item').forEach(item => {
+        document.querySelectorAll('.favorites-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 if (!this.editMode) {
                     this.handleItemClick(e.currentTarget);
@@ -386,7 +386,11 @@ window.FavoritesController = {
             title: 'إزالة من المفضلة',
             content: `
                 <div class="confirm-remove-favorite">
-                    <p>هل أنت متأكد من إزالة هذا العنصر من المفضلة؟</p>
+                    <div class="remove-confirmation-icon">
+                        <i class="fas fa-heart-broken"></i>
+                    </div>
+                    <h3>هل أنت متأكد من إزالة هذا العنصر من المفضلة؟</h3>
+                    <p>لا يمكن التراجع عن هذا الإجراء</p>
                     <div class="modal-actions">
                         <button class="btn btn-outline" data-action="cancel">إلغاء</button>
                         <button class="btn btn-danger" data-action="confirm-remove">إزالة</button>
@@ -408,7 +412,7 @@ window.FavoritesController = {
      */
     viewDetails: function(button) {
         const itemId = button.dataset.id;
-        this.handleItemClick(button.closest('.favorite-item'));
+        this.handleItemClick(button.closest('.favorites-item'));
     },
 
     /**
@@ -429,10 +433,24 @@ window.FavoritesController = {
             title: 'استخدام العرض',
             content: `
                 <div class="claim-offer">
-                    <p>هل تريد استخدام هذا العرض؟</p>
+                    <div class="offer-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>خصم 20% على الشحن الجوي</h3>
+                    <p>صالح حتى: 31 يناير 2025</p>
                     <div class="offer-details">
-                        <h4>خصم 20% على الشحن الجوي</h4>
-                        <p>صالح حتى: 31 يناير 2025</p>
+                        <div class="offer-feature">
+                            <i class="fas fa-check"></i>
+                            <span>خصم 20% على جميع الشحنات الجوية</span>
+                        </div>
+                        <div class="offer-feature">
+                            <i class="fas fa-check"></i>
+                            <span>صالح للوجهات الأوروبية</span>
+                        </div>
+                        <div class="offer-feature">
+                            <i class="fas fa-check"></i>
+                            <span>لا توجد شروط إضافية</span>
+                        </div>
                     </div>
                     <div class="modal-actions">
                         <button class="btn btn-outline" data-action="cancel">إلغاء</button>
@@ -453,7 +471,7 @@ window.FavoritesController = {
         this.currentTab = tab;
         
         // Update tab buttons
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        document.querySelectorAll('.favorites-filter-tab').forEach(btn => {
             btn.classList.remove('active');
         });
         
@@ -477,13 +495,13 @@ window.FavoritesController = {
         if (this.editMode) {
             editBtn.innerHTML = '<i class="fas fa-check"></i>';
             if (bulkActions) bulkActions.style.display = 'block';
-            document.querySelectorAll('.favorite-item').forEach(item => {
+            document.querySelectorAll('.favorites-item').forEach(item => {
                 item.classList.add('edit-mode');
             });
         } else {
             editBtn.innerHTML = '<i class="fas fa-edit"></i>';
             if (bulkActions) bulkActions.style.display = 'none';
-            document.querySelectorAll('.favorite-item').forEach(item => {
+            document.querySelectorAll('.favorites-item').forEach(item => {
                 item.classList.remove('edit-mode');
             });
             this.selectedItems.clear();
@@ -501,7 +519,7 @@ window.FavoritesController = {
         if (isSelectAll) {
             // Select all
             this.selectedItems.clear();
-            document.querySelectorAll('.favorite-item').forEach(item => {
+            document.querySelectorAll('.favorites-item').forEach(item => {
                 this.selectedItems.add(parseInt(item.dataset.id));
                 item.classList.add('selected');
             });
@@ -509,7 +527,7 @@ window.FavoritesController = {
         } else {
             // Deselect all
             this.selectedItems.clear();
-            document.querySelectorAll('.favorite-item').forEach(item => {
+            document.querySelectorAll('.favorites-item').forEach(item => {
                 item.classList.remove('selected');
             });
             selectAllBtn.textContent = 'تحديد الكل';
@@ -531,7 +549,11 @@ window.FavoritesController = {
             title: 'إزالة العناصر المحددة',
             content: `
                 <div class="confirm-remove-selected">
-                    <p>هل أنت متأكد من إزالة ${this.selectedItems.size} عنصر من المفضلة؟</p>
+                    <div class="remove-multiple-icon">
+                        <i class="fas fa-trash-alt"></i>
+                    </div>
+                    <h3>هل أنت متأكد من إزالة ${this.selectedItems.size} عنصر من المفضلة؟</h3>
+                    <p>لا يمكن التراجع عن هذا الإجراء</p>
                     <div class="modal-actions">
                         <button class="btn btn-outline" data-action="cancel">إلغاء</button>
                         <button class="btn btn-danger" data-action="confirm-remove">إزالة</button>
@@ -583,7 +605,7 @@ window.FavoritesController = {
         }
         
         // Update tab counts
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        document.querySelectorAll('.favorites-filter-tab').forEach(btn => {
             const tab = btn.dataset.tab;
             const count = tab === 'all' ? this.favorites.length : 
                          this.favorites.filter(fav => fav.type === tab).length;
