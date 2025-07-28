@@ -280,17 +280,4 @@
     resize: vertical;
 }
 
-/* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-    .help-categories {
-        grid-template-columns: 1fr;
-    }
-    
-    .category-filters {
-        flex-direction: column;
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-} 
+ 
