@@ -1,6 +1,7 @@
 /**
  * Settings Page Controller
  * Manages user settings, preferences, and account configurations
+ * Mobile-focused with enhanced UX
  */
 window.SettingsController = {
     /**
@@ -13,8 +14,97 @@ window.SettingsController = {
         this.setupEventListeners();
         this.setupSwitchToggles();
         this.setupNavigationActions();
+        this.setupMobileEnhancements();
         
         console.log('SettingsController: Settings page initialized successfully');
+    },
+
+    /**
+     * Set up mobile-specific enhancements
+     */
+    setupMobileEnhancements: function() {
+        // Touch-friendly settings items
+        document.querySelectorAll('.settings-item').forEach(item => {
+            item.addEventListener('touchstart', (e) => {
+                e.target.style.transform = 'scale(0.98)';
+            });
+            
+            item.addEventListener('touchend', (e) => {
+                e.target.style.transform = '';
+            });
+        });
+
+        // Swipe gestures for settings sections
+        this.setupSwipeGestures();
+
+        // Haptic feedback for switches
+        this.setupHapticFeedback();
+    },
+
+    /**
+     * Set up swipe gestures for mobile
+     */
+    setupSwipeGestures: function() {
+        let startX = 0;
+        let startY = 0;
+        let endX = 0;
+        let endY = 0;
+
+        document.querySelectorAll('.settings-section').forEach(section => {
+            section.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            });
+
+            section.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                endY = e.changedTouches[0].clientY;
+                
+                const diffX = startX - endX;
+                const diffY = startY - endY;
+                
+                // Horizontal swipe with minimal vertical movement
+                if (Math.abs(diffX) > 50 && Math.abs(diffY) < 30) {
+                    if (diffX > 0) {
+                        // Swipe left - could be used for quick actions
+                        this.handleSwipeLeft(section);
+                    } else {
+                        // Swipe right - could be used for navigation
+                        this.handleSwipeRight(section);
+                    }
+                }
+            });
+        });
+    },
+
+    /**
+     * Handle swipe left gesture
+     */
+    handleSwipeLeft: function(section) {
+        // Could be used to show quick actions or expand section
+        console.log('Swipe left detected on settings section');
+    },
+
+    /**
+     * Handle swipe right gesture
+     */
+    handleSwipeRight: function(section) {
+        // Could be used for navigation back
+        console.log('Swipe right detected on settings section');
+    },
+
+    /**
+     * Set up haptic feedback for switches
+     */
+    setupHapticFeedback: function() {
+        document.querySelectorAll('.settings-switch input').forEach(switchInput => {
+            switchInput.addEventListener('change', () => {
+                // Trigger haptic feedback if available
+                if (navigator.vibrate) {
+                    navigator.vibrate(50);
+                }
+            });
+        });
     },
 
     /**
@@ -56,7 +146,7 @@ window.SettingsController = {
         });
 
         // Switch toggles
-        document.querySelectorAll('.switch input[type="checkbox"]').forEach(checkbox => {
+        document.querySelectorAll('.settings-switch input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 this.handleSettingChange(e.target.id, e.target.checked);
             });
@@ -67,9 +157,9 @@ window.SettingsController = {
      * Set up switch toggle animations
      */
     setupSwitchToggles: function() {
-        document.querySelectorAll('.switch').forEach(switchElement => {
+        document.querySelectorAll('.settings-switch').forEach(switchElement => {
             const input = switchElement.querySelector('input[type="checkbox"]');
-            const slider = switchElement.querySelector('.switch-slider');
+            const slider = switchElement.querySelector('.settings-switch-slider');
             
             if (input && slider) {
                 input.addEventListener('change', () => {
@@ -300,23 +390,23 @@ window.SettingsController = {
             content: `
                 <div class="privacy-settings">
                     <div class="privacy-option">
-                        <label class="switch">
+                        <label class="settings-switch">
                             <input type="checkbox" id="shareData" checked>
-                            <span class="switch-slider"></span>
+                            <span class="settings-switch-slider"></span>
                         </label>
                         <span>مشاركة البيانات للتحسين</span>
                     </div>
                     <div class="privacy-option">
-                        <label class="switch">
+                        <label class="settings-switch">
                             <input type="checkbox" id="analytics" checked>
-                            <span class="switch-slider"></span>
+                            <span class="settings-switch-slider"></span>
                         </label>
                         <span>تحليلات الاستخدام</span>
                     </div>
                     <div class="privacy-option">
-                        <label class="switch">
+                        <label class="settings-switch">
                             <input type="checkbox" id="marketing" checked>
-                            <span class="switch-slider"></span>
+                            <span class="settings-switch-slider"></span>
                         </label>
                         <span>الإعلانات المخصصة</span>
                     </div>

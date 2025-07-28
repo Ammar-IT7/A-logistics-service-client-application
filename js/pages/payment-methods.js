@@ -1,5 +1,6 @@
 /**
  * Payment Methods Page Controller
+ * Mobile-focused with enhanced UX
  */
 window.PaymentMethodsController = {
     /**
@@ -9,7 +10,135 @@ window.PaymentMethodsController = {
         console.log('PaymentMethodsController: Initializing...');
         this.loadPaymentMethods();
         this.setupEventListeners();
+        this.setupMobileEnhancements();
         this.updateUI();
+    },
+
+    /**
+     * Set up mobile-specific enhancements
+     */
+    setupMobileEnhancements: function() {
+        // Touch-friendly card interactions
+        document.querySelectorAll('.payment-methods-card').forEach(card => {
+            card.addEventListener('touchstart', (e) => {
+                e.target.style.transform = 'scale(0.98)';
+            });
+            
+            card.addEventListener('touchend', (e) => {
+                e.target.style.transform = '';
+            });
+        });
+
+        // Quick action card interactions
+        document.querySelectorAll('.payment-methods-quick-action-card').forEach(card => {
+            card.addEventListener('touchstart', (e) => {
+                e.target.style.transform = 'scale(0.95)';
+            });
+            
+            card.addEventListener('touchend', (e) => {
+                e.target.style.transform = '';
+            });
+        });
+
+        // Swipe gestures for payment cards
+        this.setupSwipeGestures();
+    },
+
+    /**
+     * Set up swipe gestures for mobile
+     */
+    setupSwipeGestures: function() {
+        let startX = 0;
+        let startY = 0;
+        let endX = 0;
+        let endY = 0;
+
+        document.querySelectorAll('.payment-methods-card').forEach(card => {
+            card.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            });
+
+            card.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                endY = e.changedTouches[0].clientY;
+                
+                const diffX = startX - endX;
+                const diffY = startY - endY;
+                
+                // Horizontal swipe with minimal vertical movement
+                if (Math.abs(diffX) > 50 && Math.abs(diffY) < 30) {
+                    if (diffX > 0) {
+                        // Swipe left - show quick actions
+                        this.showQuickActions(card);
+                    } else {
+                        // Swipe right - set as default
+                        const methodId = card.dataset.methodId;
+                        if (methodId) {
+                            this.setDefaultPaymentMethod(methodId);
+                        }
+                    }
+                }
+            });
+        });
+    },
+
+    /**
+     * Show quick actions for a payment card
+     */
+    showQuickActions: function(card) {
+        const methodId = card.dataset.methodId;
+        if (!methodId) return;
+
+        // Create quick actions overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'payment-methods-quick-actions-overlay';
+        overlay.innerHTML = `
+            <div class="payment-methods-quick-actions-menu">
+                <button class="payment-methods-quick-action" data-action="set-default" data-id="${methodId}">
+                    <i class="fas fa-star"></i>
+                    <span>تعيين كافتراضي</span>
+                </button>
+                <button class="payment-methods-quick-action" data-action="edit-payment-method" data-id="${methodId}">
+                    <i class="fas fa-edit"></i>
+                    <span>تعديل</span>
+                </button>
+                <button class="payment-methods-quick-action" data-action="remove-payment-method" data-id="${methodId}">
+                    <i class="fas fa-trash"></i>
+                    <span>حذف</span>
+                </button>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        // Remove overlay on click outside
+        overlay.addEventListener('click', () => {
+            overlay.remove();
+        });
+
+        // Handle quick action clicks
+        overlay.querySelectorAll('.payment-methods-quick-action').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const action = btn.dataset.action;
+                const id = btn.dataset.id;
+                
+                switch (action) {
+                    case 'set-default':
+                        this.setDefaultPaymentMethod(id);
+                        break;
+                    case 'edit-payment-method':
+                        this.editPaymentMethod(id);
+                        break;
+                    case 'remove-payment-method':
+                        this.removePaymentMethod(id);
+                        break;
+                }
+                
+                overlay.remove();
+            });
+        });
     },
 
     /**
@@ -100,7 +229,7 @@ window.PaymentMethodsController = {
         });
 
         // Quick action cards
-        document.querySelectorAll('.quick-action-card').forEach(card => {
+        document.querySelectorAll('.payment-methods-quick-action-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const modalType = card.dataset.modal;
                 this.openAddPaymentModal(modalType);
@@ -175,6 +304,9 @@ window.PaymentMethodsController = {
             case 'add-wallet':
                 Modal.open('add-digital-wallet');
                 break;
+            case 'add-crypto':
+                Modal.open('add-crypto-wallet');
+                break;
             default:
                 Modal.open('add-payment-method');
         }
@@ -212,8 +344,21 @@ window.PaymentMethodsController = {
             container.appendChild(card);
         });
 
+        // Update overview count
+        this.updateOverviewCount();
+
         // Update default badge visibility
         this.updateDefaultBadges();
+    },
+
+    /**
+     * Update overview count
+     */
+    updateOverviewCount: function() {
+        const countElement = document.querySelector('.payment-methods-overview-count');
+        if (countElement) {
+            countElement.textContent = `${this.paymentMethods.length} طرق دفع`;
+        }
     },
 
     /**
@@ -221,27 +366,27 @@ window.PaymentMethodsController = {
      */
     createPaymentMethodCard: function(method) {
         const card = document.createElement('div');
-        card.className = `payment-method-card ${method.isDefault ? 'default' : ''}`;
+        card.className = `payment-methods-card ${method.isDefault ? 'payment-methods-card-default' : ''}`;
         card.dataset.methodId = method.id;
 
         card.innerHTML = `
-            <div class="payment-method-info">
-                <div class="payment-method-icon">
+            <div class="payment-methods-card-info">
+                <div class="payment-methods-card-icon">
                     <i class="${method.icon}"></i>
                 </div>
-                <div class="payment-method-details">
-                    <h3 class="payment-method-name">${method.name}</h3>
-                    <p class="payment-method-number">${method.number}</p>
-                    ${method.expiry ? `<span class="payment-method-expiry">تنتهي في ${method.expiry}</span>` : ''}
-                    ${method.bank ? `<span class="payment-method-bank">${method.bank}</span>` : ''}
-                    ${method.status ? `<span class="payment-method-status">${method.status}</span>` : ''}
+                <div class="payment-methods-card-details">
+                    <h3 class="payment-methods-card-name">${method.name}</h3>
+                    <p class="payment-methods-card-number">${method.number}</p>
+                    ${method.expiry ? `<span class="payment-methods-card-expiry">تنتهي في ${method.expiry}</span>` : ''}
+                    ${method.bank ? `<span class="payment-methods-card-bank">${method.bank}</span>` : ''}
+                    ${method.status ? `<span class="payment-methods-card-status">${method.status}</span>` : ''}
                 </div>
-                ${method.isDefault ? '<div class="payment-method-status"><span class="default-badge">افتراضية</span></div>' : ''}
+                ${method.isDefault ? '<div class="payment-methods-card-status"><span class="payment-methods-default-badge">افتراضية</span></div>' : ''}
             </div>
-            <div class="payment-method-actions">
-                ${!method.isDefault ? `<button class="action-btn" data-action="set-default" data-id="${method.id}"><i class="fas fa-star"></i></button>` : ''}
-                <button class="action-btn" data-action="edit-payment-method" data-id="${method.id}"><i class="fas fa-edit"></i></button>
-                <button class="action-btn" data-action="remove-payment-method" data-id="${method.id}"><i class="fas fa-trash"></i></button>
+            <div class="payment-methods-card-actions">
+                ${!method.isDefault ? `<button class="payment-methods-action-btn" data-action="set-default" data-id="${method.id}"><i class="fas fa-star"></i></button>` : ''}
+                <button class="payment-methods-action-btn" data-action="edit-payment-method" data-id="${method.id}"><i class="fas fa-edit"></i></button>
+                <button class="payment-methods-action-btn" data-action="remove-payment-method" data-id="${method.id}"><i class="fas fa-trash"></i></button>
             </div>
         `;
 
@@ -252,9 +397,9 @@ window.PaymentMethodsController = {
      * Update default badges visibility
      */
     updateDefaultBadges: function() {
-        const defaultCards = document.querySelectorAll('.payment-method-card.default');
+        const defaultCards = document.querySelectorAll('.payment-methods-card-default');
         defaultCards.forEach(card => {
-            const actions = card.querySelector('.payment-method-actions');
+            const actions = card.querySelector('.payment-methods-card-actions');
             const setDefaultBtn = actions.querySelector('[data-action="set-default"]');
             if (setDefaultBtn) {
                 setDefaultBtn.remove();

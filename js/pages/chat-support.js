@@ -1,6 +1,7 @@
 /**
  * Chat Support Page Controller
  * Manages live chat functionality with support agents
+ * Mobile-focused with enhanced UX
  */
 window.ChatSupportController = {
     /**
@@ -22,8 +23,91 @@ window.ChatSupportController = {
         this.setupChatInput();
         this.loadInitialMessages();
         this.scrollToBottom();
+        this.setupMobileEnhancements();
         
         console.log('ChatSupportController: Chat support page initialized successfully');
+    },
+
+    /**
+     * Set up mobile-specific enhancements
+     */
+    setupMobileEnhancements: function() {
+        // Auto-hide keyboard on send
+        const chatInput = document.getElementById('chatInput');
+        if (chatInput) {
+            chatInput.addEventListener('blur', () => {
+                setTimeout(() => {
+                    window.scrollTo(0, 0);
+                }, 100);
+            });
+        }
+
+        // Touch-friendly quick actions
+        document.querySelectorAll('.chat-support-quick-action-btn').forEach(btn => {
+            btn.addEventListener('touchstart', (e) => {
+                e.target.style.transform = 'scale(0.95)';
+            });
+            
+            btn.addEventListener('touchend', (e) => {
+                e.target.style.transform = '';
+            });
+        });
+
+        // Swipe to dismiss quick replies
+        this.setupSwipeGestures();
+    },
+
+    /**
+     * Set up swipe gestures for mobile
+     */
+    setupSwipeGestures: function() {
+        let startX = 0;
+        let startY = 0;
+        let endX = 0;
+        let endY = 0;
+
+        const messagesContainer = document.getElementById('chatMessages');
+        if (!messagesContainer) return;
+
+        messagesContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+
+        messagesContainer.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            endY = e.changedTouches[0].clientY;
+            
+            const diffX = startX - endX;
+            const diffY = startY - endY;
+            
+            // Horizontal swipe with minimal vertical movement
+            if (Math.abs(diffX) > 50 && Math.abs(diffY) < 30) {
+                if (diffX > 0) {
+                    // Swipe left - could be used for quick actions
+                    this.handleSwipeLeft();
+                } else {
+                    // Swipe right - could be used for navigation
+                    this.handleSwipeRight();
+                }
+            }
+        });
+    },
+
+    /**
+     * Handle swipe left gesture
+     */
+    handleSwipeLeft: function() {
+        // Could be used to show quick actions or dismiss elements
+        console.log('Swipe left detected');
+    },
+
+    /**
+     * Handle swipe right gesture
+     */
+    handleSwipeRight: function() {
+        // Could be used for navigation back
+        console.log('Swipe right detected');
     },
 
     /**
@@ -117,6 +201,13 @@ window.ChatSupportController = {
                 // Enable/disable send button
                 sendBtn.disabled = !chatInput.value.trim();
             });
+
+            // Focus management for mobile
+            chatInput.addEventListener('focus', () => {
+                setTimeout(() => {
+                    this.scrollToBottom();
+                }, 300);
+            });
         }
     },
 
@@ -173,29 +264,29 @@ window.ChatSupportController = {
      */
     createMessageElement: function(message) {
         const element = document.createElement('div');
-        element.className = `message message-${message.type}`;
+        element.className = `chat-support-message chat-support-message-${message.type}`;
         element.dataset.messageId = message.id;
 
         const time = this.formatTime(message.timestamp);
 
         if (message.type === 'agent') {
             element.innerHTML = `
-                <div class="message-avatar">
+                <div class="chat-support-message-avatar">
                     <img src="${message.agent.avatar}" alt="${message.agent.name}">
                 </div>
-                <div class="message-content">
-                    <div class="message-bubble">
+                <div class="chat-support-message-content">
+                    <div class="chat-support-message-bubble">
                         ${this.formatMessageContent(message)}
-                        <span class="message-time">${time}</span>
+                        <span class="chat-support-message-time">${time}</span>
                     </div>
                 </div>
             `;
         } else {
             element.innerHTML = `
-                <div class="message-content">
-                    <div class="message-bubble">
+                <div class="chat-support-message-content">
+                    <div class="chat-support-message-bubble">
                         ${this.formatMessageContent(message)}
-                        <span class="message-time">${time}</span>
+                        <span class="chat-support-message-time">${time}</span>
                     </div>
                 </div>
             `;
@@ -222,29 +313,29 @@ window.ChatSupportController = {
      */
     createShipmentInfoContent: function(shipmentData) {
         return `
-            <div class="shipment-info">
+            <div class="chat-support-shipment-info">
                 <h4>معلومات الشحنة ${shipmentData.id}</h4>
-                <div class="shipment-details">
-                    <div class="detail-item">
-                        <span class="detail-label">الحالة:</span>
-                        <span class="detail-value status-${shipmentData.status}">${shipmentData.statusText}</span>
+                <div class="chat-support-shipment-details">
+                    <div class="chat-support-detail-item">
+                        <span class="chat-support-detail-label">الحالة:</span>
+                        <span class="chat-support-detail-value status-${shipmentData.status}">${shipmentData.statusText}</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">الموقع الحالي:</span>
-                        <span class="detail-value">${shipmentData.currentLocation}</span>
+                    <div class="chat-support-detail-item">
+                        <span class="chat-support-detail-label">الموقع الحالي:</span>
+                        <span class="chat-support-detail-value">${shipmentData.currentLocation}</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">تاريخ الوصول المتوقع:</span>
-                        <span class="detail-value">${shipmentData.eta}</span>
+                    <div class="chat-support-detail-item">
+                        <span class="chat-support-detail-label">تاريخ الوصول المتوقع:</span>
+                        <span class="chat-support-detail-value">${shipmentData.eta}</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="detail-label">نسبة الإنجاز:</span>
-                        <span class="detail-value">${shipmentData.progress}%</span>
+                    <div class="chat-support-detail-item">
+                        <span class="chat-support-detail-label">نسبة الإنجاز:</span>
+                        <span class="chat-support-detail-value">${shipmentData.progress}%</span>
                     </div>
                 </div>
-                <div class="shipment-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${shipmentData.progress}%"></div>
+                <div class="chat-support-shipment-progress">
+                    <div class="chat-support-progress-bar">
+                        <div class="chat-support-progress-fill" style="width: ${shipmentData.progress}%"></div>
                     </div>
                 </div>
             </div>
@@ -256,10 +347,10 @@ window.ChatSupportController = {
      */
     createQuickRepliesContent: function(options) {
         const buttons = options.map(option => 
-            `<button class="quick-reply-btn" data-action="quick-reply" data-text="${option}">${option}</button>`
+            `<button class="chat-support-quick-reply-btn" data-action="quick-reply" data-text="${option}">${option}</button>`
         ).join('');
         
-        return `<div class="quick-replies">${buttons}</div>`;
+        return `<div class="chat-support-quick-replies">${buttons}</div>`;
     },
 
     /**

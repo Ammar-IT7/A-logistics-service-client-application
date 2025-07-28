@@ -9,83 +9,83 @@
 </div>
 
 <div class="content">
-    <!-- Chat Header -->
-    <div class="chat-header">
-        <div class="chat-agent-info">
-            <div class="agent-avatar">
+    <!-- Chat Support Header -->
+    <div class="chat-support-header">
+        <div class="chat-support-agent-info">
+            <div class="chat-support-agent-avatar">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة الممثل">
-                <div class="agent-status online"></div>
+                <div class="chat-support-agent-status online"></div>
             </div>
-            <div class="agent-details">
-                <h3 class="agent-name">أحمد الدعم الفني</h3>
-                <p class="agent-status-text">متصل الآن</p>
+            <div class="chat-support-agent-details">
+                <h3 class="chat-support-agent-name">أحمد الدعم الفني</h3>
+                <p class="chat-support-agent-status-text">متصل الآن</p>
             </div>
         </div>
-        <div class="chat-actions">
-            <button class="action-btn" data-action="voice-call">
+        <div class="chat-support-actions">
+            <button class="chat-support-action-btn" data-action="voice-call">
                 <i class="fas fa-phone"></i>
             </button>
-            <button class="action-btn" data-action="video-call">
+            <button class="chat-support-action-btn" data-action="video-call">
                 <i class="fas fa-video"></i>
             </button>
-            <button class="action-btn" data-action="chat-info">
+            <button class="chat-support-action-btn" data-action="chat-info">
                 <i class="fas fa-info-circle"></i>
             </button>
         </div>
     </div>
 
-    <!-- Chat Messages -->
-    <div class="chat-messages" id="chatMessages">
+    <!-- Chat Support Messages -->
+    <div class="chat-support-messages" id="chatMessages">
         <!-- Welcome Message -->
-        <div class="message message-agent">
-            <div class="message-avatar">
+        <div class="chat-support-message chat-support-message-agent">
+            <div class="chat-support-message-avatar">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iMTUiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة الممثل">
             </div>
-            <div class="message-content">
-                <div class="message-bubble">
+            <div class="chat-support-message-content">
+                <div class="chat-support-message-bubble">
                     <p>مرحباً! كيف يمكنني مساعدتك اليوم؟</p>
-                    <span class="message-time">10:30 ص</span>
+                    <span class="chat-support-message-time">10:30 ص</span>
                 </div>
             </div>
         </div>
 
         <!-- User Message -->
-        <div class="message message-user">
-            <div class="message-content">
-                <div class="message-bubble">
+        <div class="chat-support-message chat-support-message-user">
+            <div class="chat-support-message-content">
+                <div class="chat-support-message-bubble">
                     <p>أحتاج مساعدة في تتبع شحنتي</p>
-                    <span class="message-time">10:32 ص</span>
+                    <span class="chat-support-message-time">10:32 ص</span>
                 </div>
             </div>
         </div>
 
         <!-- Agent Message -->
-        <div class="message message-agent">
-            <div class="message-avatar">
+        <div class="chat-support-message chat-support-message-agent">
+            <div class="chat-support-message-avatar">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iMTUiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة الممثل">
             </div>
-            <div class="message-content">
-                <div class="message-bubble">
+            <div class="chat-support-message-content">
+                <div class="chat-support-message-bubble">
                     <p>بالطبع! يمكنني مساعدتك في تتبع شحنتك. هل يمكنك إخباري برقم التتبع أو معرف الطلب؟</p>
-                    <span class="message-time">10:33 ص</span>
+                    <span class="chat-support-message-time">10:33 ص</span>
                 </div>
             </div>
         </div>
 
         <!-- Quick Reply Options -->
-        <div class="message message-agent">
-            <div class="message-avatar">
+        <div class="chat-support-message chat-support-message-agent">
+            <div class="chat-support-message-avatar">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iMTUiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة الممثل">
             </div>
-            <div class="message-content">
-                <div class="quick-replies">
-                    <button class="quick-reply-btn" data-action="quick-reply" data-text="رقم التتبع: INT-4521">
+            <div class="chat-support-message-content">
+                <div class="chat-support-quick-replies">
+                    <button class="chat-support-quick-reply-btn" data-action="quick-reply" data-text="رقم التتبع: INT-4521">
                         رقم التتبع: INT-4521
                     </button>
-                    <button class="quick-reply-btn" data-action="quick-reply" data-text="رقم التتبع: INT-7890">
+                    <button class="chat-support-quick-reply-btn" data-action="quick-reply" data-text="رقم التتبع: INT-7890">
                         رقم التتبع: INT-7890
                     </button>
-                    <button class="quick-reply-btn" data-action="quick-reply" data-text="لا أعرف رقم التتبع">
+                    <button class="chat-support-quick-reply-btn" data-action="quick-reply" data-text="لا أعرف رقم التتبع">
                         لا أعرف رقم التتبع
                     </button>
                 </div>
@@ -93,74 +93,74 @@
         </div>
 
         <!-- User Message -->
-        <div class="message message-user">
-            <div class="message-content">
-                <div class="message-bubble">
+        <div class="chat-support-message chat-support-message-user">
+            <div class="chat-support-message-content">
+                <div class="chat-support-message-bubble">
                     <p>رقم التتبع: INT-4521</p>
-                    <span class="message-time">10:35 ص</span>
+                    <span class="chat-support-message-time">10:35 ص</span>
                 </div>
             </div>
         </div>
 
         <!-- Agent Message with Shipment Info -->
-        <div class="message message-agent">
-            <div class="message-avatar">
+        <div class="chat-support-message chat-support-message-agent">
+            <div class="chat-support-message-avatar">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iMTUiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة الممثل">
             </div>
-            <div class="message-content">
-                <div class="message-bubble">
-                    <div class="shipment-info">
+            <div class="chat-support-message-content">
+                <div class="chat-support-message-bubble">
+                    <div class="chat-support-shipment-info">
                         <h4>معلومات الشحنة INT-4521</h4>
-                        <div class="shipment-details">
-                            <div class="detail-item">
-                                <span class="detail-label">الحالة:</span>
-                                <span class="detail-value status-active">قيد النقل</span>
+                        <div class="chat-support-shipment-details">
+                            <div class="chat-support-detail-item">
+                                <span class="chat-support-detail-label">الحالة:</span>
+                                <span class="chat-support-detail-value status-active">قيد النقل</span>
                             </div>
-                            <div class="detail-item">
-                                <span class="detail-label">الموقع الحالي:</span>
-                                <span class="detail-value">ميناء جدة</span>
+                            <div class="chat-support-detail-item">
+                                <span class="chat-support-detail-label">الموقع الحالي:</span>
+                                <span class="chat-support-detail-value">ميناء جدة</span>
                             </div>
-                            <div class="detail-item">
-                                <span class="detail-label">تاريخ الوصول المتوقع:</span>
-                                <span class="detail-value">18 يناير 2025</span>
+                            <div class="chat-support-detail-item">
+                                <span class="chat-support-detail-label">تاريخ الوصول المتوقع:</span>
+                                <span class="chat-support-detail-value">18 يناير 2025</span>
                             </div>
-                            <div class="detail-item">
-                                <span class="detail-label">نسبة الإنجاز:</span>
-                                <span class="detail-value">75%</span>
+                            <div class="chat-support-detail-item">
+                                <span class="chat-support-detail-label">نسبة الإنجاز:</span>
+                                <span class="chat-support-detail-value">75%</span>
                             </div>
                         </div>
-                        <div class="shipment-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 75%"></div>
+                        <div class="chat-support-shipment-progress">
+                            <div class="chat-support-progress-bar">
+                                <div class="chat-support-progress-fill" style="width: 75%"></div>
                             </div>
                         </div>
                     </div>
-                    <span class="message-time">10:36 ص</span>
+                    <span class="chat-support-message-time">10:36 ص</span>
                 </div>
             </div>
         </div>
 
         <!-- Agent Message -->
-        <div class="message message-agent">
-            <div class="message-avatar">
+        <div class="chat-support-message chat-support-message-agent">
+            <div class="chat-support-message-avatar">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iMTUiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة الممثل">
             </div>
-            <div class="message-content">
-                <div class="message-bubble">
+            <div class="chat-support-message-content">
+                <div class="chat-support-message-bubble">
                     <p>شحنتك في حالة جيدة وتتقدم بشكل طبيعي. ستصل إلى ميناء عدن في 18 يناير. هل تريد مني إرسال تحديثات دورية لك؟</p>
-                    <span class="message-time">10:37 ص</span>
+                    <span class="chat-support-message-time">10:37 ص</span>
                 </div>
             </div>
         </div>
 
         <!-- Typing Indicator -->
-        <div class="message message-agent typing" id="typingIndicator" style="display: none;">
-            <div class="message-avatar">
+        <div class="chat-support-message chat-support-message-agent typing" id="typingIndicator" style="display: none;">
+            <div class="chat-support-message-avatar">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iMTUiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة الممثل">
             </div>
-            <div class="message-content">
-                <div class="message-bubble typing-bubble">
-                    <div class="typing-dots">
+            <div class="chat-support-message-content">
+                <div class="chat-support-message-bubble chat-support-typing-bubble">
+                    <div class="chat-support-typing-dots">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -170,37 +170,43 @@
         </div>
     </div>
 
-    <!-- Chat Input -->
-    <div class="chat-input-container">
-        <div class="chat-input-wrapper">
-            <button class="input-action-btn" data-action="attach-file">
+    <!-- Chat Support Input -->
+    <div class="chat-support-input-container">
+        <div class="chat-support-input-wrapper">
+            <button class="chat-support-input-action-btn" data-action="attach-file">
                 <i class="fas fa-paperclip"></i>
             </button>
-            <div class="chat-input-field">
+            <div class="chat-support-input-field">
                 <textarea id="chatInput" placeholder="اكتب رسالتك هنا..." rows="1"></textarea>
-                <button class="input-action-btn" data-action="emoji-picker">
+                <button class="chat-support-input-action-btn" data-action="emoji-picker">
                     <i class="far fa-smile"></i>
                 </button>
             </div>
-            <button class="send-btn" data-action="send-message" disabled>
+            <button class="chat-support-send-btn" data-action="send-message" disabled>
                 <i class="fas fa-paper-plane"></i>
             </button>
         </div>
     </div>
 
-    <!-- Quick Actions -->
-    <div class="quick-actions" id="quickActions">
-        <button class="quick-action-btn" data-action="quick-action" data-text="أحتاج مساعدة في الدفع">
-            <i class="fas fa-credit-card"></i>
-            مساعدة في الدفع
-        </button>
-        <button class="quick-action-btn" data-action="quick-action" data-text="أريد تقديم شكوى">
-            <i class="fas fa-exclamation-triangle"></i>
-            تقديم شكوى
-        </button>
-        <button class="quick-action-btn" data-action="quick-action" data-text="أحتاج معلومات عن الخدمات">
-            <i class="fas fa-info-circle"></i>
-            معلومات الخدمات
-        </button>
+    <!-- Chat Support Quick Actions -->
+    <div class="chat-support-quick-actions" id="quickActions">
+        <div class="chat-support-quick-actions-grid">
+            <button class="chat-support-quick-action-btn" data-action="quick-action" data-text="أحتاج مساعدة في الدفع">
+                <i class="fas fa-credit-card"></i>
+                <span>مساعدة في الدفع</span>
+            </button>
+            <button class="chat-support-quick-action-btn" data-action="quick-action" data-text="أريد تقديم شكوى">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>تقديم شكوى</span>
+            </button>
+            <button class="chat-support-quick-action-btn" data-action="quick-action" data-text="أحتاج معلومات عن الخدمات">
+                <i class="fas fa-info-circle"></i>
+                <span>معلومات الخدمات</span>
+            </button>
+            <button class="chat-support-quick-action-btn" data-action="quick-action" data-text="أريد معرفة الأسعار">
+                <i class="fas fa-tag"></i>
+                <span>معرفة الأسعار</span>
+            </button>
+        </div>
     </div>
 </div> 

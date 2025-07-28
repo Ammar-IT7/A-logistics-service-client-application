@@ -10,99 +10,112 @@
         </button>
     </div>
 
+    <!-- Payment Methods Overview -->
+    <div class="payment-methods-overview">
+        <div class="payment-methods-overview-card">
+            <div class="payment-methods-overview-icon">
+                <i class="fas fa-credit-card"></i>
+            </div>
+            <div class="payment-methods-overview-info">
+                <h3 class="payment-methods-overview-title">طرق الدفع المحفوظة</h3>
+                <p class="payment-methods-overview-count">4 طرق دفع</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Payment Methods List -->
     <div class="payment-methods-container">
         <!-- Default Payment Method -->
-        <div class="payment-method-card default">
-            <div class="payment-method-info">
-                <div class="payment-method-icon">
+        <div class="payment-methods-card payment-methods-card-default">
+            <div class="payment-methods-card-info">
+                <div class="payment-methods-card-icon">
                     <i class="fab fa-cc-visa"></i>
                 </div>
-                <div class="payment-method-details">
-                    <h3 class="payment-method-name">بطاقة فيزا</h3>
-                    <p class="payment-method-number">**** **** **** 1234</p>
-                    <span class="payment-method-expiry">تنتهي في 12/25</span>
+                <div class="payment-methods-card-details">
+                    <h3 class="payment-methods-card-name">بطاقة فيزا</h3>
+                    <p class="payment-methods-card-number">**** **** **** 1234</p>
+                    <span class="payment-methods-card-expiry">تنتهي في 12/25</span>
                 </div>
-                <div class="payment-method-status">
-                    <span class="default-badge">افتراضية</span>
+                <div class="payment-methods-card-status">
+                    <span class="payment-methods-default-badge">افتراضية</span>
                 </div>
             </div>
-            <div class="payment-method-actions">
-                <button class="action-btn" data-action="edit-payment-method" data-id="1">
+            <div class="payment-methods-card-actions">
+                <button class="payment-methods-action-btn" data-action="edit-payment-method" data-id="1">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="action-btn" data-action="remove-payment-method" data-id="1">
+                <button class="payment-methods-action-btn" data-action="remove-payment-method" data-id="1">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>
 
         <!-- Other Payment Methods -->
-        <div class="payment-method-card">
-            <div class="payment-method-info">
-                <div class="payment-method-icon">
+        <div class="payment-methods-card">
+            <div class="payment-methods-card-info">
+                <div class="payment-methods-card-icon">
                     <i class="fab fa-cc-mastercard"></i>
                 </div>
-                <div class="payment-method-details">
-                    <h3 class="payment-method-name">بطاقة ماستركارد</h3>
-                    <p class="payment-method-number">**** **** **** 5678</p>
-                    <span class="payment-method-expiry">تنتهي في 08/24</span>
+                <div class="payment-methods-card-details">
+                    <h3 class="payment-methods-card-name">بطاقة ماستركارد</h3>
+                    <p class="payment-methods-card-number">**** **** **** 5678</p>
+                    <span class="payment-methods-card-expiry">تنتهي في 08/24</span>
                 </div>
             </div>
-            <div class="payment-method-actions">
-                <button class="action-btn" data-action="set-default" data-id="2">
+            <div class="payment-methods-card-actions">
+                <button class="payment-methods-action-btn" data-action="set-default" data-id="2">
                     <i class="fas fa-star"></i>
                 </button>
-                <button class="action-btn" data-action="edit-payment-method" data-id="2">
+                <button class="payment-methods-action-btn" data-action="edit-payment-method" data-id="2">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="action-btn" data-action="remove-payment-method" data-id="2">
+                <button class="payment-methods-action-btn" data-action="remove-payment-method" data-id="2">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>
 
-        <div class="payment-method-card">
-            <div class="payment-method-info">
-                <div class="payment-method-icon">
+        <div class="payment-methods-card">
+            <div class="payment-methods-card-info">
+                <div class="payment-methods-card-icon">
                     <i class="fas fa-university"></i>
                 </div>
-                <div class="payment-method-details">
-                    <h3 class="payment-method-name">حساب بنكي</h3>
-                    <p class="payment-method-number">**** 1234</p>
-                    <span class="payment-method-bank">بنك الرياض</span>
+                <div class="payment-methods-card-details">
+                    <h3 class="payment-methods-card-name">حساب بنكي</h3>
+                    <p class="payment-methods-card-number">**** 1234</p>
+                    <span class="payment-methods-card-bank">بنك الرياض</span>
                 </div>
             </div>
-            <div class="payment-method-actions">
-                <button class="action-btn" data-action="set-default" data-id="3">
+            <div class="payment-methods-card-actions">
+                <button class="payment-methods-action-btn" data-action="set-default" data-id="3">
                     <i class="fas fa-star"></i>
                 </button>
-                <button class="action-btn" data-action="edit-payment-method" data-id="3">
+                <button class="payment-methods-action-btn" data-action="edit-payment-method" data-id="3">
                     <i class="fas fa-edit"></i>
                 </button>
-                <button class="action-btn" data-action="remove-payment-method" data-id="3">
+                <button class="payment-methods-action-btn" data-action="remove-payment-method" data-id="3">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>
 
         <!-- Digital Wallets -->
-        <div class="payment-method-card">
-            <div class="payment-method-info">
-                <div class="payment-method-icon">
+        <div class="payment-methods-card">
+            <div class="payment-methods-card-info">
+                <div class="payment-methods-card-icon">
                     <i class="fab fa-apple-pay"></i>
                 </div>
-                <div class="payment-method-details">
-                    <h3 class="payment-method-name">Apple Pay</h3>
-                    <p class="payment-method-number">محفظة رقمية</p>
-                    <span class="payment-method-status">متصل</span>
+                <div class="payment-methods-card-details">
+                    <h3 class="payment-methods-card-name">Apple Pay</h3>
+                    <p class="payment-methods-card-number">محفظة رقمية</p>
+                    <span class="payment-methods-card-status">متصل</span>
                 </div>
             </div>
-            <div class="payment-method-actions">
-                <button class="action-btn" data-action="set-default" data-id="4">
+            <div class="payment-methods-card-actions">
+                <button class="payment-methods-action-btn" data-action="set-default" data-id="4">
                     <i class="fas fa-star"></i>
                 </button>
-                <button class="action-btn" data-action="remove-payment-method" data-id="4">
+                <button class="payment-methods-action-btn" data-action="remove-payment-method" data-id="4">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -110,36 +123,42 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="quick-actions-section">
-        <h3 class="section-title">إضافة طريقة دفع جديدة</h3>
-        <div class="quick-actions-grid">
-            <div class="quick-action-card" data-action="open-modal" data-modal="add-card">
-                <div class="quick-action-icon">
+    <div class="payment-methods-quick-actions">
+        <h3 class="payment-methods-section-title">إضافة طريقة دفع جديدة</h3>
+        <div class="payment-methods-quick-actions-grid">
+            <div class="payment-methods-quick-action-card" data-action="open-modal" data-modal="add-card">
+                <div class="payment-methods-quick-action-icon">
                     <i class="fas fa-credit-card"></i>
                 </div>
-                <span class="quick-action-text">بطاقة ائتمان</span>
+                <span class="payment-methods-quick-action-text">بطاقة ائتمان</span>
             </div>
-            <div class="quick-action-card" data-action="open-modal" data-modal="add-bank">
-                <div class="quick-action-icon">
+            <div class="payment-methods-quick-action-card" data-action="open-modal" data-modal="add-bank">
+                <div class="payment-methods-quick-action-icon">
                     <i class="fas fa-university"></i>
                 </div>
-                <span class="quick-action-text">حساب بنكي</span>
+                <span class="payment-methods-quick-action-text">حساب بنكي</span>
             </div>
-            <div class="quick-action-card" data-action="open-modal" data-modal="add-wallet">
-                <div class="quick-action-icon">
+            <div class="payment-methods-quick-action-card" data-action="open-modal" data-modal="add-wallet">
+                <div class="payment-methods-quick-action-icon">
                     <i class="fas fa-wallet"></i>
                 </div>
-                <span class="quick-action-text">محفظة رقمية</span>
+                <span class="payment-methods-quick-action-text">محفظة رقمية</span>
+            </div>
+            <div class="payment-methods-quick-action-card" data-action="open-modal" data-modal="add-crypto">
+                <div class="payment-methods-quick-action-icon">
+                    <i class="fab fa-bitcoin"></i>
+                </div>
+                <span class="payment-methods-quick-action-text">عملات رقمية</span>
             </div>
         </div>
     </div>
 
     <!-- Security Notice -->
-    <div class="security-notice">
-        <div class="security-notice-icon">
+    <div class="payment-methods-security-notice">
+        <div class="payment-methods-security-notice-icon">
             <i class="fas fa-shield-alt"></i>
         </div>
-        <div class="security-notice-content">
+        <div class="payment-methods-security-notice-content">
             <h4>معلومات آمنة</h4>
             <p>جميع بيانات الدفع مشفرة ومحمية بأعلى معايير الأمان</p>
         </div>
