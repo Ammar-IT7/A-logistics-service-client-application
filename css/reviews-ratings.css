@@ -11,7 +11,7 @@
 
 /* Reviews Summary Section */
 .reviews-summary {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--third-color), var(--secondary-color));
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);

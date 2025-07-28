@@ -2,246 +2,186 @@
     <button class="header-action" data-action="navigate" data-page="client-home-page" aria-label="رجوع">
         <i class="fas fa-arrow-left" data-action="navigate" data-page="client-home-page"></i>
     </button>
-    <h1 class="header-title">الملف الشخصي</h1>
-    <button class="header-action" data-action="edit-profile" aria-label="تعديل">
-        <i class="fas fa-edit"></i>
+    <h1 class="header-title">تعديل الملف الشخصي</h1>
+    <button class="header-action header-action--primary" data-action="save-profile">
+        <i class="fas fa-save"></i>
     </button>
 </div>
 
 <div class="content" id="profile-page">
-    <!-- Profile Header Section -->
-    <section class="profile-header-section">
-        <div class="profile-avatar-container">
-            <div class="profile-avatar">
-                <img src="https://placehold.co/120x120/282460/FAAE43?text=أ" alt="الصورة الشخصية" id="profileAvatar">
-                <div class="profile-avatar-overlay">
+    <!-- Profile Overview -->
+    <div class="profile-overview">
+        <div class="profile-overview-card">
+            <div class="profile-overview-avatar">
+                <img src="https://placehold.co/100x100/282460/FAAE43?text=أ" alt="صورة الملف الشخصي" id="profileAvatar">
+                <button class="profile-avatar-edit" data-action="change-avatar">
                     <i class="fas fa-camera"></i>
-                </div>
+                </button>
             </div>
-            <div class="profile-status">
-                <span class="profile-status-indicator online"></span>
-                <span class="profile-status-text">متصل</span>
+            <div class="profile-overview-info">
+                <h3 class="profile-overview-name">عبد الله محمد</h3>
+                <p class="profile-overview-email">abdullah@example.com</p>
+                <span class="profile-overview-status">عضو منذ يناير 2024</span>
             </div>
         </div>
+    </div>
+
+    <!-- Personal Information Section -->
+    <div class="profile-section">
+        <h3 class="profile-section-title">
+            <i class="fas fa-user"></i>
+            المعلومات الشخصية
+        </h3>
         
-        <div class="profile-info">
-            <h2 class="profile-name" id="profileName">أحمد محمد علي</h2>
-            <p class="profile-email" id="profileEmail">ahmed.mohamed@example.com</p>
-            <div class="profile-verification">
-                <i class="fas fa-check-circle verified"></i>
-                <span>حساب موثق</span>
+        <div class="profile-form-grid">
+            <div class="profile-form-group">
+                <label class="profile-form-label">الاسم الأول</label>
+                <input type="text" class="profile-form-input" id="firstName" value="عبد الله" placeholder="الاسم الأول">
+            </div>
+            
+            <div class="profile-form-group">
+                <label class="profile-form-label">اسم العائلة</label>
+                <input type="text" class="profile-form-input" id="lastName" value="محمد" placeholder="اسم العائلة">
+            </div>
+            
+            <div class="profile-form-group">
+                <label class="profile-form-label">رقم الهاتف</label>
+                <input type="tel" class="profile-form-input" id="phone" value="+967 777 123 456" placeholder="رقم الهاتف">
+            </div>
+            
+            <div class="profile-form-group">
+                <label class="profile-form-label">تاريخ الميلاد</label>
+                <input type="date" class="profile-form-input" id="birthDate" value="1990-05-15">
+            </div>
+            
+            <div class="profile-form-group profile-form-group--full">
+                <label class="profile-form-label">البريد الإلكتروني</label>
+                <input type="email" class="profile-form-input" id="email" value="abdullah@example.com" placeholder="البريد الإلكتروني">
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Quick Stats Section -->
-    <section class="profile-stats-section">
-        <div class="profile-stats-grid">
-            <div class="profile-stat-card">
-                <div class="profile-stat-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
-                <div class="profile-stat-content">
-                    <div class="profile-stat-value">24</div>
-                    <div class="profile-stat-label">الطلبات</div>
-                </div>
+    <!-- Address Information Section -->
+    <div class="profile-section">
+        <h3 class="profile-section-title">
+            <i class="fas fa-map-marker-alt"></i>
+            معلومات العنوان
+        </h3>
+        
+        <div class="profile-form-grid">
+            <div class="profile-form-group">
+                <label class="profile-form-label">المدينة</label>
+                <select class="profile-form-input" id="city">
+                    <option value="sanaa">صنعاء</option>
+                    <option value="aden">عدن</option>
+                    <option value="taiz">تعز</option>
+                    <option value="hodeidah">الحديدة</option>
+                    <option value="mukalla">المكلا</option>
+                </select>
             </div>
-            <div class="profile-stat-card">
-                <div class="profile-stat-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <div class="profile-stat-content">
-                    <div class="profile-stat-value">4.8</div>
-                    <div class="profile-stat-label">التقييم</div>
-                </div>
+            
+            <div class="profile-form-group">
+                <label class="profile-form-label">الحي</label>
+                <input type="text" class="profile-form-input" id="district" value="شارع الزبيري" placeholder="الحي">
             </div>
-            <div class="profile-stat-card">
-                <div class="profile-stat-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <div class="profile-stat-content">
-                    <div class="profile-stat-value">12</div>
-                    <div class="profile-stat-label">المفضلة</div>
-                </div>
-            </div>
-            <div class="profile-stat-card">
-                <div class="profile-stat-icon">
-                    <i class="fas fa-wallet"></i>
-                </div>
-                <div class="profile-stat-content">
-                    <div class="profile-stat-value">2,450</div>
-                    <div class="profile-stat-label">ر.ي</div>
-                </div>
+            
+            <div class="profile-form-group profile-form-group--full">
+                <label class="profile-form-label">العنوان التفصيلي</label>
+                <textarea class="profile-form-input" id="address" rows="3" placeholder="العنوان التفصيلي">شارع الزبيري، بجوار مسجد النور، عمارة رقم 15، الطابق الثاني</textarea>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Profile Menu Section -->
-    <section class="profile-menu-section">
-        <div class="profile-menu-group">
-            <h3 class="profile-menu-group-title">إدارة الحساب</h3>
-            <div class="profile-menu-grid">
-                <div class="profile-menu-item" data-action="navigate" data-page="personal-info">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">المعلومات الشخصية</span>
-                        <span class="profile-menu-subtitle">تعديل البيانات الأساسية</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
-                </div>
-                
-                <div class="profile-menu-item" data-action="navigate" data-page="security-settings">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">الأمان والخصوصية</span>
-                        <span class="profile-menu-subtitle">كلمة المرور والتحقق</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
-                </div>
-                
-                <div class="profile-menu-item" data-action="navigate" data-page="payment-methods">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">طرق الدفع</span>
-                        <span class="profile-menu-subtitle">إدارة البطاقات والحسابات</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
-                </div>
+    <!-- Business Information Section -->
+    <div class="profile-section">
+        <h3 class="profile-section-title">
+            <i class="fas fa-briefcase"></i>
+            معلومات العمل
+        </h3>
+        
+        <div class="profile-form-grid">
+            <div class="profile-form-group">
+                <label class="profile-form-label">نوع العميل</label>
+                <select class="profile-form-input" id="clientType">
+                    <option value="individual">فرد</option>
+                    <option value="company">شركة</option>
+                    <option value="government">جهة حكومية</option>
+                </select>
+            </div>
+            
+            <div class="profile-form-group">
+                <label class="profile-form-label">المهنة</label>
+                <input type="text" class="profile-form-input" id="profession" value="مهندس" placeholder="المهنة">
+            </div>
+            
+            <div class="profile-form-group profile-form-group--full" id="companyInfo" style="display: none;">
+                <label class="profile-form-label">اسم الشركة</label>
+                <input type="text" class="profile-form-input" id="companyName" placeholder="اسم الشركة">
+            </div>
+            
+            <div class="profile-form-group">
+                <label class="profile-form-label">رقم الهوية</label>
+                <input type="text" class="profile-form-input" id="idNumber" value="123456789" placeholder="رقم الهوية">
+            </div>
+            
+            <div class="profile-form-group">
+                <label class="profile-form-label">نوع الهوية</label>
+                <select class="profile-form-input" id="idType">
+                    <option value="national">هوية وطنية</option>
+                    <option value="passport">جواز سفر</option>
+                    <option value="driving">رخصة قيادة</option>
+                </select>
             </div>
         </div>
+    </div>
 
-        <div class="profile-menu-group">
-            <h3 class="profile-menu-group-title">النشاط والطلبات</h3>
-            <div class="profile-menu-grid">
-                <div class="profile-menu-item" data-action="navigate" data-page="transaction-history">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">سجل المعاملات</span>
-                        <span class="profile-menu-subtitle">جميع معاملاتي السابقة</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
+    <!-- Quick Actions -->
+    <div class="profile-section">
+        <h3 class="profile-section-title">
+            <i class="fas fa-cog"></i>
+            إجراءات سريعة
+        </h3>
+        
+        <div class="profile-quick-actions">
+            <div class="profile-quick-action" data-action="navigate" data-page="settings">
+                <div class="profile-quick-action-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                
-                <div class="profile-menu-item" data-action="navigate" data-page="favorites">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">المفضلة</span>
-                        <span class="profile-menu-subtitle">الخدمات المحفوظة</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
-                </div>
-                
-                <div class="profile-menu-item" data-action="navigate" data-page="reviews">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">تقييماتي</span>
-                        <span class="profile-menu-subtitle">التقييمات والمراجعات</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
+                <div class="profile-quick-action-text">
+                    <h4>الأمان والخصوصية</h4>
+                    <p>إعدادات الأمان والمصادقة</p>
                 </div>
             </div>
-        </div>
-
-        <div class="profile-menu-group">
-            <h3 class="profile-menu-group-title">الدعم والإعدادات</h3>
-            <div class="profile-menu-grid">
-                <div class="profile-menu-item" data-action="navigate" data-page="notifications-settings">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">إعدادات الإشعارات</span>
-                        <span class="profile-menu-subtitle">تخصيص التنبيهات</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
+            
+            <div class="profile-quick-action" data-action="navigate" data-page="settings">
+                <div class="profile-quick-action-icon">
+                    <i class="fas fa-bell"></i>
                 </div>
-                
-                <div class="profile-menu-item" data-action="navigate" data-page="help-support">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">المساعدة والدعم</span>
-                        <span class="profile-menu-subtitle">الأسئلة الشائعة والدعم</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
+                <div class="profile-quick-action-text">
+                    <h4>إعدادات الإشعارات</h4>
+                    <p>تخصيص الإشعارات والتنبيهات</p>
                 </div>
-                
-                <div class="profile-menu-item" data-action="navigate" data-page="billing">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">الفواتير والمدفوعات</span>
-                        <span class="profile-menu-subtitle">إدارة الفواتير والمدفوعات</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
+            </div>
+            
+            <div class="profile-quick-action" data-action="navigate" data-page="settings">
+                <div class="profile-quick-action-icon">
+                    <i class="fas fa-language"></i>
                 </div>
-                
-                <div class="profile-menu-item" data-action="navigate" data-page="about">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-info-circle"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">حول التطبيق</span>
-                        <span class="profile-menu-subtitle">معلومات عن الشركة والتطبيق</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
+                <div class="profile-quick-action-text">
+                    <h4>اللغة والعملة</h4>
+                    <p>تغيير اللغة والعملة المفضلة</p>
                 </div>
-                
-                <div class="profile-menu-item" data-action="navigate" data-page="app-settings">
-                    <div class="profile-menu-icon">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <div class="profile-menu-content">
-                        <span class="profile-menu-title">إعدادات التطبيق</span>
-                        <span class="profile-menu-subtitle">تخصيص الإعدادات</span>
-                    </div>
-                    <div class="profile-menu-action">
-                        <i class="fas fa-chevron-left"></i>
-                    </div>
+            </div>
+            
+            <div class="profile-quick-action" data-action="navigate" data-page="settings">
+                <div class="profile-quick-action-icon">
+                    <i class="fas fa-user-times"></i>
+                </div>
+                <div class="profile-quick-action-text">
+                    <h4>إدارة الحساب</h4>
+                    <p>تسجيل الخروج وحذف الحساب</p>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Logout Section -->
-    <section class="profile-logout-section">
-        <button class="btn btn-outline btn-block profile-logout-btn" data-action="logout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>تسجيل الخروج</span>
-        </button>
-    </section>
+    </div>
 </div> 

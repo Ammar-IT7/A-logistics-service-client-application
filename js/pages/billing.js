@@ -141,7 +141,7 @@ window.BillingController = {
     },
 
     /**
-     * Update bills list
+     * Update bills list in 2-column grid
      */
     updateBillsList: function(bills) {
         const billsContainer = document.querySelector('.billing-bills-container');
@@ -157,7 +157,7 @@ window.BillingController = {
     },
 
     /**
-     * Create bill element
+     * Create bill element optimized for 2-column grid
      */
     createBillElement: function(bill) {
         const billDiv = document.createElement('div');

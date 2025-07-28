@@ -16,7 +16,7 @@
 }
 
 .wallet-balance-card {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--third-color), var(--secondary-color));
     border-radius: var(--border-radius-lg);
     padding: var(--spacing-lg);
     color: var(--white-color);

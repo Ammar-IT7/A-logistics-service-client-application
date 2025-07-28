@@ -217,7 +217,7 @@ window.TransactionHistoryController = {
     },
 
     /**
-     * Render transactions
+     * Render transactions in 2-column grid
      */
     renderTransactions: function() {
         const container = document.getElementById('transactionGrid');
@@ -231,7 +231,7 @@ window.TransactionHistoryController = {
         // Clear container
         container.innerHTML = '';
 
-        // Render transactions
+        // Render transactions in 2-column grid
         transactionsToShow.forEach(transaction => {
             const transactionElement = this.createTransactionElement(transaction);
             container.appendChild(transactionElement);
@@ -242,7 +242,7 @@ window.TransactionHistoryController = {
     },
 
     /**
-     * Create transaction element
+     * Create transaction element optimized for 2-column grid
      */
     createTransactionElement: function(transaction) {
         const element = document.createElement('div');

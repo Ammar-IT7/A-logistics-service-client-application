@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--spacing-md);
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--third-color), var(--secondary-color));
     border-radius: var(--border-radius-lg);
     color: var(--white-color);
     margin-bottom: var(--spacing-md);
