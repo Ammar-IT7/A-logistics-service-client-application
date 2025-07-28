@@ -1,6 +1,6 @@
 /**
  * Reviews and Ratings Page Controller
- * Manages user reviews, ratings, and review interactions
+ * Manages reviews of service providers that the client has used
  */
 window.ReviewsRatingsController = {
     /**
@@ -37,7 +37,7 @@ window.ReviewsRatingsController = {
         }
 
         // Filter tabs
-        document.querySelectorAll('.filter-tab').forEach(tab => {
+        document.querySelectorAll('.reviews-filter-tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
                 this.handleFilterTab(e.target);
             });
@@ -125,12 +125,12 @@ window.ReviewsRatingsController = {
      * Load reviews from storage or API
      */
     loadReviews: function() {
-        // Mock data for reviews
+        // Mock data for reviews of service providers
         this.reviews = [
             {
                 id: 1,
-                reviewerName: 'أحمد محمد',
-                reviewerAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
+                serviceProviderName: 'شركة الشحن السريع',
+                serviceProviderAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
                 rating: 5,
                 title: 'خدمة ممتازة وسريعة',
                 content: 'استخدمت خدمات الشحن البحري وكانت تجربة رائعة. الشحنة وصلت في الوقت المحدد وبحالة ممتازة. الموظفون متعاونون جداً والتواصل كان سلساً. أنصح بالتعامل معهم بشدة.',
@@ -146,8 +146,8 @@ window.ReviewsRatingsController = {
             },
             {
                 id: 2,
-                reviewerName: 'فاطمة علي',
-                reviewerAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
+                serviceProviderName: 'مستودعات الرياض',
+                serviceProviderAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
                 rating: 4,
                 title: 'خدمة جيدة مع بعض التحسينات',
                 content: 'الخدمة بشكل عام جيدة، الشحنة وصلت سالمة. لكن كان هناك تأخير بسيط في التوصيل. التواصل كان جيداً والموظفون متعاونون. أتمنى تحسين سرعة التوصيل.',
@@ -163,8 +163,8 @@ window.ReviewsRatingsController = {
             },
             {
                 id: 3,
-                reviewerName: 'محمد عبدالله',
-                reviewerAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
+                serviceProviderName: 'شركة التخليص الجمركي',
+                serviceProviderAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
                 rating: 5,
                 title: 'أفضل خدمة تخليص جمركي',
                 content: 'استخدمت خدمات التخليص الجمركي وكانت تجربة رائعة. العملية تمت بسرعة وسهولة، والأسعار معقولة. الموظفون محترفون جداً ويقدمون خدمة متميزة. أنصح الجميع بالتعامل معهم.',
@@ -177,6 +177,23 @@ window.ReviewsRatingsController = {
                 notHelpful: 0,
                 isLiked: true,
                 isReported: false
+            },
+            {
+                id: 4,
+                serviceProviderName: 'شركة التغليف المتخصصة',
+                serviceProviderAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
+                rating: 4,
+                title: 'خدمة تغليف ممتازة',
+                content: 'خدمة التغليف والتعبئة كانت ممتازة. المواد المستخدمة عالية الجودة والشحنة وصلت بحالة مثالية. أنصح بالتعامل معهم.',
+                tags: ['جودة عالية', 'حماية ممتازة'],
+                service: 'خدمة التغليف',
+                serviceIcon: 'fas fa-box',
+                date: '2025-01-12',
+                likes: 6,
+                helpful: 4,
+                notHelpful: 1,
+                isLiked: false,
+                isReported: false
             }
         ];
 
@@ -187,11 +204,11 @@ window.ReviewsRatingsController = {
      * Render reviews based on current filter and sort
      */
     renderReviews: function() {
-        const reviewsList = document.getElementById('reviewsList');
-        if (!reviewsList) return;
+        const reviewsGrid = document.getElementById('reviewsGrid');
+        if (!reviewsGrid) return;
 
         // Clear existing reviews
-        reviewsList.innerHTML = '';
+        reviewsGrid.innerHTML = '';
 
         // Get filtered and sorted reviews
         const filteredReviews = this.getFilteredReviews();
@@ -200,7 +217,7 @@ window.ReviewsRatingsController = {
         // Render reviews
         sortedReviews.forEach(review => {
             const reviewElement = this.createReviewElement(review);
-            reviewsList.appendChild(reviewElement);
+            reviewsGrid.appendChild(reviewElement);
         });
 
         // Re-attach event listeners
@@ -243,53 +260,53 @@ window.ReviewsRatingsController = {
      */
     createReviewElement: function(review) {
         const element = document.createElement('div');
-        element.className = 'review-item';
+        element.className = 'reviews-review-item';
         element.dataset.rating = review.rating;
 
         const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-        const tags = review.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+        const tags = review.tags.map(tag => `<span class="reviews-tag">${tag}</span>`).join('');
         const date = this.formatDate(review.date);
 
         element.innerHTML = `
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">
-                        <img src="${review.reviewerAvatar}" alt="${review.reviewerName}">
+            <div class="reviews-review-header">
+                <div class="reviews-reviewer-info">
+                    <div class="reviews-reviewer-avatar">
+                        <img src="${review.serviceProviderAvatar}" alt="${review.serviceProviderName}">
                     </div>
-                    <div class="reviewer-details">
-                        <h4 class="reviewer-name">${review.reviewerName}</h4>
-                        <div class="review-rating">
-                            <span class="stars">${stars}</span>
-                            <span class="review-date">منذ ${date}</span>
+                    <div class="reviews-reviewer-details">
+                        <h4 class="reviews-reviewer-name">${review.serviceProviderName}</h4>
+                        <div class="reviews-review-rating">
+                            <span class="reviews-stars">${stars}</span>
+                            <span class="reviews-review-date">منذ ${date}</span>
                         </div>
                     </div>
                 </div>
-                <div class="review-actions">
-                    <button class="action-btn ${review.isLiked ? 'liked' : ''}" data-action="like-review" data-id="${review.id}">
+                <div class="reviews-review-actions">
+                    <button class="reviews-action-btn ${review.isLiked ? 'liked' : ''}" data-action="like-review" data-id="${review.id}">
                         <i class="far fa-thumbs-up"></i>
-                        <span class="like-count">${review.likes}</span>
+                        <span class="reviews-like-count">${review.likes}</span>
                     </button>
-                    <button class="action-btn" data-action="report-review" data-id="${review.id}">
+                    <button class="reviews-action-btn" data-action="report-review" data-id="${review.id}">
                         <i class="fas fa-flag"></i>
                     </button>
                 </div>
             </div>
-            <div class="review-content">
-                <h5 class="review-title">${review.title}</h5>
-                <p class="review-text">${review.content}</p>
-                <div class="review-tags">
+            <div class="reviews-review-content">
+                <h5 class="reviews-review-title">${review.title}</h5>
+                <p class="reviews-review-text">${review.content}</p>
+                <div class="reviews-review-tags">
                     ${tags}
                 </div>
             </div>
-            <div class="review-footer">
-                <div class="review-service">
+            <div class="reviews-review-footer">
+                <div class="reviews-review-service">
                     <i class="${review.serviceIcon}"></i>
                     <span>${review.service}</span>
                 </div>
-                <div class="review-helpful">
+                <div class="reviews-review-helpful">
                     <span>هل كانت هذه المراجعة مفيدة؟</span>
-                    <button class="helpful-btn" data-action="mark-helpful" data-id="${review.id}">نعم</button>
-                    <button class="helpful-btn" data-action="mark-not-helpful" data-id="${review.id}">لا</button>
+                    <button class="reviews-helpful-btn" data-action="mark-helpful" data-id="${review.id}">نعم</button>
+                    <button class="reviews-helpful-btn" data-action="mark-not-helpful" data-id="${review.id}">لا</button>
                 </div>
             </div>
         `;
@@ -338,7 +355,7 @@ window.ReviewsRatingsController = {
      */
     handleFilterTab: function(tab) {
         // Remove active class from all tabs
-        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.reviews-filter-tab').forEach(t => t.classList.remove('active'));
         
         // Add active class to clicked tab
         tab.classList.add('active');
@@ -377,7 +394,7 @@ window.ReviewsRatingsController = {
             button.classList.add('liked');
         }
         
-        const likeCount = button.querySelector('.like-count');
+        const likeCount = button.querySelector('.reviews-like-count');
         if (likeCount) {
             likeCount.textContent = review.likes;
         }
@@ -462,11 +479,21 @@ window.ReviewsRatingsController = {
      */
     showAddReviewModal: function() {
         Modal.open('add-review', {
-            title: 'إضافة تقييم جديد',
+            title: 'إضافة تقييم لمزود خدمة',
             content: `
                 <div class="add-review-form">
                     <div class="form-group">
-                        <label>الخدمة المقيّمة</label>
+                        <label>مزود الخدمة</label>
+                        <select class="form-control" id="reviewServiceProvider">
+                            <option value="">اختر مزود الخدمة</option>
+                            <option value="shipping-company">شركة الشحن السريع</option>
+                            <option value="storage-company">مستودعات الرياض</option>
+                            <option value="customs-company">شركة التخليص الجمركي</option>
+                            <option value="packaging-company">شركة التغليف المتخصصة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الخدمة المستخدمة</label>
                         <select class="form-control" id="reviewService">
                             <option value="">اختر الخدمة</option>
                             <option value="shipping">خدمة الشحن البحري</option>
@@ -491,7 +518,7 @@ window.ReviewsRatingsController = {
                     </div>
                     <div class="form-group">
                         <label>التقييم التفصيلي</label>
-                        <textarea class="form-control" id="reviewContent" rows="4" placeholder="اكتب تجربتك مع الخدمة..."></textarea>
+                        <textarea class="form-control" id="reviewContent" rows="4" placeholder="اكتب تجربتك مع مزود الخدمة..."></textarea>
                     </div>
                     <div class="form-group">
                         <label>العلامات (اختياري)</label>
@@ -515,12 +542,13 @@ window.ReviewsRatingsController = {
      * Submit new review
      */
     submitReview: function() {
+        const serviceProvider = document.getElementById('reviewServiceProvider').value;
         const service = document.getElementById('reviewService').value;
         const title = document.getElementById('reviewTitle').value;
         const content = document.getElementById('reviewContent').value;
         const tags = document.getElementById('reviewTags').value;
         
-        if (!service || !title || !content) {
+        if (!serviceProvider || !service || !title || !content) {
             Toast.show('خطأ', 'يرجى ملء جميع الحقول المطلوبة', 'error');
             return;
         }
@@ -528,8 +556,8 @@ window.ReviewsRatingsController = {
         // Create new review
         const newReview = {
             id: Date.now(),
-            reviewerName: 'أنت',
-            reviewerAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
+            serviceProviderName: serviceProvider,
+            serviceProviderAvatar: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=',
             rating: 5, // Default rating, should be captured from UI
             title: title,
             content: content,
@@ -584,7 +612,7 @@ window.ReviewsRatingsController = {
         const averageRating = this.reviews.reduce((sum, review) => sum + review.rating, 0) / totalReviews;
         
         // Update overall rating
-        const ratingNumber = document.querySelector('.rating-number');
+        const ratingNumber = document.querySelector('.reviews-rating-number');
         if (ratingNumber) {
             ratingNumber.textContent = averageRating.toFixed(1);
         }
@@ -615,7 +643,7 @@ window.ReviewsRatingsController = {
                 countElement.textContent = count;
             }
             
-            const progressBar = document.querySelector(`[data-rating="${rating}"] .progress-bar`);
+            const progressBar = document.querySelector(`[data-rating="${rating}"] .reviews-progress-bar`);
             if (progressBar) {
                 progressBar.style.width = `${percentage}%`;
             }

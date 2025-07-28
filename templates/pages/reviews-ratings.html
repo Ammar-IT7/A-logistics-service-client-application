@@ -2,7 +2,7 @@
     <button class="header-action" data-action="navigate" data-page="client-home-page" aria-label="رجوع">
         <i class="fas fa-arrow-left" data-action="navigate" data-page="client-home-page"></i>
     </button>
-    <h1 class="header-title">التقييمات والمراجعات</h1>
+    <h1 class="header-title">تقييمات مزودي الخدمات</h1>
     <button class="header-action" data-action="add-review" aria-label="إضافة تقييم">
         <i class="fas fa-plus"></i>
     </button>
@@ -11,52 +11,52 @@
 <div class="content" id="reviews-ratings-page">
     <!-- Reviews Summary -->
     <div class="reviews-summary">
-        <div class="summary-header">
-            <div class="overall-rating">
-                <div class="rating-circle">
-                    <span class="rating-number">4.6</span>
-                    <div class="rating-stars">★★★★☆</div>
+        <div class="reviews-summary-header">
+            <div class="reviews-overall-rating">
+                <div class="reviews-rating-circle">
+                    <span class="reviews-rating-number">4.6</span>
+                    <div class="reviews-rating-stars">★★★★☆</div>
                 </div>
-                <div class="rating-info">
-                    <h3>التقييم العام</h3>
-                    <p>بناءً على <span id="totalReviews">24</span> تقييم</p>
+                <div class="reviews-rating-info">
+                    <h3>متوسط التقييمات</h3>
+                    <p>بناءً على <span id="totalReviews">24</span> تقييم لمزودي الخدمات</p>
                 </div>
             </div>
-            <div class="rating-breakdown">
-                <div class="rating-bar">
-                    <span class="rating-label">5 نجوم</span>
-                    <div class="rating-progress">
-                        <div class="progress-bar" style="width: 75%"></div>
+            <div class="reviews-rating-breakdown">
+                <div class="reviews-rating-bar">
+                    <span class="reviews-rating-label">5 نجوم</span>
+                    <div class="reviews-rating-progress">
+                        <div class="reviews-progress-bar" style="width: 75%"></div>
                     </div>
-                    <span class="rating-count">18</span>
+                    <span class="reviews-rating-count">18</span>
                 </div>
-                <div class="rating-bar">
-                    <span class="rating-label">4 نجوم</span>
-                    <div class="rating-progress">
-                        <div class="progress-bar" style="width: 17%"></div>
+                <div class="reviews-rating-bar">
+                    <span class="reviews-rating-label">4 نجوم</span>
+                    <div class="reviews-rating-progress">
+                        <div class="reviews-progress-bar" style="width: 17%"></div>
                     </div>
-                    <span class="rating-count">4</span>
+                    <span class="reviews-rating-count">4</span>
                 </div>
-                <div class="rating-bar">
-                    <span class="rating-label">3 نجوم</span>
-                    <div class="rating-progress">
-                        <div class="progress-bar" style="width: 8%"></div>
+                <div class="reviews-rating-bar">
+                    <span class="reviews-rating-label">3 نجوم</span>
+                    <div class="reviews-rating-progress">
+                        <div class="reviews-progress-bar" style="width: 8%"></div>
                     </div>
-                    <span class="rating-count">2</span>
+                    <span class="reviews-rating-count">2</span>
                 </div>
-                <div class="rating-bar">
-                    <span class="rating-label">2 نجوم</span>
-                    <div class="rating-progress">
-                        <div class="progress-bar" style="width: 0%"></div>
+                <div class="reviews-rating-bar">
+                    <span class="reviews-rating-label">2 نجوم</span>
+                    <div class="reviews-rating-progress">
+                        <div class="reviews-progress-bar" style="width: 0%"></div>
                     </div>
-                    <span class="rating-count">0</span>
+                    <span class="reviews-rating-count">0</span>
                 </div>
-                <div class="rating-bar">
-                    <span class="rating-label">1 نجمة</span>
-                    <div class="rating-progress">
-                        <div class="progress-bar" style="width: 0%"></div>
+                <div class="reviews-rating-bar">
+                    <span class="reviews-rating-label">1 نجمة</span>
+                    <div class="reviews-rating-progress">
+                        <div class="reviews-progress-bar" style="width: 0%"></div>
                     </div>
-                    <span class="rating-count">0</span>
+                    <span class="reviews-rating-count">0</span>
                 </div>
             </div>
         </div>
@@ -64,29 +64,29 @@
 
     <!-- Filter Tabs -->
     <div class="reviews-filter-tabs">
-        <button class="filter-tab active" data-filter="all">
+        <button class="reviews-filter-tab active" data-filter="all">
             الكل (<span id="allCount">24</span>)
         </button>
-        <button class="filter-tab" data-filter="5">
+        <button class="reviews-filter-tab" data-filter="5">
             5 نجوم (<span id="fiveCount">18</span>)
         </button>
-        <button class="filter-tab" data-filter="4">
+        <button class="reviews-filter-tab" data-filter="4">
             4 نجوم (<span id="fourCount">4</span>)
         </button>
-        <button class="filter-tab" data-filter="3">
+        <button class="reviews-filter-tab" data-filter="3">
             3 نجوم (<span id="threeCount">2</span>)
         </button>
-        <button class="filter-tab" data-filter="2">
+        <button class="reviews-filter-tab" data-filter="2">
             2 نجوم (<span id="twoCount">0</span>)
         </button>
-        <button class="filter-tab" data-filter="1">
+        <button class="reviews-filter-tab" data-filter="1">
             1 نجمة (<span id="oneCount">0</span>)
         </button>
     </div>
 
     <!-- Sort Options -->
     <div class="reviews-sort">
-        <select id="sortReviews" class="sort-select">
+        <select id="sortReviews" class="reviews-sort-select">
             <option value="newest">الأحدث</option>
             <option value="oldest">الأقدم</option>
             <option value="highest">الأعلى تقييماً</option>
@@ -95,152 +95,198 @@
         </select>
     </div>
 
-    <!-- Reviews List -->
-    <div class="reviews-list" id="reviewsList">
+    <!-- Reviews Grid -->
+    <div class="reviews-grid" id="reviewsGrid">
         <!-- Review Item 1 -->
-        <div class="review-item" data-rating="5">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">
+        <div class="reviews-review-item" data-rating="5">
+            <div class="reviews-review-header">
+                <div class="reviews-reviewer-info">
+                    <div class="reviews-reviewer-avatar">
                         <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة المستخدم">
                     </div>
-                    <div class="reviewer-details">
-                        <h4 class="reviewer-name">أحمد محمد</h4>
-                        <div class="review-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="review-date">منذ 3 أيام</span>
+                    <div class="reviews-reviewer-details">
+                        <h4 class="reviews-reviewer-name">شركة الشحن السريع</h4>
+                        <div class="reviews-review-rating">
+                            <span class="reviews-stars">★★★★★</span>
+                            <span class="reviews-review-date">منذ 3 أيام</span>
                         </div>
                     </div>
                 </div>
-                <div class="review-actions">
-                    <button class="action-btn" data-action="like-review" data-id="1">
+                <div class="reviews-review-actions">
+                    <button class="reviews-action-btn" data-action="like-review" data-id="1">
                         <i class="far fa-thumbs-up"></i>
-                        <span class="like-count">12</span>
+                        <span class="reviews-like-count">12</span>
                     </button>
-                    <button class="action-btn" data-action="report-review" data-id="1">
+                    <button class="reviews-action-btn" data-action="report-review" data-id="1">
                         <i class="fas fa-flag"></i>
                     </button>
                 </div>
             </div>
-            <div class="review-content">
-                <h5 class="review-title">خدمة ممتازة وسريعة</h5>
-                <p class="review-text">استخدمت خدمات الشحن البحري وكانت تجربة رائعة. الشحنة وصلت في الوقت المحدد وبحالة ممتازة. الموظفون متعاونون جداً والتواصل كان سلساً. أنصح بالتعامل معهم بشدة.</p>
-                <div class="review-tags">
-                    <span class="tag">سريع</span>
-                    <span class="tag">موثوق</span>
-                    <span class="tag">متعاون</span>
+            <div class="reviews-review-content">
+                <h5 class="reviews-review-title">خدمة ممتازة وسريعة</h5>
+                <p class="reviews-review-text">استخدمت خدمات الشحن البحري وكانت تجربة رائعة. الشحنة وصلت في الوقت المحدد وبحالة ممتازة. الموظفون متعاونون جداً والتواصل كان سلساً. أنصح بالتعامل معهم بشدة.</p>
+                <div class="reviews-review-tags">
+                    <span class="reviews-tag">سريع</span>
+                    <span class="reviews-tag">موثوق</span>
+                    <span class="reviews-tag">متعاون</span>
                 </div>
             </div>
-            <div class="review-footer">
-                <div class="review-service">
+            <div class="reviews-review-footer">
+                <div class="reviews-review-service">
                     <i class="fas fa-ship"></i>
                     <span>خدمة الشحن البحري</span>
                 </div>
-                <div class="review-helpful">
+                <div class="reviews-review-helpful">
                     <span>هل كانت هذه المراجعة مفيدة؟</span>
-                    <button class="helpful-btn" data-action="mark-helpful" data-id="1">نعم</button>
-                    <button class="helpful-btn" data-action="mark-not-helpful" data-id="1">لا</button>
+                    <button class="reviews-helpful-btn" data-action="mark-helpful" data-id="1">نعم</button>
+                    <button class="reviews-helpful-btn" data-action="mark-not-helpful" data-id="1">لا</button>
                 </div>
             </div>
         </div>
 
         <!-- Review Item 2 -->
-        <div class="review-item" data-rating="4">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">
+        <div class="reviews-review-item" data-rating="4">
+            <div class="reviews-review-header">
+                <div class="reviews-reviewer-info">
+                    <div class="reviews-reviewer-avatar">
                         <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة المستخدم">
                     </div>
-                    <div class="reviewer-details">
-                        <h4 class="reviewer-name">فاطمة علي</h4>
-                        <div class="review-rating">
-                            <span class="stars">★★★★☆</span>
-                            <span class="review-date">منذ أسبوع</span>
+                    <div class="reviews-reviewer-details">
+                        <h4 class="reviews-reviewer-name">مستودعات الرياض</h4>
+                        <div class="reviews-review-rating">
+                            <span class="reviews-stars">★★★★☆</span>
+                            <span class="reviews-review-date">منذ أسبوع</span>
                         </div>
                     </div>
                 </div>
-                <div class="review-actions">
-                    <button class="action-btn" data-action="like-review" data-id="2">
+                <div class="reviews-review-actions">
+                    <button class="reviews-action-btn" data-action="like-review" data-id="2">
                         <i class="far fa-thumbs-up"></i>
-                        <span class="like-count">8</span>
+                        <span class="reviews-like-count">8</span>
                     </button>
-                    <button class="action-btn" data-action="report-review" data-id="2">
+                    <button class="reviews-action-btn" data-action="report-review" data-id="2">
                         <i class="fas fa-flag"></i>
                     </button>
                 </div>
             </div>
-            <div class="review-content">
-                <h5 class="review-title">خدمة جيدة مع بعض التحسينات</h5>
-                <p class="review-text">الخدمة بشكل عام جيدة، الشحنة وصلت سالمة. لكن كان هناك تأخير بسيط في التوصيل. التواصل كان جيداً والموظفون متعاونون. أتمنى تحسين سرعة التوصيل.</p>
-                <div class="review-tags">
-                    <span class="tag">جيد</span>
-                    <span class="tag">متأخر قليلاً</span>
-                    <span class="tag">متعاون</span>
+            <div class="reviews-review-content">
+                <h5 class="reviews-review-title">خدمة جيدة مع بعض التحسينات</h5>
+                <p class="reviews-review-text">الخدمة بشكل عام جيدة، الشحنة وصلت سالمة. لكن كان هناك تأخير بسيط في التوصيل. التواصل كان جيداً والموظفون متعاونون. أتمنى تحسين سرعة التوصيل.</p>
+                <div class="reviews-review-tags">
+                    <span class="reviews-tag">جيد</span>
+                    <span class="reviews-tag">متأخر قليلاً</span>
+                    <span class="reviews-tag">متعاون</span>
                 </div>
             </div>
-            <div class="review-footer">
-                <div class="review-service">
+            <div class="reviews-review-footer">
+                <div class="reviews-review-service">
                     <i class="fas fa-warehouse"></i>
                     <span>خدمة التخزين</span>
                 </div>
-                <div class="review-helpful">
+                <div class="reviews-review-helpful">
                     <span>هل كانت هذه المراجعة مفيدة؟</span>
-                    <button class="helpful-btn" data-action="mark-helpful" data-id="2">نعم</button>
-                    <button class="helpful-btn" data-action="mark-not-helpful" data-id="2">لا</button>
+                    <button class="reviews-helpful-btn" data-action="mark-helpful" data-id="2">نعم</button>
+                    <button class="reviews-helpful-btn" data-action="mark-not-helpful" data-id="2">لا</button>
                 </div>
             </div>
         </div>
 
         <!-- Review Item 3 -->
-        <div class="review-item" data-rating="5">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="reviewer-avatar">
+        <div class="reviews-review-item" data-rating="5">
+            <div class="reviews-review-header">
+                <div class="reviews-reviewer-info">
+                    <div class="reviews-reviewer-avatar">
                         <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة المستخدم">
                     </div>
-                    <div class="reviewer-details">
-                        <h4 class="reviewer-name">محمد عبدالله</h4>
-                        <div class="review-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="review-date">منذ أسبوعين</span>
+                    <div class="reviews-reviewer-details">
+                        <h4 class="reviews-reviewer-name">شركة التخليص الجمركي</h4>
+                        <div class="reviews-review-rating">
+                            <span class="reviews-stars">★★★★★</span>
+                            <span class="reviews-review-date">منذ أسبوعين</span>
                         </div>
                     </div>
                 </div>
-                <div class="review-actions">
-                    <button class="action-btn" data-action="like-review" data-id="3">
+                <div class="reviews-review-actions">
+                    <button class="reviews-action-btn" data-action="like-review" data-id="3">
                         <i class="far fa-thumbs-up"></i>
-                        <span class="like-count">15</span>
+                        <span class="reviews-like-count">15</span>
                     </button>
-                    <button class="action-btn" data-action="report-review" data-id="3">
+                    <button class="reviews-action-btn" data-action="report-review" data-id="3">
                         <i class="fas fa-flag"></i>
                     </button>
                 </div>
             </div>
-            <div class="review-content">
-                <h5 class="review-title">أفضل خدمة تخليص جمركي</h5>
-                <p class="review-text">استخدمت خدمات التخليص الجمركي وكانت تجربة رائعة. العملية تمت بسرعة وسهولة، والأسعار معقولة. الموظفون محترفون جداً ويقدمون خدمة متميزة. أنصح الجميع بالتعامل معهم.</p>
-                <div class="review-tags">
-                    <span class="tag">سريع</span>
-                    <span class="tag">محترف</span>
-                    <span class="tag">أسعار معقولة</span>
+            <div class="reviews-review-content">
+                <h5 class="reviews-review-title">أفضل خدمة تخليص جمركي</h5>
+                <p class="reviews-review-text">استخدمت خدمات التخليص الجمركي وكانت تجربة رائعة. العملية تمت بسرعة وسهولة، والأسعار معقولة. الموظفون محترفون جداً ويقدمون خدمة متميزة. أنصح الجميع بالتعامل معهم.</p>
+                <div class="reviews-review-tags">
+                    <span class="reviews-tag">سريع</span>
+                    <span class="reviews-tag">محترف</span>
+                    <span class="reviews-tag">أسعار معقولة</span>
                 </div>
             </div>
-            <div class="review-footer">
-                <div class="review-service">
+            <div class="reviews-review-footer">
+                <div class="reviews-review-service">
                     <i class="fas fa-clipboard-check"></i>
                     <span>خدمة التخليص الجمركي</span>
                 </div>
-                <div class="review-helpful">
+                <div class="reviews-review-helpful">
                     <span>هل كانت هذه المراجعة مفيدة؟</span>
-                    <button class="helpful-btn" data-action="mark-helpful" data-id="3">نعم</button>
-                    <button class="helpful-btn" data-action="mark-not-helpful" data-id="3">لا</button>
+                    <button class="reviews-helpful-btn" data-action="mark-helpful" data-id="3">نعم</button>
+                    <button class="reviews-helpful-btn" data-action="mark-not-helpful" data-id="3">لا</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Item 4 -->
+        <div class="reviews-review-item" data-rating="4">
+            <div class="reviews-review-header">
+                <div class="reviews-reviewer-info">
+                    <div class="reviews-reviewer-avatar">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjOTk5Ij7Yp9mE2LbYp9it2YbYqTwvdGV4dD48L3N2Zz4=" alt="صورة المستخدم">
+                    </div>
+                    <div class="reviews-reviewer-details">
+                        <h4 class="reviews-reviewer-name">شركة التغليف المتخصصة</h4>
+                        <div class="reviews-review-rating">
+                            <span class="reviews-stars">★★★★☆</span>
+                            <span class="reviews-review-date">منذ 5 أيام</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reviews-review-actions">
+                    <button class="reviews-action-btn" data-action="like-review" data-id="4">
+                        <i class="far fa-thumbs-up"></i>
+                        <span class="reviews-like-count">6</span>
+                    </button>
+                    <button class="reviews-action-btn" data-action="report-review" data-id="4">
+                        <i class="fas fa-flag"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="reviews-review-content">
+                <h5 class="reviews-review-title">خدمة تغليف ممتازة</h5>
+                <p class="reviews-review-text">خدمة التغليف والتعبئة كانت ممتازة. المواد المستخدمة عالية الجودة والشحنة وصلت بحالة مثالية. أنصح بالتعامل معهم.</p>
+                <div class="reviews-review-tags">
+                    <span class="reviews-tag">جودة عالية</span>
+                    <span class="reviews-tag">حماية ممتازة</span>
+                </div>
+            </div>
+            <div class="reviews-review-footer">
+                <div class="reviews-review-service">
+                    <i class="fas fa-box"></i>
+                    <span>خدمة التغليف</span>
+                </div>
+                <div class="reviews-review-helpful">
+                    <span>هل كانت هذه المراجعة مفيدة؟</span>
+                    <button class="reviews-helpful-btn" data-action="mark-helpful" data-id="4">نعم</button>
+                    <button class="reviews-helpful-btn" data-action="mark-not-helpful" data-id="4">لا</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Load More Button -->
-    <div class="load-more-section">
+    <div class="reviews-load-more-section">
         <button class="btn btn-outline btn-block" id="loadMoreReviews" data-action="load-more-reviews">
             <i class="fas fa-plus"></i>
             تحميل المزيد من التقييمات
@@ -248,10 +294,10 @@
     </div>
 
     <!-- Add Review Modal Trigger -->
-    <div class="add-review-section">
+    <div class="reviews-add-review-section">
         <button class="btn btn-primary btn-block" data-action="show-add-review-modal">
             <i class="fas fa-plus"></i>
-            أضف تقييمك
+            أضف تقييمك لمزود خدمة
         </button>
     </div>
 </div> 
