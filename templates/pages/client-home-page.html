@@ -2,7 +2,7 @@
 <button class="header-action" data-action="profile" aria-label="الملف الشخصي">
     <i class="fas fa-user-circle"></i>
 </button>
-    <button class="header-action" data-action="notifications" aria-label="الإشعارات">
+    <button class="header-action" data-action="navigate" data-page="notifications" aria-label="الإشعارات">
         <i class="fas fa-bell"></i>
     </button>
     <button class="header-action" data-action="toggle-theme" aria-label="تغيير النمط">
@@ -350,11 +350,13 @@
 <div id="clientProfileDrawer" class="cpd-drawer-overlay">
     <div class="cpd-drawer-content">
         <button class="cpd-drawer-close" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+        
         <div class="cpd-profile-header">
-            <img src="https://placehold.co/80x80/282460/FAAE43?text=A" alt="صورة العميل" class="cpd-profile-avatar">
+            <img src="https://placehold.co/80x80/282460/FAAE43?text=أ" alt="صورة العميل" class="cpd-profile-avatar">
             <h2 class="cpd-profile-name">أهلاً، عبد الله</h2>
             <p class="cpd-profile-email">abdullah@example.com</p>
         </div>
+        
         <div class="cpd-balance-section">
             <h3 class="cpd-section-title">رصيدي</h3>
             <div class="cpd-balance-card">
@@ -369,15 +371,48 @@
                 </div>
             </div>
         </div>
+        
         <nav class="cpd-profile-nav">
-            <a href="#" class="cpd-nav-item"><i class="fas fa-user-edit"></i> تعديل الملف الشخصي</a>
-            <a href="#" class="cpd-nav-item"><i class="fas fa-history"></i> سجل المعاملات</a>
-            <a href="#" class="cpd-nav-item"><i class="fas fa-cog"></i> إعدادات الحساب</a>
-            <a href="#" class="cpd-nav-item"><i class="fas fa-shield-alt"></i> الأمن والخصوصية</a>
-            <a href="#" class="cpd-nav-item cpd-logout"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="personal-info">
+                <i class="fas fa-user-edit"></i> تعديل الملف الشخصي
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="transaction-history">
+                <i class="fas fa-history"></i> سجل المعاملات
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="favorites">
+                <i class="fas fa-heart"></i> المفضلة
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="reviews">
+                <i class="fas fa-star"></i> تقييماتي
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="notifications">
+                <i class="fas fa-bell"></i> الإشعارات
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="help-support">
+                <i class="fas fa-question-circle"></i> المساعدة والدعم
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="settings">
+                <i class="fas fa-cog"></i> الإعدادات
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="about">
+                <i class="fas fa-info-circle"></i> حول التطبيق
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="billing">
+                <i class="fas fa-file-invoice-dollar"></i> الفواتير والمدفوعات
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="payment-methods">
+                <i class="fas fa-credit-card"></i> طرق الدفع
+            </a>
+            <a href="#" class="cpd-nav-item" data-action="navigate" data-page="chat-support">
+                <i class="fas fa-comments"></i> الدردشة المباشرة
+            </a>
+            <a href="#" class="cpd-nav-item cpd-logout" data-action="logout">
+                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+            </a>
         </nav>
+        
         <div class="cpd-drawer-footer">
-            <p>&copy; 2024 Your Company Name</p>
+            <p>&copy; 2024 Enova Studio</p>
         </div>
     </div>
 </div>

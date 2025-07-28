@@ -1,0 +1,203 @@
+<div class="content" id="transaction-history-page">
+    <!-- Header -->
+    <div class="header">
+        <button class="header-action" data-action="navigate" data-page="wallet" aria-label="رجوع">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="header-title">سجل المعاملات</h1>
+        <button class="header-action" data-action="open-modal" data-modal="filter-transactions">
+            <i class="fas fa-filter"></i>
+        </button>
+    </div>
+
+    <!-- Transaction Stats -->
+    <div class="transaction-stats">
+        <div class="stat-card">
+            <div class="stat-icon income">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="stat-content">
+                <span class="stat-value">+2,450 ريال</span>
+                <span class="stat-label">إجمالي الإيداعات</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon expense">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            <div class="stat-content">
+                <span class="stat-value">-1,280 ريال</span>
+                <span class="stat-label">إجمالي المدفوعات</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">الكل</button>
+        <button class="filter-tab" data-filter="income">الإيداعات</button>
+        <button class="filter-tab" data-filter="expense">المدفوعات</button>
+        <button class="filter-tab" data-filter="pending">قيد الانتظار</button>
+    </div>
+
+    <!-- Transactions List -->
+    <div class="transactions-container">
+        <!-- Transaction Item -->
+        <div class="transaction-item income" data-type="income">
+            <div class="transaction-icon">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="transaction-details">
+                <div class="transaction-header">
+                    <h3 class="transaction-title">إيداع من البنك</h3>
+                    <span class="transaction-amount positive">+500 ريال</span>
+                </div>
+                <div class="transaction-meta">
+                    <span class="transaction-date">اليوم، 14:30</span>
+                    <span class="transaction-status completed">مكتمل</span>
+                </div>
+                <div class="transaction-description">
+                    إيداع من حساب بنك الرياض
+                </div>
+            </div>
+            <button class="transaction-action" data-action="view-transaction" data-id="1">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <!-- Transaction Item -->
+        <div class="transaction-item expense" data-type="expense">
+            <div class="transaction-icon">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            <div class="transaction-details">
+                <div class="transaction-header">
+                    <h3 class="transaction-title">دفع خدمة الشحن</h3>
+                    <span class="transaction-amount negative">-180 ريال</span>
+                </div>
+                <div class="transaction-meta">
+                    <span class="transaction-date">أمس، 09:15</span>
+                    <span class="transaction-status completed">مكتمل</span>
+                </div>
+                <div class="transaction-description">
+                    دفع لشركة الشحن السريع - طلب #12345
+                </div>
+            </div>
+            <button class="transaction-action" data-action="view-transaction" data-id="2">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <!-- Transaction Item -->
+        <div class="transaction-item income" data-type="income">
+            <div class="transaction-icon">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="transaction-details">
+                <div class="transaction-header">
+                    <h3 class="transaction-title">استرداد مالي</h3>
+                    <span class="transaction-amount positive">+75 ريال</span>
+                </div>
+                <div class="transaction-meta">
+                    <span class="transaction-date">منذ يومين، 16:45</span>
+                    <span class="transaction-status completed">مكتمل</span>
+                </div>
+                <div class="transaction-description">
+                    استرداد رسوم إضافية - طلب #12340
+                </div>
+            </div>
+            <button class="transaction-action" data-action="view-transaction" data-id="3">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <!-- Transaction Item -->
+        <div class="transaction-item expense" data-type="expense">
+            <div class="transaction-icon">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            <div class="transaction-details">
+                <div class="transaction-header">
+                    <h3 class="transaction-title">دفع خدمة التخزين</h3>
+                    <span class="transaction-amount negative">-320 ريال</span>
+                </div>
+                <div class="transaction-meta">
+                    <span class="transaction-date">منذ 3 أيام، 11:20</span>
+                    <span class="transaction-status pending">قيد الانتظار</span>
+                </div>
+                <div class="transaction-description">
+                    دفع شهري لمستودع الرياض - يناير 2024
+                </div>
+            </div>
+            <button class="transaction-action" data-action="view-transaction" data-id="4">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <!-- Transaction Item -->
+        <div class="transaction-item income" data-type="income">
+            <div class="transaction-icon">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="transaction-details">
+                <div class="transaction-header">
+                    <h3 class="transaction-title">إيداع من المحفظة</h3>
+                    <span class="transaction-amount positive">+1,200 ريال</span>
+                </div>
+                <div class="transaction-meta">
+                    <span class="transaction-date">منذ أسبوع، 08:30</span>
+                    <span class="transaction-status completed">مكتمل</span>
+                </div>
+                <div class="transaction-description">
+                    تحويل من Apple Pay
+                </div>
+            </div>
+            <button class="transaction-action" data-action="view-transaction" data-id="5">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <!-- Transaction Item -->
+        <div class="transaction-item expense" data-type="expense">
+            <div class="transaction-icon">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+            <div class="transaction-details">
+                <div class="transaction-header">
+                    <h3 class="transaction-title">رسوم التخليص الجمركي</h3>
+                    <span class="transaction-amount negative">-450 ريال</span>
+                </div>
+                <div class="transaction-meta">
+                    <span class="transaction-date">منذ أسبوع، 14:15</span>
+                    <span class="transaction-status completed">مكتمل</span>
+                </div>
+                <div class="transaction-description">
+                    رسوم جمركية - شحنة #78901
+                </div>
+            </div>
+            <button class="transaction-action" data-action="view-transaction" data-id="6">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Load More -->
+    <div class="load-more-section">
+        <button class="btn btn-outline" data-action="load-more-transactions">
+            <i class="fas fa-plus"></i>
+            تحميل المزيد
+        </button>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state hidden">
+        <div class="empty-state-icon">
+            <i class="fas fa-receipt"></i>
+        </div>
+        <h3 class="empty-state-title">لا توجد معاملات</h3>
+        <p class="empty-state-description">لم يتم العثور على معاملات تطابق المعايير المحددة</p>
+        <button class="btn btn-primary" data-action="reset-filters">
+            إعادة تعيين الفلاتر
+        </button>
+    </div>
+</div> 

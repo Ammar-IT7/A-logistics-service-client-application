@@ -1,0 +1,247 @@
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="client-home-page" aria-label="رجوع">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header-title">الملف الشخصي</h1>
+    <button class="header-action" data-action="edit-profile" aria-label="تعديل">
+        <i class="fas fa-edit"></i>
+    </button>
+</div>
+
+<div class="content" id="profile-page">
+    <!-- Profile Header Section -->
+    <section class="profile-header-section">
+        <div class="profile-avatar-container">
+            <div class="profile-avatar">
+                <img src="https://placehold.co/120x120/282460/FAAE43?text=أ" alt="الصورة الشخصية" id="profileAvatar">
+                <div class="profile-avatar-overlay">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <div class="profile-status">
+                <span class="status-indicator online"></span>
+                <span class="status-text">متصل</span>
+            </div>
+        </div>
+        
+        <div class="profile-info">
+            <h2 class="profile-name" id="profileName">أحمد محمد علي</h2>
+            <p class="profile-email" id="profileEmail">ahmed.mohamed@example.com</p>
+            <div class="profile-verification">
+                <i class="fas fa-check-circle verified"></i>
+                <span>حساب موثق</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats Section -->
+    <section class="profile-stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">الطلبات</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">4.8</div>
+                    <div class="stat-label">التقييم</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">المفضلة</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">2,450</div>
+                    <div class="stat-label">ر.ي</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Menu Section -->
+    <section class="profile-menu-section">
+        <div class="menu-group">
+            <h3 class="menu-group-title">إدارة الحساب</h3>
+            <div class="menu-list">
+                <div class="menu-item" data-action="navigate" data-page="personal-info">
+                    <div class="menu-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">المعلومات الشخصية</span>
+                        <span class="menu-subtitle">تعديل البيانات الأساسية</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-action="navigate" data-page="security-settings">
+                    <div class="menu-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">الأمان والخصوصية</span>
+                        <span class="menu-subtitle">كلمة المرور والتحقق</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-action="navigate" data-page="payment-methods">
+                    <div class="menu-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">طرق الدفع</span>
+                        <span class="menu-subtitle">إدارة البطاقات والحسابات</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <h3 class="menu-group-title">النشاط والطلبات</h3>
+            <div class="menu-list">
+                <div class="menu-item" data-action="navigate" data-page="transaction-history">
+                    <div class="menu-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">سجل المعاملات</span>
+                        <span class="menu-subtitle">جميع معاملاتي السابقة</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-action="navigate" data-page="favorites">
+                    <div class="menu-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">المفضلة</span>
+                        <span class="menu-subtitle">الخدمات المحفوظة</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-action="navigate" data-page="reviews">
+                    <div class="menu-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">تقييماتي</span>
+                        <span class="menu-subtitle">التقييمات والمراجعات</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <h3 class="menu-group-title">الدعم والإعدادات</h3>
+            <div class="menu-list">
+                <div class="menu-item" data-action="navigate" data-page="notifications-settings">
+                    <div class="menu-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">إعدادات الإشعارات</span>
+                        <span class="menu-subtitle">تخصيص التنبيهات</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-action="navigate" data-page="help-support">
+                    <div class="menu-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">المساعدة والدعم</span>
+                        <span class="menu-subtitle">الأسئلة الشائعة والدعم</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-action="navigate" data-page="billing">
+                    <div class="menu-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">الفواتير والمدفوعات</span>
+                        <span class="menu-subtitle">إدارة الفواتير والمدفوعات</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-action="navigate" data-page="about">
+                    <div class="menu-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">حول التطبيق</span>
+                        <span class="menu-subtitle">معلومات عن الشركة والتطبيق</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-action="navigate" data-page="app-settings">
+                    <div class="menu-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="menu-content">
+                        <span class="menu-title">إعدادات التطبيق</span>
+                        <span class="menu-subtitle">تخصيص الإعدادات</span>
+                    </div>
+                    <div class="menu-action">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logout Section -->
+    <section class="logout-section">
+        <button class="btn btn-outline btn-block logout-btn" data-action="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>تسجيل الخروج</span>
+        </button>
+    </section>
+</div> 

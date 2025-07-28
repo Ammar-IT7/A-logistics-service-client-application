@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث - خدمات لوجستية</title>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <button class="header-action" data-action="navigate" data-page="client-home-page" aria-label="رجوع">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="header-title">البحث</h1>
+    </div>
+
+    <div class="content" id="search-page">
+        <!-- Search Interface -->
+        <div class="search-interface">
+            <!-- Main Search Bar -->
+            <div class="main-search-container">
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="mainSearchInput" class="main-search-input" placeholder="ابحث عن خدمات لوجستية، مزودي خدمات، أو أي شيء آخر...">
+                    <button class="search-clear-btn" id="searchClearBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <button class="advanced-search-toggle" id="advancedSearchToggle">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>خيارات متقدمة</span>
+                </button>
+            </div>
+
+            <!-- Advanced Search Panel -->
+            <div class="advanced-search-panel" id="advancedSearchPanel">
+                <div class="search-filters">
+                    <!-- Service Type Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">نوع الخدمة</label>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" value="shipping">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-ship"></i>
+                                <span>شحن بحري</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="air">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-plane"></i>
+                                <span>شحن جوي</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="land">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-truck"></i>
+                                <span>شحن بري</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="warehouse">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-warehouse"></i>
+                                <span>تخزين</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" value="customs">
+                                <span class="checkmark"></span>
+                                <i class="fas fa-passport"></i>
+                                <span>جمارك</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Location Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">الموقع</label>
+                        <div class="location-inputs">
+                            <div class="location-input">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" placeholder="من" id="locationFrom">
+                            </div>
+                            <div class="location-input">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" placeholder="إلى" id="locationTo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Range Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">نطاق السعر</label>
+                        <div class="price-range">
+                            <input type="range" id="priceRange" min="0" max="10000" value="5000">
+                            <div class="price-labels">
+                                <span>0 ريال</span>
+                                <span id="priceValue">5000 ريال</span>
+                                <span>10000 ريال</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rating Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">التقييم</label>
+                        <div class="rating-filter">
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="4">
+                                <span class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span>4 نجوم وأكثر</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="rating" value="3">
+                                <span class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span>3 نجوم وأكثر</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Filter Actions -->
+                    <div class="filter-actions">
+                        <button class="btn btn-outline" id="clearFiltersBtn">مسح الفلاتر</button>
+                        <button class="btn btn-primary" id="applyFiltersBtn">تطبيق الفلاتر</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search History -->
+            <div class="search-history" id="searchHistory">
+                <div class="history-header">
+                    <h3>البحث الأخير</h3>
+                    <button class="clear-history-btn" id="clearHistoryBtn">
+                        <i class="fas fa-trash"></i>
+                        <span>مسح التاريخ</span>
+                    </button>
+                </div>
+                <div class="history-items" id="historyItems">
+                    <!-- History items will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Popular Searches -->
+            <div class="popular-searches">
+                <h3>البحث الشائع</h3>
+                <div class="popular-tags">
+                    <span class="popular-tag" data-search="شحن بحري">شحن بحري</span>
+                    <span class="popular-tag" data-search="تخزين">تخزين</span>
+                    <span class="popular-tag" data-search="جمارك">جمارك</span>
+                    <span class="popular-tag" data-search="شحن سريع">شحن سريع</span>
+                    <span class="popular-tag" data-search="تخليص جمركي">تخليص جمركي</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="search-results" id="searchResults" style="display: none;">
+            <div class="results-header">
+                <div class="results-info">
+                    <h3>نتائج البحث</h3>
+                    <span class="results-count" id="resultsCount">0 نتيجة</span>
+                </div>
+                <div class="results-controls">
+                    <select class="sort-select" id="sortSelect">
+                        <option value="relevance">الأكثر صلة</option>
+                        <option value="price-low">السعر: من الأقل</option>
+                        <option value="price-high">السعر: من الأعلى</option>
+                        <option value="rating">الأعلى تقييماً</option>
+                        <option value="distance">الأقرب</option>
+                    </select>
+                    <button class="view-toggle-btn" id="viewToggleBtn">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-container" id="resultsContainer">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more-section" id="loadMoreSection" style="display: none;">
+                <button class="btn btn-outline" id="loadMoreBtn">
+                    <i class="fas fa-plus"></i>
+                    <span>تحميل المزيد</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- No Results State -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="no-results-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            <h3>لا توجد نتائج</h3>
+            <p>جرب تغيير كلمات البحث أو الفلاتر للحصول على نتائج أفضل</p>
+            <div class="no-results-suggestions">
+                <h4>اقتراحات:</h4>
+                <ul>
+                    <li>تأكد من صحة كتابة الكلمات</li>
+                    <li>جرب كلمات بحث أكثر عمومية</li>
+                    <li>أزل بعض الفلاتر</li>
+                    <li>ابحث في فئة مختلفة</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="search-loading" id="searchLoading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>جاري البحث...</p>
+        </div>
+    </div>
+</body>
+</html> 

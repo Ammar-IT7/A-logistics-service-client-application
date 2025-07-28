@@ -1,0 +1,392 @@
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="client-home-page" aria-label="رجوع">
+        <i class="fas fa-arrow-left" data-action="navigate" data-page="client-home-page"></i>
+    </button>
+    <h1 class="header-title">الإعدادات</h1>
+</div>
+
+<div class="content" id="settings-page">
+    <!-- Profile Settings Section -->
+    <div class="settings-section">
+        <h3 class="settings-section-title">
+            <i class="fas fa-user-cog"></i>
+            إعدادات الحساب
+        </h3>
+        
+        <div class="settings-item" data-action="navigate" data-page="profile">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>الملف الشخصي</h4>
+                    <p>تعديل المعلومات الشخصية والبيانات الأساسية</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="navigate" data-page="addresses">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>العناوين المحفوظة</h4>
+                    <p>إدارة عناوين التحميل والتسليم</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="navigate" data-page="documents">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>المستندات</h4>
+                    <p>إدارة المستندات والوثائق المرفقة</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Settings Section -->
+    <div class="settings-section">
+        <h3 class="settings-section-title">
+            <i class="fas fa-bell"></i>
+            إعدادات الإشعارات
+        </h3>
+        
+        <div class="settings-item">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>إشعارات التطبيق</h4>
+                    <p>تفعيل أو إلغاء الإشعارات العامة</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <label class="switch">
+                    <input type="checkbox" id="appNotifications" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-item">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>إشعارات الشحن</h4>
+                    <p>تحديثات حالة الشحن والتتبع</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <label class="switch">
+                    <input type="checkbox" id="shippingNotifications" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-item">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>إشعارات الدفع</h4>
+                    <p>تأكيدات الدفع والتحويلات</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <label class="switch">
+                    <input type="checkbox" id="paymentNotifications" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-item">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>العروض والخصومات</h4>
+                    <p>إشعارات العروض الخاصة والخصومات</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <label class="switch">
+                    <input type="checkbox" id="offersNotifications">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy & Security Section -->
+    <div class="settings-section">
+        <h3 class="settings-section-title">
+            <i class="fas fa-shield-alt"></i>
+            الخصوصية والأمان
+        </h3>
+        
+        <div class="settings-item" data-action="change-password">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-key"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>تغيير كلمة المرور</h4>
+                    <p>تحديث كلمة المرور الحالية</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="two-factor-auth">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>المصادقة الثنائية</h4>
+                    <p>تفعيل المصادقة عبر الرسائل النصية</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <label class="switch">
+                    <input type="checkbox" id="twoFactorAuth">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="privacy-settings">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>إعدادات الخصوصية</h4>
+                    <p>التحكم في مشاركة البيانات</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Settings Section -->
+    <div class="settings-section">
+        <h3 class="settings-section-title">
+            <i class="fas fa-cog"></i>
+            إعدادات التطبيق
+        </h3>
+        
+        <div class="settings-item" data-action="language-settings">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>اللغة</h4>
+                    <p>العربية (افتراضي)</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="currency-settings">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>العملة</h4>
+                    <p>ريال يمني (YER)</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>الوضع الليلي</h4>
+                    <p>تفعيل المظهر الداكن</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <label class="switch">
+                    <input type="checkbox" id="darkMode">
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-item">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>تحديث تلقائي</h4>
+                    <p>تحديث البيانات عند الاتصال بالإنترنت</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <label class="switch">
+                    <input type="checkbox" id="autoUpdate" checked>
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support & About Section -->
+    <div class="settings-section">
+        <h3 class="settings-section-title">
+            <i class="fas fa-info-circle"></i>
+            الدعم والمعلومات
+        </h3>
+        
+        <div class="settings-item" data-action="navigate" data-page="help-support">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>المساعدة والدعم</h4>
+                    <p>الأسئلة الشائعة والدعم الفني</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="navigate" data-page="chat-support">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>الدردشة المباشرة</h4>
+                    <p>التحدث مع فريق الدعم مباشرة</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="navigate" data-page="billing">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>الفواتير والمدفوعات</h4>
+                    <p>إدارة الفواتير والمدفوعات</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="navigate" data-page="about">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-info"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>حول التطبيق</h4>
+                    <p>معلومات عن الشركة والتطبيق</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item" data-action="terms-privacy">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>الشروط والخصوصية</h4>
+                    <p>شروط الاستخدام وسياسة الخصوصية</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Actions Section -->
+    <div class="settings-section">
+        <h3 class="settings-section-title">
+            <i class="fas fa-user-times"></i>
+            إجراءات الحساب
+        </h3>
+        
+        <div class="settings-item settings-item-danger" data-action="logout">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>تسجيل الخروج</h4>
+                    <p>الخروج من الحساب الحالي</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+
+        <div class="settings-item settings-item-danger" data-action="delete-account">
+            <div class="settings-item-content">
+                <div class="settings-item-icon">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+                <div class="settings-item-text">
+                    <h4>حذف الحساب</h4>
+                    <p>حذف الحساب نهائياً (لا يمكن التراجع)</p>
+                </div>
+            </div>
+            <div class="settings-item-action">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+    </div>
+</div> 

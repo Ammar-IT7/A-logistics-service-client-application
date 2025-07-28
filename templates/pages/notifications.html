@@ -1,0 +1,181 @@
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="client-home-page" aria-label="رجوع">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header-title">الإشعارات</h1>
+    <button class="header-action" data-action="mark-all-read" aria-label="تحديد الكل كمقروء">
+        <i class="fas fa-check-double"></i>
+    </button>
+</div>
+
+<div class="content" id="notifications-page">
+    <!-- Notifications Filter -->
+    <section class="notifications-filter-section">
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">
+                <span class="tab-label">الكل</span>
+                <span class="tab-count">12</span>
+            </button>
+            <button class="filter-tab" data-filter="orders">
+                <span class="tab-label">الطلبات</span>
+                <span class="tab-count">5</span>
+            </button>
+            <button class="filter-tab" data-filter="offers">
+                <span class="tab-label">العروض</span>
+                <span class="tab-count">3</span>
+            </button>
+            <button class="filter-tab" data-filter="system">
+                <span class="tab-label">النظام</span>
+                <span class="tab-count">4</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Notifications List -->
+    <section class="notifications-list-section">
+        <div class="notifications-list" id="notificationsList">
+            <!-- Order Notification -->
+            <div class="notification-item unread" data-type="orders" data-id="1">
+                <div class="notification-icon order">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-header">
+                        <h4 class="notification-title">تم تحديث حالة طلبك</h4>
+                        <span class="notification-time">منذ 5 دقائق</span>
+                    </div>
+                    <p class="notification-message">طلبك رقم #INT-4521 تم شحنه بنجاح من ميناء جدة</p>
+                    <div class="notification-actions">
+                        <button class="btn btn-sm btn-primary" data-action="view-order" data-order-id="INT-4521">عرض التفاصيل</button>
+                        <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="1">تحديد كمقروء</button>
+                    </div>
+                </div>
+                <div class="notification-status">
+                    <span class="unread-indicator"></span>
+                </div>
+            </div>
+
+            <!-- Offer Notification -->
+            <div class="notification-item unread" data-type="offers" data-id="2">
+                <div class="notification-icon offer">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-header">
+                        <h4 class="notification-title">عرض جديد متاح</h4>
+                        <span class="notification-time">منذ 15 دقيقة</span>
+                    </div>
+                    <p class="notification-message">عرض خاص على خدمات التخزين من شركة المخازن الآمنة</p>
+                    <div class="notification-actions">
+                        <button class="btn btn-sm btn-primary" data-action="view-offer" data-offer-id="OFF-001">عرض العرض</button>
+                        <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="2">تحديد كمقروء</button>
+                    </div>
+                </div>
+                <div class="notification-status">
+                    <span class="unread-indicator"></span>
+                </div>
+            </div>
+
+            <!-- System Notification -->
+            <div class="notification-item" data-type="system" data-id="3">
+                <div class="notification-icon system">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-header">
+                        <h4 class="notification-title">تحديث التطبيق متاح</h4>
+                        <span class="notification-time">منذ ساعة</span>
+                    </div>
+                    <p class="notification-message">إصدار جديد من التطبيق متاح للتحميل مع ميزات محسنة</p>
+                    <div class="notification-actions">
+                        <button class="btn btn-sm btn-primary" data-action="update-app">تحديث الآن</button>
+                        <button class="btn btn-sm btn-outline" data-action="dismiss" data-notification-id="3">إخفاء</button>
+                    </div>
+                </div>
+                <div class="notification-status">
+                    <span class="read-indicator"></span>
+                </div>
+            </div>
+
+            <!-- Payment Notification -->
+            <div class="notification-item unread" data-type="orders" data-id="4">
+                <div class="notification-icon payment">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-header">
+                        <h4 class="notification-title">تم خصم المبلغ</h4>
+                        <span class="notification-time">منذ ساعتين</span>
+                    </div>
+                    <p class="notification-message">تم خصم مبلغ 450 ريال من حسابك لطلب #INT-7890</p>
+                    <div class="notification-actions">
+                        <button class="btn btn-sm btn-primary" data-action="view-receipt" data-order-id="INT-7890">عرض الإيصال</button>
+                        <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="4">تحديد كمقروء</button>
+                    </div>
+                </div>
+                <div class="notification-status">
+                    <span class="unread-indicator"></span>
+                </div>
+            </div>
+
+            <!-- Reminder Notification -->
+            <div class="notification-item" data-type="system" data-id="5">
+                <div class="notification-icon reminder">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-header">
+                        <h4 class="notification-title">تذكير: موعد استلام الشحنة</h4>
+                        <span class="notification-time">منذ 3 ساعات</span>
+                    </div>
+                    <p class="notification-message">تذكير: شحنتك #PKG-3345 ستصل غداً في تمام الساعة 10:00 صباحاً</p>
+                    <div class="notification-actions">
+                        <button class="btn btn-sm btn-primary" data-action="track-shipment" data-shipment-id="PKG-3345">تتبع الشحنة</button>
+                        <button class="btn btn-sm btn-outline" data-action="dismiss" data-notification-id="5">إخفاء</button>
+                    </div>
+                </div>
+                <div class="notification-status">
+                    <span class="read-indicator"></span>
+                </div>
+            </div>
+
+            <!-- Review Request -->
+            <div class="notification-item unread" data-type="orders" data-id="6">
+                <div class="notification-icon review">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-header">
+                        <h4 class="notification-title">طلب تقييم الخدمة</h4>
+                        <span class="notification-time">منذ 5 ساعات</span>
+                    </div>
+                    <p class="notification-message">ساعدنا في تحسين خدماتنا من خلال تقييم طلبك #CST-9981</p>
+                    <div class="notification-actions">
+                        <button class="btn btn-sm btn-primary" data-action="rate-service" data-order-id="CST-9981">تقييم الآن</button>
+                        <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="6">تحديد كمقروء</button>
+                    </div>
+                </div>
+                <div class="notification-status">
+                    <span class="unread-indicator"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-state-icon">
+            <i class="fas fa-bell-slash"></i>
+        </div>
+        <h3 class="empty-state-title">لا توجد إشعارات</h3>
+        <p class="empty-state-message">ستظهر هنا جميع الإشعارات الجديدة</p>
+    </div>
+
+    <!-- Load More -->
+    <section class="load-more-section">
+        <button class="btn btn-outline btn-block" id="loadMoreNotifications">
+            <i class="fas fa-chevron-down"></i>
+            <span>تحميل المزيد</span>
+        </button>
+    </section>
+</div> 

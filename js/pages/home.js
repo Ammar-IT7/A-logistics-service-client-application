@@ -123,6 +123,39 @@ window.ClientHomePageController = {
             profileDrawer.addEventListener('click', (e) => {
                 if (e.target === profileDrawer) this.hideProfileDrawer();
             });
+            
+            // Add navigation listeners for drawer menu items
+            const menuItems = profileDrawer.querySelectorAll('.cpd-nav-item[data-action="navigate"]');
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetPage = item.dataset.page;
+                    this.hideProfileDrawer();
+                    // Use the router to navigate to the target page
+                    if (window.Router && window.Router.navigateTo) {
+                        window.Router.navigateTo(targetPage);
+                    } else {
+                        // Fallback navigation
+                        window.location.hash = `#${targetPage}`;
+                    }
+                });
+            });
+            
+            // Add logout listener
+            const logoutItem = profileDrawer.querySelector('.cpd-nav-item[data-action="logout"]');
+            if (logoutItem) {
+                logoutItem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.hideProfileDrawer();
+                    // Handle logout logic
+                    if (window.Auth && window.Auth.logout) {
+                        window.Auth.logout();
+                    } else {
+                        // Fallback logout
+                        window.location.href = '#login';
+                    }
+                });
+            }
         }
 
          // --- Payment Modal Listeners (for Deposit/Withdraw) ---

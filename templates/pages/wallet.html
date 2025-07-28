@@ -1,0 +1,240 @@
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="profile" aria-label="رجوع">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <h1 class="header-title">المحفظة</h1>
+    <button class="header-action" data-action="add-funds" aria-label="إضافة رصيد">
+        <i class="fas fa-plus"></i>
+    </button>
+</div>
+
+<div class="content" id="wallet-page">
+    <!-- Balance Section -->
+    <section class="wallet-balance-section">
+        <div class="balance-card">
+            <div class="balance-header">
+                <h3>الرصيد الحالي</h3>
+                <button class="balance-toggle" data-action="toggle-balance-visibility">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <div class="balance-amount" id="balanceAmount">
+                <span class="amount-value">2,450.00</span>
+                <span class="currency">ر.ي</span>
+            </div>
+            <div class="balance-actions">
+                <button class="btn btn-primary" data-action="add-funds">
+                    <i class="fas fa-plus"></i>
+                    إضافة رصيد
+                </button>
+                <button class="btn btn-outline" data-action="withdraw-funds">
+                    <i class="fas fa-minus"></i>
+                    سحب رصيد
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="wallet-quick-actions">
+        <div class="quick-actions-grid">
+            <div class="quick-action-item" data-action="navigate" data-page="payment-methods">
+                <div class="action-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <span class="action-label">طرق الدفع</span>
+            </div>
+            <div class="quick-action-item" data-action="navigate" data-page="transaction-history">
+                <div class="action-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <span class="action-label">سجل المعاملات</span>
+            </div>
+            <div class="quick-action-item" data-action="navigate" data-page="billing">
+                <div class="action-icon">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                <span class="action-label">الفواتير</span>
+            </div>
+            <div class="quick-action-item" data-action="navigate" data-page="subscriptions">
+                <div class="action-icon">
+                    <i class="fas fa-sync"></i>
+                </div>
+                <span class="action-label">الاشتراكات</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Transactions -->
+    <section class="recent-transactions-section">
+        <div class="section-header">
+            <h3>آخر المعاملات</h3>
+            <button class="view-all-btn" data-action="navigate" data-page="transaction-history">
+                عرض الكل
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        
+        <div class="transactions-list" id="recentTransactionsList">
+            <!-- Transaction Item - Payment -->
+            <div class="transaction-item payment">
+                <div class="transaction-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="transaction-content">
+                    <div class="transaction-header">
+                        <h4 class="transaction-title">دفع طلب #INT-4521</h4>
+                        <span class="transaction-amount negative">-1,250.00 ر.ي</span>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-date">15 يناير 2025 - 10:30 ص</span>
+                        <span class="transaction-status completed">مكتمل</span>
+                    </div>
+                </div>
+                <div class="transaction-action">
+                    <button class="btn btn-sm btn-outline" data-action="view-transaction" data-transaction-id="TXN-001">
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transaction Item - Deposit -->
+            <div class="transaction-item deposit">
+                <div class="transaction-icon">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+                <div class="transaction-content">
+                    <div class="transaction-header">
+                        <h4 class="transaction-title">إضافة رصيد</h4>
+                        <span class="transaction-amount positive">+500.00 ر.ي</span>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-date">14 يناير 2025 - 15:45 م</span>
+                        <span class="transaction-status completed">مكتمل</span>
+                    </div>
+                </div>
+                <div class="transaction-action">
+                    <button class="btn btn-sm btn-outline" data-action="view-transaction" data-transaction-id="TXN-002">
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transaction Item - Refund -->
+            <div class="transaction-item refund">
+                <div class="transaction-icon">
+                    <i class="fas fa-undo"></i>
+                </div>
+                <div class="transaction-content">
+                    <div class="transaction-header">
+                        <h4 class="transaction-title">استرداد طلب #INT-7890</h4>
+                        <span class="transaction-amount positive">+2,100.00 ر.ي</span>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-date">12 يناير 2025 - 09:15 ص</span>
+                        <span class="transaction-status completed">مكتمل</span>
+                    </div>
+                </div>
+                <div class="transaction-action">
+                    <button class="btn btn-sm btn-outline" data-action="view-transaction" data-transaction-id="TXN-003">
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transaction Item - Service Fee -->
+            <div class="transaction-item fee">
+                <div class="transaction-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="transaction-content">
+                    <div class="transaction-header">
+                        <h4 class="transaction-title">رسوم خدمة</h4>
+                        <span class="transaction-amount negative">-25.00 ر.ي</span>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-date">10 يناير 2025 - 14:20 م</span>
+                        <span class="transaction-status completed">مكتمل</span>
+                    </div>
+                </div>
+                <div class="transaction-action">
+                    <button class="btn btn-sm btn-outline" data-action="view-transaction" data-transaction-id="TXN-004">
+                        التفاصيل
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods Preview -->
+    <section class="payment-methods-preview">
+        <div class="section-header">
+            <h3>طرق الدفع</h3>
+            <button class="view-all-btn" data-action="navigate" data-page="payment-methods">
+                إدارة
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        
+        <div class="payment-methods-list">
+            <div class="payment-method-item primary">
+                <div class="payment-method-icon">
+                    <i class="fab fa-cc-visa"></i>
+                </div>
+                <div class="payment-method-content">
+                    <h4>Visa •••• 1234</h4>
+                    <span class="payment-method-type">بطاقة ائتمان</span>
+                </div>
+                <div class="payment-method-status">
+                    <span class="primary-badge">افتراضية</span>
+                </div>
+            </div>
+            
+            <div class="payment-method-item">
+                <div class="payment-method-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <div class="payment-method-content">
+                    <h4>البنك الأهلي</h4>
+                    <span class="payment-method-type">حساب بنكي</span>
+                </div>
+                <div class="payment-method-status">
+                    <span class="verified-badge">موثق</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="wallet-stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">15,200</div>
+                    <div class="stat-label">إجمالي الإيداعات</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">12,750</div>
+                    <div class="stat-label">إجمالي المدفوعات</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">عدد المعاملات</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div> 
