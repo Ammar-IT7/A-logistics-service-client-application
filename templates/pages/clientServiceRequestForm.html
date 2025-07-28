@@ -84,6 +84,43 @@
                         <label for="serviceGeneralDescription" class="form-label">وصف عام للطلب <span class="required-asterisk">*</span></label>
                         <textarea id="serviceGeneralDescription" name="serviceGeneralDescription" class="form-control" rows="4" placeholder="صف بإيجاز ما تحتاجه..." required></textarea>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-label">نوع الطلب <span class="required-asterisk">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-container">
+                                <input type="radio" name="requestType" value="global" checked>
+                                <span class="radio-checkmark"></span>
+                                طلب عام (إرسال لجميع مقدمي الخدمة)
+                            </label>
+                            <label class="radio-container">
+                                <input type="radio" name="requestType" value="direct">
+                                <span class="radio-checkmark"></span>
+                                طلب مباشر (مقدم خدمة محدد)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="serviceProviderSection" class="form-group" style="display: none;">
+                        <label for="providerSearch" class="form-label">ابحث عن مقدم الخدمة <span class="required-asterisk">*</span></label>
+                        <div class="provider-search-container">
+                            <input type="text" id="providerSearch" class="form-control" placeholder="اكتب اسم مقدم الخدمة أو نوع الخدمة..." autocomplete="off">
+                            <div id="providerSearchResults" class="provider-search-results" style="display: none;">
+                                <!-- Search results will be populated here -->
+                            </div>
+                        </div>
+                        <input type="hidden" id="selectedServiceProvider" name="selectedServiceProvider" required>
+                        <div id="selectedProviderDisplay" class="selected-provider-display" style="display: none;">
+                            <div class="selected-provider-info">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="selectedProviderName"></span>
+                                <button type="button" class="btn-remove-provider" onclick="window.ClientServiceRequestFormController.clearSelectedProvider()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">سيتم إرسال طلبك مباشرة إلى مقدم الخدمة المحدد</small>
+                    </div>
                     
                     <div class="form-action dual-buttons">
                         <button type="button" class="btn btn-outline" data-action="goto-slide" data-target="client_info">

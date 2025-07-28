@@ -14,6 +14,7 @@ window.ClientServiceRequestFormController = {
 
         this.setupFormNavigation();
         this.setupConditionalServiceDetails();
+        this.setupServiceProviderSelection();
         this.setupFileUploads();
         this.setupFormSubmission();
         this.setupHeaderActions();
@@ -111,6 +112,165 @@ window.ClientServiceRequestFormController = {
                 this.updateServiceDetailsVisibility();
             });
         }
+    },
+
+    setupServiceProviderSelection: function() {
+        const requestTypeRadios = document.querySelectorAll('input[name="requestType"]');
+        const serviceProviderSection = document.getElementById('serviceProviderSection');
+        const selectedServiceProvider = document.getElementById('selectedServiceProvider');
+        const providerSearch = document.getElementById('providerSearch');
+        const searchResults = document.getElementById('providerSearchResults');
+
+        // Service providers data
+        this.serviceProviders = [
+            { id: 'provider_1', name: 'شركة الشحن السريع', services: ['شحن دولي', 'شحن بحري', 'شحن جوي'], rating: 4.8, location: 'الرياض' },
+            { id: 'provider_2', name: 'مؤسسة النقل الموحد', services: ['نقل بري', 'شاحنات', 'توصيل'], rating: 4.6, location: 'جدة' },
+            { id: 'provider_3', name: 'شركة التخزين الآمن', services: ['تخزين', 'مستودعات', 'إدارة مخزون'], rating: 4.7, location: 'الدمام' },
+            { id: 'provider_4', name: 'مؤسسة التخليص الجمركي', services: ['تخليص جمركي', 'استيراد', 'تصدير'], rating: 4.5, location: 'الرياض' },
+            { id: 'provider_5', name: 'شركة التوصيل السريع', services: ['توصيل داخلي', 'آخر ميل', 'توصيل سريع'], rating: 4.9, location: 'جدة' },
+            { id: 'provider_6', name: 'شركة الشحن البحري المتخصصة', services: ['شحن بحري', 'حاويات', 'بضائع ثقيلة'], rating: 4.4, location: 'الدمام' },
+            { id: 'provider_7', name: 'مؤسسة النقل الجوي السريع', services: ['شحن جوي', 'بضائع عاجلة', 'وثائق'], rating: 4.8, location: 'الرياض' },
+            { id: 'provider_8', name: 'شركة التغليف والتعبئة', services: ['تغليف', 'تعبئة', 'حماية البضائع'], rating: 4.3, location: 'جدة' }
+        ];
+
+        requestTypeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'direct') {
+                    serviceProviderSection.style.display = 'block';
+                    selectedServiceProvider.setAttribute('required', '');
+                    providerSearch.focus();
+                } else {
+                    serviceProviderSection.style.display = 'none';
+                    selectedServiceProvider.removeAttribute('required');
+                    selectedServiceProvider.value = '';
+                    this.clearSelectedProvider();
+                }
+            });
+        });
+
+        // Setup search functionality
+        this.setupProviderSearch();
+    },
+
+    setupProviderSearch: function() {
+        const providerSearch = document.getElementById('providerSearch');
+        const searchResults = document.getElementById('providerSearchResults');
+
+        providerSearch.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            const filteredProviders = this.serviceProviders.filter(provider => 
+                provider.name.toLowerCase().includes(query.toLowerCase()) ||
+                provider.services.some(service => service.toLowerCase().includes(query.toLowerCase())) ||
+                provider.location.toLowerCase().includes(query.toLowerCase())
+            );
+
+            this.displaySearchResults(filteredProviders);
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.provider-search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Handle keyboard navigation
+        providerSearch.addEventListener('keydown', (e) => {
+            const visibleResults = searchResults.querySelectorAll('.provider-result-item');
+            const currentIndex = Array.from(visibleResults).findIndex(item => item.classList.contains('highlighted'));
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                const nextIndex = currentIndex < visibleResults.length - 1 ? currentIndex + 1 : 0;
+                this.highlightSearchResult(nextIndex);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                const prevIndex = currentIndex > 0 ? currentIndex - 1 : visibleResults.length - 1;
+                this.highlightSearchResult(prevIndex);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                const highlightedItem = searchResults.querySelector('.provider-result-item.highlighted');
+                if (highlightedItem) {
+                    this.selectProvider(highlightedItem.getAttribute('data-provider-id'));
+                }
+            } else if (e.key === 'Escape') {
+                searchResults.style.display = 'none';
+                providerSearch.blur();
+            }
+        });
+    },
+
+    displaySearchResults: function(providers) {
+        const searchResults = document.getElementById('providerSearchResults');
+        
+        if (providers.length === 0) {
+            searchResults.innerHTML = '<div class="no-results">لا توجد نتائج</div>';
+            searchResults.style.display = 'block';
+            return;
+        }
+
+        const resultsHTML = providers.map(provider => `
+            <div class="provider-result-item" data-provider-id="${provider.id}" onclick="window.ClientServiceRequestFormController.selectProvider('${provider.id}')">
+                <div class="provider-info">
+                    <div class="provider-name">${provider.name}</div>
+                    <div class="provider-services">${provider.services.join(' • ')}</div>
+                    <div class="provider-location">
+                        <i class="fas fa-map-marker-alt"></i> ${provider.location}
+                        <span class="provider-rating">
+                            <i class="fas fa-star"></i> ${provider.rating}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        searchResults.innerHTML = resultsHTML;
+        searchResults.style.display = 'block';
+    },
+
+    highlightSearchResult: function(index) {
+        const searchResults = document.getElementById('providerSearchResults');
+        const items = searchResults.querySelectorAll('.provider-result-item');
+        
+        items.forEach(item => item.classList.remove('highlighted'));
+        if (items[index]) {
+            items[index].classList.add('highlighted');
+        }
+    },
+
+    selectProvider: function(providerId) {
+        const provider = this.serviceProviders.find(p => p.id === providerId);
+        if (!provider) return;
+
+        const selectedServiceProvider = document.getElementById('selectedServiceProvider');
+        const selectedProviderName = document.getElementById('selectedProviderName');
+        const selectedProviderDisplay = document.getElementById('selectedProviderDisplay');
+        const providerSearch = document.getElementById('providerSearch');
+        const searchResults = document.getElementById('providerSearchResults');
+
+        selectedServiceProvider.value = providerId;
+        selectedProviderName.textContent = provider.name;
+        selectedProviderDisplay.style.display = 'block';
+        providerSearch.value = '';
+        searchResults.style.display = 'none';
+
+        // Remove validation error if any
+        providerSearch.classList.remove('is-invalid');
+    },
+
+    clearSelectedProvider: function() {
+        const selectedServiceProvider = document.getElementById('selectedServiceProvider');
+        const selectedProviderDisplay = document.getElementById('selectedProviderDisplay');
+        const providerSearch = document.getElementById('providerSearch');
+
+        selectedServiceProvider.value = '';
+        selectedProviderDisplay.style.display = 'none';
+        providerSearch.value = '';
     },
 
     updateServiceDetailsVisibility: function() {
@@ -246,6 +406,20 @@ window.ClientServiceRequestFormController = {
                 continue;
             }
 
+            // Skip service provider validation if it's not visible (global request)
+            if (input.id === 'selectedServiceProvider' && window.getComputedStyle(input.closest('#serviceProviderSection')).display === 'none') {
+                continue;
+            }
+
+            // Add validation for provider search when direct request is selected
+            if (input.id === 'selectedServiceProvider' && input.value === '') {
+                const providerSearch = document.getElementById('providerSearch');
+                if (providerSearch) {
+                    providerSearch.classList.add('is-invalid');
+                    this.showToast('يرجى اختيار مقدم الخدمة', 'error');
+                }
+            }
+
             let fieldValid = true;
             
             if (input.type === 'radio') {
@@ -333,8 +507,31 @@ window.ClientServiceRequestFormController = {
             }
         });
 
+        // Determine request type and show appropriate message
+        const requestType = dataObject.requestType || 'global';
+        let message = '';
+        
+        if (requestType === 'direct') {
+            const selectedProvider = dataObject.selectedServiceProvider;
+            const providerName = this.getProviderName(selectedProvider);
+            message = `تم إرسال طلبك مباشرة إلى ${providerName}! سيتم التواصل معك قريباً`;
+        } else {
+            message = 'تم إرسال طلبك العام بنجاح! سيتم إرساله لجميع مقدمي الخدمة المناسبين';
+        }
+
         console.log("بيانات الطلب:", dataObject);
-        this.showToast('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً', 'success', 5000);
+        this.showToast(message, 'success', 5000);
+    },
+
+    getProviderName: function(providerId) {
+        const providers = {
+            'provider_1': 'شركة الشحن السريع',
+            'provider_2': 'مؤسسة النقل الموحد',
+            'provider_3': 'شركة التخزين الآمن',
+            'provider_4': 'مؤسسة التخليص الجمركي',
+            'provider_5': 'شركة التوصيل السريع'
+        };
+        return providers[providerId] || 'مقدم الخدمة المحدد';
     },
 
     showToast: function(message, type = 'info', duration = 3000) {
