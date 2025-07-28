@@ -90,34 +90,32 @@ window.NotificationsController = {
      */
     createNotificationElement: function(notification) {
         const element = document.createElement('div');
-        element.className = `notifications-item ${notification.isRead ? '' : 'unread'}`;
+        element.className = `noti-item ${notification.isRead ? '' : 'unread'}`;
         element.dataset.type = notification.type;
         element.dataset.id = notification.id;
 
         const iconClass = this.getNotificationIconClass(notification.type);
         
         element.innerHTML = `
-            <div class="notifications-icon ${notification.type}">
+            <div class="noti-icon ${notification.type}">
                 <i class="${iconClass}"></i>
             </div>
-            <div class="notifications-content">
-                <div class="notifications-header">
-                    <h4 class="notifications-title">${notification.title}</h4>
-                    <span class="notifications-time">${notification.time}</span>
-                </div>
-                <p class="notifications-message">${notification.message}</p>
-                <div class="notifications-actions">
-                    ${notification.actions.map(action => `
-                        <button class="btn btn-sm ${action.action === 'mark-read' || action.action === 'dismiss' ? 'btn-outline' : 'btn-primary'}" 
-                                data-action="${action.action}" 
-                                ${action.data ? Object.entries(action.data).map(([key, value]) => `data-${key}="${value}"`).join(' ') : ''}>
-                            ${action.text}
-                        </button>
-                    `).join('')}
-                </div>
+            <div class="noti-header">
+                <h4 class="noti-title">${notification.title}</h4>
+                <span class="noti-time">${notification.time}</span>
             </div>
-            <div class="notifications-status">
-                <span class="${notification.isRead ? 'notifications-read-indicator' : 'notifications-unread-indicator'}"></span>
+            <p class="noti-message">${notification.message}</p>
+            <div class="noti-actions">
+                ${notification.actions.map(action => `
+                    <button class="btn btn-sm ${action.action === 'mark-read' || action.action === 'dismiss' ? 'btn-outline' : 'btn-primary'}" 
+                            data-action="${action.action}" 
+                            ${action.data ? Object.entries(action.data).map(([key, value]) => `data-${key}="${value}"`).join(' ') : ''}>
+                        ${action.text}
+                    </button>
+                `).join('')}
+            </div>
+            <div class="noti-status">
+                <span class="${notification.isRead ? 'noti-read-indicator' : 'noti-unread-indicator'}"></span>
             </div>
         `;
 
@@ -150,7 +148,7 @@ window.NotificationsController = {
         }
 
         // Filter tabs
-        const filterTabs = document.querySelectorAll('.notifications-filter-tab');
+        const filterTabs = document.querySelectorAll('.noti-filter-tab');
         filterTabs.forEach(tab => {
             tab.addEventListener('click', this.handleFilterChange.bind(this));
         });
@@ -180,7 +178,7 @@ window.NotificationsController = {
         const filter = event.currentTarget.dataset.filter;
         
         // Update active tab
-        document.querySelectorAll('.notifications-filter-tab').forEach(tab => {
+        document.querySelectorAll('.noti-filter-tab').forEach(tab => {
             tab.classList.remove('active');
         });
         event.currentTarget.classList.add('active');
@@ -195,7 +193,7 @@ window.NotificationsController = {
     applyFilter: function(filter) {
         this.currentFilter = filter;
         
-        const notifications = document.querySelectorAll('.notifications-item');
+        const notifications = document.querySelectorAll('.noti-item');
         let visibleCount = 0;
 
         notifications.forEach(notification => {
@@ -268,9 +266,9 @@ window.NotificationsController = {
         const notification = document.querySelector(`[data-id="${notificationId}"]`);
         if (notification) {
             notification.classList.remove('unread');
-            const indicator = notification.querySelector('.notifications-unread-indicator');
+            const indicator = notification.querySelector('.noti-unread-indicator');
             if (indicator) {
-                indicator.className = 'notifications-read-indicator';
+                indicator.className = 'noti-read-indicator';
             }
             
             // Update notification counts
@@ -301,13 +299,13 @@ window.NotificationsController = {
      * Mark all notifications as read
      */
     handleMarkAllRead: function() {
-        const unreadNotifications = document.querySelectorAll('.notifications-item.unread');
+        const unreadNotifications = document.querySelectorAll('.noti-item.unread');
         
         unreadNotifications.forEach(notification => {
             notification.classList.remove('unread');
-            const indicator = notification.querySelector('.notifications-unread-indicator');
+            const indicator = notification.querySelector('.noti-unread-indicator');
             if (indicator) {
-                indicator.className = 'notifications-read-indicator';
+                indicator.className = 'noti-read-indicator';
             }
         });
 
@@ -340,11 +338,11 @@ window.NotificationsController = {
      * Update notification counts
      */
     updateNotificationCounts: function() {
-        const totalCount = document.querySelectorAll('.notifications-item').length;
-        const unreadCount = document.querySelectorAll('.notifications-item.unread').length;
+        const totalCount = document.querySelectorAll('.noti-item').length;
+        const unreadCount = document.querySelectorAll('.noti-item.unread').length;
         
         // Update total count
-        const totalTab = document.querySelector('.notifications-filter-tab[data-filter="all"] .notifications-tab-count');
+        const totalTab = document.querySelector('.noti-filter-tab[data-filter="all"] .noti-tab-count');
         if (totalTab) {
             totalTab.textContent = totalCount;
         }
@@ -368,8 +366,8 @@ window.NotificationsController = {
         const filterTypes = ['orders', 'offers', 'system'];
         
         filterTypes.forEach(type => {
-            const count = document.querySelectorAll(`.notifications-item[data-type="${type}"]`).length;
-            const tab = document.querySelector(`.notifications-filter-tab[data-filter="${type}"] .notifications-tab-count`);
+            const count = document.querySelectorAll(`.noti-item[data-type="${type}"]`).length;
+            const tab = document.querySelector(`.noti-filter-tab[data-filter="${type}"] .noti-tab-count`);
             if (tab) {
                 tab.textContent = count;
             }
@@ -400,7 +398,7 @@ window.NotificationsController = {
      * Check if should show empty state
      */
     checkEmptyState: function() {
-        const visibleNotifications = document.querySelectorAll('.notifications-item[style*="block"]');
+        const visibleNotifications = document.querySelectorAll('.noti-item[style*="block"]');
         if (visibleNotifications.length === 0) {
             this.showEmptyState();
         }
@@ -452,7 +450,7 @@ window.NotificationsController = {
             markAllReadBtn.removeEventListener('click', this.handleMarkAllRead);
         }
 
-        const filterTabs = document.querySelectorAll('.notifications-filter-tab');
+        const filterTabs = document.querySelectorAll('.noti-filter-tab');
         filterTabs.forEach(tab => {
             tab.removeEventListener('click', this.handleFilterChange);
         });

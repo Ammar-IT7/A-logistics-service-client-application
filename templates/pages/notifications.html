@@ -10,169 +10,157 @@
 
 <div class="content" id="notifications-page">
     <!-- Notifications Filter -->
-    <section class="notifications-filter-section">
-        <div class="notifications-filter-tabs">
-            <button class="notifications-filter-tab active" data-filter="all">
-                <span class="notifications-tab-label">الكل</span>
-                <span class="notifications-tab-count">12</span>
+    <section class="noti-filter-section">
+        <div class="noti-filter-tabs">
+            <button class="noti-filter-tab active" data-filter="all">
+                <span class="noti-tab-label">الكل</span>
+                <span class="noti-tab-count">12</span>
             </button>
-            <button class="notifications-filter-tab" data-filter="orders">
-                <span class="notifications-tab-label">الطلبات</span>
-                <span class="notifications-tab-count">5</span>
+            <button class="noti-filter-tab" data-filter="orders">
+                <span class="noti-tab-label">الطلبات</span>
+                <span class="noti-tab-count">5</span>
             </button>
-            <button class="notifications-filter-tab" data-filter="offers">
-                <span class="notifications-tab-label">العروض</span>
-                <span class="notifications-tab-count">3</span>
+            <button class="noti-filter-tab" data-filter="offers">
+                <span class="noti-tab-label">العروض</span>
+                <span class="noti-tab-count">3</span>
             </button>
-            <button class="notifications-filter-tab" data-filter="system">
-                <span class="notifications-tab-label">النظام</span>
-                <span class="notifications-tab-count">4</span>
+            <button class="noti-filter-tab" data-filter="system">
+                <span class="noti-tab-label">النظام</span>
+                <span class="noti-tab-count">4</span>
             </button>
         </div>
     </section>
 
     <!-- Notifications Grid -->
-    <section class="notifications-grid-section">
-        <div class="notifications-grid" id="notificationsGrid">
+    <section class="noti-grid-section">
+        <div class="noti-grid" id="notificationsGrid">
             <!-- Order Notification -->
-            <div class="notifications-item unread" data-type="orders" data-id="1">
-                <div class="notifications-icon order">
+            <div class="noti-item unread" data-type="orders" data-id="1">
+                <div class="noti-icon order">
                     <i class="fas fa-shipping-fast"></i>
                 </div>
-                <div class="notifications-content">
-                    <div class="notifications-header">
-                        <h4 class="notifications-title">تم تحديث حالة طلبك</h4>
-                        <span class="notifications-time">منذ 5 دقائق</span>
-                    </div>
-                    <p class="notifications-message">طلبك رقم #INT-4521 تم شحنه بنجاح من ميناء جدة</p>
-                    <div class="notifications-actions">
-                        <button class="btn btn-sm btn-primary" data-action="view-order" data-order-id="INT-4521">عرض التفاصيل</button>
-                        <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="1">تحديد كمقروء</button>
-                    </div>
+                <div class="noti-header">
+                    <h4 class="noti-title">تم تحديث حالة طلبك</h4>
+                    <span class="noti-time">منذ 5 دقائق</span>
                 </div>
-                <div class="notifications-status">
-                    <span class="notifications-unread-indicator"></span>
+                <p class="noti-message">طلبك رقم #INT-4521 تم شحنه بنجاح من ميناء جدة</p>
+                <div class="noti-actions">
+                    <button class="btn btn-sm btn-primary" data-action="view-order" data-order-id="INT-4521">عرض التفاصيل</button>
+                    <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="1">تحديد كمقروء</button>
+                </div>
+                <div class="noti-status">
+                    <span class="noti-unread-indicator"></span>
                 </div>
             </div>
 
             <!-- Offer Notification -->
-            <div class="notifications-item unread" data-type="offers" data-id="2">
-                <div class="notifications-icon offer">
+            <div class="noti-item unread" data-type="offers" data-id="2">
+                <div class="noti-icon offer">
                     <i class="fas fa-tags"></i>
                 </div>
-                <div class="notifications-content">
-                    <div class="notifications-header">
-                        <h4 class="notifications-title">عرض جديد متاح</h4>
-                        <span class="notifications-time">منذ 15 دقيقة</span>
-                    </div>
-                    <p class="notifications-message">عرض خاص على خدمات التخزين من شركة المخازن الآمنة</p>
-                    <div class="notifications-actions">
-                        <button class="btn btn-sm btn-primary" data-action="view-offer" data-offer-id="OFF-001">عرض العرض</button>
-                        <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="2">تحديد كمقروء</button>
-                    </div>
+                <div class="noti-header">
+                    <h4 class="noti-title">عرض جديد متاح</h4>
+                    <span class="noti-time">منذ 15 دقيقة</span>
                 </div>
-                <div class="notifications-status">
-                    <span class="notifications-unread-indicator"></span>
+                <p class="noti-message">عرض خاص على خدمات التخزين من شركة المخازن الآمنة</p>
+                <div class="noti-actions">
+                    <button class="btn btn-sm btn-primary" data-action="view-offer" data-offer-id="OFF-001">عرض العرض</button>
+                    <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="2">تحديد كمقروء</button>
+                </div>
+                <div class="noti-status">
+                    <span class="noti-unread-indicator"></span>
                 </div>
             </div>
 
             <!-- System Notification -->
-            <div class="notifications-item" data-type="system" data-id="3">
-                <div class="notifications-icon system">
+            <div class="noti-item" data-type="system" data-id="3">
+                <div class="noti-icon system">
                     <i class="fas fa-info-circle"></i>
                 </div>
-                <div class="notifications-content">
-                    <div class="notifications-header">
-                        <h4 class="notifications-title">تحديث التطبيق متاح</h4>
-                        <span class="notifications-time">منذ ساعة</span>
-                    </div>
-                    <p class="notifications-message">إصدار جديد من التطبيق متاح للتحميل مع ميزات محسنة</p>
-                    <div class="notifications-actions">
-                        <button class="btn btn-sm btn-primary" data-action="update-app">تحديث الآن</button>
-                        <button class="btn btn-sm btn-outline" data-action="dismiss" data-notification-id="3">إخفاء</button>
-                    </div>
+                <div class="noti-header">
+                    <h4 class="noti-title">تحديث التطبيق متاح</h4>
+                    <span class="noti-time">منذ ساعة</span>
                 </div>
-                <div class="notifications-status">
-                    <span class="notifications-read-indicator"></span>
+                <p class="noti-message">إصدار جديد من التطبيق متاح للتحميل مع ميزات محسنة</p>
+                <div class="noti-actions">
+                    <button class="btn btn-sm btn-primary" data-action="update-app">تحديث الآن</button>
+                    <button class="btn btn-sm btn-outline" data-action="dismiss" data-notification-id="3">إخفاء</button>
+                </div>
+                <div class="noti-status">
+                    <span class="noti-read-indicator"></span>
                 </div>
             </div>
 
             <!-- Payment Notification -->
-            <div class="notifications-item unread" data-type="orders" data-id="4">
-                <div class="notifications-icon payment">
+            <div class="noti-item unread" data-type="orders" data-id="4">
+                <div class="noti-icon payment">
                     <i class="fas fa-credit-card"></i>
                 </div>
-                <div class="notifications-content">
-                    <div class="notifications-header">
-                        <h4 class="notifications-title">تم خصم المبلغ</h4>
-                        <span class="notifications-time">منذ ساعتين</span>
-                    </div>
-                    <p class="notifications-message">تم خصم مبلغ 450 ريال من حسابك لطلب #INT-7890</p>
-                    <div class="notifications-actions">
-                        <button class="btn btn-sm btn-primary" data-action="view-receipt" data-order-id="INT-7890">عرض الإيصال</button>
-                        <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="4">تحديد كمقروء</button>
-                    </div>
+                <div class="noti-header">
+                    <h4 class="noti-title">تم خصم المبلغ</h4>
+                    <span class="noti-time">منذ ساعتين</span>
                 </div>
-                <div class="notifications-status">
-                    <span class="notifications-unread-indicator"></span>
+                <p class="noti-message">تم خصم مبلغ 450 ريال من حسابك لطلب #INT-7890</p>
+                <div class="noti-actions">
+                    <button class="btn btn-sm btn-primary" data-action="view-receipt" data-order-id="INT-7890">عرض الإيصال</button>
+                    <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="4">تحديد كمقروء</button>
+                </div>
+                <div class="noti-status">
+                    <span class="noti-unread-indicator"></span>
                 </div>
             </div>
 
             <!-- Reminder Notification -->
-            <div class="notifications-item" data-type="system" data-id="5">
-                <div class="notifications-icon reminder">
+            <div class="noti-item" data-type="system" data-id="5">
+                <div class="noti-icon reminder">
                     <i class="fas fa-clock"></i>
                 </div>
-                <div class="notifications-content">
-                    <div class="notifications-header">
-                        <h4 class="notifications-title">تذكير: موعد استلام الشحنة</h4>
-                        <span class="notifications-time">منذ 3 ساعات</span>
-                    </div>
-                    <p class="notifications-message">تذكير: شحنتك #PKG-3345 ستصل غداً في تمام الساعة 10:00 صباحاً</p>
-                    <div class="notifications-actions">
-                        <button class="btn btn-sm btn-primary" data-action="track-shipment" data-shipment-id="PKG-3345">تتبع الشحنة</button>
-                        <button class="btn btn-sm btn-outline" data-action="dismiss" data-notification-id="5">إخفاء</button>
-                    </div>
+                <div class="noti-header">
+                    <h4 class="noti-title">تذكير: موعد استلام الشحنة</h4>
+                    <span class="noti-time">منذ 3 ساعات</span>
                 </div>
-                <div class="notifications-status">
-                    <span class="notifications-read-indicator"></span>
+                <p class="noti-message">تذكير: شحنتك #PKG-3345 ستصل غداً في تمام الساعة 10:00 صباحاً</p>
+                <div class="noti-actions">
+                    <button class="btn btn-sm btn-primary" data-action="track-shipment" data-shipment-id="PKG-3345">تتبع الشحنة</button>
+                    <button class="btn btn-sm btn-outline" data-action="dismiss" data-notification-id="5">إخفاء</button>
+                </div>
+                <div class="noti-status">
+                    <span class="noti-read-indicator"></span>
                 </div>
             </div>
 
             <!-- Review Request -->
-            <div class="notifications-item unread" data-type="orders" data-id="6">
-                <div class="notifications-icon review">
+            <div class="noti-item unread" data-type="orders" data-id="6">
+                <div class="noti-icon review">
                     <i class="fas fa-star"></i>
                 </div>
-                <div class="notifications-content">
-                    <div class="notifications-header">
-                        <h4 class="notifications-title">طلب تقييم الخدمة</h4>
-                        <span class="notifications-time">منذ 5 ساعات</span>
-                    </div>
-                    <p class="notifications-message">ساعدنا في تحسين خدماتنا من خلال تقييم طلبك #CST-9981</p>
-                    <div class="notifications-actions">
-                        <button class="btn btn-sm btn-primary" data-action="rate-service" data-order-id="CST-9981">تقييم الآن</button>
-                        <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="6">تحديد كمقروء</button>
-                    </div>
+                <div class="noti-header">
+                    <h4 class="noti-title">طلب تقييم الخدمة</h4>
+                    <span class="noti-time">منذ 5 ساعات</span>
                 </div>
-                <div class="notifications-status">
-                    <span class="notifications-unread-indicator"></span>
+                <p class="noti-message">ساعدنا في تحسين خدماتنا من خلال تقييم طلبك #CST-9981</p>
+                <div class="noti-actions">
+                    <button class="btn btn-sm btn-primary" data-action="rate-service" data-order-id="CST-9981">تقييم الآن</button>
+                    <button class="btn btn-sm btn-outline" data-action="mark-read" data-notification-id="6">تحديد كمقروء</button>
+                </div>
+                <div class="noti-status">
+                    <span class="noti-unread-indicator"></span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Empty State -->
-    <div class="notifications-empty-state" id="emptyState" style="display: none;">
-        <div class="notifications-empty-icon">
+    <div class="noti-empty-state" id="emptyState" style="display: none;">
+        <div class="noti-empty-icon">
             <i class="fas fa-bell-slash"></i>
         </div>
-        <h3 class="notifications-empty-title">لا توجد إشعارات</h3>
-        <p class="notifications-empty-message">ستظهر هنا جميع الإشعارات الجديدة</p>
+        <h3 class="noti-empty-title">لا توجد إشعارات</h3>
+        <p class="noti-empty-message">ستظهر هنا جميع الإشعارات الجديدة</p>
     </div>
 
     <!-- Load More -->
-    <section class="notifications-load-more-section">
+    <section class="noti-load-more-section">
         <button class="btn btn-outline btn-block" id="loadMoreNotifications">
             <i class="fas fa-chevron-down"></i>
             <span>تحميل المزيد</span>
