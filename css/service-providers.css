@@ -22,32 +22,13 @@
             padding: 8px;
             border-radius: 12px;
             transition: var(--transition-smooth);
+            color: var(--secondary-color);
+            font-size: 1.5rem;
         }
 
-        .hamburger {
-            width: 24px;
-            height: 18px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .hamburger span {
-            display: block;
-            height: 2px;
-            width: 100%;
-            background: var(--secondary-gradient);
-            border-radius: 1px;
-            transition: var(--transition-smooth);
-        }
-
-        .sv-header__menu:hover .hamburger span:nth-child(1) {
-            transform: translateY(2px);
-        }
-
-        .sv-header__menu:hover .hamburger span:nth-child(3) {
-            transform: translateY(-2px);
+        .sv-header__menu:hover {
+            background: rgba(40, 36, 96, 0.1);
+            transform: scale(1.1);
         }
 
 /* Advanced Search Bar */
