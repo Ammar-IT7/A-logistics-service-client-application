@@ -1,11 +1,4 @@
     <div class="sv-header">
-        <button class="sv-header__action sv-header__menu" data-action="menu" aria-label="القائمة">
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </button>
 
         <div class="sv-search-bar">
             <div class="sv-search-bar__icon-wrapper">
@@ -16,6 +9,13 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
+        <button class="sv-header__action sv-header__menu" data-action="menu" aria-label="القائمة">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
     </div>
 
     <div class="sv-content">
@@ -53,5 +53,103 @@
         </div>
 
         <div id="serviceListContainer" class="sv-list-container">
+        </div>
+    </div>
+
+    <!-- Service Providers Drawer -->
+    <div id="serviceProvidersDrawer" class="spd-drawer-overlay">
+        <div class="spd-drawer-content">
+            <button class="spd-drawer-close" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            
+            <div class="spd-profile-header">
+                <img src="https://placehold.co/80x80/282460/FAAE43?text=أ" alt="صورة العميل" class="spd-profile-avatar">
+                <h2 class="spd-profile-name">أهلاً، عبد الله</h2>
+                <p class="spd-profile-email">abdullah@example.com</p>
+            </div>
+            
+            <div class="spd-balance-section">
+                <h3 class="spd-section-title">رصيدي</h3>
+                <div class="spd-balance-card">
+                    <div class="spd-balance-amount">
+                        <i class="fas fa-wallet"></i>
+                        <span>5,450.00 <small>ر.ي</small></span>
+                    </div>
+                    <p class="spd-balance-status spd-status-positive">حالة الرصيد: إيجابي</p>
+                    <div class="spd-balance-actions">
+                        <button class="spd-action-btn spd-btn-deposit">إيداع</button>
+                        <button class="spd-action-btn spd-btn-withdraw">سحب</button>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="spd-profile-nav">
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="profile">
+                    <i class="fas fa-user-edit"></i> تعديل الملف الشخصي
+                </a>
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="wallet">
+                    <i class="fas fa-wallet"></i> المحفظة
+                </a>
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="transaction-history">
+                    <i class="fas fa-history"></i> سجل المعاملات
+                </a>
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="reviews-ratings">
+                    <i class="fas fa-star"></i> تقييماتي
+                </a>
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="settings">
+                    <i class="fas fa-cog"></i> الإعدادات
+                </a>
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="about">
+                    <i class="fas fa-info-circle"></i> حول التطبيق
+                </a>
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="billing">
+                    <i class="fas fa-file-invoice-dollar"></i> الفواتير والمدفوعات
+                </a>
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="payment-methods">
+                    <i class="fas fa-credit-card"></i> طرق الدفع
+                </a>
+                <a href="#" class="spd-nav-item" data-action="navigate" data-page="chat-support">
+                    <i class="fas fa-comments"></i> الدردشة المباشرة
+                </a>
+                <a href="#" class="spd-nav-item spd-logout" data-action="logout">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </a>
+            </nav>
+            
+            <div class="spd-drawer-footer">
+                <p>&copy; 2024 Enova Studio</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal for Service Providers -->
+    <div id="spPaymentModal" class="sptm-modal-overlay">
+        <div class="sptm-modal-content">
+            <div class="sptm-header">
+                <h3 id="sptmTitle" class="sptm-title">إيداع مبلغ</h3>
+                <button class="sptm-close" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div id="sptmStep1" class="sptm-step active">
+                <div class="sptm-amount-group">
+                    <label for="sptmAmount">أدخل المبلغ (ر.ي)</label>
+                    <input type="number" id="sptmAmount" placeholder="0.00">
+                </div>
+                <div class="sptm-gateways-group">
+                    <label>اختر طريقة الدفع</label>
+                    <div class="sptm-gateways-grid">
+                    </div>
+                </div>
+                <button id="sptmProceedBtn" class="sptm-action-btn" disabled>متابعة</button>
+            </div>
+
+            <div id="sptmStep2" class="sptm-step">
+                <div class="sptm-loader"></div>
+                <p class="sptm-status-text">جاري معالجة عمليتك...</p>
+            </div>
+            
+            <div id="sptmStep3" class="sptm-step">
+                <div class="sptm-success-icon"><i class="fas fa-check-circle"></i></div>
+                <p id="sptmSuccessMessage" class="sptm-status-text">تمت العملية بنجاح!</p>
+            </div>
         </div>
     </div>

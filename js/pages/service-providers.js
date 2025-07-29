@@ -22,6 +22,19 @@
             currentView: 'grid', // 'grid' or 'list'
             isLoading: false,
             
+            // Payment Modal Properties
+            paymentModal: null,
+            currentTransactionType: 'deposit',
+            selectedGateway: null,
+            paymentGateways: [
+                { id: 'kuraimi', name: 'الكريمي', icon: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/KuraimiBank.png' },
+                { id: 'jeeb', name: 'جيب', icon: 'https://scontent.fmct5-1.fna.fbcdn.net/v/t39.30808-6/347589312_6530726350324142_5191902965427443108_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=JmsvG7hcXLYQ7kNvwGNAuhP&_nc_oc=AdmfaEstIcveDExeQpetIoe-zfDDUKp4seZF33c8J75z5lO0ajvYXYWjE1w4O6s4Ygs&_nc_zt=23&_nc_ht=scontent.fmct5-1.fna&_nc_gid=6NXCtwqDO6L8pU8T6JsmmA&oh=00_AfMKrxmvqMap_qoIUvlkuf4G_noiiXAxY_CmPRkQzdNTvw&oe=68619C1A' },
+                { id: 'jawali', name: 'جوالي', icon: 'https://yemeneco.org/wp-content/uploads/2024/04/jawali.png' },
+                { id: 'bank', name: 'حساب بنكي', icon: 'https://cdn-icons-png.freepik.com/512/8634/8634075.png' },
+                { id: 'mastercard', name: 'Mastercard', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png' },
+                { id: 'paypal', name: 'PayPal', icon: 'https://pngimg.com/uploads/paypal/paypal_PNG7.png' },
+            ],
+
             // Enhanced Data
                         serviceCategories: [
                             { id: 'shipping', title: 'شحن', icon: 'fa-ship', count: 2 },
@@ -160,6 +173,101 @@
                         this.showSortOptions();
                     }
                 });
+
+                // Drawer functionality
+                this.setupDrawerEventListeners();
+            },
+
+            /**
+             * Setup drawer event listeners
+             */
+            setupDrawerEventListeners: function() {
+                // Hamburger menu button
+                const menuButton = document.querySelector('.sv-header__menu');
+                if (menuButton) {
+                    menuButton.addEventListener('click', () => this.showDrawer());
+                }
+
+                // Drawer close button
+                const drawerCloseBtn = document.querySelector('.spd-drawer-close');
+                if (drawerCloseBtn) {
+                    drawerCloseBtn.addEventListener('click', () => this.hideDrawer());
+                }
+
+                // Drawer overlay click to close
+                const drawerOverlay = document.getElementById('serviceProvidersDrawer');
+                if (drawerOverlay) {
+                    drawerOverlay.addEventListener('click', (e) => {
+                        if (e.target === drawerOverlay) this.hideDrawer();
+                    });
+                }
+
+                // Payment buttons in drawer
+                const depositBtn = document.querySelector('.spd-btn-deposit');
+                const withdrawBtn = document.querySelector('.spd-btn-withdraw');
+                if (depositBtn) {
+                    depositBtn.addEventListener('click', () => this.showPaymentModal('deposit'));
+                }
+                if (withdrawBtn) {
+                    withdrawBtn.addEventListener('click', () => this.showPaymentModal('withdraw'));
+                }
+
+                // Payment modal functionality
+                const paymentModal = document.getElementById('spPaymentModal');
+                if (paymentModal) {
+                    const closeBtn = paymentModal.querySelector('.sptm-close');
+                    const proceedBtn = paymentModal.querySelector('#sptmProceedBtn');
+                    const amountInput = paymentModal.querySelector('#sptmAmount');
+
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', () => this.hidePaymentModal());
+                    }
+
+                    if (proceedBtn) {
+                        proceedBtn.addEventListener('click', () => this.processTransaction());
+                    }
+
+                    if (amountInput) {
+                        amountInput.addEventListener('input', () => this.validateTransaction());
+                    }
+
+                    paymentModal.addEventListener('click', (e) => {
+                        if (e.target === paymentModal) this.hidePaymentModal();
+                    });
+                }
+
+                // Navigation items in drawer
+                const navItems = document.querySelectorAll('.spd-nav-item[data-action="navigate"]');
+                navItems.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetPage = item.dataset.page;
+                        this.hideDrawer();
+                        // Use the router to navigate to the target page
+                        if (window.Router && window.Router.navigateTo) {
+                            window.Router.navigateTo(targetPage);
+                        } else {
+                            // Fallback navigation
+                            window.location.hash = `#${targetPage}`;
+                        }
+                    });
+                });
+
+                // Logout functionality
+                const logoutItem = document.querySelector('.spd-nav-item[data-action="logout"]');
+                if (logoutItem) {
+                    logoutItem.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.hideDrawer();
+                        // Handle logout logic
+                        if (window.Auth && window.Auth.logout) {
+                            window.Auth.logout();
+                        } else {
+                            // Fallback logout
+                            window.location.href = '#login';
+                        }
+                    });
+                }
             },
 
             /**
@@ -543,5 +651,118 @@
             trackAnalytics: function(event, data) {
                 console.log('Analytics:', event, data);
                 // Future: Integrate with analytics service
+            },
+
+            /**
+             * Show service providers drawer
+             */
+            showDrawer: function() {
+                const drawer = document.getElementById('serviceProvidersDrawer');
+                if (drawer) {
+                    drawer.style.display = 'block';
+                    setTimeout(() => drawer.classList.add('spd-active'), 10);
+                    const animatedItems = drawer.querySelectorAll('.spd-profile-header, .spd-balance-section, .spd-profile-nav');
+                    animatedItems.forEach((item, index) => {
+                        item.classList.remove('spd-item-animating');
+                        item.style.animationDelay = `${index * 100 + 50}ms`;
+                        setTimeout(() => item.classList.add('spd-item-animating'), 20);
+                    });
+                }
+            },
+
+            /**
+             * Hide service providers drawer
+             */
+            hideDrawer: function() {
+                const drawer = document.getElementById('serviceProvidersDrawer');
+                if (drawer) {
+                    drawer.classList.remove('spd-active');
+                    setTimeout(() => { drawer.style.display = 'none'; }, 400);
+                }
+            },
+
+            /**
+             * Show payment modal for service providers
+             */
+            showPaymentModal: function(type) {
+                this.paymentModal = document.getElementById('spPaymentModal');
+                if (!this.paymentModal) return;
+                this.currentTransactionType = type;
+                this.paymentModal.querySelector('#sptmTitle').textContent = type === 'deposit' ? 'إيداع مبلغ' : 'سحب مبلغ';
+                this.populateGateways();
+                this.paymentModal.querySelector('#sptmAmount').value = '';
+                this.selectedGateway = null;
+                this.paymentModal.querySelectorAll('.sptm-step').forEach(step => step.classList.remove('active'));
+                this.paymentModal.querySelector('#sptmStep1').classList.add('active');
+                this.validateTransaction();
+                this.paymentModal.classList.add('active');
+            },
+
+            /**
+             * Hide payment modal
+             */
+            hidePaymentModal: function() {
+                this.paymentModal?.classList.remove('active');
+            },
+
+            /**
+             * Populate payment gateways
+             */
+            populateGateways: function() {
+                const grid = this.paymentModal.querySelector('.sptm-gateways-grid');
+                grid.innerHTML = '';
+                this.paymentGateways.forEach(gw => {
+                    const div = document.createElement('div');
+                    div.className = 'sptm-gateway';
+                    div.dataset.id = gw.id;
+                    div.innerHTML = `<img src="${gw.icon}" alt="${gw.name} logo"><div class="sptm-gateway-name">${gw.name}</div>`;
+                    div.addEventListener('click', () => {
+                        this.paymentModal.querySelectorAll('.sptm-gateway').forEach(el => el.classList.remove('selected'));
+                        div.classList.add('selected');
+                        this.selectedGateway = gw.id;
+                        this.validateTransaction();
+                    });
+                    grid.appendChild(div);
+                });
+            },
+
+            /**
+             * Validate transaction
+             */
+            validateTransaction: function() {
+                const amount = parseFloat(this.paymentModal.querySelector('#sptmAmount').value);
+                this.paymentModal.querySelector('#sptmProceedBtn').disabled = !(amount > 0 && this.selectedGateway);
+            },
+
+            /**
+             * Process transaction
+             */
+            processTransaction: function() {
+                this.paymentModal.querySelector('#sptmStep1').classList.remove('active');
+                this.paymentModal.querySelector('#sptmStep2').classList.add('active');
+                setTimeout(() => {
+                    const amount = parseFloat(this.paymentModal.querySelector('#sptmAmount').value);
+                    this.updateBalance(amount, this.currentTransactionType);
+                    const successMessageEl = this.paymentModal.querySelector('#sptmSuccessMessage');
+                    const actionText = this.currentTransactionType === 'deposit' ? 'إيداع' : 'سحب';
+                    successMessageEl.textContent = `تم ${actionText} مبلغ ${amount.toFixed(2)} ر.ي بنجاح.`;
+                    this.paymentModal.querySelector('#sptmStep2').classList.remove('active');
+                    this.paymentModal.querySelector('#sptmStep3').classList.add('active');
+                    setTimeout(() => this.hidePaymentModal(), 2500);
+                }, 2500);
+            },
+
+            /**
+             * Update balance
+             */
+            updateBalance: function(amount, type) {
+                const balanceEl = document.querySelector('.spd-balance-amount span');
+                if (!balanceEl) return;
+                let currentBalance = parseFloat(balanceEl.textContent.replace(/,/g, ''));
+                const newBalance = type === 'deposit' ? currentBalance + amount : currentBalance - amount;
+                balanceEl.innerHTML = `${newBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <small>ر.ي</small>`;
+                const balanceCard = document.querySelector('.spd-balance-amount');
+                balanceCard.classList.add('balance-pop');
+                balanceCard.addEventListener('animationend', () => balanceCard.classList.remove('balance-pop'), { once: true });
             }
         };
