@@ -645,7 +645,7 @@ transform: scale(1);
 .chp-modal-close {
 position: absolute;
 top: var(--spacing-sm);
-left: var(--spacing-sm);
+right: var(--spacing-sm); /* Positioned on the right for RTL */
 background: var(--gray-light);
 border: none;
 border-radius: 50%;
@@ -826,7 +826,7 @@ color: white;
 .chp-map-modal-close {
     position: absolute;
     top: 20px;
-    left: 20px;
+    right: 20px; /* Positioned on the right for RTL */
     z-index: 4001; /* Above map and panel */
     background: rgba(255, 255, 255, 0.9);
     color: #333;
@@ -1077,17 +1077,17 @@ visibility: visible;
 .cpd-drawer-content {
 position: absolute;
 top: 0;
-left: 0; /* Positioned on the left edge */
+right: 0; /* Positioned on the right edge for RTL */
 width: 320px;
 height: 100%;
 background-color: #ffffff; /* Explicitly white background */
 color: #1a1a1a; /* Dark text for contrast */
-box-shadow: 0 4px 25px rgba(0,0,0,0.15); /* Softer, more modern shadow */
+box-shadow: -4px 0 25px rgba(0,0,0,0.15); /* Shadow on the left side for RTL */
 display: flex;
 flex-direction: column;
 padding: 25px;
 overflow-y: auto;
-transform: translateX(-100%); /* Start off-screen to the left */
+transform: translateX(100%); /* Start off-screen to the right */
 transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother ease function */
 }
 
@@ -1099,7 +1099,7 @@ transform: translateX(0); /* Slide into view */
 .cpd-drawer-close {
 position: absolute;
 top: 15px;
-right: 15px;
+left: 15px; /* Positioned on the left for RTL */
 background: transparent;
 border: 2px solid transparent;
 border-radius: 50%;
@@ -1288,11 +1288,11 @@ color: #aaa;
 @keyframes cpd-item-fade-in {
 from {
 opacity: 0;
-transform: translateY(15px);
+transform: translateX(20px); /* Changed to horizontal slide for RTL */
 }
 to {
 opacity: 1;
-transform: translateY(0);
+transform: translateX(0);
 }
 }
 
