@@ -64,6 +64,14 @@ class OrdersPage {
             });
         });
 
+        // Enhanced quick actions
+        document.querySelectorAll('.quick-action-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleQuickAction(btn);
+            });
+        });
+
         // Enhanced modal interactions
         const modalClose = document.querySelector('.order-modal-close');
         if (modalClose) {
@@ -133,6 +141,95 @@ class OrdersPage {
         });
     }
 
+    handleQuickAction(btn) {
+        const action = btn.dataset.action;
+        
+        // Add loading state
+        this.setButtonLoading(btn, true);
+
+        setTimeout(() => {
+            switch (action) {
+                case 'new-order':
+                    this.createNewOrder();
+                    break;
+                case 'track-all':
+                    this.trackAllOrders();
+                    break;
+                case 'export-all':
+                    this.exportAllOrders();
+                    break;
+                case 'support':
+                    this.contactSupport();
+                    break;
+            }
+            this.setButtonLoading(btn, false);
+        }, 500);
+    }
+
+    createNewOrder() {
+        // Navigate to new order page or show modal
+        this.showToast('سيتم توجيهك إلى صفحة الطلب الجديد', 'info');
+        setTimeout(() => {
+            // In a real app, this would navigate to the new order page
+            console.log('Navigating to new order page...');
+        }, 1000);
+    }
+
+    trackAllOrders() {
+        this.showToast('جاري تحضير خريطة تتبع جميع الطلبات...', 'info');
+        setTimeout(() => {
+            this.showToast('تم فتح خريطة التتبع', 'success');
+        }, 1500);
+    }
+
+    exportAllOrders() {
+        this.showToast('جاري تصدير جميع الطلبات...', 'info');
+        setTimeout(() => {
+            this.showToast('تم تصدير جميع الطلبات بنجاح', 'success');
+        }, 2000);
+    }
+
+    contactSupport() {
+        this.showToast('جاري الاتصال بالدعم الفني...', 'info');
+        setTimeout(() => {
+            this.showToast('تم فتح نافذة الدردشة مع الدعم الفني', 'success');
+        }, 1000);
+    }
+
+    setButtonLoading(btn, loading) {
+        if (loading) {
+            btn.classList.add('loading');
+            btn.disabled = true;
+            
+            // Add spinner to quick action buttons
+            if (btn.classList.contains('quick-action-btn')) {
+                const icon = btn.querySelector('.quick-action-icon i');
+                if (icon) {
+                    icon.className = 'fas fa-spinner fa-spin';
+                }
+            }
+        } else {
+            btn.classList.remove('loading');
+            btn.disabled = false;
+            
+            // Restore original icon
+            if (btn.classList.contains('quick-action-btn')) {
+                const icon = btn.querySelector('.quick-action-icon i');
+                if (icon) {
+                    // Restore original icon based on action
+                    const action = btn.dataset.action;
+                    const iconMap = {
+                        'new-order': 'fas fa-plus',
+                        'track-all': 'fas fa-map-marker-alt',
+                        'export-all': 'fas fa-download',
+                        'support': 'fas fa-headset'
+                    };
+                    icon.className = iconMap[action] || 'fas fa-question';
+                }
+            }
+        }
+    }
+
     handleFilterClick(chip) {
         const filterType = chip.closest('.orders-filter-group').querySelector('.orders-filter-label').textContent;
         const filterValue = chip.dataset.filter;
@@ -194,6 +291,9 @@ class OrdersPage {
 
         // Update order count with animation
         this.updateOrderCountWithAnimation(visibleCount);
+        
+        // Update summary with animation
+        this.updateOrderSummary();
     }
 
     shouldShowOrder(item) {
@@ -226,6 +326,27 @@ class OrdersPage {
             // Animate the count change
             const currentCount = parseInt(countElement.textContent) || 0;
             this.animateNumberChange(countElement, currentCount, count);
+        }
+    }
+
+    updateOrderSummary() {
+        const summaryElement = document.querySelector('.orders-list-summary');
+        if (summaryElement) {
+            // Calculate new summary based on visible orders
+            const visibleOrders = document.querySelectorAll('.order-item[style*="display: block"], .order-item:not([style*="display: none"])');
+            
+            let newCount = 0, pendingCount = 0, processingCount = 0, completedCount = 0;
+            
+            visibleOrders.forEach(order => {
+                newCount++;
+                const status = order.dataset.status;
+                if (status === 'pending') pendingCount++;
+                else if (status === 'processing') processingCount++;
+                else if (status === 'completed') completedCount++;
+            });
+            
+            const summary = `• ${newCount} جديد • ${pendingCount} قيد المراجعة • ${processingCount} قيد المعالجة • ${completedCount} مكتمل`;
+            summaryElement.textContent = summary;
         }
     }
 
@@ -273,16 +394,6 @@ class OrdersPage {
             }
             this.setButtonLoading(btn, false);
         }, 500);
-    }
-
-    setButtonLoading(btn, loading) {
-        if (loading) {
-            btn.classList.add('loading');
-            btn.disabled = true;
-        } else {
-            btn.classList.remove('loading');
-            btn.disabled = false;
-        }
     }
 
     handleOrderClick(item) {
@@ -885,6 +996,12 @@ class OrdersPage {
         const insightCards = document.querySelectorAll('.orders-insight-card');
         insightCards.forEach((card, index) => {
             card.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        // Add animation to quick action buttons
+        const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+        quickActionBtns.forEach((btn, index) => {
+            btn.style.animationDelay = `${index * 0.1}s`;
         });
     }
 

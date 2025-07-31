@@ -14,9 +14,15 @@
 </div>
 
 <div class="content" id="orders-page">
-    <!-- Enhanced Orders Insights Cards -->
+    <!-- Enhanced Orders Insights Cards - 2 per row -->
     <section class="orders-insights-section">
+        <div class="orders-insights-header">
+            <h2 class="orders-insights-title">نظرة عامة على الطلبات</h2>
+            <p class="orders-insights-subtitle">إحصائيات مفصلة لجميع طلباتك</p>
+        </div>
+        
         <div class="orders-insights-grid">
+            <!-- Row 1: Total Orders & Active Orders -->
             <div class="orders-insight-card orders-insight-total" data-action="filter-by-status" data-status="all">
                 <div class="orders-insight-icon">
                     <i class="fas fa-clipboard-list"></i>
@@ -47,6 +53,7 @@
                 <div class="orders-insight-badge">نشط</div>
             </div>
             
+            <!-- Row 2: Completed Orders & Total Revenue -->
             <div class="orders-insight-card orders-insight-completed" data-action="filter-by-status" data-status="completed">
                 <div class="orders-insight-icon">
                     <i class="fas fa-check-circle"></i>
@@ -79,16 +86,58 @@
         </div>
     </section>
 
-    <!-- Smart Filters with Quick Actions -->
+    <!-- Enhanced Quick Actions Section -->
+    <section class="orders-quick-actions">
+        <div class="quick-actions-grid">
+            <button class="quick-action-btn" data-action="new-order">
+                <div class="quick-action-icon">
+                    <i class="fas fa-plus"></i>
+                </div>
+                <span class="quick-action-text">طلب جديد</span>
+            </button>
+            
+            <button class="quick-action-btn" data-action="track-all">
+                <div class="quick-action-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <span class="quick-action-text">تتبع جميع الطلبات</span>
+            </button>
+            
+            <button class="quick-action-btn" data-action="export-all">
+                <div class="quick-action-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <span class="quick-action-text">تصدير التقارير</span>
+            </button>
+            
+            <button class="quick-action-btn" data-action="support">
+                <div class="quick-action-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <span class="quick-action-text">الدعم الفني</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Enhanced Smart Filters Section -->
     <section class="orders-filters-section">
         <div class="orders-filters-header">
-            <h3 class="orders-filters-title">تصفية سريعة</h3>
-            <button class="orders-filters-clear" data-action="clear-filters">مسح الفلاتر</button>
+            <div class="filters-header-content">
+                <h3 class="orders-filters-title">تصفية سريعة</h3>
+                <p class="orders-filters-subtitle">اختر معايير التصفية المناسبة</p>
+            </div>
+            <button class="orders-filters-clear" data-action="clear-filters">
+                <i class="fas fa-times"></i>
+                <span>مسح الفلاتر</span>
+            </button>
         </div>
         
         <div class="orders-filters-container">
             <div class="orders-filter-group">
-                <label class="orders-filter-label">حالة الطلب</label>
+                <label class="orders-filter-label">
+                    <i class="fas fa-tasks"></i>
+                    حالة الطلب
+                </label>
                 <div class="orders-filter-chips">
                     <button class="orders-filter-chip active" data-filter="all" data-count="32">
                         <span class="filter-chip-text">الكل</span>
@@ -114,7 +163,10 @@
             </div>
             
             <div class="orders-filter-group">
-                <label class="orders-filter-label">نوع الخدمة</label>
+                <label class="orders-filter-label">
+                    <i class="fas fa-cogs"></i>
+                    نوع الخدمة
+                </label>
                 <div class="orders-filter-chips">
                     <button class="orders-filter-chip active" data-filter="all-services" data-count="32">
                         <span class="filter-chip-text">جميع الخدمات</span>
@@ -139,7 +191,10 @@
             </div>
             
             <div class="orders-filter-group">
-                <label class="orders-filter-label">الفترة الزمنية</label>
+                <label class="orders-filter-label">
+                    <i class="fas fa-calendar-alt"></i>
+                    الفترة الزمنية
+                </label>
                 <div class="orders-filter-chips">
                     <button class="orders-filter-chip active" data-filter="all-time" data-count="32">
                         <span class="filter-chip-text">كل الفترات</span>
@@ -161,12 +216,15 @@
         </div>
     </section>
 
-    <!-- Enhanced Orders List -->
+    <!-- Enhanced Orders List Section -->
     <section class="orders-list-section">
         <div class="orders-list-header">
             <div class="orders-list-info">
                 <h3 class="orders-list-title">قائمة الطلبات</h3>
-                <span class="orders-list-count">32 طلب</span>
+                <div class="orders-list-meta">
+                    <span class="orders-list-count">32 طلب</span>
+                    <span class="orders-list-summary">• 6 جديد • 5 قيد المراجعة • 12 قيد المعالجة • 20 مكتمل</span>
+                </div>
             </div>
             <div class="orders-list-actions">
                 <button class="orders-action-btn" data-action="sort-orders" aria-label="ترتيب الطلبات">
