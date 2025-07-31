@@ -90,6 +90,16 @@ const App = {
                 Router.navigate(this.dataset.page);
             });
         });
+
+        // Initialize page-specific controllers when pages load
+        document.addEventListener('pageLoaded', function(e) {
+            const pageId = e.detail.pageId;
+            
+            // Initialize MorePage when more page is loaded
+            if (pageId === 'more' && typeof MorePage !== 'undefined') {
+                MorePage.init();
+            }
+        });
     }
 };
 

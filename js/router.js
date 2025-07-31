@@ -42,6 +42,11 @@ window.Router = {
                 // Enhanced controller initialization
                 this.initializeController(pageId);
                 
+                // Dispatch page loaded event
+                document.dispatchEvent(new CustomEvent('pageLoaded', {
+                    detail: { pageId: pageId }
+                }));
+                
                 Loader.hide();
             })
             .catch(error => {
@@ -170,5 +175,11 @@ window.Router = {
         if (activeNav) {
             activeNav.classList.add('active');
         }
+    },
+
+    // Method to navigate to a specific page
+    navigateToPage: function(pageId) {
+        console.log(`Router: Navigating to page ${pageId}`);
+        this.navigate(pageId);
     }
 };
