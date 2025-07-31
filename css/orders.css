@@ -53,7 +53,7 @@
 }
 
 .orders-insight-card.orders-insight-total {
-    background: linear-gradient(135deg, #667eea 0%, #4b5fa2 100%);
+    background: linear-gradient(135deg, #3a56d4 0%, #282460 100%);
     color: #fff;
 }
 
@@ -407,13 +407,13 @@
 
 .orders-list-count {
     font-size: 0.8rem;
-    color: var(--text-light);
+    color: var(--text-dark);
     font-weight: 500;
 }
 
 .orders-list-summary {
     font-size: 0.75rem;
-    color: var(--text-light);
+    color: var(--text-dark);
     font-weight: 400;
 }
 
@@ -487,11 +487,11 @@
 }
 
 .order-item.order-new::before {
-    background: #3b82f6;
+    background: #3a56d4;
 }
 
 .order-item.order-pending::before {
-    background: #f59e0b;
+    background: var(primary-color);
 }
 
 .order-item.order-processing::before {
@@ -530,7 +530,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #667eea, #4b5fa2);
+    background: linear-gradient(90deg, #3a56d4, #282460);
     transition: all 0.3s ease;
 }
 
@@ -586,15 +586,15 @@
 }
 
 .order-service-icon.shipping {
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .order-service-icon.packaging {
-    background: linear-gradient(135deg, #fa709a, #fee140);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .order-service-icon.warehouse {
-    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .order-info {
@@ -641,19 +641,19 @@
 
 .order-status-new {
     background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    color: #3a56d4;
     border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .order-status-pending {
     background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
+    color: var(primary-color);
     border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .order-status-processing {
     background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
+    color: #3a56d4;
     border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
@@ -712,7 +712,7 @@
 }
 
 .meta-item i {
-    color: #667eea;
+    color: #3a56d4;
     font-size: 0.8rem;
 }
 
@@ -736,7 +736,7 @@
 .amount-value {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #667eea;
+    color: #3a56d4;
 }
 
 .amount-currency {
@@ -779,7 +779,7 @@
 .progress-percentage {
     font-size: 0.8rem;
     font-weight: 700;
-    color: #667eea;
+    color: #3a56d4;
 }
 
 .progress-bar {
@@ -792,7 +792,7 @@
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 4px;
     transition: width 0.8s ease;
 }
@@ -938,15 +938,15 @@
 }
 
 .order-card.order-new::before {
-    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    background: linear-gradient(90deg, #3a56d4, #1d4ed8);
 }
 
 .order-card.order-pending::before {
-    background: linear-gradient(90deg, #f59e0b, #d97706);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
 }
 
 .order-card.order-processing::before {
-    background: linear-gradient(90deg, #667eea, #4b5fa2);
+    background: linear-gradient(90deg, #3a56d4, #282460);
 }
 
 .order-card.order-completed::before {
@@ -1004,15 +1004,15 @@
 }
 
 .order-service-badge.shipping {
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .order-service-badge.packaging {
-    background: linear-gradient(135deg, #fa709a, #fee140);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .order-service-badge.warehouse {
-    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .order-card-status {
@@ -1039,19 +1039,19 @@
 
 .order-status-badge.new {
     background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    color: #3a56d4;
     border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .order-status-badge.pending {
     background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
+    color: var(primary-color);
     border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .order-status-badge.processing {
     background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
+    color: #3a56d4;
     border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
@@ -1080,7 +1080,7 @@
 .order-amount-value {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #667eea;
+    color: #3a56d4;
 }
 
 .order-amount-currency {
@@ -1153,7 +1153,7 @@
 }
 
 .order-meta-item i {
-    color: #667eea;
+    color: #3a56d4;
     font-size: 0.8rem;
 }
 
@@ -1185,7 +1185,7 @@
 .order-progress-percentage {
     font-size: 0.8rem;
     font-weight: 700;
-    color: #667eea;
+    color: #3a56d4;
 }
 
 .order-progress-bar {
@@ -1198,7 +1198,7 @@
 
 .order-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #667eea, #4b5fa2);
+    background: linear-gradient(90deg, #3a56d4, #282460);
     border-radius: 3px;
     transition: width 0.6s ease;
 }
@@ -1232,7 +1232,7 @@
 
 .progress-step i {
     font-size: 0.9rem;
-    color: #667eea;
+    color: #3a56d4;
 }
 
 .progress-step.completed i {
@@ -1310,12 +1310,12 @@
 
 .order-status-badge.new {
     background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    color: #3a56d4;
 }
 
 .order-status-badge.pending {
     background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
+    color: var(primary-color);
 }
 
 .order-status-badge.processing {
@@ -1469,7 +1469,7 @@
 }
 
 .order-action-btn:hover {
-    border-color: #667eea;
+    border-color: #3a56d4;
     background: rgba(102, 126, 234, 0.05);
     transform: translateY(-1px);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -1478,12 +1478,12 @@
 .order-action-btn.primary {
     background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
     color: #ffffff;
-    border-color: #667eea;
+    border-color: #3a56d4;
     box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
 }
 
 .order-action-btn.primary:hover {
-    background: #4b5fa2;
+    background: #282460;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
@@ -1657,12 +1657,12 @@
 
 .order-details-status.new {
     background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    color: #3a56d4;
 }
 
 .order-details-status.pending {
     background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
+    color: var(primary-color);
 }
 
 .order-details-status.processing {
@@ -1851,12 +1851,12 @@
 
 .tracking-status.new {
     background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
+    color: #3a56d4;
 }
 
 .tracking-status.pending {
     background: rgba(245, 158, 11, 0.1);
-    color: #f59e0b;
+    color: var(primary-color);
 }
 
 .tracking-status.processing {
