@@ -1,0 +1,549 @@
+<div class="header">
+    <button class="header-action" data-action="navigate" data-page="client-home-page" aria-label="رجوع">
+        <i class="fas fa-arrow-left" data-action="navigate" data-page="client-home-page"></i>
+    </button>
+    <h1 class="header-title">طلباتي</h1>
+    <div class="header-actions">
+        <button class="header-action" data-action="search-orders" aria-label="البحث في الطلبات">
+            <i class="fas fa-search"></i>
+        </button>
+        <button class="header-action" data-action="filter-orders" aria-label="تصفية الطلبات">
+            <i class="fas fa-filter"></i>
+        </button>
+    </div>
+</div>
+
+<div class="content" id="orders-page">
+    <!-- Enhanced Orders Insights Cards -->
+    <section class="orders-insights-section">
+        <div class="orders-insights-grid">
+            <div class="orders-insight-card orders-insight-total" data-action="filter-by-status" data-status="all">
+                <div class="orders-insight-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <div class="orders-insight-content">
+                    <span class="orders-insight-value">32</span>
+                    <span class="orders-insight-label">إجمالي الطلبات</span>
+                    <div class="orders-insight-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+15% هذا الشهر</span>
+                    </div>
+                </div>
+                <div class="orders-insight-badge">الكل</div>
+            </div>
+            
+            <div class="orders-insight-card orders-insight-active" data-action="filter-by-status" data-status="active">
+                <div class="orders-insight-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="orders-insight-content">
+                    <span class="orders-insight-value">12</span>
+                    <span class="orders-insight-label">طلبات نشطة</span>
+                    <div class="orders-insight-trend neutral">
+                        <i class="fas fa-minus"></i>
+                        <span>5 في الانتظار</span>
+                    </div>
+                </div>
+                <div class="orders-insight-badge">نشط</div>
+            </div>
+            
+            <div class="orders-insight-card orders-insight-completed" data-action="filter-by-status" data-status="completed">
+                <div class="orders-insight-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="orders-insight-content">
+                    <span class="orders-insight-value">20</span>
+                    <span class="orders-insight-label">طلبات مكتملة</span>
+                    <div class="orders-insight-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>62% معدل الإنجاز</span>
+                    </div>
+                </div>
+                <div class="orders-insight-badge">مكتمل</div>
+            </div>
+            
+            <div class="orders-insight-card orders-insight-revenue" data-action="filter-by-revenue">
+                <div class="orders-insight-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="orders-insight-content">
+                    <span class="orders-insight-value">18,750</span>
+                    <span class="orders-insight-label">إجمالي الإنفاق</span>
+                    <div class="orders-insight-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+12% مقارنة بالشهر السابق</span>
+                    </div>
+                </div>
+                <div class="orders-insight-badge">ريال</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Filters with Quick Actions -->
+    <section class="orders-filters-section">
+        <div class="orders-filters-header">
+            <h3 class="orders-filters-title">تصفية سريعة</h3>
+            <button class="orders-filters-clear" data-action="clear-filters">مسح الفلاتر</button>
+        </div>
+        
+        <div class="orders-filters-container">
+            <div class="orders-filter-group">
+                <label class="orders-filter-label">حالة الطلب</label>
+                <div class="orders-filter-chips">
+                    <button class="orders-filter-chip active" data-filter="all" data-count="32">
+                        <span class="filter-chip-text">الكل</span>
+                        <span class="filter-chip-count">32</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="new" data-count="6">
+                        <span class="filter-chip-text">جديد</span>
+                        <span class="filter-chip-count">6</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="pending" data-count="5">
+                        <span class="filter-chip-text">قيد المراجعة</span>
+                        <span class="filter-chip-count">5</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="processing" data-count="12">
+                        <span class="filter-chip-text">قيد المعالجة</span>
+                        <span class="filter-chip-count">12</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="completed" data-count="20">
+                        <span class="filter-chip-text">مكتمل</span>
+                        <span class="filter-chip-count">20</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="orders-filter-group">
+                <label class="orders-filter-label">نوع الخدمة</label>
+                <div class="orders-filter-chips">
+                    <button class="orders-filter-chip active" data-filter="all-services" data-count="32">
+                        <span class="filter-chip-text">جميع الخدمات</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="shipping" data-count="15">
+                        <span class="filter-chip-text">شحن</span>
+                        <span class="filter-chip-count">15</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="customs" data-count="8">
+                        <span class="filter-chip-text">تخليص جمركي</span>
+                        <span class="filter-chip-count">8</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="packaging" data-count="6">
+                        <span class="filter-chip-text">تغليف</span>
+                        <span class="filter-chip-count">6</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="warehouse" data-count="3">
+                        <span class="filter-chip-text">تخزين</span>
+                        <span class="filter-chip-count">3</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="orders-filter-group">
+                <label class="orders-filter-label">الفترة الزمنية</label>
+                <div class="orders-filter-chips">
+                    <button class="orders-filter-chip active" data-filter="all-time" data-count="32">
+                        <span class="filter-chip-text">كل الفترات</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="today" data-count="3">
+                        <span class="filter-chip-text">اليوم</span>
+                        <span class="filter-chip-count">3</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="week" data-count="12">
+                        <span class="filter-chip-text">هذا الأسبوع</span>
+                        <span class="filter-chip-count">12</span>
+                    </button>
+                    <button class="orders-filter-chip" data-filter="month" data-count="32">
+                        <span class="filter-chip-text">هذا الشهر</span>
+                        <span class="filter-chip-count">32</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Orders List -->
+    <section class="orders-list-section">
+        <div class="orders-list-header">
+            <div class="orders-list-info">
+                <h3 class="orders-list-title">قائمة الطلبات</h3>
+                <span class="orders-list-count">32 طلب</span>
+            </div>
+            <div class="orders-list-actions">
+                <button class="orders-action-btn" data-action="sort-orders" aria-label="ترتيب الطلبات">
+                    <i class="fas fa-sort"></i>
+                    <span>ترتيب</span>
+                </button>
+                <button class="orders-action-btn" data-action="export-orders" aria-label="تصدير الطلبات">
+                    <i class="fas fa-download"></i>
+                    <span>تصدير</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="orders-list" id="ordersList">
+            <!-- Order Item 1 - New Customs -->
+            <div class="order-item order-new" data-order-id="C-8812" data-service-type="customs" data-status="new" data-amount="1250">
+                <div class="order-header">
+                    <div class="order-id">
+                        <span class="order-id-text">#C-8812</span>
+                        <span class="order-service-type">تخليص جمركي</span>
+                    </div>
+                    <div class="order-status">
+                        <span class="order-status-badge new">
+                            <i class="fas fa-circle"></i>
+                            جديد
+                        </span>
+                        <span class="order-time">منذ 5 دقائق</span>
+                    </div>
+                </div>
+                
+                <div class="order-content">
+                    <div class="order-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4 class="order-title">طلب تخليص جمركي - شحنة إلكترونيات</h4>
+                        <p class="order-description">تخليص جمركي لشحنة إلكترونيات من الصين، وزن 50 كجم، قيمة الشحنة 15,000 ريال</p>
+                        <div class="order-meta">
+                            <div class="order-amount-section">
+                                <span class="order-amount">1,250 ريال</span>
+                                <span class="order-amount-label">رسوم التخليص</span>
+                            </div>
+                            <div class="order-progress-section">
+                                <div class="order-progress-bar">
+                                    <div class="order-progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="order-progress-text">0% مكتمل</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="order-action-btn primary" data-action="view-order" data-order-id="C-8812" aria-label="عرض التفاصيل">
+                            <i class="fas fa-eye"></i>
+                            <span>عرض</span>
+                        </button>
+                        <button class="order-action-btn secondary" data-action="track-order" data-order-id="C-8812" aria-label="تتبع الطلب">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>تتبع</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 2 - Pending Packaging -->
+            <div class="order-item order-pending" data-order-id="P-5432" data-service-type="packaging" data-status="pending" data-amount="850">
+                <div class="order-header">
+                    <div class="order-id">
+                        <span class="order-id-text">#P-5432</span>
+                        <span class="order-service-type">تغليف</span>
+                    </div>
+                    <div class="order-status">
+                        <span class="order-status-badge pending">
+                            <i class="fas fa-clock"></i>
+                            قيد المراجعة
+                        </span>
+                        <span class="order-time">منذ ساعتين</span>
+                    </div>
+                </div>
+                
+                <div class="order-content">
+                    <div class="order-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4 class="order-title">طلب خدمة تغليف - أثاث منزلي</h4>
+                        <p class="order-description">تغليف أثاث منزلي للشحن، 3 قطع أثاث كبيرة، أبعاد 2×1.5×0.8 متر</p>
+                        <div class="order-meta">
+                            <div class="order-amount-section">
+                                <span class="order-amount">850 ريال</span>
+                                <span class="order-amount-label">رسوم التغليف</span>
+                            </div>
+                            <div class="order-progress-section">
+                                <div class="order-progress-bar">
+                                    <div class="order-progress-fill" style="width: 25%"></div>
+                                </div>
+                                <span class="order-progress-text">25% مكتمل</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="order-action-btn primary" data-action="view-order" data-order-id="P-5432" aria-label="عرض التفاصيل">
+                            <i class="fas fa-eye"></i>
+                            <span>عرض</span>
+                        </button>
+                        <button class="order-action-btn secondary" data-action="track-order" data-order-id="P-5432" aria-label="تتبع الطلب">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>تتبع</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 3 - Processing Shipping -->
+            <div class="order-item order-processing" data-order-id="SH-1099" data-service-type="shipping" data-status="processing" data-amount="450">
+                <div class="order-header">
+                    <div class="order-id">
+                        <span class="order-id-text">#SH-1099</span>
+                        <span class="order-service-type">شحن</span>
+                    </div>
+                    <div class="order-status">
+                        <span class="order-status-badge processing">
+                            <i class="fas fa-truck"></i>
+                            قيد المعالجة
+                        </span>
+                        <span class="order-time">منذ يوم واحد</span>
+                    </div>
+                </div>
+                
+                <div class="order-content">
+                    <div class="order-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4 class="order-title">طلب شحن داخلي - الرياض إلى جدة</h4>
+                        <p class="order-description">شحن داخلي من الرياض إلى جدة، وزن 100 كجم، خدمة توصيل سريع</p>
+                        <div class="order-meta">
+                            <div class="order-amount-section">
+                                <span class="order-amount">450 ريال</span>
+                                <span class="order-amount-label">رسوم الشحن</span>
+                            </div>
+                            <div class="order-progress-section">
+                                <div class="order-progress-bar">
+                                    <div class="order-progress-fill" style="width: 60%"></div>
+                                </div>
+                                <span class="order-progress-text">60% مكتمل</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="order-action-btn primary" data-action="view-order" data-order-id="SH-1099" aria-label="عرض التفاصيل">
+                            <i class="fas fa-eye"></i>
+                            <span>عرض</span>
+                        </button>
+                        <button class="order-action-btn secondary" data-action="track-order" data-order-id="SH-1099" aria-label="تتبع الطلب">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>تتبع</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 4 - Completed Warehouse -->
+            <div class="order-item order-completed" data-order-id="W-2234" data-service-type="warehouse" data-status="completed" data-amount="2100">
+                <div class="order-header">
+                    <div class="order-id">
+                        <span class="order-id-text">#W-2234</span>
+                        <span class="order-service-type">تخزين</span>
+                    </div>
+                    <div class="order-status">
+                        <span class="order-status-badge completed">
+                            <i class="fas fa-check-circle"></i>
+                            مكتمل
+                        </span>
+                        <span class="order-time">منذ 3 أيام</span>
+                    </div>
+                </div>
+                
+                <div class="order-content">
+                    <div class="order-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4 class="order-title">طلب تخزين - بضائع تجارية</h4>
+                        <p class="order-description">تخزين بضائع تجارية في مستودع مكيف، مساحة 20 متر مربع، مدة 3 أشهر</p>
+                        <div class="order-meta">
+                            <div class="order-amount-section">
+                                <span class="order-amount">2,100 ريال</span>
+                                <span class="order-amount-label">رسوم التخزين</span>
+                            </div>
+                            <div class="order-progress-section">
+                                <div class="order-progress-bar">
+                                    <div class="order-progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span class="order-progress-text">100% مكتمل</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="order-action-btn primary" data-action="view-order" data-order-id="W-2234" aria-label="عرض التفاصيل">
+                            <i class="fas fa-eye"></i>
+                            <span>عرض</span>
+                        </button>
+                        <button class="order-action-btn secondary" data-action="download-invoice" data-order-id="W-2234" aria-label="تحميل الفاتورة">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>فاتورة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 5 - Completed Customs -->
+            <div class="order-item order-completed" data-order-id="C-6678" data-service-type="customs" data-status="completed" data-amount="750">
+                <div class="order-header">
+                    <div class="order-id">
+                        <span class="order-id-text">#C-6678</span>
+                        <span class="order-service-type">تخليص جمركي</span>
+                    </div>
+                    <div class="order-status">
+                        <span class="order-status-badge completed">
+                            <i class="fas fa-check-circle"></i>
+                            مكتمل
+                        </span>
+                        <span class="order-time">منذ أسبوع</span>
+                    </div>
+                </div>
+                
+                <div class="order-content">
+                    <div class="order-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4 class="order-title">طلب تخليص جمركي - ملابس</h4>
+                        <p class="order-description">تخليص جمركي لشحنة ملابس من تركيا، وزن 30 كجم، قيمة الشحنة 8,500 ريال</p>
+                        <div class="order-meta">
+                            <div class="order-amount-section">
+                                <span class="order-amount">750 ريال</span>
+                                <span class="order-amount-label">رسوم التخليص</span>
+                            </div>
+                            <div class="order-progress-section">
+                                <div class="order-progress-bar">
+                                    <div class="order-progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span class="order-progress-text">100% مكتمل</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="order-action-btn primary" data-action="view-order" data-order-id="C-6678" aria-label="عرض التفاصيل">
+                            <i class="fas fa-eye"></i>
+                            <span>عرض</span>
+                        </button>
+                        <button class="order-action-btn secondary" data-action="download-invoice" data-order-id="C-6678" aria-label="تحميل الفاتورة">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>فاتورة</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Item 6 - Processing Shipping -->
+            <div class="order-item order-processing" data-order-id="SH-3344" data-service-type="shipping" data-status="processing" data-amount="680">
+                <div class="order-header">
+                    <div class="order-id">
+                        <span class="order-id-text">#SH-3344</span>
+                        <span class="order-service-type">شحن</span>
+                    </div>
+                    <div class="order-status">
+                        <span class="order-status-badge processing">
+                            <i class="fas fa-truck"></i>
+                            قيد المعالجة
+                        </span>
+                        <span class="order-time">منذ يومين</span>
+                    </div>
+                </div>
+                
+                <div class="order-content">
+                    <div class="order-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="order-details">
+                        <h4 class="order-title">طلب شحن دولي - الرياض إلى دبي</h4>
+                        <p class="order-description">شحن دولي من الرياض إلى دبي، وزن 75 كجم، خدمة شحن اقتصادي</p>
+                        <div class="order-meta">
+                            <div class="order-amount-section">
+                                <span class="order-amount">680 ريال</span>
+                                <span class="order-amount-label">رسوم الشحن</span>
+                            </div>
+                            <div class="order-progress-section">
+                                <div class="order-progress-bar">
+                                    <div class="order-progress-fill" style="width: 45%"></div>
+                                </div>
+                                <span class="order-progress-text">45% مكتمل</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="order-action-btn primary" data-action="view-order" data-order-id="SH-3344" aria-label="عرض التفاصيل">
+                            <i class="fas fa-eye"></i>
+                            <span>عرض</span>
+                        </button>
+                        <button class="order-action-btn secondary" data-action="track-order" data-order-id="SH-3344" aria-label="تتبع الطلب">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>تتبع</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Load More Button -->
+        <div class="orders-load-more">
+            <button class="orders-load-more-btn" data-action="load-more-orders">
+                <i class="fas fa-chevron-down"></i>
+                <span>تحميل المزيد من الطلبات</span>
+                <span class="orders-load-more-count">(26 طلب إضافي)</span>
+            </button>
+        </div>
+    </section>
+</div>
+
+<!-- Enhanced Order Details Modal -->
+<div id="orderDetailsModal" class="order-modal-overlay">
+    <div class="order-modal-content">
+        <div class="order-modal-header">
+            <h3 class="order-modal-title">تفاصيل الطلب</h3>
+            <button class="order-modal-close" aria-label="إغلاق">×</button>
+        </div>
+        <div class="order-modal-body">
+            <!-- Modal content will be dynamically populated -->
+        </div>
+    </div>
+</div>
+
+<!-- Order Tracking Modal -->
+<div id="orderTrackingModal" class="order-modal-overlay">
+    <div class="order-modal-content">
+        <div class="order-modal-header">
+            <h3 class="order-modal-title">تتبع الطلب</h3>
+            <button class="order-modal-close" aria-label="إغلاق">×</button>
+        </div>
+        <div class="order-modal-body">
+            <!-- Tracking content will be dynamically populated -->
+        </div>
+    </div>
+</div>
+
+<!-- Sort Options Modal -->
+<div id="sortOptionsModal" class="order-modal-overlay">
+    <div class="order-modal-content">
+        <div class="order-modal-header">
+            <h3 class="order-modal-title">ترتيب الطلبات</h3>
+            <button class="order-modal-close" aria-label="إغلاق">×</button>
+        </div>
+        <div class="order-modal-body">
+            <div class="sort-options-list">
+                <button class="sort-option" data-sort="date-desc">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>الأحدث أولاً</span>
+                    <i class="fas fa-check"></i>
+                </button>
+                <button class="sort-option" data-sort="date-asc">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>الأقدم أولاً</span>
+                </button>
+                <button class="sort-option" data-sort="amount-desc">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>الأعلى سعراً</span>
+                </button>
+                <button class="sort-option" data-sort="amount-asc">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>الأقل سعراً</span>
+                </button>
+                <button class="sort-option" data-sort="status">
+                    <i class="fas fa-tasks"></i>
+                    <span>حسب الحالة</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 
