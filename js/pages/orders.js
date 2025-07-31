@@ -254,6 +254,42 @@ class OrdersPage {
 
         // Apply filters with smooth animation
         this.applyFiltersWithAnimation();
+        
+        // Update filter counts
+        this.updateFilterCounts();
+    }
+
+    updateFilterCounts() {
+        // Update the count display for each filter chip based on current filters
+        const orderItems = document.querySelectorAll('.order-item');
+        
+        // Count by status
+        const statusCounts = { all: 0, new: 0, pending: 0, processing: 0, completed: 0 };
+        const serviceCounts = { 'all-services': 0, shipping: 0, customs: 0, packaging: 0, warehouse: 0 };
+        
+        orderItems.forEach(item => {
+            const status = item.dataset.status;
+            const serviceType = item.dataset.serviceType;
+            
+            statusCounts.all++;
+            statusCounts[status]++;
+            serviceCounts['all-services']++;
+            serviceCounts[serviceType]++;
+        });
+        
+        // Update status filter counts
+        document.querySelectorAll('[data-filter]').forEach(chip => {
+            const filter = chip.dataset.filter;
+            const countElement = chip.querySelector('.filter-chip-count');
+            
+            if (countElement) {
+                if (statusCounts[filter] !== undefined) {
+                    countElement.textContent = statusCounts[filter];
+                } else if (serviceCounts[filter] !== undefined) {
+                    countElement.textContent = serviceCounts[filter];
+                }
+            }
+        });
     }
 
     animateFilterSelection(chip) {
@@ -294,6 +330,37 @@ class OrdersPage {
         
         // Update summary with animation
         this.updateOrderSummary();
+        
+        // Show feedback for filter changes
+        this.showFilterFeedback();
+    }
+
+    showFilterFeedback() {
+        const activeFilters = [];
+        
+        if (this.currentFilters.status !== 'all') {
+            activeFilters.push(this.getStatusText(this.currentFilters.status));
+        }
+        if (this.currentFilters.serviceType !== 'all-services') {
+            activeFilters.push(this.getServiceTypeText(this.currentFilters.serviceType));
+        }
+        if (this.currentFilters.timeRange !== 'all-time') {
+            activeFilters.push(this.getTimeRangeText(this.currentFilters.timeRange));
+        }
+        
+        if (activeFilters.length > 0) {
+            this.showToast(`تم تطبيق الفلاتر: ${activeFilters.join('، ')}`, 'info');
+        }
+    }
+
+    getTimeRangeText(timeRange) {
+        const timeMap = {
+            'today': 'اليوم',
+            'week': 'هذا الأسبوع',
+            'month': 'هذا الشهر',
+            'all-time': 'كل الفترات'
+        };
+        return timeMap[timeRange] || timeRange;
     }
 
     shouldShowOrder(item) {
@@ -1024,4 +1091,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Export for global access
-window.OrdersPage = OrdersPage; 
+window.OrdersPage = OrdersPage;
