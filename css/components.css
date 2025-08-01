@@ -762,7 +762,7 @@ input:checked + .switch-slider:before {
     position: absolute;
     width: 6px;
     height: 6px;
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 50%;
     bottom: 8px;
     left: 0;
@@ -5854,7 +5854,7 @@ input:checked + .switch-slider:before {
 }
 
 .request-summary-card .route-arrow {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
     width: 32px;
     height: 32px;
@@ -6594,7 +6594,7 @@ input:checked + .switch-slider:before {
 }
 
 .offer-card .action-buttons .btn-outline-primary:active {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
 }
 
@@ -6822,7 +6822,7 @@ input:checked + .switch-slider:before {
 }
 
 .comparison-sticky-bar .actions .btn-primary { 
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: #fff;
     box-shadow: 0 4px 16px rgba(67, 97, 238, 0.13);
     border: none;
@@ -6974,7 +6974,7 @@ input:checked + .switch-slider:before {
 }
 
 .modal-footer .btn-outline-primary:hover {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--text-on-primary);
     transform: translateY(-2px);
 }
