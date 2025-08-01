@@ -81,7 +81,7 @@
                                 tags: ['موثوق', 'شحن جوي'],
                                 description: 'تخليص جمركي سريع ومعتمد'
                             },
-                        ],        /**
+                        ],                    /**
              * Enhanced initialization with animation
              */
             init: function() {
@@ -94,6 +94,7 @@
                 this.setInitialState();
                 this.renderServices();
                 this.animateInitialLoad();
+                this.setupIntersectionObserver();
             },
 
             /**
@@ -312,6 +313,28 @@
             },
 
             /**
+             * Setup intersection observer for scroll animations
+             */
+            setupIntersectionObserver: function() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate-in');
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+
+                // Observe service cards for scroll animations
+                const cards = document.querySelectorAll('.sv-card');
+                cards.forEach(card => {
+                    observer.observe(card);
+                });
+            },
+
+            /**
              * Set initial active states
              */
             setInitialState: function() {
@@ -363,6 +386,7 @@
                     
                     this.isLoading = false;
                     this.animateServiceCards();
+                    this.setupIntersectionObserver();
                 }, 300);
             },
 
