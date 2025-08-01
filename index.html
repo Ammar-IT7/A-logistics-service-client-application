@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="css/orders.css">   
     <link rel="stylesheet" href="css/more.css">
     <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/buttom-navbar.css">
 </head>
 <body>
     <div id="designer-notes">
@@ -63,6 +64,13 @@
 
 
 
+        <!-- Center Service Request Button -->
+        <button class="nav-service-request-btn" data-action="request-service" aria-label="طلب خدمة">
+            <div class="service-request-icon">
+                <i class="fas fa-plus"></i>
+            </div>
+        </button>
+        
         <!-- Bottom Navigation -->
     <!-- Modern Dot Indicator Navigation Bar -->
     <div class="bottom-nav">
@@ -120,7 +128,6 @@
     <script src="js/pages/orders.js"></script>
     <script src="js/pages/more.js"></script>
 
-
     <script>
 
         
@@ -168,6 +175,26 @@
                     document.querySelector('.main-content h1').textContent = `صفحة ${item.querySelector('.nav-label').textContent}`;
                 });
             });
+
+            // Add click event listener for service request button
+            const serviceRequestBtn = document.querySelector('.nav-service-request-btn');
+            if (serviceRequestBtn) {
+                serviceRequestBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Service request button clicked');
+                    
+                    // Trigger the same action as the FAB button
+                    const fabButton = document.querySelector('.chp-fab-request-service');
+                    if (fabButton) {
+                        fabButton.click();
+                    } else {
+                        // Fallback: navigate to service request form
+                        if (typeof App !== 'undefined' && App.navigate) {
+                            App.navigate('clientServiceRequestForm');
+                        }
+                    }
+                });
+            }
 
             // Set initial position of the indicator on page load
             const initialActiveItem = document.querySelector('.nav-item.active');
