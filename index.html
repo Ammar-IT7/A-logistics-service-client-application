@@ -75,22 +75,28 @@
         <!-- Bottom Navigation -->
     <!-- Modern Dot Indicator Navigation Bar -->
     <div class="bottom-nav">
-        <a href="#" class="nav-item active" data-page="client-home-page">
-            <div class="nav-icon"><i class="fas fa-home"></i></div>
-            <div class="nav-label">الرئيسية</div>
-        </a>
-        <a href="#" class="nav-item" data-page="service-providers">
-            <div class="nav-icon"><i class="fas fa-users"></i></div>
-            <div class="nav-label">الخدمات</div>
-        </a>
-        <a href="#" class="nav-item" data-page="orders">
-            <div class="nav-icon"><i class="fas fa-clipboard-list"></i></div>
-            <div class="nav-label">طلباتي</div>
-        </a>
-        <a href="#" class="nav-item" data-page="more">
-            <div class="nav-icon"><i class="fas fa-th-large"></i></div>
-            <div class="nav-label">المزيد</div>
-        </a>
+        <div class="bottom-nav-group left">
+            <a href="#" class="nav-item" data-page="service-providers">
+                <div class="nav-icon"><i class="fas fa-users"></i></div>
+                <div class="nav-label">الخدمات</div>
+            </a>
+            <a href="#" class="nav-item active" data-page="client-home-page">
+                <div class="nav-icon"><i class="fas fa-home"></i></div>
+                <div class="nav-label">الرئيسية</div>
+            </a>
+        </div>
+        <div class="bottom-nav-group right">
+            <a href="#" class="nav-item" data-page="more">
+                <div class="nav-icon"><i class="fas fa-th-large"></i></div>
+                <div class="nav-label">المزيد</div>
+            </a>
+            <a href="#" class="nav-item" data-page="orders">
+                <div class="nav-icon"><i class="fas fa-clipboard-list"></i></div>
+                <div class="nav-label">طلباتي</div>
+            </a>
+        </div>
+        <!-- Moving Dot Indicator -->
+        <div class="nav-indicator-dot"></div>
     </div>
     </div>
 
@@ -200,9 +206,12 @@
                 }
 
                 // Move the indicator dot to the center of the active item
-                const itemCenter = clickedItem.offsetLeft + (clickedItem.offsetWidth / 2);
-                const indicatorOffset = itemCenter - (indicator.offsetWidth / 2);
-                indicator.style.transform = `translateX(${indicatorOffset}px)`;
+                if (indicator) {
+                    const itemCenter = clickedItem.offsetLeft + (clickedItem.offsetWidth / 2);
+                    const navLeft = document.querySelector('.bottom-nav').offsetLeft;
+                    const indicatorOffset = itemCenter - navLeft - (indicator.offsetWidth / 2);
+                    indicator.style.transform = `translateX(${indicatorOffset}px)`;
+                }
             }
 
             // Add click event listeners to each navigation item
