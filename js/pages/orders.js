@@ -1,6 +1,7 @@
 // Enhanced Orders Page JavaScript - Modern UX Patterns
 class OrdersPage {
     constructor() {
+        
         this.currentFilters = {
             status: 'all',
             serviceType: 'all-services',
@@ -11,6 +12,14 @@ class OrdersPage {
         this.isLoading = false;
         this.page = 1;
         this.hasMore = true;
+        
+        // Map tracking properties
+        this.map = null;
+        this.animationInterval = null;
+        this.truckMarker = null;
+        this.completedRouteLine = null;
+        this.previousLatLng = null;
+        
         this.init();
     }
 
@@ -19,6 +28,7 @@ class OrdersPage {
         this.loadOrders();
         this.updateInsights();
         this.initializeAnimations();
+        this.setupTrackingListeners();
     }
 
     bindEvents() {
@@ -31,7 +41,7 @@ class OrdersPage {
         });
 
         // Enhanced order actions with loading states
-        document.querySelectorAll('.order-action-btn').forEach(btn => {
+        document.querySelectorAll('.action-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -458,6 +468,9 @@ class OrdersPage {
             case 'download-invoice':
                 this.downloadInvoice(orderId);
                 break;
+            case 'contact-support':
+                this.contactSupport();
+                break;
             }
             this.setButtonLoading(btn, false);
         }, 500);
@@ -824,13 +837,27 @@ class OrdersPage {
     }
 
     trackOrder(orderId) {
-        const order = this.getOrderById(orderId);
-        if (!order) return;
+        // Try to get tracking data for map functionality
+        const trackingData = this.getOrderTrackingData(orderId);
+        
+        if (trackingData) {
+            // Show interactive map tracking
+            this.initAndShowMap(trackingData);
+            this.setButtonLoading(document.querySelector(`[data-action="track-order"][data-order-id="${orderId}"]`), false);
+        } else {
+            // Fallback to traditional tracking display
+            const order = this.getOrderById(orderId);
+            if (!order) {
+                this.showToast('لم يتم العثور على بيانات الطلب', 'error');
+                return;
+            }
 
-        const modalBody = document.querySelector('#orderTrackingModal .order-modal-body');
-        if (modalBody) {
-            modalBody.innerHTML = this.generateTrackingHTML(order);
-            this.showOrderModal('orderTrackingModal');
+            const modalBody = document.querySelector('#orderTrackingModal .order-modal-body');
+            if (modalBody) {
+                modalBody.innerHTML = this.generateTrackingHTML(order);
+                this.showOrderModal('orderTrackingModal');
+            }
+            this.setButtonLoading(document.querySelector(`[data-action="track-order"][data-order-id="${orderId}"]`), false);
         }
     }
 
@@ -1081,12 +1108,312 @@ class OrdersPage {
         // Implement advanced filter modal
         this.showToast('سيتم إضافة فلاتر متقدمة قريباً', 'info');
     }
+
+    // === TRACKING MAP FUNCTIONALITY ===
+    
+    setupTrackingListeners() {
+        const mapModal = document.getElementById('trackingMapModal');
+        const closeButton = mapModal?.querySelector('.chp-map-modal-close');
+        const recenterButton = document.getElementById('recenterBtn');
+
+        // Close button listener
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                this.hideMap();
+            });
+        }
+        
+        // Click outside to close
+        if (mapModal) {
+            mapModal.addEventListener('click', (e) => {
+                if (e.target === mapModal) {
+                    this.hideMap();
+                }
+            });
+        }
+
+        // Recenter button listener
+        if (recenterButton) {
+            recenterButton.addEventListener('click', () => {
+                if (this.map && this.truckMarker) {
+                    this.map.flyTo(this.truckMarker.getLatLng(), this.map.getZoom(), {
+                        duration: 1
+                    });
+                }
+            });
+        }
+    }
+
+    getOrderTrackingData(orderId) {
+        // Sample tracking data for orders that support tracking
+        const trackingData = {
+            'SH-1099': {
+                shipmentId: '#SH-1099',
+                originLat: '24.7136',
+                originLon: '46.6753',
+                originName: 'الرياض، السعودية',
+                destinationName: 'جدة، السعودية',
+                currentStatus: 'قيد النقل',
+                estimatedTime: '3 ساعات'
+            },
+            'SH-3344': {
+                shipmentId: '#SH-3344',
+                originLat: '24.7136',
+                originLon: '46.6753',
+                originName: 'الرياض، السعودية',
+                destinationName: 'دبي، الإمارات',
+                currentStatus: 'قيد النقل الدولي',
+                estimatedTime: '6 ساعات'
+            },
+            'C-8812': {
+                shipmentId: '#C-8812',
+                originLat: '39.9042',
+                originLon: '116.4074',
+                originName: 'بكين، الصين',
+                destinationName: 'الرياض، السعودية',
+                currentStatus: 'في التخليص الجمركي',
+                estimatedTime: '2 أيام'
+            },
+            'P-5432': {
+                shipmentId: '#P-5432',
+                originLat: '24.7136',
+                originLon: '46.6753',
+                originName: 'مركز التغليف، الرياض',
+                destinationName: 'العنوان المحدد',
+                currentStatus: 'قيد التغليف',
+                estimatedTime: '1 يوم'
+            }
+        };
+
+        return trackingData[orderId] || null;
+    }
+
+    initAndShowMap(data) {
+        // This function requires the Leaflet library (L) to be loaded.
+        if (typeof L === 'undefined') {
+            console.error("Leaflet library is not loaded. Map cannot be initialized.");
+            this.showToast('مكتبة الخرائط غير متوفرة. يرجى المحاولة لاحقاً.', 'error');
+            return;
+        }
+
+        const mapModal = document.getElementById('trackingMapModal');
+        
+        if (!mapModal) {
+            console.error('Map modal not found!');
+            this.showToast('خطأ في العثور على نافذة الخريطة', 'error');
+            return;
+        }
+
+        mapModal.classList.add('chp-active');
+        
+        // Update modal content
+        const shipmentIdEl = document.getElementById('mapShipmentId');
+        const shipmentOriginEl = document.getElementById('mapShipmentOrigin');
+        
+        if (shipmentIdEl) shipmentIdEl.textContent = `تتبع الطلب ${data.shipmentId}`;
+        if (shipmentOriginEl) shipmentOriginEl.textContent = `من: ${data.originName}`;
+
+        // Remove existing map if any
+        if (this.map) {
+            this.map.remove();
+            this.map = null;
+        }
+
+        // Set coordinates
+        const origin = [parseFloat(data.originLat), parseFloat(data.originLon)];
+        const destination = [15.3694, 44.1910]; // Sana'a coordinates as default destination
+
+        try {
+            // Initialize map
+            this.map = L.map('map-container').setView(origin, 6);
+            
+            // Add dark theme tile layer
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors © CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(this.map);
+
+            // Add route line (dashed background)
+            L.polyline([origin, destination], { 
+                color: 'rgba(128, 128, 128, 0.5)', 
+                weight: 5, 
+                dashArray: '10, 10' 
+            }).addTo(this.map);
+
+            // Add completed route line (will be animated)
+            this.completedRouteLine = L.polyline([], { 
+                color: '#2e65cc', 
+                weight: 5 
+            }).addTo(this.map);
+
+            // Add origin marker
+            L.marker(origin).addTo(this.map)
+                .bindPopup(`<b>نقطة الانطلاق</b><br>${data.originName}`);
+
+            // Add destination marker
+            L.marker(destination).addTo(this.map)
+                .bindPopup(`<b>الوجهة النهائية</b><br>${data.destinationName}`);
+
+            // Create animated truck icon
+            const truckIcon = L.divIcon({
+                html: '<i class="fas fa-truck"></i>',
+                className: 'live-truck-icon',
+                iconSize: [28, 28],
+                iconAnchor: [14, 14]
+            });
+
+            this.truckMarker = L.marker(origin, {icon: truckIcon}).addTo(this.map);
+            this.previousLatLng = origin;
+
+            // Fit map to show both origin and destination
+            const routeBounds = L.latLngBounds(origin, destination);
+            this.map.flyToBounds(routeBounds, { padding: [50, 50], duration: 1.5 });
+
+            // Start tracking animation
+            this.startTrackingAnimation(origin, destination, data);
+            
+        } catch (error) {
+            console.error('Error initializing map:', error);
+            this.showToast('خطأ في تهيئة الخريطة', 'error');
+        }
+    }
+
+    startTrackingAnimation(origin, destination, data) {
+        let step = 0;
+        const totalSteps = 600; 
+        const tripDurationSeconds = 30;
+        const etaElement = document.getElementById('mapShipmentETA');
+        const statusElement = document.getElementById('mapShipmentStatus');
+        const progressBar = document.getElementById('trackingProgressBar');
+
+        // Reset animation state
+        this.completedRouteLine.setLatLngs([]);
+        progressBar.style.width = '0%';
+        statusElement.style.color = 'var(--success)';
+
+        // Clear any existing animation
+        if (this.animationInterval) {
+            clearInterval(this.animationInterval);
+        }
+
+        this.animationInterval = setInterval(() => {
+            step++;
+            const progress = 0.5 - 0.5 * Math.cos(Math.PI * (step / totalSteps));
+            const remainingSeconds = Math.round(tripDurationSeconds * (1 - progress));
+            const mins = Math.floor(remainingSeconds / 60);
+            const secs = remainingSeconds % 60;
+            
+            etaElement.textContent = `الوقت المقدر: ${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+            
+            // Update status based on progress
+            if (progress < 0.1) {
+                statusElement.textContent = 'بدء الرحلة';
+            } else if (progress < 0.3) {
+                statusElement.textContent = 'في الطريق';
+            } else if (progress < 0.7) {
+                statusElement.textContent = data.currentStatus || 'قيد النقل';
+            } else if (progress < 0.95) {
+                statusElement.textContent = 'اقتراب من الوجهة';
+            } else {
+                statusElement.textContent = 'على وشك الوصول';
+            }
+
+            // Calculate new position
+            const lat = origin[0] + (destination[0] - origin[0]) * progress;
+            const lng = origin[1] + (destination[1] - origin[1]) * progress;
+            const newPos = [lat, lng];
+
+            // Update truck position
+            this.truckMarker.setLatLng(newPos);
+            this.completedRouteLine.addLatLng(newPos);
+            progressBar.style.width = `${progress * 100}%`;
+
+            // Calculate and apply rotation
+            const angle = this.calculateAngle(this.previousLatLng, newPos);
+            const markerElement = this.truckMarker.getElement();
+            if (markerElement) {
+                markerElement.style.transform = `${markerElement.style.transform.split(' rotateZ')[0]} rotateZ(${angle + 90}deg)`;
+            }
+            this.previousLatLng = newPos;
+
+            // Complete animation
+            if (step >= totalSteps) {
+                clearInterval(this.animationInterval);
+                this.animationInterval = null;
+                statusElement.textContent = 'تم التوصيل بنجاح!';
+                statusElement.style.color = '#1dd1a1';
+                etaElement.textContent = '';
+                this.truckMarker.setLatLng(destination);
+                this.truckMarker.bindPopup("<b>الطلب وصل!</b>").openPopup();
+            }
+        }, (tripDurationSeconds * 1000) / totalSteps);
+    }
+
+    hideMap() {
+        const mapModal = document.getElementById('trackingMapModal');
+        mapModal.classList.remove('chp-active');
+        
+        // Clear animation
+        if (this.animationInterval) {
+            clearInterval(this.animationInterval);
+            this.animationInterval = null;
+        }
+
+        // Clean up map
+        if (this.map) {
+            setTimeout(() => {
+                this.map.remove();
+                this.map = null;
+            }, 400);
+        }
+    }
+
+    calculateAngle(p1, p2) {
+        const lat1 = p1[0] * Math.PI / 180;
+        const lon1 = p1[1] * Math.PI / 180;
+        const lat2 = p2[0] * Math.PI / 180;
+        const lon2 = p2[1] * Math.PI / 180;
+        const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
+        const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1);
+        const bearing = Math.atan2(y, x) * 180 / Math.PI;
+        return bearing;
+    }
 }
 
-// Initialize orders page when DOM is loaded
+// Create controller wrapper for the router system
+window.OrdersController = {
+    instance: null,
+    
+    init: function() {
+        if (!this.instance) {
+            this.instance = new OrdersPage();
+        }
+    },
+    
+    destroy: function() {
+        if (this.instance) {
+            // Clean up map if it exists
+            if (this.instance.map) {
+                this.instance.map.remove();
+                this.instance.map = null;
+            }
+            // Clear any intervals
+            if (this.instance.animationInterval) {
+                clearInterval(this.instance.animationInterval);
+                this.instance.animationInterval = null;
+            }
+            this.instance = null;
+        }
+    }
+};
+
+// Initialize orders page when DOM is loaded (fallback)
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('orders-page')) {
-        window.OrdersPage = new OrdersPage();
+    const ordersPageElement = document.getElementById('orders-page');
+    
+    if (ordersPageElement && !window.OrdersController.instance) {
+        window.OrdersController.init();
     }
 });
 

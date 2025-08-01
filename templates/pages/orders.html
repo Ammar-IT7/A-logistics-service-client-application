@@ -272,9 +272,9 @@
                         <i class="fas fa-eye"></i>
                         <span>عرض التفاصيل</span>
                     </button>
-                    <button class="action-btn secondary" data-action="track-order" data-order-id="C-8812">
+                    <button class="action-btn secondary" data-action="track-order" data-order-id="C-8812" data-has-live-tracking="true">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>تتبع</span>
+                        <span>تتبع مباشر</span>
                     </button>
                     <button class="action-btn secondary" data-action="contact-support" data-order-id="C-8812">
                         <i class="fas fa-headset"></i>
@@ -367,9 +367,9 @@
                         <i class="fas fa-eye"></i>
                         <span>عرض التفاصيل</span>
                     </button>
-                    <button class="action-btn secondary" data-action="track-order" data-order-id="P-5432">
+                    <button class="action-btn secondary" data-action="track-order" data-order-id="P-5432" data-has-live-tracking="true">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>تتبع</span>
+                        <span>تتبع مباشر</span>
                     </button>
                     <button class="action-btn secondary" data-action="contact-support" data-order-id="P-5432">
                         <i class="fas fa-headset"></i>
@@ -462,9 +462,9 @@
                         <i class="fas fa-eye"></i>
                         <span>عرض التفاصيل</span>
                     </button>
-                    <button class="action-btn secondary" data-action="track-order" data-order-id="SH-1099">
+                    <button class="action-btn secondary" data-action="track-order" data-order-id="SH-1099" data-has-live-tracking="true">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>تتبع</span>
+                        <span>تتبع مباشر</span>
                     </button>
                     <button class="action-btn secondary" data-action="contact-support" data-order-id="SH-1099">
                         <i class="fas fa-headset"></i>
@@ -747,9 +747,9 @@
                         <i class="fas fa-eye"></i>
                         <span>عرض التفاصيل</span>
                     </button>
-                    <button class="action-btn secondary" data-action="track-order" data-order-id="SH-3344">
+                    <button class="action-btn secondary" data-action="track-order" data-order-id="SH-3344" data-has-live-tracking="true">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>تتبع</span>
+                        <span>تتبع مباشر</span>
                     </button>
                     <button class="action-btn secondary" data-action="contact-support" data-order-id="SH-3344">
                         <i class="fas fa-headset"></i>
@@ -826,6 +826,32 @@
                     <i class="fas fa-tasks"></i>
                     <span>حسب الحالة</span>
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Tracking Map Modal -->
+<div id="trackingMapModal" class="chp-map-modal-overlay">
+    <div class="chp-map-modal-content">
+        <button class="chp-map-modal-close" aria-label="إغلاق الخريطة">×</button>
+        <div id="map-container"></div>
+        <div class="shipment-details-panel">
+            <div class="shipment-info-header">
+                <h3 id="mapShipmentId"></h3>
+                <p id="mapShipmentOrigin"></p>
+            </div>
+            <div class="recenter-btn-container">
+                <button id="recenterBtn" title="توسيط على الشاحنة"><i class="fas fa-location-crosshairs"></i></button>
+            </div>
+            <div class="tracking-progress-container">
+                <div class="tracking-progress-bar-bg">
+                    <div id="trackingProgressBar"></div>
+                </div>
+            </div>
+            <div class="shipment-live-info">
+                <span id="mapShipmentStatus"></span>
+                <span id="mapShipmentETA"></span>
             </div>
         </div>
     </div>

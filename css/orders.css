@@ -2693,7 +2693,7 @@
 
 /* Focus States for Accessibility */
 .orders-filter-chip:focus,
-.order-action-btn:focus,
+.action-btn:focus,
 .orders-action-btn:focus,
 .quick-action-btn:focus {
     outline: 2px solid var(--primary-color);
@@ -2710,5 +2710,238 @@
     
     .order-status-badge {
         border: 1px solid currentColor;
+    }
+}
+
+/* === TRACKING MAP STYLES === */
+.chp-map-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.chp-map-modal-overlay.chp-active { 
+    opacity: 1; 
+    visibility: visible; 
+}
+
+.chp-map-modal-content { 
+    width: 100%; 
+    height: 100%; 
+    position: relative; 
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+    background: #2c3e50;
+    z-index: 10000;
+}
+
+.leaflet-container.map-dark-theme { 
+    background: #2c3e50; 
+}
+
+.chp-map-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.chp-map-modal-close:hover { 
+    transform: scale(1.1) rotate(90deg); 
+    background-color: white; 
+    color: #333;
+}
+
+.shipment-details-panel {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    z-index: 10001;
+    color: #2c3e50;
+    display: grid;
+    grid-template-areas:
+        "header recenter"
+        "progress progress"
+        "info info";
+    grid-template-columns: 1fr auto;
+    gap: 15px;
+}
+
+.shipment-info-header { 
+    grid-area: header; 
+}
+
+.shipment-info-header h3 { 
+    margin: 0; 
+    font-size: 1.2rem; 
+    font-weight: 700; 
+}
+
+.shipment-info-header p { 
+    margin: 4px 0 0 0; 
+    font-size: 0.9rem; 
+    opacity: 0.8; 
+}
+
+.recenter-btn-container { 
+    grid-area: recenter; 
+    text-align: left; 
+}
+
+#recenterBtn {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#recenterBtn:hover { 
+    background: rgba(255, 255, 255, 0.4); 
+    transform: scale(1.1); 
+}
+
+.tracking-progress-container { 
+    grid-area: progress; 
+}
+
+.tracking-progress-bar-bg { 
+    width: 100%; 
+    height: 8px; 
+    background: rgba(0,0,0,0.2); 
+    border-radius: 4px; 
+    overflow: hidden; 
+}
+
+#trackingProgressBar { 
+    width: 0%; 
+    height: 100%;  
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); 
+    border-radius: 4px; 
+    transition: width 0.5s linear; 
+}
+
+.shipment-live-info {
+    grid-area: info;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+#mapShipmentStatus { 
+    color: var(--success); 
+    font-weight: 700; 
+}
+
+.live-truck-icon {
+    width: 28px !important;
+    height: 28px !important;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border-radius: 50%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.4);
+    border: 3px solid white;
+    animation: pulse 2s infinite;
+    z-index: 1000;
+}
+
+.route-path-background { 
+    stroke-width: 5; 
+    stroke-linecap: round; 
+}
+
+.route-path-completed { 
+    stroke-width: 5; 
+    stroke-linecap: round; 
+}
+
+/* Live tracking button enhancement */
+.action-btn[data-has-live-tracking="true"] {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn[data-has-live-tracking="true"]:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.4);
+}
+
+.action-btn[data-has-live-tracking="true"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.action-btn[data-has-live-tracking="true"]:hover::before {
+    left: 100%;
+}
+
+.action-btn[data-has-live-tracking="true"] i {
+    animation: pulse 2s infinite;
+}
+
+/* Mobile responsiveness for tracking map */
+@media (max-width: 768px) {
+    .shipment-details-panel {
+        width: calc(100% - 40px);
+        bottom: 10px;
+        left: 20px;
+        right: 20px;
+        padding: 15px;
+    }
+    
+    .chp-map-modal-close {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
     }
 } 
