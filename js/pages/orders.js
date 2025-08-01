@@ -846,16 +846,16 @@ class OrdersPage {
             this.setButtonLoading(document.querySelector(`[data-action="track-order"][data-order-id="${orderId}"]`), false);
         } else {
             // Fallback to traditional tracking display
-            const order = this.getOrderById(orderId);
+        const order = this.getOrderById(orderId);
             if (!order) {
                 this.showToast('لم يتم العثور على بيانات الطلب', 'error');
                 return;
             }
 
-            const modalBody = document.querySelector('#orderTrackingModal .order-modal-body');
-            if (modalBody) {
-                modalBody.innerHTML = this.generateTrackingHTML(order);
-                this.showOrderModal('orderTrackingModal');
+        const modalBody = document.querySelector('#orderTrackingModal .order-modal-body');
+        if (modalBody) {
+            modalBody.innerHTML = this.generateTrackingHTML(order);
+            this.showOrderModal('orderTrackingModal');
             }
             this.setButtonLoading(document.querySelector(`[data-action="track-order"][data-order-id="${orderId}"]`), false);
         }
@@ -1114,7 +1114,6 @@ class OrdersPage {
     setupTrackingListeners() {
         const mapModal = document.getElementById('trackingMapModal');
         const closeButton = mapModal?.querySelector('.chp-map-modal-close');
-        const recenterButton = document.getElementById('recenterBtn');
 
         // Close button listener
         if (closeButton) {
@@ -1132,9 +1131,18 @@ class OrdersPage {
             });
         }
 
-        // Recenter button listener
-        if (recenterButton) {
-            recenterButton.addEventListener('click', () => {
+        // Enhanced map controls
+        this.setupMapControls();
+        
+        // Setup keyboard navigation
+        this.setupKeyboardNavigation();
+    }
+
+    setupMapControls() {
+        // Setup simple recenter button like home page
+        const recenterBtn = document.getElementById('recenterBtn');
+        if (recenterBtn) {
+            recenterBtn.addEventListener('click', () => {
                 if (this.map && this.truckMarker) {
                     this.map.flyTo(this.truckMarker.getLatLng(), this.map.getZoom(), {
                         duration: 1
@@ -1144,8 +1152,10 @@ class OrdersPage {
         }
     }
 
+
+
     getOrderTrackingData(orderId) {
-        // Sample tracking data for orders that support tracking
+        // Enhanced tracking data with waypoints and metrics
         const trackingData = {
             'SH-1099': {
                 shipmentId: '#SH-1099',
@@ -1154,7 +1164,15 @@ class OrdersPage {
                 originName: 'الرياض، السعودية',
                 destinationName: 'جدة، السعودية',
                 currentStatus: 'قيد النقل',
-                estimatedTime: '3 ساعات'
+                estimatedTime: '3 ساعات',
+                totalDistance: 950,
+                waypoints: [
+                    { name: 'الرياض - نقطة الانطلاق', lat: 24.7136, lon: 46.6753, status: 'completed' },
+                    { name: 'مركز توزيع الخرج', lat: 24.1555, lon: 47.3089, status: 'completed' },
+                    { name: 'محطة وقود الدوادمي', lat: 24.5087, lon: 44.3928, status: 'current' },
+                    { name: 'محطة تفتيش الطائف', lat: 21.4858, lon: 40.4152, status: 'pending' },
+                    { name: 'جدة - الوجهة النهائية', lat: 21.4225, lon: 39.8262, status: 'pending' }
+                ]
             },
             'SH-3344': {
                 shipmentId: '#SH-3344',
@@ -1163,7 +1181,15 @@ class OrdersPage {
                 originName: 'الرياض، السعودية',
                 destinationName: 'دبي، الإمارات',
                 currentStatus: 'قيد النقل الدولي',
-                estimatedTime: '6 ساعات'
+                estimatedTime: '6 ساعات',
+                totalDistance: 875,
+                waypoints: [
+                    { name: 'الرياض - نقطة الانطلاق', lat: 24.7136, lon: 46.6753, status: 'completed' },
+                    { name: 'الأحساء', lat: 25.4244, lon: 49.5847, status: 'completed' },
+                    { name: 'الحدود السعودية الإماراتية', lat: 24.0, lon: 51.6, status: 'current' },
+                    { name: 'أبوظبي', lat: 24.4539, lon: 54.3773, status: 'pending' },
+                    { name: 'دبي - الوجهة النهائية', lat: 25.2048, lon: 55.2708, status: 'pending' }
+                ]
             },
             'C-8812': {
                 shipmentId: '#C-8812',
@@ -1172,7 +1198,15 @@ class OrdersPage {
                 originName: 'بكين، الصين',
                 destinationName: 'الرياض، السعودية',
                 currentStatus: 'في التخليص الجمركي',
-                estimatedTime: '2 أيام'
+                estimatedTime: '2 أيام',
+                totalDistance: 7200,
+                waypoints: [
+                    { name: 'بكين، الصين - نقطة الانطلاق', lat: 39.9042, lon: 116.4074, status: 'completed' },
+                    { name: 'ميناء شنغهاي', lat: 31.2304, lon: 121.4737, status: 'completed' },
+                    { name: 'ميناء جدة الإسلامي', lat: 21.4595, lon: 39.1558, status: 'completed' },
+                    { name: 'مركز التخليص الجمركي', lat: 21.4595, lon: 39.2558, status: 'current' },
+                    { name: 'الرياض - الوجهة النهائية', lat: 24.7136, lon: 46.6753, status: 'pending' }
+                ]
             },
             'P-5432': {
                 shipmentId: '#P-5432',
@@ -1181,7 +1215,14 @@ class OrdersPage {
                 originName: 'مركز التغليف، الرياض',
                 destinationName: 'العنوان المحدد',
                 currentStatus: 'قيد التغليف',
-                estimatedTime: '1 يوم'
+                estimatedTime: '1 يوم',
+                totalDistance: 45,
+                waypoints: [
+                    { name: 'مركز التغليف - الرياض', lat: 24.7136, lon: 46.6753, status: 'completed' },
+                    { name: 'مراقبة الجودة', lat: 24.7200, lon: 46.6800, status: 'current' },
+                    { name: 'التحضير للشحن', lat: 24.7250, lon: 46.6850, status: 'pending' },
+                    { name: 'العنوان المحدد', lat: 24.7300, lon: 46.6900, status: 'pending' }
+                ]
             }
         };
 
@@ -1192,92 +1233,54 @@ class OrdersPage {
         // This function requires the Leaflet library (L) to be loaded.
         if (typeof L === 'undefined') {
             console.error("Leaflet library is not loaded. Map cannot be initialized.");
-            this.showToast('مكتبة الخرائط غير متوفرة. يرجى المحاولة لاحقاً.', 'error');
             return;
         }
-
-        const mapModal = document.getElementById('trackingMapModal');
         
-        if (!mapModal) {
-            console.error('Map modal not found!');
-            this.showToast('خطأ في العثور على نافذة الخريطة', 'error');
-            return;
-        }
-
+        const mapModal = document.getElementById('trackingMapModal');
         mapModal.classList.add('chp-active');
         
-        // Update modal content
-        const shipmentIdEl = document.getElementById('mapShipmentId');
-        const shipmentOriginEl = document.getElementById('mapShipmentOrigin');
+        // Update shipment info like home page
+        document.getElementById('mapShipmentId').textContent = `تتبع الشحنة ${data.shipmentId}`;
+        document.getElementById('mapShipmentOrigin').textContent = `قادمة من: ${data.originName}`;
         
-        if (shipmentIdEl) shipmentIdEl.textContent = `تتبع الطلب ${data.shipmentId}`;
-        if (shipmentOriginEl) shipmentOriginEl.textContent = `من: ${data.originName}`;
-
-        // Remove existing map if any
         if (this.map) {
             this.map.remove();
             this.map = null;
         }
-
-        // Set coordinates
+        
         const origin = [parseFloat(data.originLat), parseFloat(data.originLon)];
-        const destination = [15.3694, 44.1910]; // Sana'a coordinates as default destination
-
-        try {
-            // Initialize map
-            this.map = L.map('map-container').setView(origin, 6);
-            
-            // Add dark theme tile layer
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '© OpenStreetMap contributors © CARTO',
-                subdomains: 'abcd',
-                maxZoom: 19
-            }).addTo(this.map);
-
-            // Add route line (dashed background)
-            L.polyline([origin, destination], { 
-                color: 'rgba(128, 128, 128, 0.5)', 
-                weight: 5, 
-                dashArray: '10, 10' 
-            }).addTo(this.map);
-
-            // Add completed route line (will be animated)
-            this.completedRouteLine = L.polyline([], { 
-                color: '#2e65cc', 
-                weight: 5 
-            }).addTo(this.map);
-
-            // Add origin marker
-            L.marker(origin).addTo(this.map)
-                .bindPopup(`<b>نقطة الانطلاق</b><br>${data.originName}`);
-
-            // Add destination marker
-            L.marker(destination).addTo(this.map)
-                .bindPopup(`<b>الوجهة النهائية</b><br>${data.destinationName}`);
-
-            // Create animated truck icon
-            const truckIcon = L.divIcon({
-                html: '<i class="fas fa-truck"></i>',
-                className: 'live-truck-icon',
-                iconSize: [28, 28],
-                iconAnchor: [14, 14]
-            });
-
-            this.truckMarker = L.marker(origin, {icon: truckIcon}).addTo(this.map);
-            this.previousLatLng = origin;
-
-            // Fit map to show both origin and destination
-            const routeBounds = L.latLngBounds(origin, destination);
-            this.map.flyToBounds(routeBounds, { padding: [50, 50], duration: 1.5 });
-
-            // Start tracking animation
-            this.startTrackingAnimation(origin, destination, data);
-            
-        } catch (error) {
-            console.error('Error initializing map:', error);
-            this.showToast('خطأ في تهيئة الخريطة', 'error');
-        }
+        const destination = [15.3694, 44.1910]; // Sana'a coordinates
+        
+        this.map = L.map('map-container').setView(origin, 6);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap contributors © CARTO',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(this.map);
+        
+        L.polyline([origin, destination], { color: 'rgba(128, 128, 128, 0.5)', weight: 5, dashArray: '10, 10' }).addTo(this.map);
+        this.completedRouteLine = L.polyline([], { color: 'var(--primary-color)', weight: 5 }).addTo(this.map);
+        
+        L.marker(origin).addTo(this.map).bindPopup(`<b>نقطة الانطلاق</b><br>${data.originName}`);
+        L.marker(destination).addTo(this.map).bindPopup("<b>الوجهة النهائية</b><br>صنعاء، اليمن");
+        
+        const truckIcon = L.divIcon({
+            html: '<i class="fas fa-truck"></i>',
+            className: 'live-truck-icon',
+            iconSize: [28, 28],
+            iconAnchor: [14, 14]
+        });
+        
+        this.truckMarker = L.marker(origin, {icon: truckIcon}).addTo(this.map);
+        this.previousLatLng = origin;
+        
+        const routeBounds = L.latLngBounds(origin, destination);
+        this.map.flyToBounds(routeBounds, { padding: [50, 50], duration: 1.5 });
+        
+        this.startTrackingAnimation(origin, destination, data);
     }
+
+
 
     startTrackingAnimation(origin, destination, data) {
         let step = 0;
@@ -1286,17 +1289,11 @@ class OrdersPage {
         const etaElement = document.getElementById('mapShipmentETA');
         const statusElement = document.getElementById('mapShipmentStatus');
         const progressBar = document.getElementById('trackingProgressBar');
-
-        // Reset animation state
+        
         this.completedRouteLine.setLatLngs([]);
         progressBar.style.width = '0%';
         statusElement.style.color = 'var(--success)';
-
-        // Clear any existing animation
-        if (this.animationInterval) {
-            clearInterval(this.animationInterval);
-        }
-
+        
         this.animationInterval = setInterval(() => {
             step++;
             const progress = 0.5 - 0.5 * Math.cos(Math.PI * (step / totalSteps));
@@ -1306,38 +1303,24 @@ class OrdersPage {
             
             etaElement.textContent = `الوقت المقدر: ${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
             
-            // Update status based on progress
-            if (progress < 0.1) {
-                statusElement.textContent = 'بدء الرحلة';
-            } else if (progress < 0.3) {
-                statusElement.textContent = 'في الطريق';
-            } else if (progress < 0.7) {
-                statusElement.textContent = data.currentStatus || 'قيد النقل';
-            } else if (progress < 0.95) {
-                statusElement.textContent = 'اقتراب من الوجهة';
-            } else {
-                statusElement.textContent = 'على وشك الوصول';
-            }
-
-            // Calculate new position
+            if (progress < 0.1) statusElement.textContent = 'غادرت للتو';
+            else if (progress < 0.95) statusElement.textContent = 'في الطريق';
+            else statusElement.textContent = 'على وشك الوصول';
+            
             const lat = origin[0] + (destination[0] - origin[0]) * progress;
             const lng = origin[1] + (destination[1] - origin[1]) * progress;
             const newPos = [lat, lng];
-
-            // Update truck position
             this.truckMarker.setLatLng(newPos);
             this.completedRouteLine.addLatLng(newPos);
             progressBar.style.width = `${progress * 100}%`;
-
-            // Calculate and apply rotation
+            
             const angle = this.calculateAngle(this.previousLatLng, newPos);
             const markerElement = this.truckMarker.getElement();
             if (markerElement) {
                 markerElement.style.transform = `${markerElement.style.transform.split(' rotateZ')[0]} rotateZ(${angle + 90}deg)`;
             }
             this.previousLatLng = newPos;
-
-            // Complete animation
+            
             if (step >= totalSteps) {
                 clearInterval(this.animationInterval);
                 this.animationInterval = null;
@@ -1345,22 +1328,41 @@ class OrdersPage {
                 statusElement.style.color = '#1dd1a1';
                 etaElement.textContent = '';
                 this.truckMarker.setLatLng(destination);
-                this.truckMarker.bindPopup("<b>الطلب وصل!</b>").openPopup();
+                this.truckMarker.bindPopup("<b>الشحنة وصلت!</b>").openPopup();
             }
         }, (tripDurationSeconds * 1000) / totalSteps);
     }
 
+    updateTrackingUI(data, progressPercentage, isCompleted = false) {
+        // Update shipment info - simplified like home page
+        const shipmentIdEl = document.getElementById('mapShipmentId');
+        const originEl = document.getElementById('mapShipmentOrigin');
+        
+        if (shipmentIdEl) shipmentIdEl.textContent = `تتبع الشحنة ${data.shipmentId}`;
+        if (originEl) originEl.textContent = `قادمة من: ${data.originName}`;
+    }
+
+    calculateRealisticSpeed(progress) {
+        // Simulate realistic speed variations (highway vs city driving)
+        const baseSpeed = 80;
+        const speedVariation = Math.sin(progress * Math.PI * 4) * 15;
+        return Math.max(20, Math.round(baseSpeed + speedVariation));
+    }
+
+    easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+
+
+    // Enhanced mobile gesture support
+
+
     hideMap() {
         const mapModal = document.getElementById('trackingMapModal');
         mapModal.classList.remove('chp-active');
-        
-        // Clear animation
-        if (this.animationInterval) {
-            clearInterval(this.animationInterval);
-            this.animationInterval = null;
-        }
-
-        // Clean up map
+        clearInterval(this.animationInterval);
+        this.animationInterval = null;
         if (this.map) {
             setTimeout(() => {
                 this.map.remove();
