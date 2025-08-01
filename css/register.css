@@ -1,40 +1,66 @@
 
 /* Registration Screen Specific Styles */
-.register-screen-progress-step {
+.reg-register-screen-progress-step {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: var(--spacing-xl) 0;
-    max-width: 320px;
+    margin: var(--spacing-lg) 0;
+    max-width: 280px;
     margin-left: auto;
     margin-right: auto;
+    gap: 8px;
+    padding: 0 16px;
 }
 
-.register-screen-step {
+.reg-register-screen-step {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.04);
-    color: #777;
+    background-color: rgba(0, 0, 0, 0.12);
+    color: #666;
     font-weight: 600;
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 2;
     border: 2px solid transparent;
-    font-size: 1.1rem;
+    font-size: 1rem;
     position: relative;
+    flex-shrink: 0;
+    cursor: pointer;
+    opacity: 1;
 }
 
-.register-screen-step.active {
+.reg-register-screen-step:hover {
+    background-color: rgba(0, 0, 0, 0.18);
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.reg-register-screen-step.active {
     background-color: var(--primary-color);
     color: white;
-    transform: scale(1.15);
-    box-shadow: 0 5px 15px rgba(219, 166, 52, 0.3);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(219, 166, 52, 0.3);
+    border-color: var(--primary-color);
+    opacity: 1;
 }
 
-.register-screen-step::before {
+.reg-register-screen-step.completed {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+    opacity: 1;
+}
+
+.reg-register-screen-step.completed:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.reg-register-screen-step::before {
     content: '';
     position: absolute;
     top: -4px;
@@ -46,20 +72,24 @@
     transition: all 0.3s ease;
 }
 
-.register-screen-step.active::before {
+.reg-register-screen-step.active::before {
     border-color: rgba(219, 161, 52, 0.3);
-    animation: pulse 1.5s infinite;
+    animation: pulse 2s infinite;
 }
 
-.register-screen-progress-line {
+.reg-register-screen-progress-line {
     flex: 1;
     height: 3px;
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.15);
     position: relative;
     z-index: 1;
+    border-radius: 2px;
+    max-width: 60px;
+    transition: all 0.3s ease;
+    opacity: 1;
 }
 
-.register-screen-progress-line::after {
+.reg-register-screen-progress-line::after {
     content: '';
     position: absolute;
     top: 0;
@@ -67,14 +97,60 @@
     height: 100%;
     width: 0;
     background-color: var(--primary-color);
-    transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 2px;
+    opacity: 1;
 }
 
-.register-screen-progress-line.active::after {
+.reg-register-screen-progress-line.active::after {
     width: 100%;
+    opacity: 1;
 }
 
-.register-screen-form-step {
+.reg-register-screen-progress-line.completed::after {
+    width: 100%;
+    background-color: #28a745;
+    opacity: 1;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 480px) {
+    .reg-register-screen-progress-step {
+        max-width: 240px;
+        gap: 6px;
+        padding: 0 12px;
+    }
+    
+    .reg-register-screen-step {
+        width: 2.25rem;
+        height: 2.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .reg-register-screen-progress-line {
+        max-width: 50px;
+        height: 2.5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .reg-register-screen-progress-step {
+        max-width: 200px;
+        gap: 4px;
+    }
+    
+    .reg-register-screen-step {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.85rem;
+    }
+    
+    .reg-register-screen-progress-line {
+        max-width: 40px;
+    }
+}
+
+.reg-register-screen-form-step {
     display: none;
     animation: fadeIn 0.5s ease;
 }
@@ -84,11 +160,11 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-.register-screen-form-step.active {
+.reg-register-screen-form-step.active {
     display: block;
 }
 
-.register-screen-card {
+.reg-register-screen-card {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 
@@ -98,20 +174,20 @@
     border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-.register-screen-card-header {
+.reg-register-screen-card-header {
     padding: var(--spacing-md) var(--spacing-lg);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     background: linear-gradient(to right, rgba(52, 152, 219, 0.05), rgba(52, 152, 219, 0.02));
 }
 
-.card-title {
+.reg-card-title {
     margin: 0;
     color: #2c3e50;
     font-weight: 600;
     font-size: 1.15rem;
 }
 
-.register-screen-radio-container {
+.reg-register-screen-radio-container {
     display: flex;
     flex-direction: column; /* Default to vertical stacking */
     gap: var(--spacing-md);
@@ -127,26 +203,26 @@
     scrollbar-color: var(--primary-color) #f8f9fa;
 }
 
-.register-screen-radio-container::-webkit-scrollbar {
+.reg-register-screen-radio-container::-webkit-scrollbar {
     height: 6px;
 }
 
-.register-screen-radio-container::-webkit-scrollbar-track {
+.reg-register-screen-radio-container::-webkit-scrollbar-track {
     background: #f8f9fa;
     border-radius: 10px;
 }
-.register-screen-radio-container::-webkit-scrollbar-thumb {
+.reg-register-screen-radio-container::-webkit-scrollbar-thumb {
     background-color: var(--primary-color);
     border-radius: 10px;
     border: 1px solid #f8f9fa;
 }
 @media (min-width: 768px) { /* Breakpoint for wider screens */
-    .register-screen-radio-container {
+    .reg-register-screen-radio-container {
         flex-direction: row; /* Arrange items in a row */
         /* overflow-x: auto; is already set on the base class */
     }
 
-    .register-screen-radio-item {
+    .reg-register-screen-radio-item {
         flex-shrink: 0; /* Prevent items from shrinking */
         min-width: 160px; /* Ensure items have a minimum width, adjust as needed */
         /* If you want them to take up equal space until they hit min-width and then scroll:
@@ -156,7 +232,7 @@
     }
 }
 
-.register-screen-radio-item {
+.reg-register-screen-radio-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -172,15 +248,15 @@
 }
 
 @media (min-width: 768px) {
-    .register-screen-radio-item {
+    .reg-register-screen-radio-item {
         width: auto; /* Reset width for horizontal layout */
     }
 }
-.register-screen-radio-item:hover {
+.reg-register-screen-radio-item:hover {
     background-color: rgba(0, 0, 0, 0.03);
 }
 
-.register-screen-radio-item input[type="radio"] {
+.reg-register-screen-radio-item input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
     width: 20px;
@@ -192,31 +268,31 @@
     position: relative;
 }
 
-.register-screen-radio-item input[type="radio"]:checked {
+.reg-register-screen-radio-item input[type="radio"]:checked {
     border-color: var(--primary-color);
     border-width: 5px;
 }
 
-.register-screen-radio-item input[type="radio"]:focus-visible {
+.reg-register-screen-radio-item input[type="radio"]:focus-visible {
     box-shadow: 0 0 0 4px rgba(219, 174, 52, 0.2);
 }
 
-.register-screen-radio-item:has(input[type="radio"]:checked) {
+.reg-register-screen-radio-item:has(input[type="radio"]:checked) {
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     color: var(--primary-color);
 }
 
-.register-screen-required {
+.reg-register-screen-required {
     color: #e74c3c;
     margin-left: 3px;
 }
 
-.register-screen-password-strength {
+.reg-register-screen-password-strength {
     margin-top: var(--spacing-xs);
 }
 
-.register-screen-strength-meter {
+.reg-register-screen-strength-meter {
     height: 5px;
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 3px;
@@ -225,7 +301,7 @@
     overflow: hidden;
 }
 
-.register-screen-strength-meter::before {
+.reg-register-screen-strength-meter::before {
     content: '';
     position: absolute;
     top: 0;
@@ -236,43 +312,43 @@
     transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.register-screen-strength-text {
+.reg-register-screen-strength-text {
     font-size: 0.8rem;
     color: #7f8c8d;
     font-weight: 500;
 }
 
-.register-screen-dual-buttons {
+.reg-register-screen-dual-buttons {
     display: flex;
     justify-content: space-between;
     gap: var(--spacing-md);
     margin-top: var(--spacing-lg);
 }
 
-.register-screen-dual-buttons .btn {
+.reg-register-screen-dual-buttons .btn {
     flex: 1;
     padding: 0.9rem 1rem;
     font-weight: 600;
     font-size: 0.95rem;
 }
 
-.register-screen-dual-buttons .btn-outline {
+.reg-register-screen-dual-buttons .btn-outline {
     background-color: transparent;
     border: 1.5px solid rgba(0, 0, 0, 0.1);
     color: #555;
 }
 
-.register-screen-dual-buttons .btn-outline:hover {
+.reg-register-screen-dual-buttons .btn-outline:hover {
     background-color: rgba(0, 0, 0, 0.03);
     border-color: rgba(0, 0, 0, 0.2);
 }
 
-.register-screen-file-upload-container {
+.reg-register-screen-file-upload-container {
     position: relative;
     margin-bottom: var(--spacing-sm);
 }
 
-.register-screen-file-upload-container input[type="file"] {
+.reg-register-screen-file-upload-container input[type="file"] {
     position: absolute;
     top: 0;
     left: 0;
@@ -283,7 +359,7 @@
     z-index: 10;
 }
 
-.register-screen-file-upload-btn {
+.reg-register-screen-file-upload-btn {
     width: 100%;
     padding: 15px;
     border: 2px dashed rgba(219, 166, 52, 0.2);
@@ -299,18 +375,18 @@
     font-weight: 500;
 }
 
-.register-screen-file-upload-btn::before {
+.reg-register-screen-file-upload-btn::before {
     content: '📁';
     font-size: 1.2rem;
 }
 
-.register-screen-file-upload-container:hover .register-screen-file-upload-btn {
+.reg-register-screen-file-upload-container:hover .reg-register-screen-file-upload-btn {
     border-color: var(--primary-color);
     background-color: rgba(52, 152, 219, 0.05);
     transform: translateY(-1px);
 }
 
-.register-screen-file-name {
+.reg-register-screen-file-name {
     display: block;
     margin-top: 0.5rem;
     font-size: 0.8rem;
@@ -321,13 +397,13 @@
     font-weight: 500;
 }
 
-.register-screen-address-grid {
+.reg-register-screen-address-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
 }
 
-.register-screen-sub-label {
+.reg-register-screen-sub-label {
     display: block;
     font-size: 0.8rem;
     color: #7f8c8d;
@@ -335,14 +411,14 @@
     font-weight: 500;
 }
 
-.register-screen-service-types-grid {
+.reg-register-screen-service-types-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-sm);
     margin-bottom: var(--spacing-md);
 }
 
-.register-screen-service-type-item {
+.reg-register-screen-service-type-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -354,17 +430,17 @@
     background-color: white;
 }
 
-.register-screen-service-type-item:hover {
+.reg-register-screen-service-type-item:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-.register-screen-service-type-item input[type="checkbox"] {
+.reg-register-screen-service-type-item input[type="checkbox"] {
     display: none;
 }
 
-.register-screen-service-icon {
+.reg-register-screen-service-icon {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
     transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -372,7 +448,7 @@
     background-color: var(--gray-light);
 }
 
-.register-screen-service-name {
+.reg-register-screen-service-name {
     font-size: 0.8rem;
     text-align: center;
     transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -380,33 +456,33 @@
     color: #555;
 }
 
-.register-screen-service-type-item input[type="checkbox"]:checked + .register-screen-service-icon + .register-screen-service-name,
-.register-screen-service-type-item input[type="checkbox"]:checked + .register-screen-service-icon {
+.reg-register-screen-service-type-item input[type="checkbox"]:checked + .reg-register-screen-service-icon + .reg-register-screen-service-name,
+.reg-register-screen-service-type-item input[type="checkbox"]:checked + .reg-register-screen-service-icon {
     color: var(--primary-color);
 }
 
-.register-screen-service-type-item input[type="checkbox"]:checked ~ * {
+.reg-register-screen-service-type-item input[type="checkbox"]:checked ~ * {
     color: var(--primary-color);
 }
 
-.register-screen-service-type-item:has(input[type="checkbox"]:checked) {
+.reg-register-screen-service-type-item:has(input[type="checkbox"]:checked) {
     border-color: var(--primary-color);
     background-color: rgba(219, 180, 52, 0.05);
     box-shadow: 0 5px 20px rgba(219, 152, 52, 0.15);
     transform: translateY(-3px) scale(1.02);
 }
 
-.register-screen-service-type-item:has(input[type="checkbox"]:checked) .register-screen-service-icon {
+.reg-register-screen-service-type-item:has(input[type="checkbox"]:checked) .reg-register-screen-service-icon {
     transform: scale(1.1);
 }
 
-.register-screen-checkbox-group {
+.reg-register-screen-checkbox-group {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
 }
 
-.register-screen-checkbox-container {
+.reg-register-screen-checkbox-container {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -416,11 +492,11 @@
     border-radius: 8px;
 }
 
-.register-screen-checkbox-container:hover {
+.reg-register-screen-checkbox-container:hover {
     background-color: rgba(0, 0, 0, 0.02);
 }
 
-.register-screen-checkbox-container input[type="checkbox"] {
+.reg-register-screen-checkbox-container input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     width: 20px;
@@ -432,16 +508,16 @@
     position: relative;
 }
 
-.register-screen-checkbox-container input[type="checkbox"]:checked {
+.reg-register-screen-checkbox-container input[type="checkbox"]:checked {
     border-color: var(--primary-color);
     background-color: var(--primary-color);
 }
 
-.register-screen-checkbox-container input[type="checkbox"]:focus-visible {
+.reg-register-screen-checkbox-container input[type="checkbox"]:focus-visible {
     box-shadow: 0 0 0 4px rgba(219, 161, 52, 0.2);
 }
 
-.register-screen-checkbox-container input[type="checkbox"]:checked::before {
+.reg-register-screen-checkbox-container input[type="checkbox"]:checked::before {
     content: '';
     position: absolute;
     top: 40%;
@@ -453,7 +529,7 @@
     border-bottom: 2px solid white;
 }
 
-.register-screen-terms-checkbox {
+.reg-register-screen-terms-checkbox {
     display: flex;
     align-items: flex-start;
     gap: 0.85rem;
@@ -464,7 +540,7 @@
     border-left: 3px solid var(--primary-color);
 }
 
-.register-screen-terms-checkbox input[type="checkbox"] {
+.reg-register-screen-terms-checkbox input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
     width: 22px;
@@ -477,16 +553,16 @@
     position: relative;
 }
 
-.register-screen-terms-checkbox input[type="checkbox"]:checked {
+.reg-register-screen-terms-checkbox input[type="checkbox"]:checked {
     border-color: var(--primary-color);
     background-color: var(--primary-color);
 }
 
-.register-screen-terms-checkbox input[type="checkbox"]:focus-visible {
+.reg-register-screen-terms-checkbox input[type="checkbox"]:focus-visible {
     box-shadow: 0 0 0 4px rgba(219, 152, 52, 0.2);
 }
 
-.register-screen-terms-checkbox input[type="checkbox"]:checked::before {
+.reg-register-screen-terms-checkbox input[type="checkbox"]:checked::before {
     content: '';
     position: absolute;
     top: 40%;
@@ -498,24 +574,24 @@
     border-bottom: 2px solid white;
 }
 
-.register-screen-terms-checkbox label {
+.reg-register-screen-terms-checkbox label {
     flex: 1;
     font-size: 0.9rem;
     line-height: 1.5;
 }
 
-.register-screen-terms-checkbox a {
+.reg-register-screen-terms-checkbox a {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
     transition: all 0.2s ease;
 }
 
-.register-screen-terms-checkbox a:hover {
+.reg-register-screen-terms-checkbox a:hover {
     text-decoration: underline;
 }
 
-.register-screen-sub-form {
+.reg-register-screen-sub-form {
     padding: var(--spacing-md);
     background-color: #f8f9fa;
     border-radius: 12px;
