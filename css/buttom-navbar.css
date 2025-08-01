@@ -116,7 +116,7 @@
      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 50%;
     bottom: 8px;
-    left: 0;
+    left: 50px; /* Default position for first item */
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     box-shadow: 0 0 12px var(--primary-color);
     z-index: 3;

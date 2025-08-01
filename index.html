@@ -183,6 +183,7 @@
         document.addEventListener('DOMContentLoaded', function() {  
             const navItems = document.querySelectorAll('.nav-item');
             const indicator = document.querySelector('.nav-indicator-dot');
+            const bottomNav = document.querySelector('.bottom-nav');
 
             function setActiveItem(clickedItem) {
                 // Reset all items to their inactive state
@@ -206,11 +207,23 @@
                 }
 
                 // Move the indicator dot to the center of the active item
-                if (indicator) {
-                    const itemCenter = clickedItem.offsetLeft + (clickedItem.offsetWidth / 2);
-                    const navLeft = document.querySelector('.bottom-nav').offsetLeft;
-                    const indicatorOffset = itemCenter - navLeft - (indicator.offsetWidth / 2);
-                    indicator.style.transform = `translateX(${indicatorOffset}px)`;
+                if (indicator && bottomNav) {
+                    // Get the position of the clicked item relative to the bottom nav
+                    const navRect = bottomNav.getBoundingClientRect();
+                    const itemRect = clickedItem.getBoundingClientRect();
+                    
+                    // Calculate the center of the item relative to the nav container
+                    const itemCenterRelative = itemRect.left - navRect.left + (itemRect.width / 2);
+                    
+                    // Position the indicator at the center of the item
+                    indicator.style.left = `${itemCenterRelative - 3}px`; // 3px is half of indicator width (6px)
+                    
+                    console.log('Indicator positioning:', {
+                        itemCenterRelative,
+                        itemRect: { left: itemRect.left, width: itemRect.width },
+                        navRect: { left: navRect.left, width: navRect.width },
+                        indicatorLeft: itemCenterRelative - 3
+                    });
                 }
             }
 
@@ -235,7 +248,7 @@
                  // Use a timeout to ensure everything is rendered before calculating position
                 setTimeout(() => {
                     setActiveItem(initialActiveItem);
-                }, 100);
+                }, 300);
             }
             App.init();
             Auth.init();
