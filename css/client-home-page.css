@@ -400,7 +400,7 @@ color: var(--primary-color);
 }
 
 .service-card.active .service-icon {
-background: var(--primary-color);
+ background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 color: white;
 }
 
@@ -881,7 +881,7 @@ color: white;
 #recenterBtn:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.1); }
 .tracking-progress-container { grid-area: progress; }
 .tracking-progress-bar-bg { width: 100%; height: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; overflow: hidden; }
-#trackingProgressBar { width: 0%; height: 100%; background: var(--primary-color); border-radius: 4px; transition: width 0.5s linear; }
+#trackingProgressBar { width: 0%; height: 100%;  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); border-radius: 4px; transition: width 0.5s linear; }
 .shipment-live-info {
     grid-area: info;
     display: flex;
@@ -898,7 +898,7 @@ color: white;
     100% { box-shadow: 0 0 0 0 rgba(250, 174, 67, 0); }
 }
 .live-truck-icon {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
     width: 28px;
     height: 28px;
