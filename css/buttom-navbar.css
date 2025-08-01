@@ -3,7 +3,7 @@
 .bottom-nav {
     position: fixed;
     left: 50%;
-    bottom: 16px;
+    bottom: 8px;
     transform: translateX(-50%);
     width: 100vw;
     max-width: 400px;
@@ -11,7 +11,7 @@
     height: 70px;
     background: #ffffff;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.05),
                 0 10px 20px rgba(0, 0, 0, 0.08);
@@ -21,6 +21,32 @@
     overflow: hidden;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Layout for 2 items on each side, space in center for floating button */
+.bottom-nav {
+    /* The nav will have two flex containers, one for left, one for right */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+}
+
+.bottom-nav-group {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+}
+
+.bottom-nav-group.left {
+    justify-content: flex-start;
+    gap: 0;
+}
+
+.bottom-nav-group.right {
+    justify-content: flex-end;
+    gap: 0;
 }
 
 /* Responsive: ensure full width on small screens */
@@ -50,6 +76,7 @@
     -webkit-tap-highlight-color: transparent;
     border-radius: 20px;
     z-index: 2;
+    margin: 0 2px;
 }
 
 .nav-item::before {
