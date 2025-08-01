@@ -2,10 +2,13 @@
 /* --- Modern Dot Indicator Navigation Bar --- */
 .bottom-nav {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    height: 75px;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    width: 100vw;
+    max-width: 400px;
+    min-width: 0;
+    height: 70px;
     background: #ffffff;
     display: flex;
     justify-content: space-around;
@@ -13,12 +16,23 @@
     box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.05),
                 0 10px 20px rgba(0, 0, 0, 0.08);
     border-radius: 28px;
-    padding: 0 20px;
+    padding: 0 12px;
     z-index: 1000;
     overflow: hidden;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
+}
+
+/* Responsive: ensure full width on small screens */
+@media (max-width: 430px) {
+    .bottom-nav {
+        width: 98vw;
+        max-width: 98vw;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-left: 4px;
+        padding-right: 4px;
+    }
 }
 
 .nav-item {
@@ -206,37 +220,5 @@
     .bottom-nav {
         padding-bottom: max(15px, env(safe-area-inset-bottom));
         height: calc(75px + env(safe-area-inset-bottom));
-    }
-}
-
-/* --- Responsive Enhancement --- */
-@media (max-width: 480px) {
-    .bottom-nav {
-        left: 15px;
-        right: 15px;
-        height: 70px;
-        padding: 0 15px;
-    }
-    
-    .nav-item {
-        width: 60px;
-    }
-    
-    .nav-icon {
-        font-size: 20px;
-    }
-    
-    .nav-label {
-        font-size: 9px;
-    }
-    
-    .nav-service-request-btn {
-        width: 55px;
-        height: 55px;
-        bottom: 52.5px;
-    }
-    
-    .service-request-icon {
-        font-size: 22px;
     }
 }
