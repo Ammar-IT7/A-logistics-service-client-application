@@ -100,6 +100,45 @@
         <div class="spinner"></div>
     </div>
 
+    <!-- Global Service Request Modals -->
+    <div id="subscriptionModal" class="chp-modal-overlay" style="display: none;">
+        <div class="chp-modal-content">
+            <button class="chp-modal-close" aria-label="إغلاق">×</button>
+            <div class="chp-modal-icon">
+                <i class="fas fa-key"></i>
+            </div>
+            <h2 class="chp-modal-title">افتح عالماً من الخدمات الحصرية</h2>
+            <p class="chp-modal-text">
+                عبر تسجيل الدخول، ستتمكن من طلب الخدمات، تتبع شحناتك، والحصول على عروض أسعار مخصصة. انضم إلينا الآن!
+            </p>
+            <button class="chp-modal-action-btn">
+                <span class="chp-modal-btn-text">تسجيل الدخول أو إنشاء حساب</span>
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="devTestModal" class="chp-modal-overlay" style="display: none;">
+        <div class="chp-modal-content dev-modal-content">
+            <button class="chp-modal-close" aria-label="إغلاق">×</button>
+            <div class="chp-modal-icon dev-modal-icon">
+                <i class="fas fa-vial"></i>
+            </div>
+            <h2 class="chp-modal-title">وضع اختبار المطورين</h2>
+            <p class="chp-modal-text">
+                أي سيناريو تود اختباره لإجراء "طلب خدمة"؟
+            </p>
+            <div class="dev-modal-actions">
+                <button class="dev-modal-btn dev-btn-subscribed" data-dev-action="subscribed">
+                    <i class="fas fa-user-check"></i> محاكاة: المستخدم مشترك
+                </button>
+                <button class="dev-modal-btn dev-btn-guest" data-dev-action="guest">
+                    <i class="fas fa-user-times"></i> محاكاة: المستخدم غير مشترك
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript files -->
     <script src="js/state.js"></script>
     <script src="js/utils/forms.js"></script>
@@ -127,6 +166,8 @@
     <script src="js/pages/settings.js"></script>
     <script src="js/pages/orders.js"></script>
     <script src="js/pages/more.js"></script>
+    <script src="js/pages/login.js"></script>
+    <script src="js/pages/register.js"></script>
 
     <script>
 
@@ -176,25 +217,7 @@
                 });
             });
 
-            // Add click event listener for service request button
-            const serviceRequestBtn = document.querySelector('.nav-service-request-btn');
-            if (serviceRequestBtn) {
-                serviceRequestBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    console.log('Service request button clicked');
-                    
-                    // Trigger the same action as the FAB button
-                    const fabButton = document.querySelector('.chp-fab-request-service');
-                    if (fabButton) {
-                        fabButton.click();
-                    } else {
-                        // Fallback: navigate to service request form
-                        if (typeof App !== 'undefined' && App.navigate) {
-                            App.navigate('clientServiceRequestForm');
-                        }
-                    }
-                });
-            }
+            // Service request button is now handled globally by App.initServiceRequestHandler()
 
             // Set initial position of the indicator on page load
             const initialActiveItem = document.querySelector('.nav-item.active');

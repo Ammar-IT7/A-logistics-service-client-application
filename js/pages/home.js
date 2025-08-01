@@ -71,48 +71,7 @@ window.ClientHomePageController = {
             carouselWrapper.addEventListener('focusout', () => this.startSlideShow());
         }
 
-        // --- Request Service Buttons Listeners ---
-        const requestServiceButtons = document.querySelectorAll(
-            '.chp-fab-request-service, [data-action="show-modal"][data-page="request-service"], [data-action="navigate"][data-page="clientServiceRequestForm"]'
-        );
-        requestServiceButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (this.isDevMode) {
-                    this.showDevTestModal();
-                    return;
-                }
-                if (!this.isUserLoggedIn) {
-                    this.showLoginModal();
-                } else {
-                    this.navigateToRequestForm(button);
-                }
-            });
-        });
-
-        // --- Subscription Modal Listeners ---
-        const subscriptionModal = document.getElementById('subscriptionModal');
-        if (subscriptionModal) {
-            subscriptionModal.querySelector('.chp-modal-close').addEventListener('click', () => this.hideLoginModal());
-            subscriptionModal.addEventListener('click', (e) => { 
-                if (e.target === subscriptionModal) this.hideLoginModal(); 
-            });
-        }
-        
-        // --- Developer Testing Modal Listeners ---
-        const devTestModal = document.getElementById('devTestModal');
-        if (devTestModal) {
-            devTestModal.querySelector('.chp-modal-close').addEventListener('click', () => this.hideDevTestModal());
-            devTestModal.querySelector('[data-dev-action="subscribed"]').addEventListener('click', () => {
-                this.hideDevTestModal();
-                const originalButton = document.querySelector('.chp-fab-request-service [data-page]');
-                this.navigateToRequestForm(originalButton);
-            });
-            devTestModal.querySelector('[data-dev-action="guest"]').addEventListener('click', () => {
-                this.hideDevTestModal();
-                this.showLoginModal();
-            });
-        }
+        // --- Service Request Logic is now handled globally by App.initServiceRequestHandler() ---
 
         // --- Profile Drawer Listeners ---
         const profileButton = document.querySelector('[data-action="profile"]');
@@ -291,40 +250,7 @@ window.ClientHomePageController = {
         }
     },
 
-    navigateToRequestForm: function(button) {
-        const page = 'clientServiceRequestForm';
-        // Assuming you have a Router object
-        Router.navigate(page);
-        console.log(`Navigating to: ${page}`);
-    },
-    showLoginModal: function() {
-        const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('chp-active'), 10);
-        }
-    },
-    hideLoginModal: function() {
-        const modal = document.getElementById('subscriptionModal');
-        if (modal) {
-            modal.classList.remove('chp-active');
-            setTimeout(() => { modal.style.display = 'none'; }, 300);
-        }
-    },
-    showDevTestModal: function() {
-        const modal = document.getElementById('devTestModal');
-        if (modal) {
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('chp-active'), 10);
-        }
-    },
-    hideDevTestModal: function() {
-        const modal = document.getElementById('devTestModal');
-        if (modal) {
-            modal.classList.remove('chp-active');
-            setTimeout(() => { modal.style.display = 'none'; }, 300);
-        }
-    },
+    // Service request methods are now handled globally by App object
     setupCarousel: function() { 
         if (!this.slides || this.slides.length === 0) return; 
         this.dotsContainer.innerHTML = ''; 

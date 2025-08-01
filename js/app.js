@@ -34,8 +34,170 @@ const App = {
         // Set up event listeners
         this.setupEventListeners();
         
+        // Initialize global service request handler
+        this.initServiceRequestHandler();
+        
         // Navigate to default page
         Router.navigate(this.config.defaultPage);
+    },
+
+    /**
+     * Initialize global service request functionality
+     */
+    initServiceRequestHandler: function() {
+        // Global service request button handler
+        const serviceRequestBtn = document.querySelector('.nav-service-request-btn');
+        if (serviceRequestBtn) {
+            serviceRequestBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleServiceRequest();
+            });
+        }
+
+        // Global service request buttons handler (for any page)
+        document.addEventListener('click', (e) => {
+            const target = e.target.closest('[data-action="request-service"], .chp-fab-request-service, [data-action="show-modal"][data-page="request-service"], [data-action="navigate"][data-page="clientServiceRequestForm"]');
+            if (target) {
+                e.preventDefault();
+                this.handleServiceRequest();
+            }
+        });
+    },
+
+    /**
+     * Global service request handler
+     */
+    handleServiceRequest: function() {
+        // Check if we're in dev mode (for testing)
+        const isDevMode = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        
+        if (isDevMode) {
+            this.showDevTestModal();
+            return;
+        }
+
+        // Check if user is logged in
+        const isUserLoggedIn = State.get('isAuthenticated') || false;
+        
+        if (!isUserLoggedIn) {
+            this.showLoginModal();
+        } else {
+            this.navigateToRequestForm();
+        }
+    },
+
+    /**
+     * Show developer test modal
+     */
+    showDevTestModal: function() {
+        const modal = document.getElementById('devTestModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('chp-active'), 10);
+            
+            // Set up dev test modal listeners
+            const closeBtn = modal.querySelector('.chp-modal-close');
+            const subscribedBtn = modal.querySelector('[data-dev-action="subscribed"]');
+            const guestBtn = modal.querySelector('[data-dev-action="guest"]');
+            
+            if (closeBtn) {
+                closeBtn.onclick = () => this.hideDevTestModal();
+            }
+            
+            if (subscribedBtn) {
+                subscribedBtn.onclick = () => {
+                    this.hideDevTestModal();
+                    this.navigateToRequestForm();
+                };
+            }
+            
+            if (guestBtn) {
+                guestBtn.onclick = () => {
+                    this.hideDevTestModal();
+                    this.showLoginModal();
+                };
+            }
+            
+            // Close on overlay click
+            modal.onclick = (e) => {
+                if (e.target === modal) this.hideDevTestModal();
+            };
+        }
+    },
+
+    /**
+     * Hide developer test modal
+     */
+    hideDevTestModal: function() {
+        const modal = document.getElementById('devTestModal');
+        if (modal) {
+            modal.classList.remove('chp-active');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+    },
+
+    /**
+     * Show login modal
+     */
+    showLoginModal: function() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('chp-active'), 10);
+            
+            // Set up login modal listeners
+            const closeBtn = modal.querySelector('.chp-modal-close');
+            const actionBtn = modal.querySelector('.chp-modal-action-btn');
+            
+            if (closeBtn) {
+                closeBtn.onclick = () => this.hideLoginModal();
+            }
+            
+            if (actionBtn) {
+                actionBtn.onclick = () => {
+                    this.hideLoginModal();
+                    // Navigate to login page using Router
+                    if (window.Router && window.Router.navigate) {
+                        window.Router.navigate('login');
+                    } else {
+                        // Fallback: try to load login page directly
+                        if (window.Auth && window.Auth.loadPage) {
+                            window.Auth.loadPage('login');
+                        }
+                    }
+                };
+            }
+            
+            // Close on overlay click
+            modal.onclick = (e) => {
+                if (e.target === modal) this.hideLoginModal();
+            };
+        }
+    },
+
+    /**
+     * Hide login modal
+     */
+    hideLoginModal: function() {
+        const modal = document.getElementById('subscriptionModal');
+        if (modal) {
+            modal.classList.remove('chp-active');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+    },
+
+    /**
+     * Navigate to service request form
+     */
+    navigateToRequestForm: function() {
+        const page = 'clientServiceRequestForm';
+        if (window.Router && window.Router.navigate) {
+            window.Router.navigate(page);
+        } else {
+            // Fallback navigation
+            window.location.hash = `#${page}`;
+        }
+        console.log(`Navigating to service request form: ${page}`);
     },
 
     /**
