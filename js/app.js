@@ -68,22 +68,9 @@ const App = {
      * Global service request handler
      */
     handleServiceRequest: function() {
-        // Check if we're in dev mode (for testing)
-        const isDevMode = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        
-        if (isDevMode) {
-            this.showDevTestModal();
-            return;
-        }
 
-        // Check if user is logged in
-        const isUserLoggedIn = State.get('isAuthenticated') || false;
-        
-        if (!isUserLoggedIn) {
-            this.showLoginModal();
-        } else {
-            this.navigateToRequestForm();
-        }
+    
+            this.showDevTestModal();
     },
 
     /**
