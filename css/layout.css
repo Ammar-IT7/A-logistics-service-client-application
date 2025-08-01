@@ -31,6 +31,7 @@
     flex: 1;
     padding: var(--spacing-md);
     overflow-y: auto;
+    padding-bottom: calc(var(--spacing-md) + 120px); /* Add extra padding for bottom nav (70px height + 16px bottom + 34px service button) */
 }
 
 .status-bar {

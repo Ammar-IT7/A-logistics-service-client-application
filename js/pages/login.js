@@ -118,14 +118,21 @@ window.LoginController = {
     validateField: function(field) {
         const value = field.value.trim();
         const fieldName = field.id;
+        const errorElement = document.getElementById(fieldName + '-error');
         
-        // Remove existing error classes
+        // Remove existing error classes and clear error message
         field.classList.remove('error');
+        if (errorElement) {
+            errorElement.textContent = '';
+        }
         
         // Validate based on field type
         if (fieldName === 'username') {
             if (!value) {
                 field.classList.add('error');
+                if (errorElement) {
+                    errorElement.textContent = 'يرجى إدخال البريد الإلكتروني أو رقم الهاتف';
+                }
                 return false;
             }
             // Check if it's email or phone
@@ -134,15 +141,24 @@ window.LoginController = {
             
             if (!isEmail && !isPhone) {
                 field.classList.add('error');
+                if (errorElement) {
+                    errorElement.textContent = 'يرجى إدخال بريد إلكتروني أو رقم هاتف صحيح';
+                }
                 return false;
             }
         } else if (fieldName === 'password') {
             if (!value) {
                 field.classList.add('error');
+                if (errorElement) {
+                    errorElement.textContent = 'يرجى إدخال كلمة المرور';
+                }
                 return false;
             }
             if (value.length < 6) {
                 field.classList.add('error');
+                if (errorElement) {
+                    errorElement.textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+                }
                 return false;
             }
         }

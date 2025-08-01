@@ -1,10 +1,15 @@
-    <div class="auth-screen-content" id="login">
-        <!-- Logo -->
+<div class="auth-screen-content" id="login">
+    <!-- Header Section -->
+    <div class="auth-header">
         <div class="auth-screen-logo-container">
             <img src="logo.png" alt="App Logo" class="auth-screen-logo" />
         </div>
+        <h1 class="auth-welcome-title">مرحباً بك في خدمات الشحن</h1>
+        <p class="auth-welcome-subtitle">سجل دخولك للوصول إلى جميع خدماتنا</p>
+    </div>
 
-        <!-- Enhanced Features Carousel Section -->
+    <!-- Features Showcase Section -->
+    <div class="features-showcase">
         <div class="features-carousel-container">
             <div class="features-carousel" id="featuresCarousel">
                 <div class="carousel-slide">
@@ -35,32 +40,64 @@
             </div>
             <div class="carousel-dots" id="carouselDots"></div>
         </div>
-        
-        <!-- Enhanced Login Form Card -->
+    </div>
+    
+    <!-- Login Form Section -->
+    <div class="login-form-section">
         <div class="auth-screen-card">
-            <div class="card-content">
-                <form id="loginForm" onsubmit="event.preventDefault();">
+            <!-- <div class="card-header">
+                <h2 class="card-title">تسجيل الدخول</h2>
+                <p class="card-subtitle">أدخل بياناتك للوصول إلى حسابك</p>
+            </div> -->
+            
+            <div class="card-body">
+                <form id="loginForm" class="login-form">
+                    <!-- Username/Email Field -->
                     <div class="auth-screen-form-group">
-                        <label for="username" class="form-label">البريد الإلكتروني / رقم الهاتف</label>
+                        <label for="username" class="form-label">
+                            <i class="fas fa-user"></i>
+                            البريد الإلكتروني / رقم الهاتف
+                        </label>
                         <input type="text" id="username" class="form-control" placeholder="أدخل البريد الإلكتروني أو رقم الهاتف">
+                        <div class="form-error" id="username-error"></div>
                     </div>
+                    
+                    <!-- Password Field -->
                     <div class="auth-screen-form-group">
-                        <label for="password" class="form-label">كلمة المرور</label>
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i>
+                            كلمة المرور
+                        </label>
                         <div class="auth-screen-password-input-container">
                             <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور">
                             <button type="button" class="auth-screen-password-toggle" aria-label="إظهار/إخفاء كلمة المرور">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
+                        <div class="form-error" id="password-error"></div>
                         <div class="auth-screen-forgot-password">
-                            <a href="#" data-action="forgot-password">نسيت كلمة المرور؟</a>
+                            <a href="#" data-action="forgot-password">
+                                <i class="fas fa-question-circle"></i>
+                                نسيت كلمة المرور؟
+                            </a>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block" data-action="login">تسجيل الدخول</button>
+                    
+                    <!-- Login Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-block login-btn" data-action="login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            تسجيل الدخول
+                        </button>
+                    </div>
                 </form>
                 
-                <div class="auth-screen-text-center mt-3">
-                    <p class="auth-screen-or-divider"><span>أو</span></p>
+                <!-- Social Login Section -->
+                <div class="social-login-section">
+                    <div class="auth-screen-or-divider">
+                        <span>أو سجل دخولك عبر</span>
+                    </div>
+                    
                     <div class="auth-screen-social-login">
                         <button class="btn btn-outline btn-block auth-screen-social-btn" data-provider="google">
                             <span class="auth-screen-social-icon"><i class="fab fa-google"></i></span>
@@ -83,12 +120,23 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="auth-screen-text-center mt-4">
-                    <p>ليس لديك حساب؟ <a href="#" data-action="show-register" class="auth-screen-link-primary">إنشاء حساب</a></p>
+                
+                <!-- Register Link Section -->
+                <div class="register-section">
+                    <div class="auth-screen-text-center">
+                        <p class="register-text">
+                            ليس لديك حساب؟ 
+                            <a href="#" data-action="show-register" class="auth-screen-link-primary">
+                                <i class="fas fa-user-plus"></i>
+                                إنشاء حساب جديد
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div id="toast-container" class="toast-container"></div>
+</div>
+
+<div id="toast-container" class="toast-container"></div>
+
