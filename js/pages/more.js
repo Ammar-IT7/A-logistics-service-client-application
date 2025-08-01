@@ -196,7 +196,7 @@ const MorePage = {
                     position: absolute;
                     top: 8px;
                     right: 8px;
-                    background: var(--primary-color);
+                     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
                     color: white;
                     border-radius: 50%;
                     width: 20px;

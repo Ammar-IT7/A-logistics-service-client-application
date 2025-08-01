@@ -273,7 +273,7 @@ border: none;
         }
 
         .sv-filter-toggle.active {
-            background: var(--primary-color);
+             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
             transform: scale(1.1);
             box-shadow: var(--shadow-medium);
@@ -625,7 +625,7 @@ border: none;
 
         .sv-suggestion {
             display: inline-block;
-            background: var(--primary-color);
+             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
@@ -1044,7 +1044,7 @@ border: none;
 
         .sptm-action-btn {
             width: 100%;
-            background: var(--primary-color);
+             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
             border: none;
             padding: 15px;

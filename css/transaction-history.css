@@ -95,7 +95,7 @@
 }
 
 .transaction-filter-tab.active {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
     border-color: var(--primary-color);
 }
@@ -270,7 +270,7 @@
 }
 
 .transaction-action:hover {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
 }
 

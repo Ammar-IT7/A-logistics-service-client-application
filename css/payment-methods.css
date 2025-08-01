@@ -88,7 +88,7 @@
 .payment-methods-card-icon {
     width: 45px;
     height: 45px;
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -147,13 +147,13 @@
 }
 
 .payment-methods-action-btn:hover {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
     transform: scale(1.05);
 }
 
 .payment-methods-default-badge {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
     padding: 0.25rem 0.75rem;
     border-radius: var(--border-radius-sm);
@@ -203,7 +203,7 @@
 .payment-methods-quick-action-icon {
     width: 50px;
     height: 50px;
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -285,7 +285,7 @@
 
 .payment-methods-empty-btn {
     padding: 0.75rem 1.5rem;
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
     border: none;
     border-radius: var(--border-radius-md);

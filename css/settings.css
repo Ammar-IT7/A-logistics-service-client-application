@@ -110,7 +110,7 @@
 .settings-item-icon {
     width: 40px;
     height: 40px;
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -187,7 +187,7 @@
 }
 
 .settings-switch input:checked + .settings-switch-slider {
-    background-color: var(--primary-color);
+     background-color: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .settings-switch input:checked + .settings-switch-slider:before {
@@ -283,7 +283,7 @@
 .settings-quick-action-icon {
     width: 40px;
     height: 40px;
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -439,7 +439,7 @@
 }
 
 .settings-nav-item.active {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
 }
 
@@ -492,7 +492,7 @@
 }
 
 .settings-action-btn:hover {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
     border-color: var(--primary-color);
 }
@@ -555,7 +555,7 @@
 
 .save-settings {
     padding: 0.75rem 1.5rem;
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
     border: none;
     border-radius: var(--border-radius-md);

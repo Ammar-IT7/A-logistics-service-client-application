@@ -59,7 +59,7 @@
 }
 
 .billing-summary-icon.total {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
 }
 
 .billing-summary-content {
@@ -106,7 +106,7 @@
 }
 
 .billing-filter-tab.active {
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: var(--white-color);
     border-color: var(--primary-color);
 }
@@ -304,7 +304,7 @@
 .billing-quick-action-icon {
     width: 50px;
     height: 50px;
-    background: var(--primary-color);
+     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     border-radius: 50%;
     display: flex;
     align-items: center;
