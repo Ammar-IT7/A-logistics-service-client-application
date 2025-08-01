@@ -10,7 +10,7 @@
             align-items: center;
             min-height: 100vh;
             justify-content: flex-start;
-            gap: var(--spacing-lg);
+            gap: var(--spacing-md);
         }
 
         @keyframes fadeInUp {
@@ -27,17 +27,25 @@
         /* Header Section */
         .auth-header {
             text-align: center;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .auth-screen-logo-container {
             text-align: center;
-            margin-bottom: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
             padding-top: var(--spacing-md);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         .auth-screen-logo {
-            max-width: 100px;
+            max-width: 140px;
             height: auto;
             object-fit: contain;
             filter: drop-shadow(0 8px 20px rgba(255, 255, 255, 0.3));
@@ -63,23 +71,23 @@
             line-height: 1.4;
         }
 
-        /* Features Showcase Section */
+        /* Compact Features Showcase Section */
         .features-showcase {
             width: 100%;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
         }
 
-        /* Compact Features Carousel */
+        /* Ultra Compact Features Carousel */
         .features-carousel-container {
             width: 100%;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
             position: relative;
             overflow: hidden;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(8px);
-            padding: var(--spacing-sm);
-            max-height: 200px;
+            padding: var(--spacing-xs);
+            max-height: 120px;
         }
 
         .features-carousel {
@@ -90,12 +98,12 @@
 
         .carousel-slide {
             min-width: 100%;
-            padding: var(--spacing-md);
+            padding: var(--spacing-sm);
             text-align: center;
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
+            border-radius: 8px;
             margin: 0 var(--spacing-xs);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             position: relative;
@@ -129,8 +137,8 @@
         }
 
         .feature-icon {
-            font-size: 2rem;
-            margin-bottom: var(--spacing-sm);
+            font-size: 1.4rem;
+            margin-bottom: var(--spacing-xs);
             background: linear-gradient(135deg, var(--secondary-color), #fcc074);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -145,7 +153,7 @@
         }
 
         .feature-name {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--primary-color);
             margin-bottom: var(--spacing-xs);
@@ -153,10 +161,10 @@
         }
 
         .feature-description {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-color-light);
-            line-height: 1.4;
-            max-width: 240px;
+            line-height: 1.3;
+            max-width: 180px;
             margin: 0 auto;
         }
 
@@ -164,13 +172,13 @@
         .carousel-dots {
             display: flex;
             justify-content: center;
-            margin-top: var(--spacing-sm);
+            margin-top: var(--spacing-xs);
             gap: var(--spacing-xs);
         }
 
         .carousel-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.4);
             cursor: pointer;
@@ -204,7 +212,7 @@
         /* Login Form Section */
         .login-form-section {
             width: 100%;
-            margin-top: var(--spacing-sm);
+            margin-top: var(--spacing-xs);
         }
 
         /* Enhanced Auth Card */
@@ -672,7 +680,7 @@
         @media (max-width: 480px) {
             .auth-screen-content {
                 padding: var(--spacing-sm);
-                gap: var(--spacing-md);
+                gap: var(--spacing-sm);
             }
             
             .card-body {
@@ -690,16 +698,16 @@
             }
             
             .feature-icon {
-                font-size: 1.8rem;
+                font-size: 1.2rem;
             }
             
             .feature-name {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
             
             .feature-description {
-                font-size: 0.8rem;
-                max-width: 200px;
+                font-size: 0.7rem;
+                max-width: 160px;
             }
             
             .auth-welcome-title {
@@ -708,6 +716,10 @@
             
             .card-title {
                 font-size: 1.2rem;
+            }
+            
+            .features-carousel-container {
+                max-height: 100px;
             }
         }
 
